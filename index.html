@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6' fill='%23FF6FA5'/%3E%3C/svg%3E">
+<title>KNIZ · HEBREW HACK · Your Hebrew Journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@700;900&family=Rubik:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1E4A3A; --panel:#26543F; --divider:#33604C; --cream:#F4F1E8; --coral:#FF6FA5;
+  --muted:#9FB7AD; --blue:#9CC9F5; --pink:#FFA8D2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  width:100%; height:100%; overflow:hidden; background:var(--bg);
+  -webkit-text-size-adjust:100%; text-size-adjust:100%;
+}
+body{font-family:"Rubik",sans-serif;color:var(--cream);-webkit-font-smoothing:antialiased}
+#viewport{position:fixed;inset:0;overflow:hidden;background:var(--bg)}
+#stage{
+  position:absolute; left:50%; top:50%; width:1920px; height:1080px;
+  transform-origin:center center; overflow:hidden; background:var(--bg);
+  user-select:none; -webkit-user-select:none;
+}
+.he{font-family:"Noto Sans Hebrew",sans-serif;font-weight:900;direction:rtl;unicode-bidi:isolate;display:block}
+.emoji{font-family:"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif;font-weight:400;font-style:normal;line-height:1}
+svg.layer{position:absolute;left:0;top:0}
+
+.header{position:absolute;left:80px;top:34px}
+.kicker{font-size:15px;font-weight:600;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+.kicker b{color:var(--coral);font-weight:800}
+.title{font-size:64px;font-weight:900;line-height:1.05;margin-top:8px;letter-spacing:-0.5px}
+.pill-underline{width:150px;height:10px;border-radius:10px;background:var(--coral);margin-top:12px}
+.wordmark{position:absolute;right:80px;top:40px;display:flex;align-items:center;gap:10px}
+.wordmark .wm{font-size:34px;font-weight:900;letter-spacing:4px;color:var(--cream)}
+.wordmark .dot{width:12px;height:12px;border-radius:50%;background:var(--coral)}
+.chip{position:absolute;display:flex;align-items:center;gap:12px;background:var(--panel);border:2px solid var(--divider);
+  border-radius:999px;padding:9px 20px;font-size:18px;font-weight:600;color:var(--cream);white-space:nowrap}
+.chip .muted{color:var(--muted);font-weight:500}
+.legend{position:absolute;right:80px;top:100px;display:flex;gap:22px;align-items:center;background:var(--panel);
+  border:2px solid var(--divider);border-radius:999px;padding:9px 22px;font-size:16px;font-weight:600;color:var(--cream)}
+.legend .li{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.lg-dot{width:20px;height:20px;border-radius:50%;flex:none}
+
+.station{position:absolute;width:0;height:0;color:inherit;text-decoration:none}
+a.station{cursor:pointer}
+a.station:focus-visible .card{outline:3px solid var(--coral);outline-offset:4px}
+.ring{position:absolute;border-radius:50%;left:0;top:0;transform:translate(-50%,-50%)}
+.circle{position:absolute;width:84px;height:84px;border-radius:50%;left:-42px;top:-42px;display:flex;align-items:center;justify-content:center;
+  background:var(--panel);border:5px solid var(--cream);font-size:34px;font-weight:900;color:var(--cream);
+  box-shadow:0 0 0 7px var(--bg), 0 8px 18px rgba(0,0,0,.25)}
+.badge{position:absolute;width:48px;height:48px;border-radius:50%;left:-86px;top:-66px;display:flex;align-items:center;justify-content:center;
+  background:var(--cream);border:4px solid var(--bg);font-size:25px;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.badge .alef{font-family:"Noto Sans Hebrew",sans-serif;font-weight:900;font-size:27px;color:var(--bg);line-height:1;margin-top:-2px}
+.badge.gender{background:linear-gradient(90deg,var(--blue) 0 50%,var(--pink) 50% 100%)}
+.segol{position:relative;width:24px;height:22px}
+.segol i{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--bg)}
+.card{position:absolute;left:-170px;top:56px;width:340px;background:var(--panel);border:2px solid var(--divider);border-radius:22px;
+  padding:11px 14px 12px;text-align:center;min-height:117px;display:flex;flex-direction:column;justify-content:center;
+  transition:transform .18s ease, border-color .18s ease}
+a.station:hover .card{transform:translateY(-4px);border-color:var(--coral)}
+.card .tag{font-size:13px;font-weight:800;letter-spacing:2.5px;color:var(--coral);text-transform:uppercase;line-height:1.2}
+.card .en{font-size:24px;font-weight:700;line-height:1.2;color:var(--cream);margin-top:3px;white-space:nowrap}
+.card .he{font-size:27px;line-height:1.55;color:var(--cream);margin-top:1px;white-space:nowrap}
+.card .sub{font-size:15px;font-weight:500;color:var(--muted);line-height:1.3;margin-top:2px;white-space:nowrap}
+.blue{color:var(--blue)} .pink{color:var(--pink)} .sep{color:var(--muted)}
+
+.done .circle{background:var(--coral);border-color:var(--coral);color:var(--bg)}
+.done .card{border-color:rgba(255,111,165,.55)}
+.locked .circle{background:var(--bg);border-color:var(--divider);color:var(--muted)}
+.locked .card{background:rgba(38,84,63,.55);border-color:rgba(51,96,76,.8)}
+.locked .card .en,.locked .card .he{color:var(--muted)}
+.locked .card .tag{color:rgba(159,183,173,.8)}
+.locked .card .he .blue,.locked .card .he .pink{opacity:.75}
+.locked .badge{background:#C9D3CB;opacity:.7;filter:grayscale(.6)}
+.lock{position:absolute;left:18px;top:14px;width:32px;height:32px;border-radius:50%;background:var(--divider);border:3px solid var(--bg);
+  display:flex;align-items:center;justify-content:center}
+.current .circle{border-color:var(--coral);background:var(--panel);color:var(--cream)}
+.current .card{border-color:var(--coral)}
+.station.current{z-index:3}
+.station.done{z-index:2}
+
+.pin{position:absolute;width:300px;height:124px;z-index:4}
+.pin-bob{position:absolute;inset:0;animation:pin-bob 2.6s ease-in-out infinite}
+.pin svg{position:absolute;left:12px;top:10px;overflow:visible;filter:drop-shadow(0 6px 8px rgba(0,0,0,.35))}
+.pin .yah{position:absolute;left:86px;top:18px;background:var(--coral);color:var(--bg);font-weight:900;font-size:17px;letter-spacing:2px;
+  padding:8px 16px;border-radius:999px;white-space:nowrap;border:3px solid var(--cream);
+  animation:yah-pulse 2.4s ease-in-out infinite}
+.ring.live{background:transparent;border:3px solid rgba(255,111,165,.72);animation:halo 2.4s ease-out infinite}
+.ring.live.b{animation-delay:1.2s}
+.deco{position:absolute;line-height:1}
+
+#stage.dense .circle{width:72px;height:72px;left:-36px;top:-36px;font-size:28px;border-width:4px}
+#stage.dense .circle svg{width:32px;height:32px}
+#stage.dense .badge{width:40px;height:40px;left:-72px;top:-54px;font-size:20px}
+#stage.dense .badge .alef{font-size:22px}
+#stage.dense .card{top:48px;min-height:96px;padding:7px 12px 8px;border-radius:18px}
+#stage.dense .card .tag{font-size:11px;letter-spacing:1.8px}
+#stage.dense .card .en{font-size:20px}
+#stage.dense .card .he{font-size:20px;line-height:1.35}
+#stage.dense .card .sub{font-size:13px}
+#stage.dense .lock{width:26px;height:26px;left:12px;top:10px}
+
+@keyframes halo{
+  0%{transform:translate(-50%,-50%) scale(.9);opacity:.5}
+  100%{transform:translate(-50%,-50%) scale(1.7);opacity:0}
+}
+@keyframes pin-bob{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-7px)}
+}
+@keyframes yah-pulse{
+  0%,100%{box-shadow:0 6px 12px rgba(0,0,0,.3), 0 0 0 0 rgba(255,111,165,.5)}
+  70%{box-shadow:0 6px 12px rgba(0,0,0,.3), 0 0 0 12px rgba(255,111,165,0)}
+}
+@media (prefers-reduced-motion:reduce){
+  .ring.live,.pin-bob,.pin .yah{animation:none}
+  .pin .yah{box-shadow:0 6px 12px rgba(0,0,0,.3)}
+}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage"></div></div>
+<script>
+/* =============================================================================
+   EDIT STATIONS HERE
+   Add, remove, or rename lessons in this list, then publish to main.
+   About 8–14 stations works best; the road reflows when the count changes.
+
+   tag        Small coral label. Shown in capitals ("Step 1" → STEP 1).
+   label      English name of the station.
+   hebrew     Hebrew with its niqud, or "" if this station has none.
+   hebrewAlt  Optional second Hebrew word. Drawn blue / pink (see Gender).
+   subtitle   Muted English line under the name, or "".
+   icon       An emoji, or one of: ALEF, SEGOL, GENDER.
+   link       Full lesson URL. "" means the station is not clickable.
+              A link opens with target="_top" so it leaves the Systeme.io frame.
+
+   The embed reads the current lesson from ?station=N
+   (stations before N are done, N is "you are here", the rest are locked).
+   No ?station parameter shows the base map, with nothing completed.
+   ============================================================================= */
+const STATIONS = [
+  {
+    tag: "Start",
+    label: "Welcome",
+    hebrew: "",
+    subtitle: "Landing at the airport",
+    icon: "✈️",
+    link: ""
+  },
+  {
+    tag: "Step 1",
+    label: "The Alphabet",
+    hebrew: "אוֹתִיּוֹת",
+    subtitle: "",
+    icon: "ALEF",
+    link: ""
+  },
+  {
+    tag: "Step 2",
+    label: "The Niqud",
+    hebrew: "נִקּוּד",
+    subtitle: "",
+    icon: "SEGOL",
+    link: ""
+  },
+  {
+    tag: "Step 3",
+    label: "Pronouns",
+    hebrew: "אֲנִי, אַתָּה",
+    subtitle: "",
+    icon: "🙋",
+    link: ""
+  },
+  {
+    tag: "Step 4",
+    label: "The Magic Four",
+    hebrew: "רוֹצֶה, יָכוֹל, צָרִיךְ, אוֹהֵב",
+    subtitle: "",
+    icon: "🪄",
+    link: ""
+  },
+  {
+    tag: "Dialogue",
+    label: "A Day Together",
+    hebrew: "",
+    subtitle: "with Dana & Yoni",
+    icon: "💬",
+    link: ""
+  },
+  {
+    tag: "Step 6",
+    label: "I Have / I Don't",
+    hebrew: "יֵשׁ לִי / אֵין לִי",
+    subtitle: "",
+    icon: "🎒",
+    link: ""
+  },
+  {
+    tag: "Ask away",
+    label: "Question Words",
+    hebrew: "מָה, מִי, אֵיפֹה",
+    subtitle: "",
+    icon: "❓",
+    link: ""
+  },
+  {
+    tag: "He & she",
+    label: "Gender",
+    hebrew: "זָכָר",
+    hebrewAlt: "נְקֵבָה",
+    subtitle: "",
+    icon: "GENDER",
+    link: ""
+  },
+  {
+    tag: "At the café",
+    label: "Food & Drink",
+    hebrew: "",
+    subtitle: "Order like a local",
+    icon: "☕",
+    link: ""
+  },
+  {
+    tag: "Describe it",
+    label: "Adjectives",
+    hebrew: "",
+    subtitle: "Big, small, new, tasty",
+    icon: "🎨",
+    link: ""
+  },
+  {
+    tag: "Finish",
+    label: "Graduation",
+    hebrew: "",
+    subtitle: "Celebrate at the beach",
+    icon: "🏖️",
+    link: ""
+  }
+];
+
+/* =============================================================================
+   Map engine — no need to edit below this line.
+   ============================================================================= */
+const DESIGN_W = 1920;
+const DESIGN_H = 1080;
+const COLS = 4;
+const RX = [330, 730, 1130, 1530];
+
+function rowYs(rows){
+  if (rows <= 1) return [540];
+  if (rows === 2) return [400, 780];
+  if (rows === 3) return [272, 572, 872];
+  if (rows === 4) return [240, 460, 680, 900];
+  const top = 220, bot = 940;
+  return Array.from({length: rows}, (_, i) => top + (bot - top) * i / (rows - 1));
+}
+
+function placeStations(list){
+  const rows = Math.max(1, Math.ceil(list.length / COLS));
+  const ys = rowYs(rows);
+  return list.map((s, i) => {
+    const row = Math.floor(i / COLS);
+    const colInRow = i % COLS;
+    const col = row % 2 === 1 ? (COLS - 1 - colInRow) : colInRow;
+    return Object.assign({}, s, { n: i + 1, row, col, x: RX[col], y: ys[row] });
+  });
+}
+
+function readStation(){
+  const params = new URLSearchParams(location.search);
+  if (!params.has("station")) return null;
+  const raw = (params.get("station") || "").trim();
+  if (!/^\d+$/.test(raw)) return null;
+  const n = parseInt(raw, 10);
+  return n >= 1 ? n : null;
+}
+
+const placed = placeStations(STATIONS);
+const current = readStation();
+const total = placed.length;
+const progress = current != null;
+
+function stateFor(n){
+  if (!progress) return "neutral";
+  if (current > total || n < current) return "done";
+  if (n === current) return "current";
+  return "locked";
+}
+
+const stage = document.getElementById("stage");
+stage.classList.toggle("dense", Math.ceil(total / COLS) >= 4);
+stage.dataset.stations = String(total);
+stage.dataset.mode = !progress ? "base" : (current > total ? "complete" : "progress");
+if (progress && current <= total) stage.dataset.current = String(current);
+
+const NS = "http://www.w3.org/2000/svg";
+function svgEl(tag, attrs, parent){
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, String(attrs[k]));
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function htmlEl(html){
+  const d = document.createElement("div");
+  d.innerHTML = html.trim();
+  return d.firstElementChild;
+}
+function esc(value){
+  return String(value ?? "").replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+function safeLink(url){
+  const u = String(url ?? "").trim();
+  if (!u || /^(javascript|data):/i.test(u)) return "";
+  return u;
+}
+
+function segPath(i){
+  const a = placed[i], b = placed[i + 1];
+  if (a.y === b.y){
+    const dx = b.x - a.x;
+    const w = i % 2 ? 44 : -44;
+    return `M ${a.x} ${a.y} C ${a.x + dx * 0.35} ${a.y + w}, ${b.x - dx * 0.35} ${b.y - w}, ${b.x} ${b.y}`;
+  }
+  const r = Math.abs(b.y - a.y) / 2;
+  if (a.x > 960){
+    const tx = 1700;
+    return `M ${a.x} ${a.y} L ${tx} ${a.y} A ${r} ${r} 0 0 1 ${tx} ${b.y} L ${b.x} ${b.y}`;
+  }
+  const tx = 190;
+  return `M ${a.x} ${a.y} L ${tx} ${a.y} A ${r} ${r} 0 0 0 ${tx} ${b.y} L ${b.x} ${b.y}`;
+}
+
+function leadOut(last){
+  if (!last) return "";
+  const goingRight = last.row % 2 === 0;
+  if (goingRight){
+    return `M ${last.x} ${last.y} C ${last.x + 110} ${last.y} ${last.x + 135} ${last.y + 63} ${Math.min(last.x + 185, 1880)} ${Math.min(last.y + 93, 1040)}`;
+  }
+  return `M ${last.x} ${last.y} C ${last.x - 110} ${last.y} ${last.x - 135} ${last.y + 40} ${Math.max(last.x - 185, 40)} ${last.y + 20}`;
+}
+
+function roadDone(idx, count){
+  if (!progress) return false;
+  if (current > total) return true;
+  if (idx === 0) return true;
+  if (idx >= count) return false;
+  return idx < current;
+}
+
+function drawRoad(svg){
+  if (!placed.length) return;
+  const paths = [`M 120 ${placed[0].y} L ${placed[0].x} ${placed[0].y}`];
+  for (let i = 0; i < placed.length - 1; i++) paths.push(segPath(i));
+  paths.push(leadOut(placed[placed.length - 1]));
+  const road = svgEl("g", {}, svg);
+  const stroke = (d, attrs) => svgEl("path", Object.assign({ d, fill: "none", "stroke-linecap": "round", "stroke-linejoin": "round" }, attrs), road);
+  paths.forEach((d) => stroke(d, { stroke: "#173B2E", "stroke-width": 66 }));
+  paths.forEach((d) => stroke(d, { stroke: "#33604C", "stroke-width": 52 }));
+  paths.forEach((d, idx) => {
+    if (roadDone(idx, placed.length)) stroke(d, { stroke: "#FF6FA5", "stroke-width": 8 });
+    else stroke(d, { stroke: "#9FB7AD", "stroke-width": 4, "stroke-dasharray": "16 16", opacity: progress ? 0.45 : 0.75 });
+  });
+}
+
+function hebrewLine(s){
+  const main = String(s.hebrew || "").trim();
+  const alt = String(s.hebrewAlt || "").trim();
+  if (!main && !alt) return "";
+  if (alt){
+    return `<span class="he" lang="he" dir="rtl"><span class="blue">${esc(main)}</span> <span class="sep">/</span> <span class="pink">${esc(alt)}</span></span>`;
+  }
+  return `<span class="he" lang="he" dir="rtl">${esc(main)}</span>`;
+}
+
+function iconHTML(icon){
+  const kind = String(icon || "").trim().toUpperCase();
+  if (kind === "ALEF") return `<span class="alef" aria-hidden="true">א</span>`;
+  if (kind === "SEGOL") return `<div class="segol" aria-hidden="true"><i style="left:0;top:2px"></i><i style="left:16px;top:2px"></i><i style="left:8px;top:13px"></i></div>`;
+  if (kind === "GENDER") return "";
+  return `<span class="emoji" aria-hidden="true">${esc(icon || "")}</span>`;
+}
+
+function ariaLabel(s, state){
+  const bits = [s.label || s.tag || `Station ${s.n}`];
+  if (s.hebrew) bits.push(s.hebrew);
+  if (s.hebrewAlt) bits.push(s.hebrewAlt);
+  const status = state === "done" ? "completed" : state === "current" ? "you are here" : state === "locked" ? "locked" : "";
+  return status ? `${bits.join(", ")}, ${status}` : bits.join(", ");
+}
+
+const CHECK = `<svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path d="M9 21 L17 29 L32 12" fill="none" stroke="#1E4A3A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const LOCK = `<div class="lock" aria-hidden="true"><svg width="16" height="18" viewBox="0 0 16 18"><path d="M4 8 V5.5 a4 4 0 0 1 8 0 V8" fill="none" stroke="#9FB7AD" stroke-width="2.4"/><rect x="1.5" y="8" width="13" height="9" rx="2.5" fill="#9FB7AD"/></svg></div>`;
+const PIN_TIP = { x: 44, y: 108 };
+
+function makePin(s){
+  const pin = htmlEl(`<div class="pin">
+    <div class="pin-bob">
+      <svg width="64" height="100" viewBox="0 0 64 100" aria-hidden="true">
+        <path d="M32 98 C 32 98 0 58 0 32 A 32 32 0 1 1 64 32 C 64 58 32 98 32 98 Z" fill="#FF6FA5" stroke="#F4F1E8" stroke-width="4" stroke-linejoin="round"/>
+        <circle cx="32" cy="32" r="14" fill="#F4F1E8"/><circle cx="32" cy="32" r="6.5" fill="#FF6FA5"/>
+      </svg>
+      <div class="yah">YOU ARE HERE</div>
+    </div>
+  </div>`);
+  pin.style.left = (-PIN_TIP.x) + "px";
+  pin.style.top = (-22 - PIN_TIP.y) + "px";
+  return pin;
+}
+
+function build(){
+  const svg = svgEl("svg", { class: "layer", width: DESIGN_W, height: DESIGN_H, viewBox: `0 0 ${DESIGN_W} ${DESIGN_H}` });
+  stage.appendChild(svg);
+  const defs = svgEl("defs", {}, svg);
+  const pat = svgEl("pattern", { id: "dots", width: 28, height: 28, patternUnits: "userSpaceOnUse" }, defs);
+  svgEl("circle", { cx: 3, cy: 3, r: 1.6, fill: "#2A5A46" }, pat);
+  svgEl("rect", { x: 0, y: 0, width: DESIGN_W, height: DESIGN_H, fill: "url(#dots)" }, svg);
+  svgEl("path", { d: "M 40 230 C 260 150 700 200 980 180 C 1300 160 1640 170 1880 230 L 1890 1000 C 1500 1060 900 1050 400 1050 C 200 1050 60 1040 30 1000 Z", fill: "#214F3D", opacity: 0.9 }, svg);
+
+  const sea = svgEl("g", {}, svg);
+  svgEl("path", { d: "M 1680 1080 C 1700 980 1760 900 1920 860 L 1920 1080 Z", fill: "#2E6A73", opacity: 0.55 }, sea);
+  svgEl("path", { d: "M 1640 1080 C 1650 1000 1700 935 1790 905 C 1840 890 1880 880 1920 872 L 1920 895 C 1800 915 1730 960 1700 1080 Z", fill: "#F4F1E8", opacity: 0.16 }, sea);
+  for (let k = 0; k < 3; k++){
+    const y = 950 + k * 38, x0 = 1770 + k * 10;
+    svgEl("path", { d: `M ${x0} ${y} q 18 -14 36 0 t 36 0 t 36 0`, fill: "none", stroke: "#9CC9F5", "stroke-width": 4, "stroke-linecap": "round", opacity: 0.75 }, sea);
+  }
+  drawRoad(svg);
+
+  const decos = [
+    ["🌴", 1736, 384, 70, 0.95],
+    ["🌴", 1838, 780, 66, 1],
+    ["🌴", 1885, 820, 46, 0.9],
+    ["☀️", 1810, 640, 48, 0.9],
+    ["🌴", 72, 676, 52, 0.9]
+  ];
+  decos.forEach(([emoji, x, y, size, op]) => {
+    stage.appendChild(htmlEl(`<div class="deco emoji" aria-hidden="true" style="left:${x}px;top:${y}px;font-size:${size}px;opacity:${op}">${emoji}</div>`));
+  });
+
+  stage.appendChild(htmlEl(`<div class="header">
+      <div class="kicker"><b>HEBREW HACK</b> &nbsp;·&nbsp; Self-paced Hebrew for beginners</div>
+      <div class="title">Your Hebrew Journey</div>
+      <div class="pill-underline"></div>
+    </div>`));
+  stage.appendChild(htmlEl(`<div class="wordmark"><div class="dot"></div><div class="wm">KNIZ</div></div>`));
+  stage.appendChild(htmlEl(`<div class="chip" style="left:860px;top:96px"><span class="emoji" aria-hidden="true" style="font-size:22px">🚗</span> A road trip across Israel <span class="muted">with Dana &amp; Yoni</span></div>`));
+
+  if (progress && current <= total){
+    stage.appendChild(htmlEl(`<div class="legend">
+      <div class="li"><div class="lg-dot" style="background:#FF6FA5"></div>Completed</div>
+      <div class="li"><div class="lg-dot" style="background:#26543F;border:3px solid #FF6FA5;box-shadow:0 0 0 4px rgba(255,111,165,.3)"></div>You are here</div>
+      <div class="li"><div class="lg-dot" style="background:#1E4A3A;border:3px solid #33604C"></div>Locked</div></div>`));
+  } else if (progress){
+    stage.appendChild(htmlEl(`<div class="legend"><div class="li"><div class="lg-dot" style="background:#FF6FA5"></div>Course complete</div></div>`));
+  } else {
+    stage.appendChild(htmlEl(`<div class="legend"><span class="emoji" aria-hidden="true" style="font-size:18px">👆</span> Tap a station to open the lesson</div>`));
+  }
+
+  placed.forEach((s) => {
+    const state = stateFor(s.n);
+    const link = safeLink(s.link);
+    const tag = link ? "a" : "div";
+    const href = link ? ` href="${esc(link)}" target="_top"` : "";
+    const node = htmlEl(`<${tag} class="station ${state}" id="st${s.n}" style="left:${s.x}px;top:${s.y}px"${href} aria-label="${esc(ariaLabel(s, state))}"${state === "current" ? ' aria-current="step"' : ""}></${tag}>`);
+    if (state === "current"){
+      [[150, 0.10], [124, 0.18], [102, 0.32]].forEach(([d, o]) => {
+        node.appendChild(htmlEl(`<div class="ring" style="width:${d}px;height:${d}px;background:rgba(255,111,165,${o})"></div>`));
+      });
+      node.appendChild(htmlEl(`<div class="ring" style="width:124px;height:124px;border:3px solid rgba(255,111,165,.55)"></div>`));
+      node.appendChild(htmlEl(`<div class="ring live" style="width:108px;height:108px"></div>`));
+      node.appendChild(htmlEl(`<div class="ring live b" style="width:108px;height:108px"></div>`));
+      node.appendChild(makePin(s));
+    }
+    const kind = String(s.icon || "").trim().toUpperCase();
+    node.appendChild(htmlEl(`<div class="circle">${state === "done" ? CHECK : s.n}</div>`));
+    node.appendChild(htmlEl(`<div class="badge ${kind === "GENDER" ? "gender" : ""}">${iconHTML(s.icon)}</div>`));
+    if (state === "locked") node.appendChild(htmlEl(LOCK));
+    const sub = s.subtitle ? `<div class="sub">${esc(s.subtitle)}</div>` : "";
+    node.appendChild(htmlEl(`<div class="card"><div class="tag">${esc(s.tag || "")}</div><div class="en">${esc(s.label || "")}</div>${hebrewLine(s)}${sub}</div>`));
+    stage.appendChild(node);
+  });
+}
+
+function fit(){
+  const scale = Math.min(window.innerWidth / DESIGN_W, window.innerHeight / DESIGN_H);
+  stage.style.transform = `translate(-50%, -50%) scale(${scale || 0})`;
+}
+
+build();
+fit();
+window.addEventListener("resize", fit);
+</script>
+</body>
+</html>
