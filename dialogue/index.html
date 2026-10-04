@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KNIZ · Noa &amp; Yonatan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Hebrew:wght@700;900&display=swap">
+<script id="kniz-data">window.KNIZ_AUDIO = {}; window.KNIZ_EXPORTED = false;</script>
+<style>
+  :root { --bg:#1E4A3A; --panel:#26543F; --divider:#33604C; --cream:#F4F1E8; --coral:#FF6FA5; --muted:#9FB7AD;
+          --yon:#9CC9F5; --noa:#FFA8D2; --A:#FF6FA5; --E:#F5C86B; --I:#9FE0B8; --O:#9CC9F5; --U:#C9A7F5; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body { background: var(--bg); color: var(--cream); font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+         display: flex; align-items: center; justify-content: center; overflow: hidden; -webkit-tap-highlight-color: transparent; }
+  .he { font-family: "Noto Sans Hebrew", "Arial Hebrew", "David", "Segoe UI", sans-serif; }
+  button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+  button:focus-visible, label:focus-within { outline: 3px solid var(--coral); outline-offset: 2px; }
+
+  /* ---------- phone frame ---------- */
+  .phone { width: min(480px, calc(100vw - 16px)); height: min(880px, calc(100dvh - 16px)); background: var(--panel);
+           border: 2px solid var(--divider); border-radius: 28px; display: flex; flex-direction: column; overflow: hidden;
+           box-shadow: 0 24px 60px rgba(0,0,0,.30); }
+  @media (max-width: 520px), (max-height: 520px) { .phone { width: 100vw; height: 100dvh; border-radius: 0; border: 0; } }
+
+  .head { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 2px solid var(--divider); }
+  .avs { display: flex; flex: none; }
+  .av { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        font-family: "Noto Sans Hebrew", sans-serif; font-weight: 900; font-size: 22px; color: var(--bg); border: 3px solid var(--panel); }
+  .av.y { background: var(--yon); } .av.n { background: var(--noa); margin-left: -12px; }
+  .ttl { flex: 1; min-width: 0; }
+  .ttl .names { font-family: "Noto Sans Hebrew", sans-serif; font-weight: 700; font-size: 19px; line-height: 1.35; direction: rtl; text-align: left; unicode-bidi: plaintext; }
+  .ttl .names .y { color: var(--yon); } .ttl .names .n { color: var(--noa); } .ttl .names .sep { color: var(--muted); padding: 0 4px; }
+  .ttl .sub { font-size: 12.5px; color: var(--muted); }
+  .ttl .sub b { color: var(--I); font-weight: 600; }
+  .iconbtn { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--divider); flex: none; }
+  .iconbtn svg { width: 20px; height: 20px; }
+
+  .bar { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 12px; border-bottom: 2px solid var(--divider); align-items: center; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 15px; font-size: 13px; font-weight: 600;
+          background: transparent; border: 2px solid var(--divider); color: var(--muted); }
+  .chip .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--divider); }
+  .chip[aria-pressed="true"] { color: var(--cream); border-color: var(--muted); }
+  .chip[aria-pressed="true"] .dot { background: var(--I); }
+  .chip.export { background: var(--coral); color: var(--bg); border-color: var(--coral); }
+  .badge-edit { font-size: 12px; font-weight: 800; letter-spacing: 1px; color: var(--E); margin-left: auto; }
+
+  /* ---------- chat ---------- */
+  .chat { flex: 1; overflow-y: auto; padding: 16px 12px 20px; display: flex; flex-direction: column; gap: 10px; background: #214E3D; scroll-behavior: smooth; }
+  .hint { align-self: center; font-size: 13px; color: var(--muted); background: rgba(30,74,58,.7); border: 1px solid var(--divider); padding: 6px 12px; border-radius: 12px; text-align: center; }
+  .msg { display: flex; flex-direction: column; max-width: 84%; animation: pop .22s ease-out; }
+  .msg.y { align-self: flex-start; } .msg.n { align-self: flex-end; }
+  @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: none; } }
+  .who { font-size: 12px; font-weight: 700; margin: 0 10px 3px; letter-spacing: .3px; }
+  .msg.y .who { color: var(--yon); } .msg.n .who { color: var(--noa); text-align: right; }
+  .bub { position: relative; display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px 10px 10px; border-radius: 18px; }
+  .msg.y .bub { background: #2C5A48; border: 2px solid rgba(156,201,245,.8); border-top-left-radius: 6px; }
+  .msg.n .bub { background: #34604D; border: 2px solid rgba(255,168,210,.8); border-top-right-radius: 6px; }
+  .play { flex: none; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .msg.y .play { background: var(--yon); } .msg.n .play { background: var(--noa); }
+  .play svg { width: 18px; height: 18px; color: var(--bg); }
+  .play .i-pause { display: none; }
+  .play.playing .i-play { display: none; } .play.playing .i-pause { display: block; }
+  .play[disabled] { opacity: .28; cursor: default; }
+  .txt { min-width: 0; flex: 1; }
+  .heline { direction: rtl; text-align: right; font-size: 25px; line-height: 1.55; font-weight: 700; unicode-bidi: isolate; }
+  .heline .en-in { font-family: "Inter", system-ui, sans-serif; font-weight: 600; font-size: 19px; }
+  .tr, .en { font-size: 14.5px; line-height: 1.35; margin-top: 3px; text-align: left; }
+  .tr { color: var(--muted); font-style: italic; font-weight: 500; }
+  .en { color: var(--cream); opacity: .88; }
+  body.no-tr .tr, body.no-en .en { display: none; }
+  .wcard { margin-top: 8px; border-radius: 16px; background: var(--bg); border: 2px solid rgba(244,241,232,.55); padding: 10px 16px 6px;
+           display: flex; flex-direction: column; align-items: center; }
+  .wcard .emo { font-size: 46px; line-height: 1.1; }
+  .wcard .word { font-size: 64px; line-height: 1.45; font-weight: 900; color: var(--cream); }
+  /* vowel colouring (KNIZ layer technique): bottom = full word in vowel colour, top = word without the vowel mark */
+  .dg { position: relative; display: inline-block; white-space: nowrap; direction: rtl; }
+  .dg .bot { position: absolute; top: 0; right: 0; color: var(--dc); }
+  .dg .top { position: relative; -webkit-text-stroke: 1.5px currentColor; paint-order: stroke fill; }
+  .dg .top span { -webkit-text-stroke-color: currentColor; }
+  .typing { align-self: flex-start; display: flex; gap: 5px; padding: 14px 16px; border-radius: 18px; background: #2C5A48; border: 2px solid rgba(156,201,245,.8); }
+  .typing.n { align-self: flex-end; background: #34604D; border-color: rgba(255,168,210,.8); }
+  .typing i { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); animation: blink 1s infinite; }
+  .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+  @keyframes blink { 0%, 80%, 100% { opacity: .25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+  @media (prefers-reduced-motion: reduce) { .msg, .typing i { animation: none; } .chat { scroll-behavior: auto; } }
+
+  /* editor */
+  .ed { display: none; margin-top: 8px; gap: 6px; align-items: center; flex-wrap: wrap; font-size: 12.5px; }
+  body.edit .ed { display: flex; }
+  .ed label, .ed button { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 14px; font-weight: 700; font-size: 12.5px; cursor: pointer; }
+  .ed label { background: var(--E); color: var(--bg); }
+  .ed input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .ed .rm { background: transparent; border: 2px solid var(--muted); color: var(--muted); }
+  .ed .fn { color: var(--muted); max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ---------- footer ---------- */
+  .foot { display: flex; align-items: center; gap: 12px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); border-top: 2px solid var(--divider); }
+  .prog { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+  .prog .lbl { font-size: 12.5px; color: var(--muted); font-weight: 600; }
+  .prog .track { height: 6px; border-radius: 3px; background: var(--divider); overflow: hidden; }
+  .prog .fill { height: 100%; width: 0; background: var(--coral); transition: width .25s; }
+  .next { height: 46px; padding: 0 24px; border-radius: 23px; background: var(--coral); color: var(--bg); font-weight: 800; font-size: 16px; display: inline-flex; align-items: center; gap: 8px; }
+  .next[disabled] { opacity: .5; cursor: default; }
+  body.edit .foot .next { display: none; }
+  @media (max-height: 640px) { .head { padding: 8px 12px; } .av { width: 36px; height: 36px; font-size: 19px; } .heline { font-size: 23px; }
+    .wcard .word { font-size: 52px; } .wcard .emo { font-size: 38px; } .next { height: 40px; } }
+</style>
+</head>
+<body>
+<main class="phone" aria-label="Chat between Noa and Yonatan">
+  <div class="head">
+    <div class="avs" aria-hidden="true"><div class="av y">י</div><div class="av n">נ</div></div>
+    <div class="ttl">
+      <div class="names"><span class="y" lang="he">יוֹנָתָן</span><span class="sep">·</span><span class="n" lang="he">נוֹעָה</span></div>
+      <div class="sub">Yonatan &amp; Noa · <b>online</b></div>
+    </div>
+    <button class="iconbtn" id="restart" title="Restart" aria-label="Restart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+  </div>
+  <div class="bar" id="bar">
+    <button class="chip" id="t-tr" aria-pressed="true"><span class="dot"></span>Transliteration</button>
+    <button class="chip" id="t-en" aria-pressed="true"><span class="dot"></span>Translation</button>
+    <button class="chip" id="t-auto" aria-pressed="true"><span class="dot"></span>Auto-play</button>
+  </div>
+  <div class="chat" id="chat" aria-live="polite"></div>
+  <div class="foot">
+    <div class="prog"><div class="lbl" id="plbl">0 / 12</div><div class="track"><div class="fill" id="pfill"></div></div></div>
+    <button class="next" id="next">Next <span aria-hidden="true">›</span></button>
+  </div>
+</main>
+<script>
+const PRISTINE = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;   // captured before anything changes (used by Export)
+(function () {
+'use strict';
+const DG = '\u05BC';
+// ---------- dialogue (Hebrew with full niqud; ['en', ...] segments are shown as-is, LTR-isolated) ----------
+const LINES = [
+  { who: 'y', t: [['he', 'שָׁלוֹם נוֹעָה!']],                         tr: 'sha-lom no-a!',               en: 'Hi Noa!' },
+  { who: 'n', t: [['he', 'שָׁלוֹם יוֹנָתָן! מָה קוֹרֶה?']],               tr: 'sha-lom yo-na-tan! ma ko-re?', en: "Hi Yonatan! What's up?" },
+  { who: 'y', t: [['he', 'אֲנִי'], ['en', 'learning Hebrew. Can you help me read?']], tr: 'a-ni learning Hebrew. Can you help me read?', en: "I'm learning Hebrew. Can you help me read?" },
+  { who: 'n', t: [['he', 'כֵּן! מָה זֶה?']], card: { emo: '🐟', word: 'דָּג', mark: '\u05B8', c: 'A' }, tr: 'ken! ma ze?', en: "Yes! What's this?" },
+  { who: 'y', t: [['he', 'זֶה... דָּג!']],                             tr: 'ze... dag!',                   en: "It's... a fish!" },
+  { who: 'n', t: [['he', 'כֵּן! 👏 וּמָה זֶה?']], card: { emo: '🐴', word: 'סוּס', vav: 'U' }, tr: 'ken! u-ma ze?', en: "Yes! And what's this?" },
+  { who: 'y', t: [['he', 'זֶה... דָּג?']],                             tr: 'ze... dag?',                   en: "It's... a fish?" },
+  { who: 'n', t: [['he', 'לֹא, לֹא... 😄'], ['en', 'Look again.']],     tr: 'lo, lo... look again.',        en: 'No, no... look again.' },
+  { who: 'y', t: [['en', 'Oops!'], ['he', 'זֶה סוּס!']],                tr: 'oops! ze sus!',                en: "Oops! It's a horse!" },
+  { who: 'n', t: [['he', 'כֵּן! 👏👏']],                                tr: 'ken!',                         en: 'Yes!' },
+  { who: 'y', t: [['he', 'תּוֹדָה נוֹעָה!']],                           tr: 'to-da no-a!',                  en: 'Thanks Noa!' },
+  { who: 'n', t: [['he', 'בְּכֵיף!']],                                  tr: 'be-kef!',                      en: 'My pleasure!' },
+];
+const NAMES = { y: 'Yonatan', n: 'Noa' };
+const N = LINES.length, pad = i => String(i + 1).padStart(2, '0');
+const Q = new URLSearchParams(location.search);
+const EXPORTED = !!window.KNIZ_EXPORTED, EDIT = !EXPORTED && Q.get('edit') === '1';
+const EMB = window.KNIZ_AUDIO || {};
+const $ = id => document.getElementById(id), chat = $('chat');
+const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+// ---------- prefs (localStorage; ignored if blocked, e.g. sandboxed iframe) ----------
+const PK = 'kniz-dialogue-prefs-v1';
+let prefs = { tr: true, en: true, auto: true };
+try { Object.assign(prefs, JSON.parse(localStorage.getItem(PK) || '{}')); } catch (e) {}
+function savePrefs() { try { localStorage.setItem(PK, JSON.stringify(prefs)); } catch (e) {} }
+function applyPrefs() {
+  document.body.classList.toggle('no-tr', !prefs.tr); document.body.classList.toggle('no-en', !prefs.en);
+  $('t-tr').setAttribute('aria-pressed', prefs.tr); $('t-en').setAttribute('aria-pressed', prefs.en); $('t-auto').setAttribute('aria-pressed', prefs.auto);
+}
+[['t-tr', 'tr'], ['t-en', 'en'], ['t-auto', 'auto']].forEach(([id, k]) => $(id).addEventListener('click', e => { e.stopPropagation(); prefs[k] = !prefs[k]; savePrefs(); applyPrefs(); }));
+
+// ---------- rendering ----------
+const IC_PLAY = '<svg class="i-play" viewBox="0 0 24 24"><path d="M3 9.2v5.6h4.2L12.5 19V5L7.2 9.2H3z" fill="currentColor"/><path d="M15.5 8.6a4.8 4.8 0 0 1 0 6.8M18.3 5.8a8.8 8.8 0 0 1 0 12.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
+const IC_PAUSE = '<svg class="i-pause" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1.2" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1.2" fill="currentColor"/></svg>';
+function cardWord(c) {
+  const col = `var(--${c.mark ? c.c : c.vav})`;
+  if (c.vav) { // vav vowel (shuruk / holam male): colour the whole vav letter
+    return `<span class="he word" lang="he">${c.word.replace(/\u05D5[\u05BC\u05B9]/, m => `<span style="color:${col}">${m}</span>`)}</span>`;
+  }
+  const top = c.word.split(c.mark).join('');
+  return `<span class="he word dg" lang="he" style="--dc:${col}"><span class="bot" aria-hidden="true">${c.word}</span><span class="top">${top}</span></span>`;
+}
+function bubbleHTML(L, i) {
+  const he = L.t.map(([k, s]) => k === 'he' ? `<span lang="he">${esc(s)}</span>` : `<bdi dir="ltr" class="en-in" lang="en">${esc(s)}</bdi>`).join(' ');
+  const card = L.card ? `<div class="wcard"><div class="emo" aria-hidden="true">${L.card.emo}</div>${cardWord(L.card)}</div>` : '';
+  const ed = `<div class="ed"><label>Upload audio<input type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg" data-i="${i}"></label>` +
+             `<button class="rm" data-i="${i}" hidden>Remove</button><span class="fn" data-fn="${i}">no audio</span></div>`;
+  return `<div class="who">${NAMES[L.who]}</div><div class="bub">` +
+    `<button class="play" data-i="${i}" aria-label="Play line ${i + 1}" title="Play">${IC_PLAY}${IC_PAUSE}</button>` +
+    `<div class="txt"><div class="heline he" dir="rtl">${he}</div>${card}` +
+    `<div class="tr" lang="en">${esc(L.tr)}</div><div class="en" lang="en">${esc(L.en)}</div>${ed}</div></div>`;
+}
+let shown = 0, busy = false, typingTimer = null;
+function addMsg(i) {
+  const el = document.createElement('div'); el.className = 'msg ' + LINES[i].who; el.dataset.i = i; el.innerHTML = bubbleHTML(LINES[i], i);
+  chat.appendChild(el); refreshButtons(); return el;
+}
+function progress() {
+  $('plbl').textContent = `${shown} / ${N}`; $('pfill').style.width = (100 * shown / N) + '%';
+  $('next').innerHTML = shown >= N ? 'Restart <span aria-hidden="true">↺</span>' : 'Next <span aria-hidden="true">›</span>';
+}
+function scrollEnd() { chat.scrollTop = chat.scrollHeight; }
+function next() {
+  if (busy) return;
+  if (shown >= N) return restart();
+  const i = shown, who = LINES[i].who; busy = true; $('next').disabled = true;
+  const t = document.createElement('div'); t.className = 'typing ' + who; t.innerHTML = '<i></i><i></i><i></i>'; t.setAttribute('aria-label', NAMES[who] + ' is typing');
+  chat.appendChild(t); scrollEnd();
+  const delay = Math.min(1300, 550 + 18 * LINES[i].tr.length);
+  typingTimer = setTimeout(() => {
+    t.remove(); addMsg(i); shown++; progress(); scrollEnd(); busy = false; $('next').disabled = false;
+    if (prefs.auto) play(i, true);
+  }, Q.get('fast') ? 30 : delay);
+}
+function showUpTo(n) { clearTimeout(typingTimer); busy = false; chat.querySelectorAll('.msg,.typing').forEach(e => e.remove()); shown = 0;
+  for (let i = 0; i < n; i++) { addMsg(i); shown++; } progress(); scrollEnd(); $('next').disabled = false; }
+function restart() { stop(); showUpTo(0); hint(); }
+function hint() { if (!EDIT && !chat.querySelector('.hint')) { const h = document.createElement('div'); h.className = 'hint'; h.textContent = 'Tap Next (or the chat) to see the next message'; chat.prepend(h); } }
+$('next').addEventListener('click', e => { e.stopPropagation(); next(); });
+$('restart').addEventListener('click', e => { e.stopPropagation(); restart(); });
+chat.addEventListener('click', e => { if (EDIT || e.target.closest('button,label,input,a')) return; next(); });
+document.addEventListener('keydown', e => { if (!EDIT && (e.key === ' ' || e.key === 'ArrowDown' || e.key === 'Enter') && !e.target.closest('button,input')) { e.preventDefault(); next(); } });
+
+// ---------- audio ----------
+const SRC = {};          // i -> playable src (blob URL / data URI / file URL)
+const IDB = {};          // i -> {blob, name} (editor only)
+const player = new Audio(); player.preload = 'auto';
+let playingI = -1;
+function srcFor(i) { return SRC[i] || null; }
+function refreshButtons() {
+  chat.querySelectorAll('.play').forEach(b => { const i = +b.dataset.i; b.disabled = !SRC[i]; b.title = SRC[i] ? 'Play' : 'No audio yet';
+    b.classList.toggle('playing', i === playingI && !player.paused); });
+  chat.querySelectorAll('[data-fn]').forEach(f => { const i = +f.dataset.fn; f.textContent = IDB[i] ? IDB[i].name : (EMB[i] ? 'embedded audio' : (SRC[i] ? 'audio/line-' + pad(i) + '.mp3' : 'no audio')); });
+  chat.querySelectorAll('.ed .rm').forEach(b => { b.hidden = !IDB[+b.dataset.i]; });
+}
+function stop() { player.pause(); playingI = -1; refreshButtons(); }
+function play(i, auto) {
+  const s = srcFor(i); if (!s) return;
+  if (playingI === i && !player.paused && !auto) { stop(); return; }
+  player.pause(); if (player.src !== s) player.src = s; player.currentTime = 0; playingI = i;
+  const p = player.play(); if (p && p.catch) p.catch(() => { playingI = -1; refreshButtons(); });
+  refreshButtons();
+}
+player.addEventListener('ended', () => { playingI = -1; refreshButtons(); });
+player.addEventListener('pause', refreshButtons); player.addEventListener('play', refreshButtons);
+chat.addEventListener('click', e => { const b = e.target.closest('.play'); if (b) { e.stopPropagation(); play(+b.dataset.i, false); } }, true);
+// embedded (exported file) first, then fall back to audio/line-XX.mp3 next to the page (probed quietly)
+for (let i = 0; i < N; i++) if (EMB[i]) SRC[i] = EMB[i].src;
+function probeFiles() {
+  for (let i = 0; i < N; i++) {
+    if (SRC[i]) continue;
+    const a = new Audio(), url = `audio/line-${pad(i)}.mp3`; a.preload = 'metadata';
+    a.addEventListener('loadedmetadata', () => { if (!SRC[i]) { SRC[i] = url; refreshButtons(); } }, { once: true });
+    a.addEventListener('error', () => {}, { once: true });
+    a.src = url;
+  }
+}
+
+// ---------- editor (IndexedDB) ----------
+const DB = 'kniz-dialogue-noa-yonatan', ST = 'audio';
+function db() { return new Promise((res, rej) => { const r = indexedDB.open(DB, 1); r.onupgradeneeded = () => r.result.createObjectStore(ST); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
+async function idbAll() { const d = await db(); return new Promise((res, rej) => { const out = {}; const tx = d.transaction(ST, 'readonly'); const c = tx.objectStore(ST).openCursor();
+  c.onsuccess = () => { const cur = c.result; if (cur) { out[cur.key] = cur.value; cur.continue(); } else res(out); }; c.onerror = () => rej(c.error); }); }
+async function idbPut(i, v) { const d = await db(); return new Promise((res, rej) => { const tx = d.transaction(ST, 'readwrite'); tx.objectStore(ST).put(v, i); tx.oncomplete = res; tx.onerror = () => rej(tx.error); }); }
+async function idbDel(i) { const d = await db(); return new Promise((res, rej) => { const tx = d.transaction(ST, 'readwrite'); tx.objectStore(ST).delete(i); tx.oncomplete = res; tx.onerror = () => rej(tx.error); }); }
+function setIDB(i, v) { if (SRC[i] && SRC[i].startsWith('blob:')) URL.revokeObjectURL(SRC[i]);
+  if (v) { IDB[i] = v; SRC[i] = URL.createObjectURL(v.blob); } else { delete IDB[i]; delete SRC[i]; if (EMB[i]) SRC[i] = EMB[i].src; } refreshButtons(); }
+function toDataURL(blob) { return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = () => rej(r.error); r.readAsDataURL(blob); }); }
+async function exportHTML() {
+  const map = {};
+  for (let i = 0; i < N; i++) {
+    if (IDB[i]) map[i] = { src: await toDataURL(IDB[i].blob), name: IDB[i].name };
+    else if (EMB[i]) map[i] = EMB[i];
+  }
+  const tag = '<script id="kniz-data">window.KNIZ_AUDIO = ' + JSON.stringify(map) + '; window.KNIZ_EXPORTED = true;<\/script>';
+  const html = PRISTINE.replace(/<script id="kniz-data">[\s\S]*?<\/script>/, () => tag);
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' })); a.download = 'dialogue-kniz.html';
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
+  return { lines: Object.keys(map).length, bytes: html.length };
+}
+async function initEditor() {
+  document.body.classList.add('edit');
+  const bar = $('bar');
+  bar.insertAdjacentHTML('beforeend', '<button class="chip export" id="export">Export dialogue-kniz.html</button><span class="badge-edit">EDITOR</span>');
+  $('export').addEventListener('click', async e => { e.stopPropagation(); const b = e.currentTarget; b.textContent = 'Exporting…'; const r = await exportHTML(); b.textContent = `Exported (${r.lines} audio)`; });
+  chat.addEventListener('change', async e => { const inp = e.target.closest('input[type=file]'); if (!inp || !inp.files[0]) return;
+    const i = +inp.dataset.i, f = inp.files[0], v = { blob: f, name: f.name, type: f.type }; await idbPut(i, v); setIDB(i, v); inp.value = ''; });
+  chat.addEventListener('click', async e => { const b = e.target.closest('.ed .rm'); if (!b) return; e.stopPropagation(); const i = +b.dataset.i; await idbDel(i); setIDB(i, null); });
+  try { const all = await idbAll(); Object.keys(all).forEach(k => setIDB(+k, all[k])); } catch (e) { console.warn('IndexedDB unavailable', e); }
+  showUpTo(N);
+}
+
+// ---------- start ----------
+applyPrefs(); progress();
+if (EDIT) initEditor(); else { const up = +(Q.get('upto') || 0); if (up) showUpTo(Math.min(up, N)); else hint(); }
+probeFiles();
+window.KNIZ = { next, restart, showUpTo, srcFor, exportHTML, get shown() { return shown; }, player, LINES };
+})();
+</script>
+</body>
+</html>
