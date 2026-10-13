@@ -9,7 +9,9 @@
   --muted:#9FB7AD; --blue:#9CC9F5; --pink:#FFA8D2;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:1920px;height:1080px;overflow:hidden}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--bg)}
+#fit{position:fixed;inset:0;overflow:hidden}
+#fit>#stage{position:absolute;left:0;top:0;transform-origin:0 0}
 body{background:var(--bg);font-family:"Rubik",sans-serif;color:var(--cream)}
 body.pinonly{background:transparent}
 #stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--bg)}
@@ -83,7 +85,7 @@ body.pinonly .pin{left:0;top:0}
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@700;900&family=Rubik:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-<div id="stage"></div>
+<div id="fit"><div id="stage"></div></div>
 <script>
 const MODE = new URLSearchParams(location.search).get('mode') || (new URLSearchParams(location.search).get('station') ? 'progress' : 'base');   // base | progress | pin
 const _qs = new URLSearchParams(location.search);
@@ -238,6 +240,11 @@ function makePin(cx, cy){
 if (MODE==='pin'){ document.body.classList.add('pinonly'); document.body.appendChild(makePin()); }
 else buildMap();
 window.STATIONS=STATIONS;
+</script>
+<script>
+(function(){function fit(){var w=window.innerWidth,h=window.innerHeight,s=Math.min(w/1920,h/1080),st=document.getElementById('stage');
+st.style.transform='translate('+((w-1920*s)/2)+'px,'+((h-1080*s)/2)+'px) scale('+s+')';}
+window.addEventListener('resize',fit);window.addEventListener('load',fit);fit();})();
 </script>
 </body>
 </html>
