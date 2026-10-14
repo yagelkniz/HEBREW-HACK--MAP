@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PICK THE ENDING</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Noto+Sans+Hebrew:wght@900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1E4A3A;--card:#26543F;--div:#33604C;--cream:#F4F1E8;--coral:#FF6FA5;--muted:#9FB7AD;--m:#9CC9F5;--f:#FFA8D2;--err:#FF5A5F}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);color:var(--cream);font-family:Inter,sans-serif;overflow:hidden}
+#wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{width:1280px;height:720px;position:relative;transform-origin:center center;flex:none}
+.top{position:absolute;top:28px;left:48px;right:48px;display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:22px;letter-spacing:.08em}
+.title{color:var(--coral)}
+.stats{display:flex;gap:14px}
+.pill{background:var(--card);border:2px solid var(--div);border-radius:999px;padding:8px 18px}
+.pill b{color:var(--coral)}
+.bar{position:absolute;top:84px;left:48px;right:48px;height:8px;background:var(--div);border-radius:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--coral);width:0;transition:width .4s}
+.card{position:absolute;top:116px;left:48px;right:48px;bottom:32px;background:var(--card);border:2px solid var(--div);border-radius:28px;display:flex;flex-direction:column;align-items:center;padding:30px 40px}
+.he{font-family:'Noto Sans Hebrew',sans-serif;font-weight:900;font-size:96px;line-height:1.35;direction:rtl;display:flex;align-items:center;gap:28px;margin-top:4px}
+.word{display:inline-flex;align-items:center;direction:rtl}
+.slot{display:inline-block;width:110px;height:100px;border:5px dashed var(--muted);border-radius:16px;margin-right:6px}
+.end.m{color:var(--m)}.end.f{color:var(--f)}
+.pop{animation:pop .5s}
+@keyframes pop{0%{transform:scale(.4)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+.tr{font-size:26px;font-weight:800;color:var(--coral);letter-spacing:.12em;min-height:34px;visibility:hidden}
+.tr.on{visibility:visible}
+.en{font-size:32px;font-weight:600;margin-top:4px}
+.tog{margin-top:10px;background:none;border:2px solid var(--div);color:var(--muted);font:600 16px Inter;border-radius:999px;padding:6px 16px;cursor:pointer}
+.btns{display:flex;gap:22px;margin-top:26px;direction:ltr}
+.opt{width:170px;height:96px;border-radius:20px;border:3px solid var(--div);background:var(--bg);color:var(--cream);font-family:'Noto Sans Hebrew',Inter,sans-serif;font-weight:900;font-size:54px;cursor:pointer;transition:transform .1s}
+.opt small{font:800 20px Inter}
+.opt:hover{transform:translateY(-3px);border-color:var(--muted)}
+.opt.bad{background:var(--err);border-color:var(--err);animation:shake .45s}
+.opt:disabled{opacity:.45;cursor:default;transform:none}
+.opt.good{opacity:1;border-color:var(--cream)}
+@keyframes shake{20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+.fb{height:44px;margin-top:18px;font-size:30px;font-weight:800}
+.fb.ok{color:var(--coral)}.fb.no{color:var(--err)}
+.next{position:absolute;bottom:26px;right:40px;height:60px;padding:0 44px;border:none;border-radius:16px;background:var(--coral);color:#1E4A3A;font:900 26px Inter;cursor:pointer;display:none}
+.final{justify-content:center;gap:22px;text-align:center}
+.final h1{font-size:76px;font-weight:900;color:var(--coral)}
+.final p{font-size:32px;font-weight:600}
+.final .big{font-size:110px;font-weight:900}
+canvas{position:absolute;inset:0;pointer-events:none}
+</style></head><body><div id="wrap"><div id="stage">
+<div class="top"><div class="title">PICK THE ENDING</div><div class="stats"><div class="pill">🔥 Streak <b id="streak">0</b></div><div class="pill">Score <b id="score">0</b></div><div class="pill"><b id="prog">1/8</b></div></div></div>
+<div class="bar"><i id="bar"></i></div>
+<div class="card" id="card"></div><canvas id="cv" width="1280" height="720"></canvas></div></div>
+<script>
+// pre: full word minus colored ending part (split after combining marks, so niqud stays intact)
+const Q=[
+{pr:'הִיא',stem:'לוֹמֶדֶ',pre:'לוֹמֶדֶ',end:'ת',k:'t',g:'f',tr:'hi LO-ME-DET',en:'She is learning'},
+{pr:'הֵם',stem:'רוֹקְד',pre:'רוֹקְדִ',end:'ים',k:'im',g:'m',tr:'hem ROK-DIM',en:'They (men/mix) dance'},
+{pr:'הֵן',stem:'עוֹבְד',pre:'עוֹבְד',end:'וֹת',k:'ot',g:'f',tr:'hen OV-DOT',en:'They (women) work'},
+{pr:'הוּא',stem:'כּוֹתֵב',pre:'',end:'כּוֹתֵב',k:'0',g:'m',tr:'hu KO-TEV',en:'He writes'},
+{pr:'אַתְּ',stem:'אוֹכֶלֶ',pre:'אוֹכֶלֶ',end:'ת',k:'t',g:'f',tr:'at O-KHE-LET',en:'You (woman) eat'},
+{pr:'אֲנַחְנוּ',stem:'זוֹכְר',pre:'זוֹכְרִ',end:'ים',k:'im',g:'m',tr:'a-NAKH-nu ZOKH-RIM',en:'We (men/mix) remember'},
+{pr:'הֵן',stem:'חוֹשְׁב',pre:'חוֹשְׁב',end:'וֹת',k:'ot',g:'f',tr:'hen KHOSH-VOT',en:'They (women) think'},
+{pr:'הִיא',stem:'סוֹגֶרֶ',pre:'סוֹגֶרֶ',end:'ת',k:'t',g:'f',tr:'hi SO-GE-RET',en:'She closes'}];
+const OPTS=[{k:'t',h:'–ת'},{k:'im',h:'–ים'},{k:'ot',h:'–ות'},{k:'0',h:'<small>(nothing)</small>'}];
+let i=0,score=0,streak=0,miss=false,showTr=false,A;
+const $=id=>document.getElementById(id),card=$('card');
+function fit(){const s=Math.min(innerWidth/1280,innerHeight/720);$('stage').style.transform='scale('+s+')'}
+addEventListener('resize',fit);fit();
+function ac(){if(!A)A=new (window.AudioContext||window.webkitAudioContext)();if(A.state=='suspended')A.resume();return A}
+function tone(f,t,d,type,v){const a=ac(),o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.setValueAtTime(f,a.currentTime+t);g.gain.setValueAtTime(0,a.currentTime+t);g.gain.linearRampToValueAtTime(v,a.currentTime+t+.02);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+t+d);o.connect(g).connect(a.destination);o.start(a.currentTime+t);o.stop(a.currentTime+t+d+.05)}
+function chime(){try{[523,659,784,1047].forEach((f,n)=>tone(f,n*.09,.5,'triangle',.25))}catch(e){}}
+function buzz(){try{tone(140,0,.3,'sawtooth',.18);tone(110,.12,.3,'square',.1)}catch(e){}}
+function shuffle(a){a=a.slice();for(let j=a.length-1;j>0;j--){const r=Math.random()*(j+1)|0;[a[j],a[r]]=[a[r],a[j]]}return a}
+function upd(){$('score').textContent=score;$('streak').textContent=streak;$('prog').textContent=Math.min(i+1,8)+'/8';$('bar').style.width=(i/8*100)+'%'}
+function show(){const q=Q[i];miss=false;upd();
+card.className='card';card.innerHTML=`<div class="he"><span>${q.pr}</span><span class="word" id="w"><span>${q.stem}</span><span class="slot"></span></span></div>
+<div class="tr ${showTr?'on':''}" id="tr">${q.tr}</div><div class="en">${q.en}</div>
+<button class="tog" id="tog">${showTr?'Hide':'Show'} transliteration</button>
+<div class="btns">${shuffle(OPTS).map(o=>`<button class="opt" data-k="${o.k}">${o.h}</button>`).join('')}</div>
+<div class="fb" id="fb"></div><button class="next" id="next">Next →</button>`;
+$('tog').onclick=()=>{showTr=!showTr;$('tr').classList.toggle('on',showTr);$('tog').textContent=(showTr?'Hide':'Show')+' transliteration'};
+card.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b));$('next').onclick=()=>{i++;i<8?show():fin()}}
+function pick(b){const q=Q[i],fb=$('fb');
+if(b.dataset.k===q.k){if(!miss){score++;streak++}else streak=0;
+$('w').innerHTML=`<span>${q.pre}</span><span class="end ${q.g} pop">${q.end}</span>`;
+card.querySelectorAll('.opt').forEach(x=>{x.disabled=true});b.classList.add('good');
+fb.className='fb ok';fb.textContent=miss?'✓ Got it!':(streak>1?`✓ Correct! ${streak} in a row!`:'✓ Correct!');
+$('next').style.display='block';$('next').textContent=i==7?'Finish →':'Next →';chime();confetti();i++;upd();i--;}
+else{miss=true;streak=0;upd();b.classList.remove('bad');void b.offsetWidth;b.classList.add('bad');b.disabled=true;fb.className='fb no';fb.textContent='✗ Try again';buzz()}}
+function fin(){$('bar').style.width='100%';$('prog').textContent='8/8';card.className='card final';
+card.innerHTML=`<h1>LEVEL UP!<br><span style="font-size:48px;color:#F4F1E8">You know the pattern!</span></h1><div class="big">${score}/8</div><p>${score==8?'Perfect score!':'correct on the first try'}</p><button class="next" style="display:block;position:static" id="again">Play again ↺</button>`;
+$('again').onclick=()=>{i=0;score=0;streak=0;show()};if(score>=5){chime();confetti()}}
+const cv=$('cv'),cx=cv.getContext('2d');let P=[];
+function confetti(){const c=['#FF6FA5','#9CC9F5','#FFA8D2','#F4F1E8','#FFD166'];for(let n=0;n<140;n++)P.push({x:640,y:300,vx:(Math.random()-.5)*22,vy:-Math.random()*16-4,r:Math.random()*6.28,s:6+Math.random()*8,c:c[n%5],l:90+Math.random()*40});if(P.length<=140)loop()}
+function loop(){cx.clearRect(0,0,1280,720);P=P.filter(p=>p.l-->0);P.forEach(p=>{p.vy+=.5;p.vx*=.98;p.x+=p.vx;p.y+=p.vy;p.r+=.2;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore()});if(P.length)requestAnimationFrame(loop)}
+show();
+</script></body></html>
