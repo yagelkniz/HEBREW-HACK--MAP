@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HEBREW HACK · Your Hebrew Journey</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@font-face { font-family: "Noto Sans Hebrew"; src: url("fonts/NotoSansHebrew.ttf") format("truetype"); font-weight: 100 900; }
+@font-face { font-family: "Rubik"; src: url("fonts/Rubik.ttf") format("truetype"); font-weight: 300 900; }
+:root{
+  --bg:#1E4A3A; --panel:#26543F; --divider:#33604C; --cream:#F4F1E8; --coral:#FF6FA5;
+  --muted:#9FB7AD; --blue:#9CC9F5; --pink:#FFA8D2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;margin:0;overflow:auto;background:var(--bg)}
+#fit{position:fixed;inset:0;overflow:auto}
+#fit>#stage{position:absolute;left:0;top:0;transform-origin:0 0}
+body{background:var(--bg);font-family:"Rubik",sans-serif;color:var(--cream)}
+body.pinonly{background:transparent}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--bg)}
+body.pinonly #stage{display:none}
+.he{font-family:"Noto Sans Hebrew",sans-serif;font-weight:900;direction:rtl;unicode-bidi:isolate;display:block}
+.emoji{font-family:"Noto Color Emoji",sans-serif;line-height:1}
+svg.layer{position:absolute;left:0;top:0}
+
+/* header */
+.header{position:absolute;left:80px;top:34px}
+.kicker{font-size:15px;font-weight:600;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+.kicker b{color:var(--coral);font-weight:800}
+.title{font-size:64px;font-weight:900;line-height:1.05;margin-top:8px;letter-spacing:-0.5px}
+.pill-underline{width:150px;height:10px;border-radius:10px;background:var(--coral);margin-top:12px}
+.wordmark{position:absolute;right:80px;top:40px;display:flex;align-items:center;gap:10px}
+.wordmark .wm{font-size:34px;font-weight:900;letter-spacing:4px;color:var(--cream)}
+.wordmark .dot{width:12px;height:12px;border-radius:50%;background:var(--coral)}
+.chip{position:absolute;display:flex;align-items:center;gap:12px;background:var(--panel);border:2px solid var(--divider);
+  border-radius:999px;padding:9px 20px;font-size:18px;font-weight:600;color:var(--cream);white-space:nowrap}
+.chip .muted{color:var(--muted);font-weight:500}
+.legend{position:absolute;right:80px;top:100px;display:flex;gap:22px;align-items:center;background:var(--panel);
+  border:2px solid var(--divider);border-radius:999px;padding:9px 22px;font-size:16px;font-weight:600;color:var(--cream)}
+.legend .li{display:flex;align-items:center;gap:8px}
+.lg-dot{width:20px;height:20px;border-radius:50%}
+
+/* stations */
+.station{position:absolute;width:0;height:0;cursor:pointer;text-decoration:none;color:inherit}
+.station .circle,.station .card{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.station:hover .circle{transform:scale(1.08);box-shadow:0 0 0 7px var(--bg),0 0 26px 8px rgba(255,111,165,.55),0 8px 18px rgba(0,0,0,.25)}
+.station.boss:hover .circle{transform:scale(1.06);box-shadow:0 0 0 7px var(--bg),0 0 40px 14px rgba(255,111,165,.75),0 8px 18px rgba(0,0,0,.25)}
+.station:hover .card{transform:scale(1.03);border-color:var(--coral);box-shadow:0 0 18px rgba(255,111,165,.4)}
+.station.boss:hover .card{box-shadow:0 0 32px rgba(255,111,165,.55)}
+.ring{position:absolute;border-radius:50%;left:0;top:0;transform:translate(-50%,-50%)}
+.circle{position:absolute;width:84px;height:84px;border-radius:50%;left:-42px;top:-42px;display:flex;align-items:center;justify-content:center;
+  background:var(--panel);border:5px solid var(--cream);font-size:34px;font-weight:900;color:var(--cream);
+  box-shadow:0 0 0 7px var(--bg), 0 8px 18px rgba(0,0,0,.25)}
+.badge{position:absolute;width:48px;height:48px;border-radius:50%;left:-86px;top:-66px;display:flex;align-items:center;justify-content:center;
+  background:var(--cream);border:4px solid var(--bg);font-size:25px;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.badge .alef{font-family:"Noto Sans Hebrew";font-weight:900;font-size:27px;color:var(--bg);line-height:1;margin-top:-2px}
+.badge.gender{background:linear-gradient(90deg,var(--blue) 0 50%,var(--pink) 50% 100%)}
+.segol{position:relative;width:24px;height:22px}
+.segol i{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--bg)}
+.card{position:absolute;left:-170px;top:56px;width:340px;background:var(--panel);border:2px solid var(--divider);border-radius:22px;
+  padding:11px 14px 12px;text-align:center;min-height:117px;display:flex;flex-direction:column;justify-content:center}
+.card .tag{font-size:13px;font-weight:800;letter-spacing:2.5px;color:var(--coral);text-transform:uppercase;line-height:1.2}
+.card .en{font-size:24px;font-weight:700;line-height:1.2;color:var(--cream);margin-top:3px;white-space:nowrap}
+.card .he{font-size:27px;line-height:1.55;color:var(--cream);margin-top:1px;white-space:nowrap}
+.card .sub{font-size:15px;font-weight:500;color:var(--muted);line-height:1.3;margin-top:2px;white-space:nowrap}
+.blue{color:var(--blue)} .pink{color:var(--pink)} .sep{color:var(--muted)}
+
+/* states */
+.done .circle{background:var(--coral);border-color:var(--coral);color:var(--bg)}
+.done .card{border-color:rgba(255,111,165,.55)}
+.locked .circle{background:var(--bg);border-color:var(--divider);color:var(--muted)}
+.locked .card{background:rgba(38,84,63,.55);border-color:rgba(51,96,76,.8)}
+.locked .card .en,.locked .card .he{color:var(--muted)}
+.locked .card .tag{color:rgba(159,183,173,.8)}
+.locked .card .he .blue,.locked .card .he .pink{opacity:.75}
+.locked .badge{background:#C9D3CB;opacity:.7;filter:grayscale(.6)}
+.blankcard{min-height:70px}
+.lock{position:absolute;left:18px;top:14px;width:32px;height:32px;border-radius:50%;background:var(--divider);border:3px solid var(--bg);
+  display:flex;align-items:center;justify-content:center}
+.current .circle{border-color:var(--coral);background:var(--panel);color:var(--cream)}
+.current .card{border-color:var(--coral)}
+
+/* pin */
+.pin{position:absolute;width:300px;height:124px}
+.pin svg{position:absolute;left:12px;top:10px;overflow:visible;filter:drop-shadow(0 6px 8px rgba(0,0,0,.35))}
+.pin .yah{position:absolute;left:86px;top:18px;background:var(--coral);color:var(--bg);font-weight:900;font-size:17px;letter-spacing:2px;
+  padding:8px 16px 8px;border-radius:999px;white-space:nowrap;border:3px solid var(--cream);box-shadow:0 6px 12px rgba(0,0,0,.3)}
+body.pinonly .pin{left:0;top:0}
+.deco{position:absolute;line-height:1}
+.pin.flip .yah{left:auto;right:298px}
+/* boss */
+.boss .circle{width:104px;height:104px;left:-52px;top:-52px;font-size:46px;border-color:var(--coral);
+  box-shadow:0 0 0 7px var(--bg),0 0 34px 10px rgba(255,111,165,.65),0 8px 18px rgba(0,0,0,.25)}
+.boss.done .circle{background:var(--coral)}
+.boss.locked .circle{background:var(--panel);border-color:var(--coral);box-shadow:0 0 0 7px var(--bg),0 0 26px 6px rgba(255,111,165,.4)}
+.boss .card{border:3px solid var(--coral);box-shadow:0 0 28px rgba(255,111,165,.45);background:linear-gradient(180deg,#2d5c46,var(--panel))}
+.boss .card .tag{font-size:15px;letter-spacing:3px}
+.boss.locked .card .tag{color:var(--coral)}
+.boss .badge{background:var(--coral);left:52px;top:-78px}
+.boss.locked .badge{background:var(--coral);opacity:.85;filter:none}
+.boss .lock{left:26px;top:22px}
+/* portrait (mobile) layout */
+html:has(body.portrait),body.portrait{height:auto;overflow-x:hidden;overflow-y:auto}
+body.portrait #fit{position:relative;inset:auto}
+body.portrait .header{left:40px;top:96px}
+body.portrait .title{font-size:58px}
+body.portrait .wordmark{left:40px;right:auto;top:36px}
+body.portrait .legend{left:40px;right:auto;top:268px;font-size:17px}
+body.portrait .chip{display:none}
+body.portrait .card .en{font-size:27px}
+body.portrait .card .he{font-size:30px}
+body.portrait .card .tag{font-size:15px}
+body.portrait .card .sub{font-size:17px}
+</style>
+</head>
+<body>
+<div id="fit"><div id="stage"></div></div>
+<script>
+const MODE = new URLSearchParams(location.search).get('mode') || (new URLSearchParams(location.search).get('station') ? 'progress' : 'base');   // base | progress | pin
+const _qs = new URLSearchParams(location.search);
+
+// Hebrew strings (exact niqud, no '?' inside Hebrew)
+const HE = {
+  alefbet:'אָלֶף־בֵּית',
+  niqud: 'נִקּוּד',
+  pron:  'אֲנִי, אַתָּה, אַתְּ',
+  magic: 'רוֹצֶה, יָכוֹל, צָרִיךְ, אוֹהֵב',
+  have:  'יֵשׁ לִי / אֵין לִי',
+  inf:   'לֶאֱכוֹל, לִשְׁתּוֹת',
+  q:     'מָה, מִי, אֵיפֹה',
+  zachar:'זָכָר', nekeva:'נְקֵבָה',
+  boss:  'הָאֶתְגָּר הַגָּדוֹל'
+};
+const LAST = 9;
+const LECTURE_BASE = 'https://yageledu.systeme.io/school/course/hebrew-hack/lecture/';
+const LECTURE_IDS = [10644405,10644444,10644298,10644341,10644358,10652062,10708507,10754177,10835245,10691507];
+const CURRENT = Math.min(LAST, Math.max(1, parseInt(_qs.get('station'))||6));   // ?station=1..9
+const PORTRAIT = window.innerWidth < window.innerHeight;
+const W = PORTRAIT ? 800 : 1920, H = PORTRAIT ? 2200 : 1080;
+// Station grid: serpentine. Landscape 4 per row x 3 rows; portrait 2 per row x 5 rows
+const COLS = PORTRAIT ? [210, 590] : [330, 730, 1130, 1530];
+const ROWS = PORTRAIT ? [440, 820, 1200, 1580, 1960] : [272, 572, 872];
+const STATIONS = [
+  {tag:'Start',  en:'Welcome',            sub:'Landing at the airport', icon:'✈️'},
+  {tag:'Step 1', en:'The Alphabet',       he:HE.alefbet, icon:'ALEF'},
+  {tag:'Step 2', en:'Vowels / Niqqud',    he:HE.niqud,  icon:'SEGOL'},
+  {tag:'Step 3', en:'Pronouns',           he:HE.pron,   icon:'🙋'},
+  {tag:'Step 4', en:'The Magic Four',     he:HE.magic,  sub:'want · can · need · love', icon:'🪄'},
+  {tag:'Step 5', en:'TO-Words',           he:HE.inf,    sub:'to eat · to drink', icon:'➡️'},
+  {tag:'Step 6', en:"I Have / I Don't Have", he:HE.have, icon:'🎒'},
+  {tag:'Step 7', en:'Question Words',     he:HE.q,      icon:'❓'},
+  {tag:'Step 8', en:'Gender',             heHTML:`<span class="blue">${HE.zachar}</span> <span class="sep">/</span> <span class="pink">${HE.nekeva}</span>`, sub:'Nouns &amp; adjectives', icon:'GENDER'},
+  {tag:'★ Boss Level 1 ★', en:'Final Challenge', he:HE.boss, icon:'🏆', boss:true},
+];
+const NC = COLS.length;
+STATIONS.forEach((s,i)=>{
+  const row = Math.floor(i/NC), col = i%NC;
+  s.n = i; s.x = row%2===1 ? COLS[NC-1-col] : COLS[col]; s.y = ROWS[row];
+});
+const RX = COLS, RY = ROWS;
+const stage = document.getElementById('stage');
+const NS='http://www.w3.org/2000/svg';
+function el(tag, attrs={}, parent){ const e=document.createElementNS(NS,tag); for(const k in attrs) e.setAttribute(k,attrs[k]); if(parent) parent.appendChild(e); return e; }
+function h(html){ const d=document.createElement('div'); d.innerHTML=html.trim(); return d.firstChild; }
+
+// segment path from station i to i+1
+function segPath(i){
+  const a=STATIONS[i], b=STATIONS[i+1];
+  if (PORTRAIT){
+    if (a.y===b.y) return `M ${a.x} ${a.y} C ${a.x+120} ${a.y-40}, ${b.x-120} ${b.y+40}, ${b.x} ${b.y}`;
+    const ex = a.x>W/2 ? W-8 : 8;
+    return `M ${a.x} ${a.y} C ${ex} ${a.y}, ${ex} ${b.y}, ${b.x} ${b.y}`;
+  }
+  if (a.y===b.y){
+    const dx=b.x-a.x, w = (i%2? 44:-44);
+    return `M ${a.x} ${a.y} C ${a.x+dx*0.35} ${a.y+w}, ${b.x-dx*0.35} ${b.y-w}, ${b.x} ${b.y}`;
+  }
+  const r=(b.y-a.y)/2;
+  if (a.x>960){ const tx=1700; return `M ${a.x} ${a.y} L ${tx} ${a.y} A ${r} ${r} 0 0 1 ${tx} ${b.y} L ${b.x} ${b.y}`; }
+  const tx=190; return `M ${a.x} ${a.y} L ${tx} ${a.y} A ${r} ${r} 0 0 0 ${tx} ${b.y} L ${b.x} ${b.y}`;
+}
+
+function buildMap(){
+  const svg = el('svg',{class:'layer',width:W,height:H,viewBox:`0 0 ${W} ${H}`}); stage.appendChild(svg);
+  // soft "land" blobs + dotted texture
+  const defs=el('defs',{},svg);
+  const pat=el('pattern',{id:'dots',width:28,height:28,patternUnits:'userSpaceOnUse'},defs);
+  el('circle',{cx:3,cy:3,r:1.6,fill:'#2A5A46'},pat);
+  el('rect',{x:0,y:0,width:W,height:H,fill:'url(#dots)'},svg);
+  if(!PORTRAIT){
+  el('path',{d:'M 40 230 C 260 150 700 200 980 180 C 1300 160 1640 170 1880 230 L 1890 1000 C 1500 1060 900 1050 400 1050 C 200 1050 60 1040 30 1000 Z',fill:'#214F3D',opacity:.9},svg);
+  // Mediterranean-style waves at the beach (bottom right)
+  const sea=el('g',{},svg);
+  el('path',{d:'M 1680 1080 C 1700 980 1760 900 1920 860 L 1920 1080 Z',fill:'#2E6A73',opacity:.55},sea);
+  el('path',{d:'M 1640 1080 C 1650 1000 1700 935 1790 905 C 1840 890 1880 880 1920 872 L 1920 895 C 1800 915 1730 960 1700 1080 Z',fill:'#F4F1E8',opacity:.16},sea);
+  for(let k=0;k<3;k++){
+    const y=950+k*38, x0=1770+k*10;
+    el('path',{d:`M ${x0} ${y} q 18 -14 36 0 t 36 0 t 36 0`,fill:'none',stroke:'#9CC9F5','stroke-width':4,'stroke-linecap':'round',opacity:.75},sea);
+  }
+  }
+  // road
+  const roadG=el('g',{},svg);
+  const full = [];
+  full.push(PORTRAIT ? `M ${STATIONS[0].x} ${RY[0]-90} L ${STATIONS[0].x} ${RY[0]}` : `M 120 ${RY[0]} L ${STATIONS[0].x} ${RY[0]}`);
+  for(let i=0;i<STATIONS.length-1;i++) full.push(segPath(i));
+  full.forEach(d=>el('path',{d,fill:'none',stroke:'#173B2E','stroke-width':66,'stroke-linecap':'round','stroke-linejoin':'round'},roadG));
+  full.forEach(d=>el('path',{d,fill:'none',stroke:'#33604C','stroke-width':52,'stroke-linecap':'round','stroke-linejoin':'round'},roadG));
+  full.forEach((d,idx)=>{
+    // idx 0 = lead-in, idx k = segment into station k
+    const segDone = MODE==='progress' && idx>=1 && idx <= CURRENT;
+    const leadDone = MODE==='progress' && idx===0;
+    if (segDone || leadDone) el('path',{d,fill:'none',stroke:'#FF6FA5','stroke-width':8,'stroke-linecap':'round'},roadG);
+    else el('path',{d,fill:'none',stroke:'#9FB7AD','stroke-width':4,'stroke-dasharray':'16 16','stroke-linecap':'round',opacity:(MODE==='progress'?.45:.75)},roadG);
+  });
+
+  // decorations
+  const deco=(html,x,y,size,op=1)=>{ const d=h(`<div class="deco emoji" style="left:${x}px;top:${y}px;font-size:${size}px;opacity:${op}">${html}</div>`); stage.appendChild(d); return d; };
+  if(!PORTRAIT){
+  deco('🌴',1736,384,70,.95);
+  deco('🌴',1838,780,66);
+  deco('🌴',1885,820,46,.9);
+  deco('☀️',1810,640,48,.9);
+  deco('🌴',72,676,52,.9);
+  deco('🏁',1720,860,64,.95);
+  }
+
+
+  // header
+  stage.appendChild(h(`<div class="header">
+      <div class="kicker"><b>HEBREW HACK</b> &nbsp;·&nbsp; Self-paced Hebrew for beginners</div>
+      <div class="title">Your Hebrew Journey</div>
+      <div class="pill-underline"></div>
+    </div>`));
+  stage.appendChild(h(`<div class="wordmark"><div class="dot"></div><div class="wm">HEBREW HACK</div></div>`));
+  stage.appendChild(h(`<div class="chip" style="left:860px;top:96px"><span class="emoji" style="font-size:22px">🚗</span> A road trip across Israel <span class="muted">with Dana &amp; Yoni</span></div>`));
+  if (MODE==='progress'){
+    stage.appendChild(h(`<div class="legend">
+      <div class="li"><div class="lg-dot" style="background:#FF6FA5"></div>Completed</div>
+      <div class="li"><div class="lg-dot" style="background:#26543F;border:3px solid #FF6FA5;box-shadow:0 0 0 4px rgba(255,111,165,.3)"></div>You are here</div>
+      <div class="li"><div class="lg-dot" style="background:#1E4A3A;border:3px solid #33604C"></div>Locked</div></div>`));
+  } else {
+    stage.appendChild(h(`<div class="legend"><span class="emoji" style="font-size:18px">👆</span> Tap a station to open the lesson</div>`));
+  }
+
+  // stations
+  STATIONS.forEach(s=>{
+    let state='neutral';
+    if (MODE==='progress') state = s.n<CURRENT ? 'done' : (s.n===CURRENT ? 'current' : 'locked');
+    const href = LECTURE_BASE + LECTURE_IDS[s.n];
+    const st=h(`<a class="station ${state}${s.boss?' boss':''}" id="st${s.n}" href="${href}" target="_top" rel="noopener" style="left:${s.x}px;top:${s.y}px"></a>`);
+    if (state==='current'){
+      [[150,.10],[124,.18],[102,.32]].forEach(([d,o])=>st.appendChild(h(`<div class="ring" style="width:${d}px;height:${d}px;background:rgba(255,111,165,${o})"></div>`)));
+      st.appendChild(h(`<div class="ring" style="width:124px;height:124px;border:3px solid rgba(255,111,165,.55)"></div>`));
+    }
+    const check = `<svg width="40" height="40" viewBox="0 0 40 40"><path d="M9 21 L17 29 L32 12" fill="none" stroke="#1E4A3A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    st.appendChild(h(`<div class="circle">${state==='done'?check:(s.boss?'<span class="emoji">👑</span>':(s.n||'<span class="emoji" style="font-size:30px">🏠</span>'))}</div>`));
+    let icon;
+    if (s.icon==='ALEF') icon=`<span class="alef">א</span>`;
+    else if (s.icon==='SEGOL') icon=`<div class="segol"><i style="left:0;top:2px"></i><i style="left:16px;top:2px"></i><i style="left:8px;top:13px"></i></div>`;
+    else if (s.icon==='GENDER') icon=``;
+    else icon=`<span class="emoji">${s.icon}</span>`;
+    if (!s.blank) st.appendChild(h(`<div class="badge ${s.icon==='GENDER'?'gender':''}">${icon}</div>`));
+    if (state==='locked') st.appendChild(h(`<div class="lock"><svg width="16" height="18" viewBox="0 0 16 18"><path d="M4 8 V5.5 a4 4 0 0 1 8 0 V8" fill="none" stroke="#9FB7AD" stroke-width="2.4"/><rect x="1.5" y="8" width="13" height="9" rx="2.5" fill="#9FB7AD"/></svg></div>`));
+    const heLine = s.heHTML ? `<span class="he">${s.heHTML}</span>` : (s.he ? `<span class="he">${s.he}</span>` : '');
+    const subLine = s.sub ? `<div class="sub">${s.sub}</div>` : '';
+    if (s.blank) { st.appendChild(h(`<div class="card blankcard"></div>`)); stage.appendChild(st); return; }
+    st.appendChild(h(`<div class="card"><div class="tag">${s.tag}</div><div class="en">${s.en}</div>${heLine}${subLine}</div>`));
+    stage.appendChild(st);
+  });
+  if (MODE==='progress'){ const s=STATIONS[CURRENT]; const p=makePin(s.x, s.y-(s.boss?10:0)); if(s.x+270>W) p.classList.add('flip'); stage.appendChild(p); }
+}
+
+// Pin: tip is at (44, 108) inside its 300x110 box  -> placed so tip sits at (cx, cy-22)
+const PIN_TIP = {x:44, y:108};
+function makePin(cx, cy){
+  const p=h(`<div class="pin" id="pin">
+    <svg width="64" height="100" viewBox="0 0 64 100">
+      <path d="M32 98 C 32 98 0 58 0 32 A 32 32 0 1 1 64 32 C 64 58 32 98 32 98 Z" fill="#FF6FA5" stroke="#F4F1E8" stroke-width="4" stroke-linejoin="round"/>
+      <circle cx="32" cy="32" r="14" fill="#F4F1E8"/><circle cx="32" cy="32" r="6.5" fill="#FF6FA5"/>
+    </svg>
+    <div class="yah">YOU ARE HERE</div></div>`);
+  if (cx!==undefined){ p.style.left=(cx-PIN_TIP.x)+'px'; p.style.top=(cy-22-PIN_TIP.y)+'px'; }
+  return p;
+}
+
+if (MODE==='pin'){ document.body.classList.add('pinonly'); document.body.appendChild(makePin()); }
+else buildMap();
+window.STATIONS=STATIONS;
+</script>
+<script>
+(function(){var st=document.getElementById('stage');st.style.width=W+'px';st.style.height=H+'px';
+if(PORTRAIT&&MODE!=='pin')document.body.classList.add('portrait');
+function fit(){var w=window.innerWidth,h=window.innerHeight;
+if((w<h)!==PORTRAIT){location.reload();return;}
+if(PORTRAIT){var s=w/W;document.getElementById('fit').style.height=(H*s)+'px';st.style.transform='scale('+s+')';return;}
+var s=Math.min(w/1920,h/1080);
+st.style.transform='translate('+((w-1920*s)/2)+'px,'+((h-1080*s)/2)+'px) scale('+s+')';}
+window.addEventListener('resize',fit);window.addEventListener('load',fit);fit();})();
+</script>
+</body>
+</html>
