@@ -134,7 +134,7 @@ const HE = {
 const LAST = 9;
 const LECTURE_BASE = 'https://yageledu.systeme.io/school/course/hebrew-hack/lecture/';
 const LECTURE_IDS = [10644405,10644444,10644298,10644341,10644358,10652062,10708507,10754177,10835245,10691507];
-const CURRENT = Math.min(LAST, Math.max(1, parseInt(_qs.get('station'))||6));   // ?station=1..9
+const _st = parseInt(_qs.get('station')); const CURRENT = Math.min(LAST, Math.max(1, isNaN(_st)?6:_st));   // ?station=0..9 (0 = Welcome, pin on step 1)
 const PORTRAIT = window.innerWidth < window.innerHeight;
 const W = PORTRAIT ? 800 : 1920, H = PORTRAIT ? 2200 : 1080;
 // Station grid: serpentine. Landscape 4 per row x 3 rows; portrait 2 per row x 5 rows
