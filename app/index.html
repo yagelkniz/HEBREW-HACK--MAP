@@ -370,11 +370,11 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   margin-left:-8px;margin-right:-8px}
 .hh-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
 /* video: edge to edge (no side bars), 16:9, as big as the width allows, centred in the free height */
-.hh-frame.is-video{flex:none;aspect-ratio:16/9;margin-top:auto;margin-bottom:auto;border-radius:0;
+.hh-frame.is-wide{flex:none;aspect-ratio:16/9;margin-top:auto;margin-bottom:auto;border-radius:0;
   margin-left:calc(-1 * max(16px, env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px, env(safe-area-inset-right,0px)));
   max-height:calc(100dvh - 230px)}
-@media (orientation:landscape){ .hh-frame.is-video{aspect-ratio:auto;flex:1;margin-left:0;margin-right:0;border-radius:16px;max-height:none} }
-.hh-frame.is-video iframe{background:#000}
+@media (orientation:landscape){ .hh-frame.is-wide{aspect-ratio:auto;flex:1;margin-left:0;margin-right:0;border-radius:16px;max-height:none} }
+.hh-frame.is-wide iframe{background:#000}
 .hh-ego{padding-top:10px}
 .hh-sec{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--coral);margin:10px 0 0 4px}
 .hh-part em{margin-left:auto;font-style:normal;font-size:12px;font-weight:800;color:var(--cream-dim)}
@@ -400,18 +400,18 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   width:calc(100vw - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px));
   height:calc(100dvh - env(safe-area-inset-top,0px) - 58px - env(safe-area-inset-bottom,0px))}
 /* videos in full screen: the iframe itself is exactly 16:9 (no empty bands), centred */
-.hh-frame.is-full.is-video iframe{top:50%;left:50%;right:auto;bottom:auto;transform:translate(-50%,-50%);
+.hh-frame.is-full.is-wide iframe{top:50%;left:50%;right:auto;bottom:auto;transform:translate(-50%,-50%);
   width:min(100vw, calc((100dvh - 120px) * 16 / 9));height:calc(min(100vw, calc((100dvh - 120px) * 16 / 9)) * 9 / 16)}
 @media (orientation:portrait){
   /* turned sideways: long side along the phone's height */
-  .hh-frame.is-full.is-video.rot iframe{width:min(calc(100dvh - 120px), calc(100vw * 16 / 9));height:calc(min(calc(100dvh - 120px), calc(100vw * 16 / 9)) * 9 / 16);
+  .hh-frame.is-full.is-wide.rot iframe{width:min(calc(100dvh - 120px), calc(100vw * 16 / 9));height:calc(min(calc(100dvh - 120px), calc(100vw * 16 / 9)) * 9 / 16);
     transform:translate(-50%,-50%) rotate(90deg);transform-origin:center}
 }
 .hh-fbtn{position:fixed;z-index:61;top:calc(env(safe-area-inset-top,0px) + 8px);width:44px;height:44px;border-radius:50%;
   border:2px solid rgba(244,241,232,.5);background:rgba(23,58,45,.85);color:var(--cream);font-size:20px;font-weight:800;cursor:pointer}
 .hh-fclose{right:calc(env(safe-area-inset-right,0px) + 12px)}
 .hh-frot{left:calc(env(safe-area-inset-left,0px) + 12px)}
-.hh-frame.is-full.is-video iframe{background:#000}
+.hh-frame.is-full.is-wide iframe{background:#000}
 </style>
 </head>
 <body>
@@ -2184,8 +2184,8 @@ const ZIG = [0, -56, -78, -40, 30, 70, 36];
 const LESSON = [
   { type:"video", sec:"Watch",    icon:"🎬", name:"Sentence Builder", url:STEP4_EMBEDS.video1, xp:5,
     how:"See how one of the Magic Four verbs turns into a full sentence." },
-  { type:"embed", sec:"Learn",    icon:"📖", name:"The Magic Four", url:STEP4_EMBEDS.genially, xp:5,
-    how:"Swipe through the slides: want, can, need, love, for he and for she." },
+  { type:"embed", sec:"Learn",    icon:"📖", name:"The Magic Four", url:STEP4_EMBEDS.genially, xp:5, wide:true,
+    how:"Tap ⤢ Full screen to see the slides bigger. Want, can, need, love, for he and for she." },
   { type:"video", sec:"Watch",    icon:"🎬", name:"At the Café", url:STEP4_EMBEDS.video2, xp:5,
     how:"The Magic Four at a café counter. Watch, then it's your turn to order." },
   { type:"game", sec:"Play", g:6, icon:"⚡", name:"Echo",       xp:10, how:"A sentence flashes and disappears. Rebuild it from memory, then say it out loud." },
@@ -2372,7 +2372,7 @@ function renderEmbed(p){
   closeFull();
   paintBar("eBar", "eCount");
   $("eSec").textContent = partLabel(); $("eName").textContent = p.name; $("eHow").textContent = p.how;
-  const box = $("eFrame"); box.className = "hh-frame" + (p.type === "video" ? " is-video" : "");
+  const box = $("eFrame"); box.className = "hh-frame" + (p.type === "video" || p.wide ? " is-wide" : "");   // is-wide = 16:9 content (videos, slides)
   const f = document.createElement("iframe");
   f.src = embedUrl(p); f.title = p.name; f.loading = "eager";
   f.allow = FRAME_ALLOW + (p.mic ? "; microphone" : "");
@@ -2434,9 +2434,9 @@ function openFull(){
   const box = $("eFrame"); if (!box.firstChild || box.classList.contains("is-full")) return;
   box.classList.add("is-full");
   // portrait phone + video: turn the player sideways so it uses the whole screen (tap ↻ to undo)
-  box.classList.toggle("rot", box.classList.contains("is-video") && isPortrait());
+  box.classList.toggle("rot", box.classList.contains("is-wide") && isPortrait());
   document.body.classList.add("hh-noscroll");
-  $("eClose").hidden = false; $("eRot").hidden = !box.classList.contains("is-video");
+  $("eClose").hidden = false; $("eRot").hidden = !box.classList.contains("is-wide");
   try{
     // ask for it on the whole card screen, so the ✕ and ↻ buttons stay above the frame in the browser's top layer
     const host = $("sEmbed"), req = host.requestFullscreen || host.webkitRequestFullscreen;
