@@ -358,6 +358,35 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 .hh-done .push{width:100%}
 .hh-sticky{position:sticky;top:0;z-index:5;background:var(--green);margin:calc(-1 * (env(safe-area-inset-top,0px) + 14px)) -16px 0;
   padding:calc(env(safe-area-inset-top,0px) + 14px) 16px 10px}
+
+/* embed card: iframe fills the height between the header and the Continue button */
+.hh-embed{height:100dvh;min-height:0;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 12px)}
+.hh-ehead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
+.hh-ehead b{display:block;font-size:20px;font-weight:900;line-height:1.2;margin-top:2px}
+.hh-full{flex:none;min-height:36px;display:inline-flex;align-items:center;padding:6px 12px;border-radius:99px;border:1.5px solid var(--divider);
+  color:var(--cream);text-decoration:none;font-weight:700;font-size:13px}
+.hh-ehow{color:var(--cream-dim);font-size:14px;line-height:1.4;margin-top:6px}
+.hh-frame{flex:1;min-height:0;margin-top:10px;border-radius:16px;overflow:hidden;background:var(--green-deep);position:relative;
+  margin-left:-8px;margin-right:-8px}
+.hh-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+.hh-frame.is-video{flex:none;aspect-ratio:16/9;margin-top:auto;margin-bottom:auto}
+.hh-frame.is-video iframe{background:#000}
+.hh-ego{padding-top:10px}
+.hh-sec{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--coral);margin:10px 0 0 4px}
+.hh-part em{margin-left:auto;font-style:normal;font-size:12px;font-weight:800;color:var(--cream-dim)}
+
+/* onboarding: learning mode, two equal cards */
+.hh-mode{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hh-mode button{min-height:150px;border-radius:20px;border:2px solid var(--divider);background:var(--green-soft);color:var(--cream);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:12px 8px;text-align:center}
+.hh-mode-ic{font-size:30px;line-height:1}
+.hh-mode b{font-size:18px;font-weight:900;margin-top:4px}
+.hh-mode-demo{font-size:17px;font-weight:800;color:var(--cream-dim);line-height:1.5}
+.hh-mode-demo.hh-he{font-size:22px;font-weight:900}
+.hh-mode small{font-size:12px;color:var(--cream-dim);line-height:1.3}
+.hh-mode button[aria-pressed="true"]{border-color:var(--coral);background:rgba(255,111,165,.14)}
+.hh-mode button[aria-pressed="true"] .hh-mode-demo{color:var(--cream)}
+.hh-mode button:active,.hh-gender button:active{transform:scale(.98)}
 </style>
 </head>
 <body>
@@ -393,8 +422,15 @@ body{min-height:100dvh;overscroll-behavior-y:none}
     <button type="button" data-value="f" aria-pressed="false"><span class="hh-he" lang="he">אֲנִי רוֹצָה</span>She<small>ani rotza</small></button>
   </div>
   <p class="sub" style="font-size:13px;margin-top:8px">Hebrew verbs change with the speaker, so every sentence you say will match you.</p>
-  <div class="hh-toggle"><span>Show Hebrew letters<small>Off = sound-only cards (Pimsleur style)</small></span>
-    <button class="hh-switch" id="oRead" type="button" role="switch" aria-checked="true" aria-label="Show Hebrew letters"></button></div>
+  <div class="label">How I want to learn</div>
+  <div class="hh-mode" id="oMode">
+    <button type="button" data-value="speak" aria-pressed="false">
+      <span class="hh-mode-ic" aria-hidden="true">🎧</span><b>Just speak</b>
+      <span class="hh-mode-demo">ani rotze</span><small>Sound only, no Hebrew letters</small></button>
+    <button type="button" data-value="read" aria-pressed="false">
+      <span class="hh-mode-ic" aria-hidden="true">📖</span><b>Speak + read</b>
+      <span class="hh-mode-demo hh-he" lang="he" dir="rtl">אֲנִי רוֹצֶה</span><small>Shows the Hebrew letters</small></button>
+  </div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
 </div>
 
@@ -404,12 +440,25 @@ body{min-height:100dvh;overscroll-behavior-y:none}
     <div class="brand">STEP 4</div><span class="hh-chip" id="stXp">⚡ 0</span></div>
   <h1 style="margin-top:12px">The Magic Four</h1>
   <div class="hh-hero"><div class="hh-he" lang="he" dir="rtl">רוֹצֶה · יָכוֹל · צָרִיךְ · אוֹהֵב</div>
-    <p>want · can · need · love. One verb, then any sentence you like.</p></div>
+    <p>want · can · need · love. Watch, learn, play, speak, practise.</p></div>
   <ol class="hh-parts" id="stParts"></ol>
   <div class="push"><button class="btn" id="stGo" type="button">Start the lesson</button></div>
 </div>
 
-<!-- LESSON CARD (intro video and the card before each game) -->
+<!-- EMBED CARD (videos, slides, Speak, practice games): the iframe takes all the height that's left -->
+<div class="screen hh-embed" id="sEmbed" hidden>
+  <div class="hh-lbar"><button class="back" id="eQuit" type="button" aria-label="Leave the lesson">✕</button>
+    <div class="bar"><i id="eBar"></i></div><div class="count" id="eCount"></div></div>
+  <div class="hh-ehead">
+    <div><div class="brand" id="eSec"></div><b id="eName"></b></div>
+    <a class="hh-full" id="eOpen" href="#" target="_blank" rel="noopener">⤢ Full screen</a>
+  </div>
+  <p class="hh-ehow" id="eHow"></p>
+  <div class="hh-frame" id="eFrame"></div>
+  <div class="hh-ego"><button class="btn" id="eGo" type="button">Continue</button></div>
+</div>
+
+<!-- LESSON CARD (the card before each game) -->
 <div class="screen" id="sLesson" hidden>
   <div class="hh-lbar"><button class="back" id="lQuit" type="button" aria-label="Leave the lesson">✕</button>
     <div class="bar"><i id="lBar"></i></div><div class="count" id="lCount"></div></div>
@@ -2041,9 +2090,18 @@ show("home");
    HEBREW HACK app config. Edit this file only; no build step needed.
    ===================================================================== */
 
-/* TODO: paste the Vimeo id of the STEP 4 intro video (the number in
-   https://vimeo.com/123456789). Empty = a placeholder card is shown. */
-const VIMEO_ID = "";
+/* STEP 4 lesson content embedded from the Systeme lesson (same order as the real lesson blocks,
+   re-ordered for teaching: watch -> learn -> watch -> play -> speak -> practice).
+   Change a URL here and run build.py; nothing else needs touching. */
+const STEP4_EMBEDS = {
+  video1:   "https://player.vimeo.com/video/1239983927?texttrack=false&loop=1",
+  genially: "https://view.genially.com/6ada21a1dab74c119dc03c95",
+  video2:   "https://player.vimeo.com/video/1239342378?texttrack=false",
+  speak:    "https://kniz-speak.lovable.app/?lesson=verbs&translit=1",
+  wordwall1:"https://wordwall.net/embed/98dd0be3eab74f9391b7964d525f4c10?themeId=65&templateId=25&fontStackId=0",
+  wordwall2:"https://wordwall.net/embed/702775dacd644320abd98304ff1ca1ec?themeId=65&templateId=2&fontStackId=0",
+  wordwall3:"https://wordwall.net/embed/6af3b7157b1a0ff798cc088797ba3463?themeId=66&templateId=35&fontStackId=0"
+};
 
 /* TODO (access control, not active in the pilot).
    Plan: a Systeme.io purchase adds a tag to the contact -> a Systeme webhook
@@ -2093,16 +2151,30 @@ const STEPS = [
 ];
 const ZIG = [0, -56, -78, -40, 30, 70, 36];
 
-/* STEP 4 lesson: intro video, then the five games (g = game number in the game script) */
+/* STEP 4 lesson, one full-screen part at a time.
+   type "video" / "embed" = an iframe card (url from STEP4_EMBEDS); type "game" = a Magic Four game (g = game number).
+   sec = the section heading on the overview; xp = XP for finishing the part. */
 const LESSON = [
-  { k:"intro", icon:"🎬", name:"Intro video",  how:"Two minutes on the Magic Four: want, can, need, love." },
-  { k:6, icon:"⚡", name:"Echo",       how:"A sentence flashes and disappears. Rebuild it from memory, then say it out loud." },
-  { k:4, icon:"🔁", name:"Swap It",    how:"Tap the word that has to change and pick the new one. Then say the new sentence." },
-  { k:5, icon:"☕", name:"Café Order", how:"The barista asks what you want. Pick it, say it in Hebrew, and build your order." },
-  { k:8, icon:"👂", name:"By Ear",     how:"No text at all. Listen to the order and tap what they asked for." },
-  { k:7, icon:"⏱", name:"Rush Hour",  how:"The café opens at 8:00. Customers walk in; answer each one in Hebrew before the clock runs out." }
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Sentence Builder", url:STEP4_EMBEDS.video1, xp:5,
+    how:"See how one of the Magic Four verbs turns into a full sentence." },
+  { type:"embed", sec:"Learn",    icon:"📖", name:"The Magic Four", url:STEP4_EMBEDS.genially, xp:5,
+    how:"Swipe through the slides: want, can, need, love, for he and for she." },
+  { type:"video", sec:"Watch",    icon:"🎬", name:"At the Café", url:STEP4_EMBEDS.video2, xp:5,
+    how:"The Magic Four at a café counter. Watch, then it's your turn to order." },
+  { type:"game", sec:"Play", g:6, icon:"⚡", name:"Echo",       xp:10, how:"A sentence flashes and disappears. Rebuild it from memory, then say it out loud." },
+  { type:"game", sec:"Play", g:4, icon:"🔁", name:"Swap It",    xp:10, how:"Tap the word that has to change and pick the new one. Then say the new sentence." },
+  { type:"game", sec:"Play", g:5, icon:"☕", name:"Café Order", xp:10, how:"The barista asks what you want. Pick it, say it in Hebrew, and build your order." },
+  { type:"game", sec:"Play", g:8, icon:"👂", name:"By Ear",     xp:10, how:"No text at all. Listen to the order and tap what they asked for." },
+  { type:"game", sec:"Play", g:7, icon:"⏱", name:"Rush Hour",  xp:10, how:"The café opens at 8:00. Customers walk in; answer each one in Hebrew before the clock runs out." },
+  { type:"embed", sec:"Speak",    icon:"🎙", name:"Speak", url:STEP4_EMBEDS.speak, xp:10, mic:true,
+    how:"Say the sentences into your phone and hear how close you are. Allow the microphone when asked." },
+  { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 1", url:STEP4_EMBEDS.wordwall1, xp:5, how:"A quick round to lock in the verbs." },
+  { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 2", url:STEP4_EMBEDS.wordwall2, xp:5, how:"Another round, a little faster." },
+  { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 3", url:STEP4_EMBEDS.wordwall3, xp:5, how:"Last round, then the lesson is done." }
 ];
-const XP_GAME = 10, XP_BONUS = 20;
+const LESSON_VERSION = 2;   // bump when LESSON changes shape, so saved positions from an older lesson start fresh
+if (A.step4.v !== LESSON_VERSION){ A.step4.pos = 0; A.step4.run = null; A.step4.done = []; A.step4.v = LESSON_VERSION; try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){} }
+const XP_BONUS = 20;
 const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","words"];
 
 const dayStr = d => d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
@@ -2118,9 +2190,10 @@ function bumpStreak(){
 function step4Progress(){ return A.step4.completed ? 1 : Math.min(1, A.step4.pos / LESSON.length); }
 
 /* ---------- screens ---------- */
-const SCREENS = ["sHome","sOnb","sStep","sLesson","sDone"];
+const SCREENS = ["sHome","sOnb","sStep","sLesson","sEmbed","sDone"];
 let booted = false;
 function go(id){
+  if (id !== "sEmbed") clearEmbed();
   SCREENS.forEach(s => $(s).hidden = (s !== id));
   $("app").hidden = false; $("play").hidden = true;
   window.scrollTo(0, 0);
@@ -2171,24 +2244,25 @@ function paintHome(){
 $("hSet").addEventListener("click", () => openOnb(true));
 
 /* ---------- onboarding / settings ---------- */
-let onbGender = "";
+let onbGender = "", onbMode = "";
 function paintOnb(){
   document.querySelectorAll("#oGender button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.value === onbGender)));
-  $("oGo").disabled = !onbGender;
+  document.querySelectorAll("#oMode button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.value === onbMode)));
+  $("oGo").disabled = !onbGender || !onbMode;   // both choices are required
 }
 function openOnb(settings){
   onbGender = A.gender; $("oName").value = A.name || "";
-  $("oRead").setAttribute("aria-checked", String(A.read !== false));
+  onbMode = A.mode || "";   // A.mode is set only once the learner has picked it
   $("oTitle").textContent = settings ? "Settings" : "Welcome!";
   $("oSub").textContent = settings ? "Change these any time." : "Two quick things and you're in.";
   $("oGo").textContent = settings ? "Save" : "Start learning";
   paintOnb(); go("sOnb");
 }
 $("oGender").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; onbGender = b.dataset.value; sfx("tap"); paintOnb(); });
-$("oRead").addEventListener("click", () => { const on = $("oRead").getAttribute("aria-checked") !== "true"; $("oRead").setAttribute("aria-checked", String(on)); sfx("tap"); });
+$("oMode").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; onbMode = b.dataset.value; sfx("tap"); paintOnb(); });
 $("oGo").addEventListener("click", () => {
-  if (!onbGender) return;
-  A.name = $("oName").value.trim().slice(0, 20); A.gender = onbGender; A.read = $("oRead").getAttribute("aria-checked") === "true"; saveA();
+  if (!onbGender || !onbMode) return;
+  A.name = $("oName").value.trim().slice(0, 20); A.gender = onbGender; A.mode = onbMode; A.read = onbMode === "read"; saveA();
   syncGameSettings(); unlockAudio(); sfx("pop"); paintHome();
 });
 function syncGameSettings(){
@@ -2201,15 +2275,18 @@ async function openStep(){
   if (!acc.ok){ toast("This step opens after you join"); return; }
   $("stXp").textContent = "⚡ " + A.xp;
   const ol = $("stParts"); ol.innerHTML = "";
+  let lastSec = "";
   LESSON.forEach((p, i) => {
     const done = A.step4.completed > 0 || i < A.step4.pos, next = !A.step4.completed && i === A.step4.pos;
+    if (p.sec !== lastSec){ lastSec = p.sec; const h = document.createElement("li"); h.className = "hh-sec"; h.textContent = p.sec; ol.append(h); }
     const li = document.createElement("li");
     const b = document.createElement("button"); b.type = "button";
     b.className = "hh-part" + (done ? " done" : "") + (next ? " next" : "");
-    b.innerHTML = "<i></i><span><b></b><small></small></span>";
+    b.innerHTML = "<i></i><span><b></b><small></small></span><em></em>";
     b.querySelector("i").textContent = done ? "★" : p.icon;
-    b.querySelector("b").textContent = (i === 0 ? "" : "Part " + i + " · ") + p.name;
-    b.querySelector("small").textContent = done ? (i === 0 ? "Watched · tap to watch again" : "Done · tap to practise again") : next ? "Up next" : "Locked until the part before";
+    b.querySelector("b").textContent = p.name;
+    b.querySelector("em").textContent = "+" + p.xp;
+    b.querySelector("small").textContent = done ? "Done · tap to open again" : next ? "Up next" : "Opens after the part before";
     if (done) b.addEventListener("click", () => startSingle(i)); else if (next) b.addEventListener("click", () => startLesson()); else b.disabled = true;
     li.append(b); ol.append(li);
   });
@@ -2231,46 +2308,54 @@ function startLesson(){
 }
 function startSingle(i){ unlockAudio(); syncGameSettings(); L = { mode:"single", pos:i, t0:Date.now(), said:0, xp:0, ms:0, prev:"" }; renderCard(); }
 function lessonFrac(){ return L.mode === "single" ? 0 : L.pos / LESSON.length; }
+function partLabel(){ return L.mode === "single" ? "STEP 4 · AGAIN" : "STEP 4 · " + LESSON[L.pos].sec.toUpperCase() + " · " + (L.pos + 1) + "/" + LESSON.length; }
+function paintBar(barId, countId){
+  $(barId).style.width = Math.round(lessonFrac() * 100) + "%";
+  if (countId) $(countId).textContent = (L.pos + 1) + "/" + LESSON.length;
+}
+function clearEmbed(){ const box = $("eFrame"); if (box) box.innerHTML = ""; }   // stops video/mic when the card is left
 function renderCard(){
-  const p = LESSON[L.pos], card = $("lCard");
-  $("lBar").style.width = Math.round(lessonFrac() * 100) + "%";
-  $("lCount").textContent = (L.pos + 1) + "/" + LESSON.length;
+  const p = LESSON[L.pos];
+  clearEmbed();
+  if (p.type !== "game") return renderEmbed(p);
+  const card = $("lCard");
+  paintBar("lBar", "lCount");
   card.innerHTML = "";
-  if (p.k === "intro"){
-    card.innerHTML = '<div class="brand">STEP 4 · INTRO</div><h2>The Magic Four</h2><div class="hh-video" id="lVideo"></div><p></p>';
-    card.querySelector("p").textContent = "Watch the short intro, then you'll use each verb out loud in five quick games.";
-    const v = card.querySelector("#lVideo");
-    if (VIMEO_ID){
-      const f = document.createElement("iframe");
-      f.src = "https://player.vimeo.com/video/" + encodeURIComponent(VIMEO_ID) + "?title=0&byline=0&portrait=0&playsinline=1&dnt=1";
-      f.allow = "autoplay; fullscreen; picture-in-picture"; f.allowFullscreen = true; f.title = "STEP 4 intro video";
-      v.append(f);
-    } else {
-      v.innerHTML = '<div class="hh-ph"><b>▶</b>Intro video goes here</div>';
-    }
-    $("lGo").textContent = L.mode === "single" ? "Done" : "I watched it · continue";
-  } else {
-    const head = document.createElement("div"); head.className = "brand";
-    head.textContent = "PART " + L.pos + " OF " + (LESSON.length - 1);
-    const em = document.createElement("div"); em.className = "hh-emoji"; em.textContent = p.icon;
-    const h = document.createElement("h2"); h.textContent = p.name;
-    const how = document.createElement("p"); how.textContent = p.how;
-    card.append(em, head, h, how);
-    head.style.marginTop = "14px";
-    if (L.prev){ const pr = document.createElement("div"); pr.className = "hh-prev"; pr.textContent = L.prev; card.append(pr); }
-    $("lGo").textContent = "Go";
-  }
+  const head = document.createElement("div"); head.className = "brand"; head.textContent = partLabel(); head.style.marginTop = "14px";
+  const em = document.createElement("div"); em.className = "hh-emoji"; em.textContent = p.icon;
+  const h = document.createElement("h2"); h.textContent = p.name;
+  const how = document.createElement("p"); how.textContent = p.how;
+  card.append(em, head, h, how);
+  if (L.prev){ const pr = document.createElement("div"); pr.className = "hh-prev"; pr.textContent = L.prev; card.append(pr); }
+  $("lGo").textContent = "Go";
   pop(card); go("sLesson");
 }
-$("lGo").addEventListener("click", () => {
-  const p = LESSON[L.pos];
-  if (p.k === "intro"){
-    if (L.mode === "single") return openStep();
-    sfx("good"); return advance("Intro watched");
-  }
-  launchGame(p.k);
-});
+/* Vimeo: hide the title/byline overlay so only the video shows */
+const embedUrl = p => p.type === "video" && /player\.vimeo\.com/.test(p.url) && !/[?&]title=/.test(p.url)
+  ? p.url + (p.url.includes("?") ? "&" : "?") + "title=0&byline=0&portrait=0&playsinline=1" : p.url;
+function renderEmbed(p){
+  paintBar("eBar", "eCount");
+  $("eSec").textContent = partLabel(); $("eName").textContent = p.name; $("eHow").textContent = p.how;
+  $("eOpen").href = embedUrl(p);
+  const box = $("eFrame"); box.className = "hh-frame" + (p.type === "video" ? " is-video" : "");
+  const f = document.createElement("iframe");
+  f.src = embedUrl(p); f.title = p.name; f.allowFullscreen = true; f.loading = "eager";
+  f.allow = "autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write" + (p.mic ? "; microphone" : "");
+  f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+  box.append(f);
+  $("eGo").textContent = L.mode === "single" ? "Done" : "Continue · +" + p.xp + " XP";
+  go("sEmbed");
+}
+$("lGo").addEventListener("click", () => launchGame(LESSON[L.pos].g));
 $("lQuit").addEventListener("click", () => { L = null; openStep(); });
+$("eQuit").addEventListener("click", () => { clearEmbed(); L = null; openStep(); });
+$("eGo").addEventListener("click", () => {
+  const p = LESSON[L.pos]; clearEmbed();
+  if (L.mode === "single"){ L = null; return openStep(); }
+  earn(p.xp); sfx("good");
+  advance(p.name + "  ·  +" + p.xp + " XP");
+});
+function earn(xp){ L.xp += xp; A.xp += xp; bumpStreak(); saveA(); }
 
 function launchGame(g){
   unlockAudio();
@@ -2281,7 +2366,7 @@ function launchGame(g){
 }
 function paintStrip(){
   if (!L) return;
-  $("hhStripTxt").textContent = L.mode === "single" ? "STEP 4 · PRACTICE" : "STEP 4 · PART " + L.pos + " OF " + (LESSON.length - 1);
+  $("hhStripTxt").textContent = partLabel();
   $("hhStripBar").style.width = Math.round(lessonFrac() * 100) + "%";
 }
 function advance(prev){
@@ -2318,20 +2403,20 @@ finish = function(title, big, sub, extra){
   if (!L) return gameFinish(title, big, sub, extra);
   const g = Number(current);
   const said = g === 6 ? len6 : g === 4 ? cards4.length : g === 5 ? o5.said.length : g === 8 ? EAR_ROUNDS : g === 7 ? (r7.served || 0) : 0;
-  L.said += said; L.xp += XP_GAME; A.xp += XP_GAME;
+  const part = LESSON[L.pos], xp = part.xp || 10;
+  L.said += said;
   if (!A.step4.done.includes(g)) A.step4.done.push(g);
-  bumpStreak(); saveA();
+  earn(xp);
   path = null; gameShow("home"); stopGame();     // the game's own cleanup (timers, mic), without its menu
   sfx("good");
-  const prev = title.replace(/!$/, "") + " · " + big + "  ·  +" + XP_GAME + " XP";
-  if (L.mode === "single") toast("+" + XP_GAME + " XP");
-  if (L.mode === "single"){ L = null; return openStep(); }
+  const prev = title.replace(/!$/, "") + " · " + big + "  ·  +" + xp + " XP";
+  if (L.mode === "single"){ toast("+" + xp + " XP"); L = null; return openStep(); }
   advance(prev);
 };
 
 /* ---------- boot ---------- */
 booted = true;
-if (A.gender){ syncGameSettings(); paintHome(); } else openOnb(false);
+if (A.gender && A.mode){ syncGameSettings(); paintHome(); } else openOnb(false);
 
 if ("serviceWorker" in navigator){
   window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
