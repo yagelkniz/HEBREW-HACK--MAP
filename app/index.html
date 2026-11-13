@@ -363,13 +363,17 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 .hh-embed{height:100dvh;min-height:0;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 12px)}
 .hh-ehead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
 .hh-ehead b{display:block;font-size:20px;font-weight:900;line-height:1.2;margin-top:2px}
-.hh-full{flex:none;min-height:36px;display:inline-flex;align-items:center;padding:6px 12px;border-radius:99px;border:1.5px solid var(--divider);
+.hh-full{flex:none;min-height:36px;background:transparent;font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;padding:6px 12px;border-radius:99px;border:1.5px solid var(--divider);
   color:var(--cream);text-decoration:none;font-weight:700;font-size:13px}
 .hh-ehow{color:var(--cream-dim);font-size:14px;line-height:1.4;margin-top:6px}
 .hh-frame{flex:1;min-height:0;margin-top:10px;border-radius:16px;overflow:hidden;background:var(--green-deep);position:relative;
   margin-left:-8px;margin-right:-8px}
 .hh-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
-.hh-frame.is-video{flex:none;aspect-ratio:16/9;margin-top:auto;margin-bottom:auto}
+/* video: edge to edge (no side bars), 16:9, as big as the width allows, centred in the free height */
+.hh-frame.is-video{flex:none;aspect-ratio:16/9;margin-top:auto;margin-bottom:auto;border-radius:0;
+  margin-left:calc(-1 * max(16px, env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px, env(safe-area-inset-right,0px)));
+  max-height:calc(100dvh - 230px)}
+@media (orientation:landscape){ .hh-frame.is-video{aspect-ratio:auto;flex:1;margin-left:0;margin-right:0;border-radius:16px;max-height:none} }
 .hh-frame.is-video iframe{background:#000}
 .hh-ego{padding-top:10px}
 .hh-sec{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--coral);margin:10px 0 0 4px}
@@ -387,6 +391,27 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 .hh-mode button[aria-pressed="true"]{border-color:var(--coral);background:rgba(255,111,165,.14)}
 .hh-mode button[aria-pressed="true"] .hh-mode-demo{color:var(--cream)}
 .hh-mode button:active,.hh-gender button:active{transform:scale(.98)}
+
+/* in-app full screen layer (all embed cards) */
+.hh-noscroll{overflow:hidden}
+.hh-frame.is-full{position:fixed;inset:0;margin:0;border-radius:0;z-index:60;background:#000;aspect-ratio:auto;max-height:none;width:100vw;height:100dvh}
+.hh-frame.is-full iframe{top:calc(env(safe-area-inset-top,0px) + 58px);left:env(safe-area-inset-left,0px);right:env(safe-area-inset-right,0px);
+  bottom:env(safe-area-inset-bottom,0px);
+  width:calc(100vw - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px));
+  height:calc(100dvh - env(safe-area-inset-top,0px) - 58px - env(safe-area-inset-bottom,0px))}
+/* videos in full screen: the iframe itself is exactly 16:9 (no empty bands), centred */
+.hh-frame.is-full.is-video iframe{top:50%;left:50%;right:auto;bottom:auto;transform:translate(-50%,-50%);
+  width:min(100vw, calc((100dvh - 120px) * 16 / 9));height:calc(min(100vw, calc((100dvh - 120px) * 16 / 9)) * 9 / 16)}
+@media (orientation:portrait){
+  /* turned sideways: long side along the phone's height */
+  .hh-frame.is-full.is-video.rot iframe{width:min(calc(100dvh - 120px), calc(100vw * 16 / 9));height:calc(min(calc(100dvh - 120px), calc(100vw * 16 / 9)) * 9 / 16);
+    transform:translate(-50%,-50%) rotate(90deg);transform-origin:center}
+}
+.hh-fbtn{position:fixed;z-index:61;top:calc(env(safe-area-inset-top,0px) + 8px);width:44px;height:44px;border-radius:50%;
+  border:2px solid rgba(244,241,232,.5);background:rgba(23,58,45,.85);color:var(--cream);font-size:20px;font-weight:800;cursor:pointer}
+.hh-fclose{right:calc(env(safe-area-inset-right,0px) + 12px)}
+.hh-frot{left:calc(env(safe-area-inset-left,0px) + 12px)}
+.hh-frame.is-full.is-video iframe{background:#000}
 </style>
 </head>
 <body>
@@ -451,10 +476,12 @@ body{min-height:100dvh;overscroll-behavior-y:none}
     <div class="bar"><i id="eBar"></i></div><div class="count" id="eCount"></div></div>
   <div class="hh-ehead">
     <div><div class="brand" id="eSec"></div><b id="eName"></b></div>
-    <a class="hh-full" id="eOpen" href="#" target="_blank" rel="noopener">⤢ Full screen</a>
+    <button class="hh-full" id="eFull" type="button">⤢ Full screen</button>
   </div>
   <p class="hh-ehow" id="eHow"></p>
   <div class="hh-frame" id="eFrame"></div>
+  <button class="hh-fbtn hh-fclose" id="eClose" type="button" aria-label="Close full screen" hidden>✕</button>
+  <button class="hh-fbtn hh-frot" id="eRot" type="button" aria-label="Turn the video" hidden>↻</button>
   <div class="hh-ego"><button class="btn" id="eGo" type="button">Continue</button></div>
 </div>
 
@@ -2313,7 +2340,7 @@ function paintBar(barId, countId){
   $(barId).style.width = Math.round(lessonFrac() * 100) + "%";
   if (countId) $(countId).textContent = (L.pos + 1) + "/" + LESSON.length;
 }
-function clearEmbed(){ const box = $("eFrame"); if (box) box.innerHTML = ""; }   // stops video/mic when the card is left
+function clearEmbed(){ closeFull(); const box = $("eFrame"); if (box) box.innerHTML = ""; }   // stops video/mic when the card is left
 function renderCard(){
   const p = LESSON[L.pos];
   clearEmbed();
@@ -2330,17 +2357,26 @@ function renderCard(){
   $("lGo").textContent = "Go";
   pop(card); go("sLesson");
 }
-/* Vimeo: hide the title/byline overlay so only the video shows */
-const embedUrl = p => p.type === "video" && /player\.vimeo\.com/.test(p.url) && !/[?&]title=/.test(p.url)
-  ? p.url + (p.url.includes("?") ? "&" : "?") + "title=0&byline=0&portrait=0&playsinline=1" : p.url;
+/* Vimeo: captions on (the videos have English subtitles; texttrack=false in the old Systeme URLs switched them off),
+   no title/byline overlay, inline on iPhone with Vimeo's own fullscreen button still available */
+const VIMEO_TEXTTRACK = "en";
+function embedUrl(p){
+  if (!/player\.vimeo\.com/.test(p.url)) return p.url;
+  const u = new URL(p.url);
+  u.searchParams.set("texttrack", VIMEO_TEXTTRACK);
+  [["title","0"],["byline","0"],["portrait","0"],["playsinline","1"]].forEach(([k, v]) => { if (!u.searchParams.has(k)) u.searchParams.set(k, v); });
+  return u.toString();
+}
+const FRAME_ALLOW = "autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write";
 function renderEmbed(p){
+  closeFull();
   paintBar("eBar", "eCount");
   $("eSec").textContent = partLabel(); $("eName").textContent = p.name; $("eHow").textContent = p.how;
-  $("eOpen").href = embedUrl(p);
   const box = $("eFrame"); box.className = "hh-frame" + (p.type === "video" ? " is-video" : "");
   const f = document.createElement("iframe");
-  f.src = embedUrl(p); f.title = p.name; f.allowFullscreen = true; f.loading = "eager";
-  f.allow = "autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write" + (p.mic ? "; microphone" : "");
+  f.src = embedUrl(p); f.title = p.name; f.loading = "eager";
+  f.allow = FRAME_ALLOW + (p.mic ? "; microphone" : "");
+  f.allowFullscreen = true; f.setAttribute("allowfullscreen", ""); f.setAttribute("webkitallowfullscreen", ""); f.setAttribute("mozallowfullscreen", "");
   f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
   box.append(f);
   $("eGo").textContent = L.mode === "single" ? "Done" : "Continue · +" + p.xp + " XP";
@@ -2388,6 +2424,41 @@ function complete(){
   L = null;
 }
 $("cHome").addEventListener("click", () => paintHome());
+
+/* ---------- in-app full screen for any embed card ----------
+   The frame box itself becomes a fixed layer over the whole screen, so the iframe is not moved or reloaded:
+   a video keeps playing, a game keeps its place. Works on iPhone Safari (no Fullscreen API needed there);
+   where the Fullscreen API exists (Android, desktop, iPad) the layer also asks for real full screen. */
+const isPortrait = () => matchMedia("(orientation: portrait)").matches;
+function openFull(){
+  const box = $("eFrame"); if (!box.firstChild || box.classList.contains("is-full")) return;
+  box.classList.add("is-full");
+  // portrait phone + video: turn the player sideways so it uses the whole screen (tap ↻ to undo)
+  box.classList.toggle("rot", box.classList.contains("is-video") && isPortrait());
+  document.body.classList.add("hh-noscroll");
+  $("eClose").hidden = false; $("eRot").hidden = !box.classList.contains("is-video");
+  try{
+    // ask for it on the whole card screen, so the ✕ and ↻ buttons stay above the frame in the browser's top layer
+    const host = $("sEmbed"), req = host.requestFullscreen || host.webkitRequestFullscreen;
+    if (req && !document.fullscreenElement){ const r = req.call(host); if (r && r.catch) r.catch(() => {}); }
+  }catch(e){}
+  sfx("tap");
+}
+function closeFull(){
+  const box = $("eFrame"); if (!box) return;
+  const was = box.classList.contains("is-full");
+  box.classList.remove("is-full", "rot");
+  document.body.classList.remove("hh-noscroll");
+  $("eClose").hidden = true; $("eRot").hidden = true;
+  if (was){ try{ if (document.fullscreenElement) document.exitFullscreen(); else if (document.webkitFullscreenElement) document.webkitExitFullscreen(); }catch(e){} }
+}
+$("eFull").addEventListener("click", openFull);
+$("eClose").addEventListener("click", () => { closeFull(); sfx("tap"); });
+$("eRot").addEventListener("click", () => { $("eFrame").classList.toggle("rot"); sfx("tap"); });
+["fullscreenchange", "webkitfullscreenchange"].forEach(ev => document.addEventListener(ev, () => {
+  if (!document.fullscreenElement && !document.webkitFullscreenElement && $("eFrame").classList.contains("is-full")) closeFull();
+}));
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeFull(); });
 
 /* ---------- hooks into the game script ---------- */
 const gameShow = show, gameFinish = finish;
