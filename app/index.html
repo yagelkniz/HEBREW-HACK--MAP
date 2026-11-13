@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HEBREW HACK</title>
+<meta name="description" content="HEBREW HACK: speak Hebrew out loud in short steps.">
+<meta name="theme-color" content="#1E4A3A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="HEBREW HACK">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="fonts.css">
+<style>
+  :root{
+    --green:#1E4A3A; --green-deep:#173A2D; --green-soft:#2A5E4B;
+    --cream:#F4F1E8; --cream-dim:rgba(244,241,232,.68); --line:rgba(244,241,232,.22);
+    --coral:#FF6FA5;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{background:var(--green);color:var(--cream);display:flex;justify-content:center;
+    font-family:"Noto Sans Hebrew",system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+  main{width:100%;max-width:480px;min-height:100%;padding-block:18px 20px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column}
+  section{flex:1;display:flex;flex-direction:column}
+  [hidden]{display:none!important}
+  button{font-family:inherit;cursor:pointer}
+  button:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+  .brand{font-size:12px;letter-spacing:.18em;font-weight:800;color:var(--coral)}
+  h1{font-size:28px;font-weight:800;line-height:1.15;margin-top:6px}
+  .sub{color:var(--cream-dim);font-size:15px;margin-top:4px;line-height:1.45}
+  .label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-dim);margin:16px 0 8px}
+  .seg{display:flex;gap:8px}
+  .seg button{flex:1;min-height:46px;border-radius:12px;border:1.5px solid var(--line);background:transparent;
+    color:var(--cream);font-weight:600;font-size:15px;padding:6px 8px}
+  .seg button[aria-pressed="true"]{background:var(--cream);color:var(--green);border-color:var(--cream)}
+  .btn{min-height:54px;border-radius:16px;border:0;font-weight:800;font-size:17px;background:var(--coral);
+    color:var(--green-deep);width:100%;padding:10px 14px}
+  .btn.ghost{background:transparent;color:var(--cream);border:1.5px solid var(--line)}
+  .btn:active,.game:active,.tile:active{transform:scale(.98)}
+  .btn:disabled{opacity:.45}
+  .push{margin-top:auto;padding-top:16px}
+  .row{display:flex;gap:10px;margin-top:12px}
+  .row .btn{flex:1}
+
+  /* home */
+  .game{display:block;width:100%;text-align:left;margin-top:10px;padding:14px 16px;border-radius:16px;
+    background:var(--green-soft);border:1.5px solid transparent;color:var(--cream)}
+  .game b{display:block;font-size:19px;font-weight:800}
+  .game span{display:block;font-size:14px;color:var(--cream-dim);margin-top:3px;line-height:1.4}
+  .game em{font-style:normal;color:var(--coral);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  .mic{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--cream-dim)}
+  .mic button{min-height:40px;padding:6px 14px;border-radius:99px;border:1.5px solid var(--line);background:transparent;color:var(--cream);font-weight:600}
+  .mic button[aria-pressed="true"]{background:var(--coral);border-color:var(--coral);color:var(--green-deep)}
+
+  /* shared play */
+  .top{display:flex;align-items:center;gap:10px}
+  .back{min-width:44px;min-height:44px;border-radius:12px;border:1.5px solid var(--line);background:transparent;color:var(--cream);font-size:18px}
+  .bar{flex:1;height:8px;border-radius:99px;background:var(--green-deep);overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:var(--coral);border-radius:99px;transition:width .35s}
+  .count{font-size:13px;color:var(--cream-dim);min-width:44px;text-align:right;font-variant-numeric:tabular-nums}
+  .card{flex:1;margin-top:14px;background:var(--green-soft);border-radius:22px;padding:20px 16px;display:flex;
+    flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:300px}
+  .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);font-weight:800}
+  .en{font-size:26px;font-weight:800;line-height:1.2;margin-top:8px}
+  .hint{font-size:14px;color:var(--cream-dim);margin-top:4px;min-height:18px}
+  .he{font-size:36px;font-weight:800;line-height:1.7;direction:rtl}
+  .tr{font-size:19px;color:var(--cream-dim);margin-top:2px}
+  .speak-track .tr{font-size:30px;font-weight:800;color:var(--cream);line-height:1.3}
+  .speak-track .he{display:none}
+  .pill{margin:12px 4px 0;min-height:44px;padding:8px 16px;border-radius:99px;border:1.5px solid var(--line);
+    background:transparent;color:var(--cream);font-weight:600;font-size:15px}
+  .pop{animation:pop .28s ease-out}
+  @keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .shake{animation:shake .3s}
+  @keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  @media (prefers-reduced-motion:reduce){.pop,.shake{animation:none}.bar i{transition:none}}
+
+  /* game 1 */
+  .ring{position:relative;width:116px;height:116px;margin:16px auto 6px}
+  .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .ring circle{fill:none;stroke-width:9}
+  .ring .bg{stroke:var(--green-deep)} .ring .fg{stroke:var(--coral);stroke-linecap:round}
+  .ring span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800}
+  .say{font-size:16px;font-weight:600}
+  .recdot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--coral);margin-right:6px;animation:blink 1s infinite}
+  @keyframes blink{50%{opacity:.25}}
+
+  /* game 2 */
+  .slots{width:100%;min-height:74px;margin-top:16px;padding:10px;border-radius:14px;border:1.5px dashed var(--line);
+    display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center}
+  .slots.ok{border-style:solid;border-color:var(--coral)}
+  .bank{width:100%;margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .rtl{direction:rtl}
+  .tile{min-height:50px;padding:6px 14px;border-radius:12px;border:0;background:var(--cream);color:var(--green);font-weight:800;font-size:19px}
+  .tile.heb{font-size:24px;line-height:1.6}
+  .tile[disabled]{opacity:.22}
+  .msg{min-height:22px;margin-top:12px;font-size:15px;font-weight:600}
+
+  /* game 3 */
+  .who{display:flex;gap:10px;margin-top:12px}
+  .who button{flex:1;min-height:92px;border-radius:18px;border:1.5px solid var(--line);background:transparent;color:var(--cream);font-weight:800;font-size:20px}
+  .who button small{display:block;font-weight:400;font-size:13px;color:var(--cream-dim);margin-top:2px}
+  .who button.right{background:var(--coral);border-color:var(--coral);color:var(--green-deep)}
+  .who button.right small{color:var(--green-deep)}
+  .who button.wrong{opacity:.35}
+  .verb.mark{color:var(--coral)}
+  .streak{font-size:14px;color:var(--cream-dim);margin-top:10px;min-height:20px}
+
+  /* game 4 */
+  .base{font-size:17px;color:var(--cream-dim);margin-top:10px;min-height:24px;line-height:1.6}
+  .cue{font-size:25px;font-weight:800;color:var(--coral);margin-top:10px;line-height:1.2}
+
+  /* game 5 */
+  .chat{width:100%;display:flex;flex-direction:column;gap:12px}
+  .bub{max-width:90%;padding:10px 14px;border-radius:16px}
+  .bub small{display:block;font-size:12px;color:var(--cream-dim);letter-spacing:.08em;text-transform:uppercase}
+  .bub.them{align-self:flex-start;text-align:left;background:var(--green-deep)}
+  .bub.me{align-self:flex-end;text-align:right;border:1.5px solid var(--coral)}
+  .bub .he{font-size:26px}
+  .bub .tr{font-size:17px}
+  .speak-track .bub .tr{font-size:22px}
+  .chat .cue{align-self:center;font-size:18px;margin-top:0;line-height:1.35}
+
+  .nogloss #g5qen,.nogloss #g5aen,.nogloss .g5en{display:none}
+  .map{width:100%;max-width:340px;margin-top:14px}
+  .nomap .map{display:none}
+  .map .edge{stroke:var(--line);stroke-width:1.5}
+  .map .edge.taken{stroke:var(--coral);stroke-width:2.5}
+  .map .mp rect{fill:var(--green-soft);stroke:var(--line);stroke-width:1.2}
+  .map .mp text{fill:var(--cream-dim);font-size:11px;font-weight:600}
+  .map .mp.seen rect{stroke:var(--coral)}
+  .map .mp.seen text{fill:var(--cream)}
+  .map .mp.cur rect{fill:var(--coral);stroke:var(--coral)}
+  .map .mp.cur text{fill:var(--green-deep)}
+
+  /* game 6 */
+  .dots{font-size:34px;letter-spacing:.3em;color:var(--coral);margin-top:18px;line-height:1.7}
+  .level{font-size:13px;color:var(--cream-dim);margin-top:6px}
+
+  .tile.sel{box-shadow:0 0 0 3px var(--coral)}
+
+  /* game 5: café order */
+  .opts{display:flex;flex-direction:column;gap:8px;width:100%}
+  .opt{display:flex;align-items:center;gap:12px;min-height:54px;padding:8px 14px;border-radius:14px;border:1.5px solid var(--line);
+    background:transparent;color:var(--cream);font-weight:800;font-size:17px;text-align:left}
+  .opt span{font-size:24px}
+  .opt b{display:block;font-size:19px;line-height:1.5}
+  .opt small{display:block;font-weight:400;font-size:13px;color:var(--cream-dim)}
+  .opt:active{transform:scale(.98)}
+  #g5say{width:100%}
+  .fuse{height:6px;border-radius:99px;background:var(--green-deep);overflow:hidden;margin-top:12px}
+  .fuse i{display:block;height:100%;background:var(--coral);transform-origin:left}
+  .fuse.run i{animation:fuse 4.5s linear forwards}
+  @keyframes fuse{to{transform:scaleX(0)}}
+  .ticket{margin-top:12px;background:var(--cream);color:var(--green);border-radius:14px;padding:12px 14px}
+  .ticket b{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  .ticket ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .ticket li{border:1.5px solid var(--green-soft);padding:3px 10px;border-radius:99px;font-weight:600;font-size:16px;line-height:1.6}
+  .ticket p{font-size:14px;margin-top:6px;opacity:.75}
+  @media (prefers-reduced-motion:no-preference){ .ticket li:last-child{animation:pop .3s ease-out} }
+
+  .words{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-top:10px}
+  .word{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:58px;padding:6px 12px;border-radius:12px;
+    border:1.5px solid var(--line);background:transparent;color:var(--cream);text-align:left}
+  .word b{font-size:19px;font-weight:800;line-height:1.5}
+  .word small{font-size:13px;color:var(--cream-dim)}
+  .word:active{transform:scale(.98)}
+
+  /* game 7: rush hour */
+  .stack{width:100%;display:flex;flex-direction:column;align-items:center}
+  .ord{font-size:20px;font-weight:800;line-height:1.3;margin-top:2px}
+  .hearts{color:var(--coral);min-width:64px;font-size:15px}
+  .scene{position:relative;width:100%;height:132px;border-radius:16px;overflow:hidden;background:var(--green-deep);flex:none}
+  .scene .sign{position:absolute;top:9px;left:12px;font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--coral)}
+  .scene .clock{position:absolute;top:7px;right:12px;font-size:13px;font-weight:800;color:var(--cream);font-variant-numeric:tabular-nums}
+  .scene .door{position:absolute;right:14px;bottom:30px;width:38px;height:72px;border:2px solid var(--line);border-bottom:0;border-radius:19px 19px 0 0}
+  .scene .barista{position:absolute;left:14px;bottom:20px;width:70px;height:70px;object-fit:cover;border-radius:50%}
+  .scene .counter{position:absolute;left:0;right:0;bottom:0;height:30px;background:var(--cream);border-top:4px solid var(--coral)}
+  .scene .walker{position:absolute;right:74px;bottom:24px;font-size:46px;line-height:1}
+  .scene .cup{position:absolute;right:130px;bottom:22px;font-size:24px;line-height:1}
+  @media (prefers-reduced-motion:no-preference){
+    .walker.in{animation:walkIn .55s ease-out}
+    .walker.out{animation:walkOut .45s ease-in .45s forwards}
+    @keyframes walkIn{0%{transform:translateX(70px);opacity:0}40%{transform:translateX(40px) translateY(-5px);opacity:1}70%{transform:translateX(15px) translateY(0)}85%{transform:translateY(-4px)}100%{transform:none}}
+    @keyframes walkOut{to{transform:translateX(70px);opacity:0}}
+    .cup.slide{animation:cupSlide .45s cubic-bezier(.2,.8,.3,1)}
+    @keyframes cupSlide{from{transform:translateX(-120px);opacity:0}}
+    .tile.land{animation:pop .2s ease-out}
+  }
+
+  /* game 8: by ear */
+  .bigplay{width:92px;height:92px;border-radius:50%;border:0;background:var(--coral);font-size:38px;margin-top:14px}
+  .bigplay:active{transform:scale(.96)}
+  .picks{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;width:100%;margin-top:8px}
+  .pick{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:62px;min-height:62px;padding:6px;
+    border-radius:14px;border:1.5px solid var(--line);background:transparent;font-size:24px;line-height:1;color:var(--cream)}
+  .pick small{font-size:11px;font-weight:600;line-height:1.2;color:var(--cream-dim)}
+  #g8main{gap:6px;flex-wrap:nowrap}
+  #g8main .pick{min-width:0;flex:1;padding:6px 2px}
+  .pick[aria-pressed="true"] small{color:var(--green)}
+  .pick.right small{color:var(--green-deep)}
+  .pick[aria-pressed="true"]{background:var(--cream);border-color:var(--cream)}
+  .pick.right{background:var(--coral);border-color:var(--coral)}
+
+  .name{width:100%;min-height:48px;border-radius:12px;border:1.5px solid var(--line);background:transparent;color:var(--cream);
+    font-family:inherit;font-weight:600;font-size:16px;padding:0 14px}
+  .name::placeholder{color:var(--cream-dim);font-weight:400}
+  .name:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+
+  /* lesson path */
+  .steps{display:flex;gap:8px;margin-top:22px}
+  .steps i{flex:1;height:8px;border-radius:99px;background:var(--green-deep)}
+  .steps i.did{background:var(--coral)}
+  .steps i.now{background:var(--cream)}
+
+  /* brand + reactions */
+  .logo{display:block;width:100%;height:auto;border-radius:16px}
+  .avatar{display:block;width:120px;height:auto;border-radius:20px}
+  .toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top, 0px) + 14px);transform:translateX(-50%);z-index:30;
+    background:var(--coral);color:var(--green-deep);font-weight:800;font-size:16px;padding:8px 18px;border-radius:99px;pointer-events:none}
+  .confetti{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:20}
+  .confetti i{position:absolute;top:-16px;width:9px;height:14px;border-radius:2px}
+  @media (prefers-reduced-motion:no-preference){
+    .bounce{animation:bounce .38s ease-out}
+    @keyframes bounce{35%{transform:scale(1.035)}70%{transform:scale(.99)}}
+    .nudge{animation:shake .3s}
+    .toast{animation:toast 1.5s ease-out forwards}
+    @keyframes toast{0%{opacity:0;transform:translate(-50%,-10px) scale(.8)}15%{opacity:1;transform:translate(-50%,0) scale(1.08)}25%{transform:translate(-50%,0) scale(1)}80%{opacity:1}100%{opacity:0}}
+    .confetti i{animation:fall var(--t) cubic-bezier(.2,.6,.4,1) var(--d) forwards}
+    @keyframes fall{to{transform:translate(var(--x),105vh) rotate(var(--r));opacity:.9}}
+    .avatar.hello{animation:hello .7s ease-out}
+    @keyframes hello{0%{transform:scale(.6) rotate(-10deg);opacity:0}60%{transform:scale(1.08) rotate(4deg);opacity:1}100%{transform:none}}
+  }
+  @media (prefers-reduced-motion:reduce){.confetti{display:none}}
+
+  /* done */
+  .big{font-size:64px;font-weight:800;color:var(--coral);line-height:1;margin-top:20px}
+
+/* ===== HEBREW HACK app shell (on top of the Magic Four game styles) ===== */
+:root{
+  --green:#1E4A3A; --green-soft:#26543F; --green-deep:#173A2D; --divider:#33604C;
+  --cream:#F4F1E8; --cream-dim:#9FB7AD; --line:#33604C; --coral:#FF6FA5;
+  --he:#9CC9F5; --she:#FFA8D2;
+}
+html{background:var(--green)}
+body{min-height:100dvh;overscroll-behavior-y:none}
+.he,.tile.heb,.bub .he,.hh-glyph,.hh-he{font-weight:900}
+#app{width:100%;max-width:480px;min-height:100dvh;display:flex;flex-direction:column}
+.screen{flex:1;display:flex;flex-direction:column;min-height:100dvh;
+  padding:calc(env(safe-area-inset-top,0px) + 14px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 18px) max(16px,env(safe-area-inset-left,0px))}
+#play{min-height:100dvh;padding-top:calc(env(safe-area-inset-top,0px) + 10px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 18px)}
+
+/* header */
+.hh-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.hh-brand{font-weight:900;font-size:20px;letter-spacing:.04em;color:var(--cream)}
+.hh-brand span{color:var(--coral)}
+.hh-stats{display:flex;align-items:center;gap:6px}
+.hh-chip{display:inline-flex;align-items:center;gap:4px;min-height:34px;padding:4px 10px;border-radius:99px;background:var(--green-soft);
+  border:1.5px solid var(--divider);font-weight:800;font-size:14px;font-variant-numeric:tabular-nums}
+.hh-icon{min-width:40px;min-height:40px;border-radius:12px;border:1.5px solid var(--divider);background:transparent;color:var(--cream);font-size:18px}
+.hh-hello{display:flex;align-items:center;gap:12px;margin-top:16px;padding:12px;border-radius:18px;background:var(--green-soft)}
+.hh-hello img{width:56px;height:56px;border-radius:50%;object-fit:cover;background:var(--green-deep);border:2px solid var(--coral)}
+.hh-hello b{display:block;font-size:18px;font-weight:800}
+.hh-hello small{display:block;color:var(--cream-dim);font-size:14px;margin-top:2px}
+
+/* path map */
+.hh-unit{margin-top:18px;padding:12px 16px;border-radius:16px;background:var(--coral);color:var(--green-deep)}
+.hh-unit small{display:block;font-size:12px;letter-spacing:.14em;font-weight:800}
+.hh-unit b{display:block;font-size:19px;font-weight:900}
+.hh-map{list-style:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:16px 0 24px;position:relative}
+.hh-map li{display:flex;flex-direction:column;align-items:center;width:170px;position:relative}
+.hh-node{position:relative;width:76px;height:76px;border-radius:50%;border:0;background:var(--green-soft);
+  box-shadow:0 6px 0 var(--green-deep);color:var(--cream-dim);display:flex;align-items:center;justify-content:center}
+.hh-node .hh-glyph{font-size:24px;line-height:1;direction:rtl;font-family:"Noto Sans Hebrew",sans-serif}
+.hh-node .hh-lock{position:absolute;right:-2px;bottom:-2px;width:28px;height:28px;border-radius:50%;background:var(--green-deep);
+  border:2px solid var(--divider);font-size:13px;display:flex;align-items:center;justify-content:center}
+.hh-node.live{background:var(--coral);color:var(--green-deep);box-shadow:0 6px 0 #c94f80}
+.hh-node.live:active{transform:translateY(4px);box-shadow:0 2px 0 #c94f80}
+.hh-node.done{background:var(--cream);color:var(--green);box-shadow:0 6px 0 #c9c4b3}
+.hh-ring{position:absolute;left:-14px;top:-14px;width:104px;height:104px;transform:rotate(-90deg);pointer-events:none}
+.hh-ring circle{fill:none;stroke-width:6}
+.hh-ring .bg{stroke:var(--divider)} .hh-ring .fg{stroke:var(--cream);stroke-linecap:round;transition:stroke-dashoffset .6s}
+.hh-cap{margin-top:12px;text-align:center}
+.hh-cap small{display:block;font-size:11px;letter-spacing:.14em;font-weight:800;color:var(--cream-dim)}
+.hh-cap b{display:block;font-size:15px;font-weight:800}
+.hh-cap em{display:block;font-style:normal;font-size:12px;color:var(--cream-dim);margin-top:1px}
+.hh-map li.is-live .hh-cap b{color:var(--cream)} .hh-map li.is-live .hh-cap em{color:var(--coral);font-weight:800}
+.hh-bubble{position:absolute;top:-38px;left:50%;transform:translateX(-50%);background:var(--cream);color:var(--green);font-weight:900;
+  font-size:13px;letter-spacing:.1em;padding:6px 12px;border-radius:10px;white-space:nowrap;z-index:2}
+.hh-bubble::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:var(--cream)}
+@media (prefers-reduced-motion:no-preference){ .hh-bubble{animation:hhFloat 1.6s ease-in-out infinite} }
+@keyframes hhFloat{50%{transform:translate(-50%,-4px)}}
+.hh-map li.is-live{margin-top:34px}
+.hh-note{text-align:center;color:var(--cream-dim);font-size:13px;margin-top:-10px}
+
+/* onboarding */
+.hh-onb h1{font-size:30px}
+.hh-gender{display:flex;gap:10px}
+.hh-gender button{flex:1;min-height:96px;border-radius:18px;border:2px solid var(--divider);background:var(--green-soft);color:var(--cream);
+  font-weight:800;font-size:17px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.hh-gender button .hh-he{font-size:28px;line-height:1.3;direction:rtl}
+.hh-gender button small{font-weight:600;font-size:12px;color:var(--cream-dim)}
+.hh-gender button[data-value="m"] .hh-he{color:var(--he)} .hh-gender button[data-value="f"] .hh-he{color:var(--she)}
+.hh-gender button[data-value="m"][aria-pressed="true"]{border-color:var(--he);background:rgba(156,201,245,.14)}
+.hh-gender button[data-value="f"][aria-pressed="true"]{border-color:var(--she);background:rgba(255,168,210,.14)}
+.hh-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding:12px 14px;border-radius:14px;background:var(--green-soft)}
+.hh-toggle span{font-size:15px;font-weight:600} .hh-toggle small{display:block;color:var(--cream-dim);font-weight:400;font-size:13px}
+.hh-switch{width:54px;height:32px;border-radius:99px;border:0;background:var(--divider);position:relative;flex:none}
+.hh-switch::after{content:"";position:absolute;top:4px;left:4px;width:24px;height:24px;border-radius:50%;background:var(--cream);transition:left .2s}
+.hh-switch[aria-checked="true"]{background:var(--coral)} .hh-switch[aria-checked="true"]::after{left:26px}
+
+/* step overview */
+.hh-hero{margin-top:14px;padding:18px 16px;border-radius:22px;background:var(--green-soft);text-align:center}
+.hh-hero .hh-he{font-size:30px;line-height:1.6;direction:rtl}
+.hh-hero p{color:var(--cream-dim);font-size:15px;margin-top:4px}
+.hh-parts{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.hh-part{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:16px;border:1.5px solid var(--divider);
+  background:transparent;color:var(--cream);text-align:left}
+.hh-part i{flex:none;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;
+  font-size:19px;background:var(--green-deep)}
+.hh-part b{display:block;font-size:16px;font-weight:800} .hh-part small{display:block;font-size:13px;color:var(--cream-dim);margin-top:1px}
+.hh-part.done i{background:var(--cream);color:var(--green)} .hh-part.next{border-color:var(--coral)} .hh-part.next i{background:var(--coral)}
+.hh-part[disabled]{opacity:.55;cursor:default}
+
+/* lesson card flow */
+.hh-lbar{display:flex;align-items:center;gap:10px}
+.hh-lbar .bar{height:14px;background:var(--green-deep)}
+.hh-lbar .bar i{background:var(--coral)}
+.hh-lcard{flex:1;margin-top:16px;border-radius:24px;background:var(--green-soft);padding:22px 16px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center}
+.hh-lcard .hh-emoji{font-size:56px;line-height:1}
+.hh-lcard h2{font-size:26px;font-weight:900;margin-top:10px;line-height:1.2}
+.hh-lcard p{color:var(--cream-dim);font-size:16px;line-height:1.45;margin-top:8px;max-width:330px}
+.hh-prev{margin-top:16px;padding:8px 14px;border-radius:99px;background:var(--green-deep);font-weight:800;font-size:14px;color:var(--cream)}
+.hh-video{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:var(--green-deep);margin-top:14px}
+.hh-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.hh-video .hh-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--cream-dim);font-size:14px}
+.hh-video .hh-ph b{font-size:40px;color:var(--coral)}
+
+/* lesson strip shown above each game */
+#hhStrip{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:12px;letter-spacing:.12em;font-weight:800;color:var(--cream-dim)}
+#hhStrip .bar{height:6px}
+
+/* completion */
+.hh-done{align-items:center;text-align:center;justify-content:center}
+.hh-done img{width:140px;border-radius:24px}
+.hh-done h1{font-size:32px;font-weight:900;margin-top:16px}
+.hh-xp{font-size:72px;font-weight:900;color:var(--coral);line-height:1;margin-top:18px;font-variant-numeric:tabular-nums}
+.hh-xp small{display:block;font-size:14px;letter-spacing:.14em;color:var(--cream-dim);margin-top:6px}
+.hh-tiles{display:flex;gap:10px;width:100%;margin-top:22px}
+.hh-tiles div{flex:1;padding:12px 8px;border-radius:16px;border:1.5px solid var(--divider)}
+.hh-tiles b{display:block;font-size:24px;font-weight:900} .hh-tiles small{font-size:12px;color:var(--cream-dim)}
+.hh-done .push{width:100%}
+.hh-sticky{position:sticky;top:0;z-index:5;background:var(--green);margin:calc(-1 * (env(safe-area-inset-top,0px) + 14px)) -16px 0;
+  padding:calc(env(safe-area-inset-top,0px) + 14px) 16px 10px}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- HOME: the path -->
+<div class="screen" id="sHome" hidden>
+  <header class="hh-top hh-sticky">
+    <div class="hh-brand">HEBREW <span>HACK</span></div>
+    <div class="hh-stats">
+      <span class="hh-chip" id="hStreak" title="Days in a row">🔥 0</span>
+      <span class="hh-chip" id="hXp" title="XP">⚡ 0</span>
+      <button class="hh-icon" id="hSet" type="button" aria-label="Settings">⚙</button>
+    </div>
+  </header>
+  <div class="hh-hello"><img src="icons/avatar.webp" alt="" width="56" height="56">
+    <div><b id="hHi">Shalom!</b><small id="hSub">Short steps, out loud. Tap the glowing step.</small></div></div>
+  <div class="hh-unit"><small>LEVEL 1</small><b>First words and sentences</b></div>
+  <ol class="hh-map" id="hMap"></ol>
+  <p class="hh-note">More steps open here soon.</p>
+</div>
+
+<!-- ONBOARDING (once) / SETTINGS -->
+<div class="screen hh-onb" id="sOnb" hidden>
+  <div class="hh-brand">HEBREW <span>HACK</span></div>
+  <h1 id="oTitle" style="margin-top:18px">Welcome!</h1>
+  <p class="sub" id="oSub">Two quick things and you're in.</p>
+  <label class="label" for="oName" style="display:block">Your name</label>
+  <input class="name" id="oName" type="text" maxlength="20" autocomplete="given-name" placeholder="What should we call you?">
+  <div class="label">I speak as</div>
+  <div class="hh-gender" id="oGender">
+    <button type="button" data-value="m" aria-pressed="false"><span class="hh-he" lang="he">אֲנִי רוֹצֶה</span>He<small>ani rotze</small></button>
+    <button type="button" data-value="f" aria-pressed="false"><span class="hh-he" lang="he">אֲנִי רוֹצָה</span>She<small>ani rotza</small></button>
+  </div>
+  <p class="sub" style="font-size:13px;margin-top:8px">Hebrew verbs change with the speaker, so every sentence you say will match you.</p>
+  <div class="hh-toggle"><span>Show Hebrew letters<small>Off = sound-only cards (Pimsleur style)</small></span>
+    <button class="hh-switch" id="oRead" type="button" role="switch" aria-checked="true" aria-label="Show Hebrew letters"></button></div>
+  <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
+</div>
+
+<!-- STEP OVERVIEW -->
+<div class="screen" id="sStep" hidden>
+  <div class="hh-top"><button class="back" id="stBack" type="button" aria-label="Back to the path">←</button>
+    <div class="brand">STEP 4</div><span class="hh-chip" id="stXp">⚡ 0</span></div>
+  <h1 style="margin-top:12px">The Magic Four</h1>
+  <div class="hh-hero"><div class="hh-he" lang="he" dir="rtl">רוֹצֶה · יָכוֹל · צָרִיךְ · אוֹהֵב</div>
+    <p>want · can · need · love. One verb, then any sentence you like.</p></div>
+  <ol class="hh-parts" id="stParts"></ol>
+  <div class="push"><button class="btn" id="stGo" type="button">Start the lesson</button></div>
+</div>
+
+<!-- LESSON CARD (intro video and the card before each game) -->
+<div class="screen" id="sLesson" hidden>
+  <div class="hh-lbar"><button class="back" id="lQuit" type="button" aria-label="Leave the lesson">✕</button>
+    <div class="bar"><i id="lBar"></i></div><div class="count" id="lCount"></div></div>
+  <div class="hh-lcard pop" id="lCard"></div>
+  <div class="push"><button class="btn" id="lGo" type="button">Continue</button></div>
+</div>
+
+<!-- COMPLETE -->
+<div class="screen hh-done" id="sDone" hidden>
+  <img src="icons/avatar.webp" alt="" id="cAvatar">
+  <div class="brand" style="margin-top:14px">STEP 4 COMPLETE</div>
+  <h1 id="cTitle">Kol hakavod!</h1>
+  <div class="hh-xp" id="cXp">+0<small>XP EARNED</small></div>
+  <div class="hh-tiles">
+    <div><b id="cSaid">0</b><small>sentences said</small></div>
+    <div><b id="cTime">0:00</b><small>time</small></div>
+    <div><b id="cStreak">1</b><small>day streak</small></div>
+  </div>
+  <p class="sub" style="margin-top:16px">Say a few of them again tonight. Short and often is what makes it stick.</p>
+  <div class="push"><button class="btn" id="cHome" type="button">Back to the path</button></div>
+</div>
+
+</div>
+
+<main id="play" hidden>
+<div id="hhStrip"><span id="hhStripTxt">STEP 4</span><div class="bar"><i id="hhStripBar"></i></div></div>
+
+
+<!-- HOME -->
+<section id="home">
+  
+  <div class="brand" style="margin-top:14px">GAMES PILOT</div>
+  <h1>Step 4 · The Magic Four</h1>
+  <p class="sub">Want, can, need, love. One short lesson in three parts, all out loud.</p>
+
+  <div style="margin-top:18px">
+    <button class="btn" id="pathBtn" type="button">Start the lesson · about 4 min</button>
+    <p class="sub" style="text-align:center;margin-top:8px">Echo → Swap It → Café Order</p>
+    <div style="text-align:center"><button class="pill" id="setBtn" type="button">⚙ Settings</button></div>
+  </div>
+
+  <div class="label" style="margin-top:26px">Or practise one game</div>
+  <button class="game" type="button" data-game="6">
+    <em>memory</em><b>1 · Echo</b>
+    <span>A sentence flashes and disappears. Rebuild it from memory, then say it.</span>
+  </button>
+  <button class="game" type="button" data-game="4">
+    <em>grammar</em><b>2 · Swap It</b>
+    <span>Tap the word that has to change and pick the new one: I → she, coffee → pizza, make it negative.</span>
+  </button>
+  <button class="game" type="button" data-game="5">
+    <em>conversation</em><b>3 · Café Order</b>
+    <span>You get asked what you want. Pick it, say it in Hebrew, and watch your order build up.</span>
+  </button>
+  <button class="game" type="button" data-game="8">
+    <em>listening</em><b>4 · By Ear</b>
+    <span>No text at all. Listen to the order and tap the pictures of what they asked for.</span>
+  </button>
+  <button class="game" type="button" data-game="7">
+    <em>speed</em><b>5 · Rush Hour</b>
+    <span>The café opens at 8:00. Customers walk in and say what they want; you say it in Hebrew. It speeds up.</span>
+  </button>
+  <!-- retired from the menu (Say It First, Build It, Dana or Yoni): kept in the file, not shown -->
+  <div hidden>
+    <button class="game" type="button" data-game="1">Say It First</button>
+    <div class="mic"><button type="button" id="micBtn" aria-pressed="false">Record me</button><span id="micNote"></span></div>
+    <button class="game" type="button" data-game="2">Build It</button>
+    <button class="game" type="button" data-game="3">Dana or Yoni?</button>
+  </div>
+</section>
+
+<!-- GAME 1: SAY IT FIRST -->
+<section id="g1" hidden>
+  <div class="top"><button class="back" type="button" aria-label="Back to the lesson">←</button>
+    <div class="bar"><i id="g1bar"></i></div><div class="count" id="g1count"></div></div>
+  <div class="card" id="g1card">
+    <div class="tag" id="g1tag">Say in Hebrew</div>
+    <div class="en" id="g1en"></div>
+    <div class="hint" id="g1hint"></div>
+    <div id="g1think">
+      <div class="ring"><svg viewBox="0 0 116 116" aria-hidden="true">
+        <circle class="bg" cx="58" cy="58" r="48"/><circle class="fg" id="g1ring" cx="58" cy="58" r="48"/></svg>
+        <span id="g1num"></span></div>
+      <div class="say"><span class="recdot" id="g1rec" hidden></span>Say it out loud now</div>
+    </div>
+    <div id="g1ans" hidden aria-live="polite">
+      <div class="he" id="g1he" lang="he" dir="rtl"></div>
+      <div class="tr" id="g1tr"></div>
+      <button class="pill" id="g1me" type="button" hidden>▶ Hear me</button>
+      <button class="pill" id="g1listen" type="button">🔊 Hear the answer</button>
+    </div>
+  </div>
+  <div class="row" id="g1revealRow"><button class="btn ghost" id="g1reveal" type="button">Show answer</button></div>
+  <div class="row" id="g1rateRow" hidden>
+    <button class="btn ghost" id="g1no" type="button">Not yet</button>
+    <button class="btn" id="g1yes" type="button">I said it</button>
+  </div>
+</section>
+
+<!-- GAME 2: BUILD IT -->
+<section id="g2" hidden>
+  <div class="top"><button class="back" type="button" aria-label="Back to the lesson">←</button>
+    <div class="bar"><i id="g2bar"></i></div><div class="count" id="g2count"></div></div>
+  <div class="card" id="g2card">
+    <div class="tag">Build the sentence</div>
+    <div class="en" id="g2en"></div>
+    <div class="hint" id="g2hint"></div>
+    <div class="slots" id="g2slots" aria-label="Your sentence"></div>
+    <div class="bank" id="g2bank" aria-label="Word bank"></div>
+    <div class="msg" id="g2msg" aria-live="polite"></div>
+  </div>
+  <div class="row">
+    <button class="btn" id="g2check" type="button">Check</button>
+  </div>
+</section>
+
+<!-- GAME 3: DANA OR YONI -->
+<section id="g3" hidden>
+  <div class="top"><button class="back" type="button" aria-label="Back to the lesson">←</button>
+    <div class="bar"><i id="g3bar"></i></div><div class="count" id="g3count"></div></div>
+  <div class="card" id="g3card">
+    <div class="tag">Who said it?</div>
+    <div class="he" id="g3he" lang="he" dir="rtl" style="margin-top:10px"></div>
+    <div class="tr" id="g3tr"></div>
+    <button class="pill" id="g3listen" type="button">🔊 Hear it</button>
+    <div class="streak" id="g3streak" aria-live="polite"></div>
+  </div>
+  <div class="who">
+    <button type="button" id="g3m">Yoni<small>he</small></button>
+    <button type="button" id="g3f">Dana<small>she</small></button>
+  </div>
+</section>
+
+<!-- GAME 4: SWAP IT -->
+<section id="g4" hidden>
+  <div class="top"><button class="back" type="button" aria-label="Back to the lesson">←</button>
+    <div class="bar"><i id="g4bar"></i></div><div class="count" id="g4count"></div></div>
+  <div class="card" id="g4card">
+    <div class="tag">Change the sentence</div>
+    <div class="cue" id="g4cue"></div>
+    <div class="hint" id="g4en"></div>
+    <div class="slots" id="g4slots" aria-label="The sentence. Tap the word that has to change."></div>
+    <div class="hint" id="g4pick" style="margin-top:12px"></div>
+    <div class="bank" id="g4opts" style="margin-top:6px"></div>
+    <div class="msg" id="g4msg" aria-live="polite"></div>
+  </div>
+  <div class="row" id="g4afterRow" hidden>
+    <button class="btn ghost" id="g4hear" type="button">🔊 Hear it</button>
+    <button class="btn" id="g4next" type="button">Next</button>
+  </div>
+</section>
+
+<!-- GAME 5: CAFÉ ORDER -->
+<section id="g5" hidden>
+  <div class="top"><button class="back" type="button" aria-label="Back to the lesson">←</button>
+    <div class="bar"><i id="g5bar"></i></div><div class="count" id="g5count"></div></div>
+  <div class="card" id="g5card">
+    <div id="g5intro" style="width:100%">
+      <div class="tag" id="g5itag"></div>
+      <div class="en" id="g5ititle"></div>
+      <div id="g5welcome">
+        <div class="he" id="g5whe" lang="he" dir="rtl" style="font-size:28px;margin-top:6px"></div>
+        <div class="tr" id="g5wtr"></div>
+      </div>
+      <div class="hint" id="g5ihint" style="margin-top:12px"></div>
+      <div class="words" id="g5words"></div>
+    </div>
+    <div class="chat" id="g5chat">
+      <div class="bub them" id="g5ask"><small id="g5who"></small>
+        <div class="he" id="g5qhe" lang="he" dir="rtl"></div><div class="tr" id="g5qtr"></div>
+        <small id="g5qen" style="text-transform:none;letter-spacing:0;margin-top:4px"></small></div>
+      <div class="opts" id="g5opts"></div>
+      <div id="g5say" hidden>
+        <div class="cue" id="g5cue"></div>
+        <div class="fuse" id="g5fuse"><i></i></div>
+      </div>
+      <div class="bub me" id="g5ansb" hidden aria-live="polite"><small>You</small>
+        <div class="he" id="g5ahe" lang="he" dir="rtl"></div><div class="tr" id="g5atr"></div>
+        <small id="g5aen" style="text-transform:none;letter-spacing:0;margin-top:4px"></small></div>
+      <div class="chat" id="g5final" hidden></div>
+    </div>
+    <button class="pill" id="g5gloss" type="button" aria-pressed="true">Translation: on</button>
+  </div>
+  <div class="ticket" id="g5ticket" aria-live="polite"></div>
+  <div class="row" id="g5startRow" hidden><button class="btn" id="g5start" type="button">Take my order</button></div>
+  <div class="row" id="g5showRow" hidden><button class="btn ghost" id="g5show" type="button">I said it, show me</button></div>
+  <div class="row" id="g5nextRow" hidden><button class="btn" id="g5next" type="button">Next</button></div>
+  <div class="row" id="g5doneRow" hidden><button class="btn" id="g5done" type="button">I said my whole order</button></div>
+</section>
+
+<!-- GAME 6: ECHO -->
+<section id="g6" hidden>
+  <div class="top"><button class="back" type="button" aria-label="Back to the lesson">←</button>
+    <div class="bar"><i id="g6bar"></i></div><div class="count" id="g6count"></div></div>
+  <div class="card" id="g6card">
+    <div class="tag" id="g6tag" aria-live="polite"></div>
+    <div class="level" id="g6level"></div>
+    <div id="g6sent" style="margin-top:10px">
+      <div class="he" id="g6he" lang="he" dir="rtl"></div>
+      <div class="tr" id="g6tr"></div>
+    </div>
+    <div class="hint" id="g6en"></div>
+    <div class="slots" id="g6slots" aria-label="Your sentence" hidden></div>
+    <div class="bank" id="g6bank" aria-label="Word bank" hidden></div>
+    <button class="pill" id="g6listen" type="button" hidden>🔊 Hear it</button>
+  </div>
+  <div class="row" id="g6againRow" hidden><button class="btn ghost" id="g6again" type="button">Flash it again</button></div>
+  <div class="row" id="g6nextRow" hidden><button class="btn" id="g6next" type="button">I said it · next</button></div>
+</section>
+
+<!-- GAME 7: RUSH HOUR -->
+<section id="g7" hidden>
+  <div class="top"><button class="back" type="button" aria-label="Back to the lesson">←</button>
+    <div class="bar"><i id="g7bar" style="transition:none"></i></div><div class="count hearts" id="g7count"></div></div>
+  <div class="card" id="g7card">
+    <div class="scene" aria-hidden="true">
+      <div class="sign">HEBREW HACK CAFÉ</div>
+      <div class="clock" id="g7clock">8:00</div>
+      <div class="door"></div>
+      <img class="barista" id="g7barista" alt="">
+      <div class="walker" id="g7face"></div>
+      <div class="counter"></div>
+      <div class="cup" id="g7cup" hidden></div>
+    </div>
+    <div class="stack" id="g7intro">
+      <div class="tag" style="margin-top:16px">8:00 in the morning</div>
+      <div class="en">The café is opening</div>
+      <p class="sub" id="g7story" style="font-size:16px;margin-top:10px"></p>
+    </div>
+    <div class="stack" id="g7play" hidden>
+      <div class="bub them" style="align-self:flex-end;margin-top:12px;max-width:100%"><small id="g7who"></small><div class="ord" id="g7ord"></div></div>
+      <div class="hint" id="g7tell" style="margin-top:10px"></div>
+      <div class="slots" id="g7slots" aria-label="Your sentence" aria-live="polite" style="margin-top:8px"></div>
+      <div class="bank" id="g7bank" aria-label="Word bank"></div>
+      <div class="msg" id="g7msg" aria-live="polite"></div>
+      <div class="streak" id="g7score"></div>
+    </div>
+  </div>
+  <div class="row" id="g7openRow"><button class="btn" id="g7open" type="button">Open the café</button></div>
+  <div class="row" id="g7afterRow" hidden>
+    <button class="btn ghost" id="g7hear" type="button">🔊 Hear it</button>
+    <button class="btn" id="g7nextBtn" type="button">Next customer</button>
+  </div>
+</section>
+
+<!-- GAME 8: BY EAR -->
+<section id="g8" hidden>
+  <div class="top"><button class="back" type="button" aria-label="Back to the lesson">←</button>
+    <div class="bar"><i id="g8bar"></i></div><div class="count" id="g8count"></div></div>
+  <div class="card" id="g8card">
+    <div class="tag" id="g8tag" aria-live="polite"></div>
+    <button class="bigplay" id="g8play" type="button" aria-label="Play the order again">🔊</button>
+    <button class="pill" id="g8slow" type="button">🐢 Slower</button>
+    <div class="hint" id="g8note" hidden></div>
+    <div id="g8sent" hidden style="margin-top:8px">
+      <div class="he" id="g8he" lang="he" dir="rtl"></div>
+      <div class="tr" id="g8tr"></div>
+      <div class="hint" id="g8en"></div>
+    </div>
+    <div class="label" style="margin-bottom:0">They want</div>
+    <div class="picks" id="g8main"></div>
+    <div class="label" style="margin-bottom:0">And</div>
+    <div class="picks" id="g8extra"></div>
+    <div class="msg" id="g8msg" aria-live="polite"></div>
+  </div>
+  <div class="row" id="g8nextRow" hidden><button class="btn" id="g8next" type="button">I said it · next</button></div>
+</section>
+
+<!-- SETUP: asked once before the first game, and reachable from Settings -->
+<!-- WORD INTRO: the café words, shown before Rush Hour and By Ear -->
+<section id="words" hidden>
+  <div class="top"><button class="back" type="button" aria-label="Back to the lesson">←</button>
+    <div class="bar"><i style="width:0"></i></div><div class="count"></div></div>
+  <div class="card" id="wcard">
+    <div class="tag" id="wtag">Before you start</div>
+    <div class="en" id="wtitle">The café words</div>
+    <div class="hint" style="margin-top:8px">Tap a word to hear it.</div>
+    <div class="words" id="wgrid"></div>
+  </div>
+  <div class="row"><button class="btn" id="wgo" type="button">I know them, let's go</button></div>
+</section>
+
+<section id="setup" hidden>
+  <div class="brand" id="setupTag">BEFORE WE START</div>
+  <h1 id="setupTitle">Two quick choices</h1>
+  <p class="sub">Hebrew verbs change with the speaker, so the games need to know. You can change this later in Settings.</p>
+
+  <div class="label">I'm speaking as</div>
+  <div class="seg" data-group="gender">
+    <button type="button" data-value="m">Yoni (he)</button>
+    <button type="button" data-value="f">Dana (she)</button>
+  </div>
+  <div class="label">I want to</div>
+  <div class="seg" data-group="track">
+    <button type="button" data-value="speak">Speak only</button>
+    <button type="button" data-value="read">Speak + Read</button>
+  </div>
+  <label class="label" for="nameInput" style="display:block">Your name (optional)</label>
+  <input class="name" id="nameInput" type="text" maxlength="20" autocomplete="given-name" placeholder="So the café knows who you are">
+  <div class="mic" style="margin-top:14px">
+    <button type="button" id="sndBtn" aria-pressed="true">🔔 Sounds</button>
+    <span id="sndNote">Chimes and taps are on.</span>
+  </div>
+  <div class="push"><button class="btn" id="setupGo" type="button">Let's go</button></div>
+</section>
+
+<!-- LESSON PATH: screen between parts -->
+<section id="stage" hidden>
+  <div class="brand" id="stPart"></div>
+  <h1 id="stName"></h1>
+  <p class="sub" id="stHow" style="font-size:17px;margin-top:10px"></p>
+  <div class="steps" id="stDots" aria-hidden="true"></div>
+  <div class="push">
+    <button class="btn" id="stageGo" type="button">Go</button>
+    <div class="row"><button class="btn ghost" id="stageQuit" type="button">Leave the lesson</button></div>
+  </div>
+</section>
+
+<!-- DONE -->
+<section id="done" hidden>
+  <img class="avatar" id="dAvatar" src="icons/avatar.webp" alt="" width="120">
+  <div class="brand" style="margin-top:12px">HEBREW HACK</div>
+  <h1 id="dTitle">Kol hakavod!</h1>
+  <div class="big" id="dBig"></div>
+  <p class="sub" id="dSub"></p>
+  <p class="sub" id="dExtra" style="margin-top:14px"></p>
+  <div class="push">
+    <button class="btn" id="dAgain" type="button">Play again</button>
+    <div class="row"><button class="btn ghost" id="dHome" type="button">Back to games</button></div>
+  </div>
+</section>
+
+
+</main>
+<script>
+/* =====================================================================
+   CONTENT — edit here. Keep the niqud exactly as typed.
+   audio: optional hosted MP3 URL per word-id sentence key (see AUDIO).
+   ===================================================================== */
+const LEX = {
+  ani:{he:"אֲנִי",tr:"ani"}, ata:{he:"אַתָּה",tr:"ata"}, at:{he:"אַתְּ",tr:"at"},
+  hu:{he:"הוּא",tr:"hu"}, hi:{he:"הִיא",tr:"hi"}, lo:{he:"לֹא",tr:"lo"}, ken:{he:"כֵּן",tr:"ken"},
+  rotze:{he:"רוֹצֶה",tr:"rotze"}, rotza:{he:"רוֹצָה",tr:"rotza"},
+  ohev:{he:"אוֹהֵב",tr:"ohev"}, ohevet:{he:"אוֹהֶבֶת",tr:"ohevet"},
+  tzarich:{he:"צָרִיךְ",tr:"tzarich"}, tzricha:{he:"צְרִיכָה",tr:"tzricha"},
+  yachol:{he:"יָכוֹל",tr:"yachol"}, yechola:{he:"יְכוֹלָה",tr:"yechola"},
+  kafe:{he:"קָפֶה",tr:"kafe"}, pitza:{he:"פִּיצָה",tr:"pitza"}, mayim:{he:"מַיִם",tr:"mayim"},
+  ledaber:{he:"לְדַבֵּר",tr:"ledaber"}, ivrit:{he:"עִבְרִית",tr:"ivrit"}, leechol:{he:"לֶאֱכֹל",tr:"le'echol"},
+  /* extra words used only in the café chat (game 5) */
+  chalav:{he:"חָלָב",tr:"chalav"}, sukar:{he:"סֻכָּר",tr:"sukar"}, te:{he:"תֵּה",tr:"te"}, uga:{he:"עוּגָה",tr:"uga"},
+  im:{he:"עִם",tr:"im"}, bli:{he:"בְּלִי",tr:"bli"}, od:{he:"עוֹד",tr:"od"},
+  chazak:{he:"חָזָק",tr:"chazak"}, chalash:{he:"חַלָּשׁ",tr:"chalash"},
+  gdola:{he:"גְּדוֹלָה",tr:"gdola"}, ktana:{he:"קְטַנָּה",tr:"ktana"},
+  yoni:{he:"יוֹנִי",tr:"Yoni"}, dana:{he:"דָּנָה",tr:"Dana"},
+  bruchim:{he:"בְּרוּכִים",tr:"bruchim"}, habaim:{he:"הַבָּאִים",tr:"haba'im"}, toda:{he:"תּוֹדָה",tr:"toda"}
+};
+
+/* Optional recorded audio. Key = word ids joined by "-", value = MP3 URL.
+   Example:  "ani-rotze-kafe": "https://your-host/ani-rotze-kafe.mp3"
+   Without a URL the game tries the device's Hebrew voice, or stays silent. */
+const AUDIO_BASE = "audio/";   // folder of the MP3s, relative to this file (or a full URL ending in "/")
+/* Questions get their own key ending in "?" (said with a rising tone). */
+/* eleven_v4 recordings: male = main voice, Café customer (male answers) = Itai, female = Maya. */
+const AUDIO = {
+  "ani-rotze": "ani-rotze.mp3",
+  "ani-rotze-kafe": "ani-rotze-kafe.mp3",
+  "ani-lo-rotze-kafe": "ani-lo-rotze-kafe.mp3",
+  "ani-rotze-leechol": "ani-rotze-leechol.mp3",
+  "ani-rotze-leechol-pitza": "ani-rotze-leechol-pitza.mp3",
+  "ani-lo-rotze-leechol-pitza": "ani-lo-rotze-leechol-pitza.mp3",
+  "ani-ohev-ledaber-ivrit": "ani-ohev-ledaber-ivrit.mp3",
+  "ani-lo-yachol-ledaber-ivrit": "ani-lo-yachol-ledaber-ivrit.mp3",
+  "ani-rotze-pitza": "ani-rotze-pitza.mp3",
+  "ani-lo-rotze-pitza": "ani-lo-rotze-pitza.mp3",
+  "hi-lo-rotza-pitza": "hi-lo-rotza-pitza.mp3",
+  "hi-lo-ohevet-pitza": "hi-lo-ohevet-pitza.mp3",
+  "hi-ohevet-pitza": "hi-ohevet-pitza.mp3",
+  "hu-ohev-pitza": "hu-ohev-pitza.mp3",
+  "hu-rotze-pitza": "hu-rotze-pitza.mp3",
+  "hu-rotze-mayim": "hu-rotze-mayim.mp3",
+  "hu-tzarich-mayim": "hu-tzarich-mayim.mp3",
+  "ani-tzarich-mayim": "ani-tzarich-mayim.mp3",
+  "hi-yechola-ledaber-ivrit": "hi-yechola-ledaber-ivrit.mp3",
+  "hi-lo-yechola-ledaber-ivrit": "hi-lo-yechola-ledaber-ivrit.mp3",
+  "hi-lo-rotza-ledaber-ivrit": "hi-lo-rotza-ledaber-ivrit.mp3",
+  "hi-lo-rotza-leechol-pitza": "hi-lo-rotza-leechol-pitza.mp3",
+  "hu-lo-rotze-leechol-pitza": "hu-lo-rotze-leechol-pitza.mp3",
+  "hu-rotze-leechol-pitza": "hu-rotze-leechol-pitza.mp3",
+  "ata-rotze-kafe?": "ata-rotze-kafe_q.mp3",
+  "ken-ani-rotze-kafe": "ken-ani-rotze-kafe.mp3",
+  "lo-ani-rotze-te": "lo-ani-rotze-te.mp3",
+  "lo-ani-rotze-mayim": "lo-ani-rotze-mayim.mp3",
+  "ata-rotze-kafe-im-chalav?": "ata-rotze-kafe-im-chalav_q.mp3",
+  "ken-ani-rotze-kafe-im-chalav": "ken-ani-rotze-kafe-im-chalav.mp3",
+  "lo-ani-rotze-kafe-bli-chalav": "lo-ani-rotze-kafe-bli-chalav.mp3",
+  "ata-rotze-te-im-chalav?": "ata-rotze-te-im-chalav_q.mp3",
+  "ken-ani-rotze-te-im-chalav": "ken-ani-rotze-te-im-chalav.mp3",
+  "lo-ani-rotze-te-bli-chalav": "lo-ani-rotze-te-bli-chalav.mp3",
+  "ata-ohev-kafe-chazak?": "ata-ohev-kafe-chazak_q.mp3",
+  "ken-ani-ohev-kafe-chazak": "ken-ani-ohev-kafe-chazak.mp3",
+  "lo-ani-ohev-kafe-chalash": "lo-ani-ohev-kafe-chalash.mp3",
+  "ata-tzarich-sukar?": "ata-tzarich-sukar_q.mp3",
+  "ken-ani-tzarich-sukar": "ken-ani-tzarich-sukar.mp3",
+  "lo-ani-lo-tzarich-sukar": "lo-ani-lo-tzarich-sukar.mp3",
+  "ata-rotze-leechol-uga?": "ata-rotze-leechol-uga_q.mp3",
+  "ken-ani-rotze-leechol-uga": "ken-ani-rotze-leechol-uga.mp3",
+  "lo-ani-rotze-leechol-pitza": "lo-ani-rotze-leechol-pitza.mp3",
+  "lo-ani-lo-rotze-leechol": "lo-ani-lo-rotze-leechol.mp3",
+  "ani-rotze-te": "ani-rotze-te.mp3",
+  "ani-rotze-mayim": "ani-rotze-mayim.mp3",
+  "ani-rotze-uga": "ani-rotze-uga.mp3",
+  "ani-tzarich-sukar": "ani-tzarich-sukar.mp3",
+  "ani-tzarich-chalav": "ani-tzarich-chalav.mp3",
+  "ani-lo-rotze-te": "ani-lo-rotze-te.mp3",
+  "ani-lo-rotze-uga": "ani-lo-rotze-uga.mp3",
+  "ani-ohev-kafe-chazak": "ani-ohev-kafe-chazak.mp3",
+  "ani-ohev-kafe-chalash": "ani-ohev-kafe-chalash.mp3",
+  "ani-rotze-kafe-im-chalav": "ani-rotze-kafe-im-chalav.mp3",
+  "ani-rotze-kafe-im-sukar": "ani-rotze-kafe-im-sukar.mp3",
+  "ani-rotze-kafe-bli-chalav": "ani-rotze-kafe-bli-chalav.mp3",
+  "ani-rotze-kafe-bli-sukar": "ani-rotze-kafe-bli-sukar.mp3",
+  "ani-rotze-te-im-chalav": "ani-rotze-te-im-chalav.mp3",
+  "ani-rotze-te-im-sukar": "ani-rotze-te-im-sukar.mp3",
+  "ani-rotze-te-bli-chalav": "ani-rotze-te-bli-chalav.mp3",
+  "ani-rotze-te-bli-sukar": "ani-rotze-te-bli-sukar.mp3",
+  "ani-rotza": "ani-rotza.mp3",
+  "ani-rotza-kafe": "ani-rotza-kafe.mp3",
+  "ani-lo-rotza-kafe": "ani-lo-rotza-kafe.mp3",
+  "ani-rotza-leechol": "ani-rotza-leechol.mp3",
+  "ani-rotza-leechol-pitza": "ani-rotza-leechol-pitza.mp3",
+  "ani-lo-rotza-leechol-pitza": "ani-lo-rotza-leechol-pitza.mp3",
+  "ani-ohevet-ledaber-ivrit": "ani-ohevet-ledaber-ivrit.mp3",
+  "ani-lo-yechola-ledaber-ivrit": "ani-lo-yechola-ledaber-ivrit.mp3",
+  "ani-rotza-pitza": "ani-rotza-pitza.mp3",
+  "ani-lo-rotza-pitza": "ani-lo-rotza-pitza.mp3",
+  "ani-tzricha-mayim": "ani-tzricha-mayim.mp3",
+  "at-rotza-kafe?": "at-rotza-kafe_q.mp3",
+  "ken-ani-rotza-kafe": "ken-ani-rotza-kafe.mp3",
+  "lo-ani-rotza-te": "lo-ani-rotza-te.mp3",
+  "lo-ani-rotza-mayim": "lo-ani-rotza-mayim.mp3",
+  "at-rotza-kafe-im-chalav?": "at-rotza-kafe-im-chalav_q.mp3",
+  "ken-ani-rotza-kafe-im-chalav": "ken-ani-rotza-kafe-im-chalav.mp3",
+  "lo-ani-rotza-kafe-bli-chalav": "lo-ani-rotza-kafe-bli-chalav.mp3",
+  "at-rotza-te-im-chalav?": "at-rotza-te-im-chalav_q.mp3",
+  "ken-ani-rotza-te-im-chalav": "ken-ani-rotza-te-im-chalav.mp3",
+  "lo-ani-rotza-te-bli-chalav": "lo-ani-rotza-te-bli-chalav.mp3",
+  "at-ohevet-kafe-chazak?": "at-ohevet-kafe-chazak_q.mp3",
+  "ken-ani-ohevet-kafe-chazak": "ken-ani-ohevet-kafe-chazak.mp3",
+  "lo-ani-ohevet-kafe-chalash": "lo-ani-ohevet-kafe-chalash.mp3",
+  "at-tzricha-sukar?": "at-tzricha-sukar_q.mp3",
+  "ken-ani-tzricha-sukar": "ken-ani-tzricha-sukar.mp3",
+  "lo-ani-lo-tzricha-sukar": "lo-ani-lo-tzricha-sukar.mp3",
+  "at-rotza-leechol-uga?": "at-rotza-leechol-uga_q.mp3",
+  "ken-ani-rotza-leechol-uga": "ken-ani-rotza-leechol-uga.mp3",
+  "lo-ani-rotza-leechol-pitza": "lo-ani-rotza-leechol-pitza.mp3",
+  "lo-ani-lo-rotza-leechol": "lo-ani-lo-rotza-leechol.mp3",
+  "ani-rotza-te": "ani-rotza-te.mp3",
+  "ani-rotza-mayim": "ani-rotza-mayim.mp3",
+  "ani-rotza-uga": "ani-rotza-uga.mp3",
+  "ani-tzricha-sukar": "ani-tzricha-sukar.mp3",
+  "ani-tzricha-chalav": "ani-tzricha-chalav.mp3",
+  "ani-lo-rotza-te": "ani-lo-rotza-te.mp3",
+  "ani-lo-rotza-uga": "ani-lo-rotza-uga.mp3",
+  "ani-ohevet-kafe-chazak": "ani-ohevet-kafe-chazak.mp3",
+  "ani-ohevet-kafe-chalash": "ani-ohevet-kafe-chalash.mp3",
+  "ani-rotza-kafe-im-chalav": "ani-rotza-kafe-im-chalav.mp3",
+  "ani-rotza-kafe-im-sukar": "ani-rotza-kafe-im-sukar.mp3",
+  "ani-rotza-kafe-bli-chalav": "ani-rotza-kafe-bli-chalav.mp3",
+  "ani-rotza-kafe-bli-sukar": "ani-rotza-kafe-bli-sukar.mp3",
+  "ani-rotza-te-im-chalav": "ani-rotza-te-im-chalav.mp3",
+  "ani-rotza-te-im-sukar": "ani-rotza-te-im-sukar.mp3",
+  "ani-rotza-te-bli-chalav": "ani-rotza-te-bli-chalav.mp3",
+  "ani-rotza-te-bli-sukar": "ani-rotza-te-bli-sukar.mp3",
+  "bruchim-habaim": "bruchim-habaim.mp3",
+  "kafe-im-chalav": "kafe-im-chalav.mp3",
+  "kafe-bli-chalav": "kafe-bli-chalav.mp3",
+  "chalav": "chalav.mp3",
+  "sukar": "sukar.mp3",
+  "te": "te.mp3",
+  "uga": "uga.mp3",
+  "chazak": "chazak.mp3",
+  "chalash": "chalash.mp3",
+  "im": "im.mp3",
+  "bli": "bli.mp3"
+};
+
+/* Game 1: five sentences. m/f = what the speaker says as Yoni / Dana. */
+const SAY = [
+  { en:"I want coffee",        m:["ani","rotze","kafe"],        f:["ani","rotza","kafe"] },
+  { en:"I love pizza",         m:["ani","ohev","pitza"],        f:["ani","ohevet","pitza"] },
+  { en:"I need water",         m:["ani","tzarich","mayim"],     f:["ani","tzricha","mayim"] },
+  { en:"I don't want coffee",  m:["ani","lo","rotze","kafe"],   f:["ani","lo","rotza","kafe"] },
+  { en:"Do you want coffee?", hint:"asking a man", q:true, w:["ata","rotze","kafe"] }
+];
+
+/* Game 2: target words in order + distractors. */
+const BUILD = [
+  { en:"She wants coffee",            w:["hi","rotza","kafe"],            x:["rotze","hu"] },
+  { en:"I need water",                m:["ani","tzarich","mayim"],        f:["ani","tzricha","mayim"], xm:["tzricha","lo"], xf:["tzarich","lo"] },
+  { en:"He doesn't want pizza",       w:["hu","lo","rotze","pitza"],      x:["rotza","hi"] },
+  { en:"Do you love pizza?", hint:"asking a woman", q:true, w:["at","ohevet","pitza"], x:["ata","ohev"] },
+  { en:"I don't love coffee",         m:["ani","lo","ohev","kafe"],       f:["ani","lo","ohevet","kafe"], xm:["ohevet","hu"], xf:["ohev","hi"] },
+  { en:"She can speak Hebrew",        w:["hi","yechola","ledaber","ivrit"], x:["yachol","hu"] }
+];
+
+/* Game 3: verb pairs and what can follow them. */
+const WHO = [
+  { m:"rotze",   f:"rotza",   obj:[["kafe"],["pitza"],["mayim"]] },
+  { m:"ohev",    f:"ohevet",  obj:[["kafe"],["pitza"]] },
+  { m:"tzarich", f:"tzricha", obj:[["kafe"],["mayim"]] },
+  { m:"yachol",  f:"yechola", obj:[["ledaber","ivrit"],["leechol","pitza"]] }
+];
+const WHO_ROUNDS = 10;
+/* Game 4: chains. Each step changes ONE thing from the sentence before it. */
+const SWAP = [
+  { start:{ en:"I want coffee", m:["ani","rotze","kafe"], f:["ani","rotza","kafe"] },
+    steps:[
+      { cue:"Swap coffee → pizza", en:"I want pizza",            m:["ani","rotze","pitza"],      f:["ani","rotza","pitza"] },
+      { cue:"Make it negative", en:"I don't want pizza",      m:["ani","lo","rotze","pitza"], f:["ani","lo","rotza","pitza"] },
+      { cue:"Change I → she", en:"She doesn't want pizza",  w:["hi","lo","rotza","pitza"] },
+      { cue:"Change want → love", en:"She doesn't love pizza",  w:["hi","lo","ohevet","pitza"] },
+      { cue:"Make it positive", en:"She loves pizza",         w:["hi","ohevet","pitza"] },
+      { cue:"Change she → he", en:"He loves pizza",          w:["hu","ohev","pitza"] },
+      { cue:"Change love → want", en:"He wants pizza",          w:["hu","rotze","pitza"] },
+      { cue:"Swap pizza → water", en:"He wants water",          w:["hu","rotze","mayim"] },
+      { cue:"Change want → need", en:"He needs water",          w:["hu","tzarich","mayim"] },
+      { cue:"Change he → I", en:"I need water",            m:["ani","tzarich","mayim"],    f:["ani","tzricha","mayim"] }
+    ] },
+  { start:{ en:"I can speak Hebrew", m:["ani","yachol","ledaber","ivrit"], f:["ani","yechola","ledaber","ivrit"] },
+    steps:[
+      { cue:"Change I → she", en:"She can speak Hebrew",       w:["hi","yechola","ledaber","ivrit"] },
+      { cue:"Make it negative", en:"She can't speak Hebrew",     w:["hi","lo","yechola","ledaber","ivrit"] },
+      { cue:"Change can → want", en:"She doesn't want to speak Hebrew", w:["hi","lo","rotza","ledaber","ivrit"] },
+      { cue:"Swap speak Hebrew → eat pizza", en:"She doesn't want to eat pizza",    w:["hi","lo","rotza","leechol","pitza"] },
+      { cue:"Change she → he", en:"He doesn't want to eat pizza",     w:["hu","lo","rotze","leechol","pitza"] },
+      { cue:"Make it positive", en:"He wants to eat pizza",            w:["hu","rotze","leechol","pitza"] }
+    ] }
+];
+
+/* Game 5: Café Order. The learner is asked a question and PICKS what they want; the pick decides
+   the sentence they say and adds a line to their order.
+   Each step: q = the question, en = its meaning, opts = the choices.
+   Each choice: icon + label (the English meaning; the button shows the Hebrew from tk, or from lb if given,
+   and the English under it only while Translation is on),
+   a = the answer to say (first word is ken / lo), en = its meaning,
+   tk = what gets added to the order ticket ([] = nothing), next = the step that follows ("end" = finish).
+   Capital tokens change with the speaker: YOU, WANT, LOVE, NEED. */
+const TOKENS = {
+  YOU:{m:"ata",f:"at"}, WANT:{m:"rotze",f:"rotza"}, LOVE:{m:"ohev",f:"ohevet"}, NEED:{m:"tzarich",f:"tzricha"}
+};
+const ORDER = {
+  start: "drink",
+  steps: {
+    drink: { q:["YOU","WANT","kafe"], en:"Do you want coffee?", opts:[
+      { icon:"☕", label:"Yes, coffee", a:["ken","ani","WANT","kafe"],  en:"Yes, I want coffee", tk:["kafe"],  next:"milk" },
+      { icon:"🍵", label:"No, tea",     a:["lo","ani","WANT","te"],     en:"No, I want tea",     tk:["te"],    next:"teamilk" },
+      { icon:"💧", label:"No, water",   a:["lo","ani","WANT","mayim"],  en:"No, I want water",   tk:["mayim"], next:"food" } ] },
+    milk: { q:["YOU","WANT","kafe","im","chalav"], en:"Do you want coffee with milk?", opts:[
+      { icon:"🥛", label:"With milk",    a:["ken","ani","WANT","kafe","im","chalav"], en:"Yes, I want coffee with milk",   tk:["im","chalav"],  next:"strong" },
+      { icon:"🚫", label:"Without milk", a:["lo","ani","WANT","kafe","bli","chalav"], en:"No, I want coffee without milk", tk:["bli","chalav"], next:"strong" } ] },
+    teamilk: { q:["YOU","WANT","te","im","chalav"], en:"Do you want tea with milk?", opts:[
+      { icon:"🥛", label:"With milk",    a:["ken","ani","WANT","te","im","chalav"], en:"Yes, I want tea with milk",   tk:["im","chalav"],  next:"sugar" },
+      { icon:"🚫", label:"Without milk", a:["lo","ani","WANT","te","bli","chalav"], en:"No, I want tea without milk", tk:["bli","chalav"], next:"sugar" } ] },
+    strong: { q:["YOU","LOVE","kafe","chazak"], en:"Do you like strong coffee?", opts:[
+      { icon:"💪", label:"Strong", a:["ken","ani","LOVE","kafe","chazak"], en:"Yes, I like strong coffee", tk:["chazak"],  next:"sugar" },
+      { icon:"🪶", label:"Weak",   a:["lo","ani","LOVE","kafe","chalash"], en:"No, I like weak coffee",    tk:["chalash"], next:"sugar" } ] },
+    sugar: { q:["YOU","NEED","sukar"], en:"Do you need sugar?", opts:[
+      { icon:"🍬", label:"Sugar",    a:["ken","ani","NEED","sukar"],     en:"Yes, I need sugar",      tk:["im","sukar"],  next:"food" },
+      { icon:"🚫", label:"No sugar", a:["lo","ani","lo","NEED","sukar"], en:"No, I don't need sugar", tk:["bli","sukar"], next:"food" } ] },
+    food: { q:["YOU","WANT","leechol","uga"], en:"Do you want to eat cake?", opts:[
+      { icon:"🍰", label:"Yes, cake",   a:["ken","ani","WANT","leechol","uga"],  en:"Yes, I want to eat cake", tk:["uga"],   next:"end" },
+      { icon:"🍕", label:"No, pizza",   a:["lo","ani","WANT","leechol","pitza"], en:"No, I want to eat pizza", tk:["pitza"], next:"end" },
+      { icon:"🙅", label:"Nothing",     a:["lo","ani","lo","WANT","leechol"],    en:"No, I don't want to eat", tk:[], lb:["lo"], next:"end" } ] },
+  }
+};
+/* Café welcome, page 1: the two linking words. [word id, meaning, icon, example sentence, example meaning] */
+const CAFE_LINKS = [
+  ["im",  "with",    "➕", ["kafe","im","chalav"],  "coffee with milk"],
+  ["bli", "without", "🚫", ["kafe","bli","chalav"], "coffee without milk"]
+];
+/* Café welcome, page 2: what is on the menu. [word id, meaning, icon] */
+const CAFE_MENU = [
+  ["chalav","milk","🥛"], ["sukar","sugar","🍬"], ["te","tea","🍵"],
+  ["uga","cake","🍰"], ["chazak","strong","💪"], ["chalash","weak","🪶"]
+];
+const ORDER_STEPS = 5;   // the longest path, used for the progress bar
+
+/* Game 6: sentences that grow, shortest first. */
+const ECHO = [
+  { en:"I want",                   m:["ani","rotze"],                         f:["ani","rotza"] },
+  { en:"I want coffee",            m:["ani","rotze","kafe"],                  f:["ani","rotza","kafe"] },
+  { en:"I don't want coffee",      m:["ani","lo","rotze","kafe"],             f:["ani","lo","rotza","kafe"] },
+  { en:"I want to eat",            m:["ani","rotze","leechol"],               f:["ani","rotza","leechol"] },
+  { en:"I want to eat pizza",      m:["ani","rotze","leechol","pitza"],       f:["ani","rotza","leechol","pitza"] },
+  { en:"I don't want to eat pizza",m:["ani","lo","rotze","leechol","pitza"],  f:["ani","lo","rotza","leechol","pitza"] },
+  { en:"I love to speak Hebrew",   m:["ani","ohev","ledaber","ivrit"],        f:["ani","ohevet","ledaber","ivrit"] },
+  { en:"I can't speak Hebrew",     m:["ani","lo","yachol","ledaber","ivrit"], f:["ani","lo","yechola","ledaber","ivrit"] }
+];
+/* Game 7: Rush Hour. Orders are generated from these lists, so there is nothing to write per order.
+   seconds = time for the first customer, fastest = the shortest it ever gets, lives = misses allowed. */
+const RUSH = { seconds:14, fastest:7, lives:3, penalty:2, customers:12 };   // customers = the café closes after this many
+const RUSH_ITEMS = {
+  kafe:["coffee","☕"], te:["tea","🍵"], mayim:["water","💧"], uga:["cake","🍰"], pitza:["pizza","🍕"],
+  sukar:["sugar","🍬"], chalav:["milk","🥛"]
+};
+const RUSH_VERBS = {
+  want:{ m:"rotze",   f:"rotza",   en:"want", neg:"don't want" },
+  love:{ m:"ohev",    f:"ohevet",  en:"like" },
+  need:{ m:"tzarich", f:"tzricha", en:"need" }
+};
+
+/* Game 8: By Ear. The order is only heard; the answer is given by tapping pictures.
+   EAR_MAIN = [word id, picture, meaning]; EAR_EXTRA = [key, picture, meaning, word ids]. */
+const EAR_ROUNDS = 8;
+const EAR_MAIN = [["kafe","☕","coffee"], ["te","🍵","tea"], ["mayim","💧","water"], ["uga","🍰","cake"], ["pitza","🍕","pizza"]];
+const EAR_EXTRA = [
+  ["plain", "∅", "nothing else", []],
+  ["im-chalav", "➕🥛", "with milk", ["im","chalav"]], ["bli-chalav", "🚫🥛", "without milk", ["bli","chalav"]],
+  ["im-sukar", "➕🍬", "with sugar", ["im","sukar"]],  ["bli-sukar", "🚫🍬", "without sugar", ["bli","sukar"]]
+];
+
+/* Word intro before Rush Hour (7) and By Ear (8): [word id, meaning, icon]. Tap = hear the word. */
+const WORD_INTRO = {
+  7: [["te","tea","🍵"], ["uga","cake","🍰"], ["chalav","milk","🥛"], ["sukar","sugar","🍬"],
+      ["im","with","➕"], ["bli","without","🚫"], ["chazak","strong","💪"], ["chalash","weak","🪶"]],
+  8: [["te","tea","🍵"], ["uga","cake","🍰"], ["chalav","milk","🥛"], ["sukar","sugar","🍬"],
+      ["im","with","➕"], ["bli","without","🚫"]]
+};
+
+/* The lesson path: which games run, in what order, and how many items each one uses.
+   g = game number (6 Echo, 4 Swap It, 5 Café Order). limit = how many items (leave out for all). */
+const PATH = [
+  { g:6, limit:4, name:"Echo" },
+  { g:4, limit:6, name:"Swap It" },
+  { g:5,          name:"Café Order" },
+  { g:8,          name:"By Ear" },
+  { g:7,          name:"Rush Hour" }
+];
+/* ============================ END OF CONTENT ============================ */
+
+const $ = id => document.getElementById(id);
+const KEY = "hh_pilot";
+const S = { gender:"m", track:"speak", sound:true, gloss:true, map:true };
+const player = new Audio();
+const SILENT = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=";
+let raf = 0, timer = 0, current = 0;
+
+try{ Object.assign(S, JSON.parse(localStorage.getItem(KEY)) || {}); }catch(e){}
+function persist(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+const name = () => (S.name || "").trim();
+const heOf = (ids,q) => ids.map(i => LEX[i].he).join(" ") + (q ? "?" : "");
+const trOf = (ids,q) => ids.map(i => LEX[i].tr).join(" ") + (q ? "?" : "");
+const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+
+const audioUrl = (ids, q) => { const f = AUDIO[ids.join("-") + (q ? "?" : "")]; return f ? AUDIO_BASE + f : ""; };
+function speak(ids, slow, q){
+  try{
+    const url = audioUrl(ids, q);
+    if (url){ player.src = url; player.playbackRate = slow ? 0.75 : 1; const p = player.play(); if (p && p.catch) p.catch(()=>{}); return; }
+    if (!("speechSynthesis" in window)) return;
+    const v = speechSynthesis.getVoices().find(x => /^(he|iw)/i.test(x.lang));
+    if (!v) return;
+    const u = new SpeechSynthesisUtterance(heOf(ids, q));   // "?" gives the device voice a rising tone
+    u.voice = v; u.lang = v.lang; u.rate = slow ? 0.6 : 0.85;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+/* ---------- sound reactions (synthesised, no files needed) ---------- */
+let actx = null, bus = null;
+function audioBus(){
+  if (!actx){
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    bus = actx.createGain(); bus.gain.value = 0.9; bus.connect(actx.destination);
+    // a short echo gives the notes some space
+    const delay = actx.createDelay(), feedback = actx.createGain(), wet = actx.createGain();
+    delay.delayTime.value = 0.15; feedback.gain.value = 0.3; wet.gain.value = 0.38;
+    bus.connect(delay); delay.connect(feedback); feedback.connect(delay); delay.connect(wet); wet.connect(actx.destination);
+  }
+  if (actx.state === "suspended") actx.resume();
+}
+/* one marimba-like note: a fundamental plus two quiet overtones, fast attack, soft decay */
+function note(freq, at, dur, vol, type, slideTo){
+  const t = actx.currentTime + at, env = actx.createGain();
+  env.gain.setValueAtTime(0.0001, t);
+  env.gain.exponentialRampToValueAtTime(vol, t + 0.008);
+  env.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  env.connect(bus);
+  [[1, 1, type], [2, 0.35, "sine"], [4, 0.12, "sine"]].forEach(([mult, level, wave]) => {
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = wave; o.frequency.setValueAtTime(freq * mult, t);
+    if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo * mult, t + dur);
+    g.gain.value = level; o.connect(g); g.connect(env);
+    o.start(t); o.stop(t + dur + 0.05);
+  });
+}
+const SFX = {
+  tap:  () => note(880, 0, 0.07, 0.10, "sine", 520),
+  pop:  () => note(330, 0, 0.13, 0.14, "sine", 990),
+  good: () => [659, 831, 988, 1319].forEach((f, i) => note(f, i * 0.07, 0.3, 0.13, "triangle")),
+  soft: () => { note(392, 0, 0.22, 0.11, "sine"); note(311, 0.15, 0.32, 0.10, "sine"); },
+  win:  () => {
+    [523, 659, 784, 1047, 1319].forEach((f, i) => note(f, i * 0.09, 0.32, 0.13, "triangle"));
+    [523, 659, 784, 1047].forEach(f => note(f, 0.52, 1.0, 0.07, "sine"));
+  }
+};
+/* visual reactions: they fire with every sound cue, even when sound is switched off */
+let streak = 0;
+function toast(text){
+  const t = document.createElement("div"); t.className = "toast"; t.textContent = text;
+  document.body.append(t); setTimeout(() => t.remove(), 1600);
+}
+function confetti(){
+  const box = document.createElement("div"); box.className = "confetti";
+  const colors = ["#FF6FA5", "#F4F1E8", "#2A5E4B", "#FFC2D9"];
+  for (let i = 0; i < 46; i++){
+    const c = document.createElement("i");
+    c.style.left = Math.random() * 100 + "%";
+    c.style.background = colors[i % colors.length];
+    c.style.setProperty("--x", (Math.random() * 120 - 60) + "px");
+    c.style.setProperty("--r", (Math.random() * 900 - 450) + "deg");
+    c.style.setProperty("--t", (1.6 + Math.random() * 1.4) + "s");
+    c.style.setProperty("--d", (Math.random() * 0.5) + "s");
+    box.append(c);
+  }
+  document.body.append(box); setTimeout(() => box.remove(), 3800);
+}
+function react(name){
+  const card = document.querySelector("section:not([hidden]) .card");
+  const kick = cls => { if (!card) return; card.classList.remove("bounce", "nudge", "pop"); void card.offsetWidth; card.classList.add(cls); };
+  if (name === "good"){
+    streak++; kick("bounce");
+    if (streak === 3 || streak === 5 || streak === 8 || (streak >= 10 && streak % 5 === 0)) toast(streak + " in a row!");
+  } else if (name === "soft"){ streak = 0; kick("nudge"); }
+  else if (name === "win"){
+    confetti();
+    const a = $("dAvatar"); a.classList.remove("hello"); void a.offsetWidth; a.classList.add("hello");
+  }
+}
+function sfx(name){
+  react(name);
+  if (S.sound === false) return;
+  try{ audioBus(); SFX[name](); }catch(e){}
+}
+function paintSound(){
+  $("sndBtn").setAttribute("aria-pressed", String(S.sound !== false));
+  $("sndNote").textContent = S.sound !== false ? "Chimes and taps are on." : "Sounds are off.";
+}
+$("sndBtn").addEventListener("click", () => { S.sound = (S.sound === false); persist(); paintSound(); sfx("pop"); });
+paintSound();
+document.addEventListener("click", e => {
+  if (e.target.closest(".game, .seg button, .tile, .pill, .back, .opt, .word, #micBtn, #pathBtn, #stageGo, #stageQuit, #g7open, .pick, #g8slow, #setBtn, #setupGo, #wgo")) sfx("tap");
+}, true);
+
+/* is there any Hebrew audio for this sentence on this device? (a recording, or a built-in Hebrew voice) */
+function hasAudio(ids, q){
+  if (audioUrl(ids, q)) return true;
+  try{ return speechSynthesis.getVoices().some(x => /^(he|iw)/i.test(x.lang)); }catch(e){ return false; }
+}
+function unlockAudio(){
+  try{ player.src = SILENT; const p = player.play(); if (p && p.catch) p.catch(()=>{}); }catch(e){}
+  try{ if ("speechSynthesis" in window) speechSynthesis.getVoices(); }catch(e){}
+}
+
+function show(id){
+  cancelAnimationFrame(raf); clearTimeout(timer); recStop(true); streak = 0;
+  ["home","g1","g2","g3","g4","g5","g6","g7","g8","words","setup","stage","done"].forEach(s => $(s).hidden = (s !== id));
+  document.querySelectorAll(".card").forEach(c => c.classList.toggle("speak-track", S.track === "speak"));
+}
+function showKeep(id){ show(id); }
+function pop(el){ el.classList.remove("pop"); void el.offsetWidth; el.classList.add("pop"); }
+let path = null;
+function startPath(){ path = { i:0, said:0, t0:performance.now() }; showStage(); }
+function showStage(){
+  const st = PATH[path.i];
+  $("stPart").textContent = "PART " + (path.i + 1) + " OF " + PATH.length;
+  $("stName").textContent = st.name; $("stHow").textContent = st.how;
+  $("stDots").innerHTML = PATH.map((x, k) => '<i class="' + (k < path.i ? "did" : k === path.i ? "now" : "") + '"></i>').join("");
+  show("stage");
+}
+function finish(title, big, sub, extra){
+  if (path){
+    // inside the lesson: count what was said, then move to the next part or wrap up
+    const g = PATH[path.i].g;
+    path.said += g === 6 ? len6 : g === 4 ? cards4.length : o5.said.length;
+    path.i++;
+    if (path.i < PATH.length){ sfx("good"); return showStage(); }
+    const sec = Math.round((performance.now() - path.t0) / 1000);
+    title = "Lesson done!"; big = path.said;
+    sub = "Hebrew sentences said out loud in this lesson.";
+    extra = "Time: " + Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0") + ".";
+    path = null;
+  }
+  sfx("win");
+  if (name()) title = title.replace(/!$/, "") + ", " + name() + "!";
+  $("dTitle").textContent = title; $("dBig").textContent = big;
+  $("dSub").textContent = sub; $("dExtra").textContent = extra || "";
+  show("done");
+}
+
+/* ---------- home ---------- */
+$("nameInput").value = S.name || "";
+$("nameInput").addEventListener("input", e => { S.name = e.target.value.slice(0, 20); persist(); });
+document.querySelectorAll(".seg").forEach(seg => {
+  const g = seg.dataset.group;
+  const paint = () => seg.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.value === S[g])));
+  seg.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S[g] = b.dataset.value; persist(); paint(); });
+  paint();
+});
+const starters = { 1:startSay, 2:startBuild, 3:startWho, 4:startSwap, 5:startOrder, 6:startEcho, 7:startRush, 8:startEar, path:startPath };
+/* the first time anything is started, ask the two choices once; after that, go straight in */
+let pending = null;
+function begin(fn){
+  if (S.setup) return fn();
+  pending = fn;
+  $("setupTag").textContent = "BEFORE WE START"; $("setupTitle").textContent = "Two quick choices"; $("setupGo").textContent = "Let's go";
+  show("setup");
+}
+$("setBtn").addEventListener("click", () => {
+  pending = null;
+  $("setupTag").textContent = "SETTINGS"; $("setupTitle").textContent = "Your choices"; $("setupGo").textContent = "Done";
+  show("setup");
+});
+$("setupGo").addEventListener("click", () => {
+  S.setup = true; persist();
+  const fn = pending; pending = null;
+  if (fn) fn(); else show("home");
+});
+document.querySelectorAll(".game").forEach(b => b.addEventListener("click", () => { unlockAudio(); begin(() => {
+  path = null; current = b.dataset.game;
+  if (WORD_INTRO[current]) showWords(current); else starters[current]();
+}); }));
+/* word intro: the café words with a picture, tap to hear; then the game starts */
+function showWords(g){
+  const grid = $("wgrid"); grid.innerHTML = "";
+  WORD_INTRO[g].forEach(([id, meaning, icon]) => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "word";
+    const w = document.createElement("b"); w.textContent = word5(id);
+    if (S.track === "read"){ w.lang = "he"; }
+    const m = document.createElement("small"); m.textContent = icon + " " + meaning;
+    b.append(w, m); b.addEventListener("click", () => speak([id])); grid.append(b);
+  });
+  $("wtitle").textContent = g === "7" ? "Words for Rush Hour" : "Words for By Ear";
+  show("words"); pop($("wcard"));
+}
+$("wgo").addEventListener("click", () => starters[current]());
+document.querySelectorAll(".back").forEach(b => b.addEventListener("click", () => { path = null; show("home"); }));
+$("pathBtn").addEventListener("click", () => { unlockAudio(); begin(() => { current = "path"; startPath(); }); });
+$("stageGo").addEventListener("click", () => { starters[PATH[path.i].g](); });
+$("stageQuit").addEventListener("click", () => { path = null; show("home"); });
+$("dHome").addEventListener("click", () => show("home"));
+$("dAgain").addEventListener("click", () => starters[current]());
+
+/* ---------- optional microphone (record and compare) ---------- */
+let mic = null, rec = null, chunks = [], myUrl = null, dropRec = false;
+$("micBtn").addEventListener("click", async () => {
+  if (mic){ mic.getTracks().forEach(t => t.stop()); mic = null; paintMic(); return; }
+  try{
+    if (!navigator.mediaDevices || !window.MediaRecorder) throw new Error("unsupported");
+    mic = await navigator.mediaDevices.getUserMedia({ audio:true });
+    paintMic();
+  }catch(e){
+    mic = null; paintMic("Microphone isn't available here. The game works without it.");
+  }
+});
+function paintMic(note){
+  $("micBtn").setAttribute("aria-pressed", String(!!mic));
+  $("micNote").textContent = note || (mic ? "On: you'll hear yourself after each answer." : "Optional: hear yourself next to the answer.");
+}
+function recStart(){
+  $("g1me").hidden = true; $("g1rec").hidden = true;
+  if (!mic) return;
+  try{
+    chunks = []; dropRec = false;
+    rec = new MediaRecorder(mic);
+    rec.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+    rec.onstop = () => {
+      if (dropRec || !chunks.length) return;
+      if (myUrl) URL.revokeObjectURL(myUrl);
+      myUrl = URL.createObjectURL(new Blob(chunks, { type: rec.mimeType || "audio/webm" }));
+      $("g1me").hidden = false;
+    };
+    rec.start(); $("g1rec").hidden = false;
+  }catch(e){ rec = null; }
+}
+function recStop(discard){
+  try{ if (rec && rec.state === "recording"){ dropRec = !!discard; rec.stop(); } }catch(e){}
+  $("g1rec").hidden = true;
+}
+$("g1me").addEventListener("click", () => { if (myUrl){ try{ speechSynthesis.cancel(); }catch(e){} player.src = myUrl; const p = player.play(); if (p && p.catch) p.catch(()=>{}); } });
+
+/* ---------- GAME 1: Say It First ---------- */
+const RING = 2 * Math.PI * 48, THINK_MS = 5000, MASTER = 2;
+let q1 = [], c1 = null, p1 = "idle", done1 = 0, spoken1 = 0, first1 = 0;
+$("g1ring").style.strokeDasharray = RING;
+const ids1 = it => it.src.w || it.src[S.gender];
+
+function startSay(){
+  q1 = SAY.map(s => ({ src:s, streak:0, seen:false }));
+  done1 = 0; spoken1 = 0; first1 = 0;
+  show("g1"); nextSay();
+}
+function nextSay(){
+  if (!q1.length) return finish("Kol hakavod!", spoken1, "Hebrew sentences said out loud, from memory.",
+    first1 + " of " + SAY.length + " right on the first try.");
+  c1 = q1.shift();
+  $("g1en").textContent = c1.src.en;
+  $("g1hint").textContent = c1.src.hint ? "(" + c1.src.hint + ")" : "";
+  $("g1tag").textContent = c1.seen ? "Again · say in Hebrew" : "Say in Hebrew";
+  $("g1ans").hidden = true; $("g1think").hidden = false;
+  $("g1rateRow").hidden = true; $("g1revealRow").hidden = false;
+  $("g1bar").style.width = (done1 / SAY.length * 100) + "%";
+  $("g1count").textContent = done1 + " / " + SAY.length;
+  pop($("g1card")); recStart();
+  p1 = "think";
+  const t0 = performance.now();
+  cancelAnimationFrame(raf);
+  (function tick(now){
+    const el = Math.min(1, (now - t0) / THINK_MS);
+    $("g1ring").style.strokeDashoffset = RING * el;
+    $("g1num").textContent = Math.max(1, Math.ceil((THINK_MS - (now - t0)) / 1000));
+    if (el < 1) raf = requestAnimationFrame(tick); else revealSay();
+  })(t0);
+}
+function revealSay(){
+  if (p1 !== "think") return;
+  cancelAnimationFrame(raf); p1 = "rate"; recStop(false); sfx("pop");
+  const ids = ids1(c1);
+  $("g1he").textContent = heOf(ids, c1.src.q); $("g1tr").textContent = trOf(ids, c1.src.q);
+  $("g1think").hidden = true; $("g1ans").hidden = false;
+  $("g1revealRow").hidden = true; $("g1rateRow").hidden = false;
+  speak(ids, false, c1.src.q);
+}
+function rateSay(ok){
+  if (p1 !== "rate") return;
+  sfx(ok ? "good" : "soft");
+  spoken1++;
+  if (!c1.seen){ c1.seen = true; if (ok) first1++; }
+  if (ok){ c1.streak++; if (c1.streak >= MASTER) done1++; else q1.splice(Math.min(3, q1.length), 0, c1); }
+  else { c1.streak = 0; q1.splice(Math.min(2, q1.length), 0, c1); }
+  nextSay();
+}
+$("g1reveal").addEventListener("click", revealSay);
+$("g1yes").addEventListener("click", () => rateSay(true));
+$("g1no").addEventListener("click", () => rateSay(false));
+$("g1listen").addEventListener("click", () => speak(ids1(c1), false, c1.src.q));
+
+/* ---------- GAME 2: Build It ---------- */
+let i2 = 0, tries2 = 0, clean2 = 0, target2 = [], picked2 = [], solved2 = false;
+function startBuild(){ i2 = 0; clean2 = 0; show("g2"); loadBuild(); }
+function loadBuild(){
+  if (i2 >= BUILD.length) return finish("Built!", clean2 + " / " + BUILD.length, "sentences built with no mistakes.",
+    "Each one you also said out loud counts double.");
+  const b = BUILD[i2];
+  target2 = b.w || b[S.gender];
+  const extra = b.x || b["x" + S.gender] || [];
+  picked2 = []; tries2 = 0; solved2 = false;
+  $("g2en").textContent = b.en;
+  $("g2hint").textContent = b.hint ? "(" + b.hint + ")" : "";
+  $("g2msg").textContent = "";
+  $("g2check").textContent = "Check";
+  $("g2bar").style.width = (i2 / BUILD.length * 100) + "%";
+  $("g2count").textContent = (i2 + 1) + " / " + BUILD.length;
+  const heb = S.track === "read";
+  $("g2slots").className = "slots" + (heb ? " rtl" : "");
+  $("g2bank").className = "bank" + (heb ? " rtl" : "");
+  $("g2bank").innerHTML = "";
+  shuffle(target2.concat(extra)).forEach((id, n) => {
+    const t = document.createElement("button");
+    t.type = "button"; t.className = "tile" + (heb ? " heb" : ""); t.dataset.id = id; t.dataset.n = n;
+    t.textContent = heb ? LEX[id].he : LEX[id].tr; if (heb) t.lang = "he";
+    t.addEventListener("click", () => { if (solved2 || t.disabled) return; t.disabled = true; picked2.push({ id, n }); drawSlots(); });
+    $("g2bank").append(t);
+  });
+  drawSlots(); pop($("g2card"));
+}
+function drawSlots(){
+  const heb = S.track === "read", box = $("g2slots");
+  box.innerHTML = "";
+  picked2.forEach((p, idx) => {
+    const t = document.createElement("button");
+    t.type = "button"; t.className = "tile" + (heb ? " heb" : "");
+    t.textContent = heb ? LEX[p.id].he : LEX[p.id].tr; if (heb) t.lang = "he";
+    t.setAttribute("aria-label", "Remove " + LEX[p.id].tr);
+    t.addEventListener("click", () => {
+      if (solved2) return;
+      picked2.splice(idx, 1);
+      const src = $("g2bank").querySelector('[data-n="' + p.n + '"]'); if (src) src.disabled = false;
+      drawSlots();
+    });
+    box.append(t);
+  });
+}
+$("g2check").addEventListener("click", () => {
+  if (solved2){ i2++; return loadBuild(); }
+  if (!picked2.length) return;
+  const ok = picked2.length === target2.length && picked2.every((p, k) => p.id === target2[k]);
+  if (ok){
+    solved2 = true; if (tries2 === 0) clean2++; sfx("good");
+    $("g2slots").classList.add("ok");
+    $("g2msg").textContent = "Yes! Now say it out loud: " + trOf(target2, BUILD[i2].q);
+    $("g2check").textContent = "Next";
+    speak(target2, false, BUILD[i2].q);
+  } else {
+    tries2++; sfx("soft");
+    const box = $("g2slots"); box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+    $("g2msg").textContent = tries2 >= 2
+      ? "Answer: " + trOf(target2, BUILD[i2].q) + ". Build it to continue."
+      : "Not quite. Check who is speaking and the verb ending.";
+  }
+});
+
+/* ---------- GAME 3: Dana or Yoni? ---------- */
+let r3 = 0, score3 = 0, streak3 = 0, best3 = 0, cur3 = null, lock3 = false;
+function startWho(){ r3 = 0; score3 = 0; streak3 = 0; best3 = 0; show("g3"); nextWho(); }
+function nextWho(){
+  if (r3 >= WHO_ROUNDS) return finish("Good ear!", score3 + " / " + WHO_ROUNDS, "speakers spotted by the verb ending.",
+    "Longest streak: " + best3 + ".");
+  const v = WHO[Math.floor(Math.random() * WHO.length)];
+  const g = Math.random() < 0.5 ? "m" : "f";
+  const obj = v.obj[Math.floor(Math.random() * v.obj.length)];
+  cur3 = { g, ids:["ani", v[g]].concat(obj) };
+  lock3 = false;
+  ["g3he","g3tr"].forEach((id, k) => {
+    const box = $(id); box.innerHTML = "";
+    cur3.ids.forEach((w, n) => {
+      const s = document.createElement("span");
+      s.textContent = (k === 0 ? LEX[w].he : LEX[w].tr) + (n < cur3.ids.length - 1 ? " " : "");
+      if (n === 1) s.className = "verb";
+      box.append(s);
+    });
+  });
+  $("g3m").className = ""; $("g3f").className = "";
+  $("g3bar").style.width = (r3 / WHO_ROUNDS * 100) + "%";
+  $("g3count").textContent = (r3 + 1) + " / " + WHO_ROUNDS;
+  $("g3streak").textContent = streak3 > 1 ? streak3 + " in a row" : "";
+  pop($("g3card")); speak(cur3.ids);
+}
+function answerWho(g){
+  if (lock3) return; lock3 = true; r3++;
+  const ok = g === cur3.g;
+  sfx(ok ? "good" : "soft");
+  if (ok){ score3++; streak3++; best3 = Math.max(best3, streak3); } else streak3 = 0;
+  $("g3" + cur3.g).className = "right";
+  if (!ok) $("g3" + g).className = "wrong";
+  document.querySelectorAll("#g3 .verb").forEach(s => s.classList.add("mark"));
+  $("g3streak").textContent = (ok ? "Yes: " : "It was ") + (cur3.g === "m" ? "Yoni" : "Dana") + " says “" + LEX[cur3.ids[1]].tr + "”";
+  timer = setTimeout(nextWho, ok ? 1100 : 2000);
+}
+$("g3m").addEventListener("click", () => answerWho("m"));
+$("g3f").addEventListener("click", () => answerWho("f"));
+$("g3listen").addEventListener("click", () => speak(cur3.ids));
+
+/* ---------- GAME 4: Swap It (tap the word that changes, pick the new one) ---------- */
+/* A sentence is three parts: [who] [verb, with "lo" in front when negative] [the rest].
+   The learner edits the previous sentence part by part until it matches the new one. */
+let cards4 = [], i4 = 0, clean4 = 0, p4 = "idle", cur4 = [], tgt4 = [], sel4 = -1, slip4 = false;
+const ids4 = o => o.w || o[S.gender];
+const split4 = ids => { const neg = ids[1] === "lo"; return [[ids[0]], neg ? ["lo", ids[2]] : [ids[1]], ids.slice(neg ? 3 : 2)]; };
+const same4 = (a, b) => a.join() === b.join();
+const label4 = ids => S.track === "read" ? heOf(ids) : trOf(ids);
+const REST4 = [["kafe"], ["pitza"], ["mayim"], ["ledaber", "ivrit"], ["leechol", "pitza"]];
+function startSwap(){
+  cards4 = [];
+  SWAP.forEach(c => { let prev = c.start; c.steps.forEach(st => { cards4.push({ prev, step:st }); prev = st; }); });
+  if (path && PATH[path.i].limit) cards4 = cards4.slice(0, PATH[path.i].limit);
+  i4 = 0; clean4 = 0; showKeep("g4"); nextSwap();
+}
+function nextSwap(){
+  if (i4 >= cards4.length) return finish("Swapped!", clean4 + " / " + cards4.length,
+    "sentences changed with no wrong picks.", "Each one you also said out loud counts double.");
+  const c = cards4[i4];
+  cur4 = split4(ids4(c.prev)); tgt4 = split4(ids4(c.step)); sel4 = -1; slip4 = false;
+  $("g4cue").textContent = c.step.cue;
+  $("g4en").textContent = "From “" + c.prev.en + "” to “" + c.step.en + "”";
+  $("g4msg").textContent = ""; $("g4pick").textContent = "Tap the word that has to change";
+  $("g4opts").innerHTML = ""; $("g4afterRow").hidden = true;
+  $("g4bar").style.width = (i4 / cards4.length * 100) + "%";
+  $("g4count").textContent = (i4 + 1) + " / " + cards4.length;
+  p4 = "edit"; draw4(); pop($("g4card"));
+}
+function tile4(ids, onTap){
+  const heb = S.track === "read", t = document.createElement("button");
+  t.type = "button"; t.className = "tile" + (heb ? " heb" : ""); t.textContent = label4(ids);
+  if (heb) t.lang = "he";
+  t.addEventListener("click", onTap); return t;
+}
+function draw4(){
+  const box = $("g4slots"); box.className = "slots" + (S.track === "read" ? " rtl" : "") + (p4 === "said" ? " ok" : "");
+  box.innerHTML = "";
+  cur4.forEach((part, k) => { const t = tile4(part, () => pick4(k)); if (k === sel4) t.classList.add("sel"); box.append(t); });
+}
+function options4(k){
+  const cur = cur4[k], t = tgt4[k];
+  let list;
+  if (k === 0) list = [["ani"], ["hu"], ["hi"]];
+  else if (k === 1){
+    // the same verb in the other gender, and both with / without "lo"; plus the new verb when the verb itself changes
+    const forms = b => [[b], [FLIP[b]], ["lo", b], ["lo", FLIP[b]]];
+    list = forms(cur[cur.length - 1]);
+    if (!list.some(x => same4(x, t))) list = forms(t[t.length - 1]);
+  } else list = shuffle(REST4);
+  list = list.filter(x => !same4(x, cur));
+  const others = shuffle(list.filter(x => !same4(x, t))).slice(0, k === 1 ? 3 : 2);
+  return shuffle(same4(t, cur) ? others : others.concat([t]));
+}
+function pick4(k){
+  if (p4 !== "edit") return;
+  if (same4(cur4[k], tgt4[k])){
+    // this part does not change: say so at once, no options and no lost point
+    sel4 = -1; draw4(); $("g4opts").innerHTML = "";
+    $("g4pick").textContent = "Tap the word that has to change";
+    $("g4msg").textContent = "This word stays as it is. Try another one.";
+    return;
+  }
+  sel4 = k; draw4();
+  $("g4pick").textContent = "Change it to:"; $("g4msg").textContent = "";
+  const box = $("g4opts"); box.className = "bank" + (S.track === "read" ? " rtl" : ""); box.innerHTML = "";
+  options4(k).forEach(opt => box.append(tile4(opt, () => choose4(k, opt))));
+}
+function choose4(k, opt){
+  if (p4 !== "edit") return;
+  if (!same4(opt, tgt4[k])){
+    slip4 = true; sfx("soft");
+    const box = $("g4slots"); box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+    $("g4msg").textContent = same4(cur4[k], tgt4[k]) ? "That word stays as it is. Try another one." : "Not that one. Try again.";
+    return;
+  }
+  cur4[k] = opt; sel4 = -1; $("g4opts").innerHTML = "";
+  if (cur4.every((part, n) => same4(part, tgt4[n]))){
+    p4 = "said"; if (!slip4) clean4++;
+    draw4(); $("g4pick").textContent = "";
+    $("g4msg").textContent = "Yes! Listen, then say it out loud.";
+    $("g4afterRow").hidden = false; sfx("good"); speak(ids4(cards4[i4].step));
+  } else {
+    draw4(); sfx("pop");
+    $("g4pick").textContent = "Tap the word that has to change";
+    $("g4msg").textContent = "Good. Something else has to change too.";
+  }
+}
+$("g4hear").addEventListener("click", () => { if (cards4[i4]) speak(ids4(cards4[i4].step)); });
+$("g4next").addEventListener("click", () => { if (p4 === "said"){ i4++; nextSwap(); } });
+
+/* ---------- GAME 5: Café Order ---------- */
+let o5 = { step:"", pick:null, lines:[], said:[], t0:0, phase:"idle" };
+const res5 = ids => ids.map(t => TOKENS[t] ? TOKENS[t][S.gender] : t);
+const fmt5 = ms => { const sec = Math.floor(ms / 1000); return Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0"); };
+const ansHe = ids => heOf(ids.slice(0, 1)) + ", " + heOf(ids.slice(1));
+const ansTr = ids => trOf(ids.slice(0, 1)) + ", " + trOf(ids.slice(1));
+function rows5(which){ ["start", "show", "next", "done"].forEach(r => $("g5" + r + "Row").hidden = (r !== which)); }
+
+function startOrder(){
+  o5 = { step:"", pick:null, lines:[], said:[], t0:0, phase:"intro", page:1 };
+  showKeep("g5");
+  $("g5intro").hidden = false; $("g5chat").hidden = true; $("g5ticket").hidden = true; $("g5gloss").hidden = true;
+  $("g5bar").style.width = "0%"; $("g5count").textContent = "";
+  rows5("start"); introPage(1);
+}
+const word5 = id => S.track === "read" ? LEX[id].he + "  " + LEX[id].tr : LEX[id].tr;
+function introPage(n){
+  o5.page = n;
+  const grid = $("g5words"); grid.innerHTML = "";
+  if (n === 1){
+    // page 1: welcome + the two linking words, each with one example
+    const hi = ["bruchim", "habaim"];
+    $("g5itag").textContent = name() ? "Welcome, " + name() + ", to the" : "Welcome to the"; $("g5ititle").textContent = "Hebrew Hack Café";
+    $("g5whe").textContent = heOf(hi); $("g5wtr").textContent = trOf(hi); $("g5welcome").hidden = false;
+    $("g5ihint").textContent = "Two small words do most of the work here. Tap to hear them.";
+    grid.style.gridTemplateColumns = "1fr";
+    CAFE_LINKS.forEach(([id, meaning, icon, ex, exMeaning]) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "word";
+      const w = document.createElement("b"); w.textContent = icon + " " + word5(id) + " = " + meaning;
+      const m = document.createElement("small");
+      m.textContent = (S.track === "read" ? heOf(ex) + "  " : "") + trOf(ex) + " = " + exMeaning;
+      b.append(w, m); b.addEventListener("click", () => speak(ex)); grid.append(b);
+    });
+    $("g5start").textContent = "Next: the menu";
+    speak(hi);
+  } else {
+    // page 2: the six things you can order
+    $("g5itag").textContent = "On the menu"; $("g5ititle").textContent = "What you can order";
+    $("g5welcome").hidden = true;
+    $("g5ihint").textContent = "Tap a word to hear it.";
+    grid.style.gridTemplateColumns = "1fr 1fr";
+    CAFE_MENU.forEach(([id, meaning, icon]) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "word";
+      const w = document.createElement("b"); w.textContent = word5(id);
+      const m = document.createElement("small"); m.textContent = icon + " " + meaning;
+      b.append(w, m); b.addEventListener("click", () => speak([id])); grid.append(b);
+    });
+    $("g5start").textContent = "Take my order";
+  }
+  pop($("g5card"));
+}
+function beginOrder(){
+  if (o5.phase !== "intro") return;
+  o5.t0 = performance.now(); o5.phase = "idle";
+  $("g5intro").hidden = true; $("g5chat").hidden = false; $("g5ticket").hidden = false; $("g5gloss").hidden = false;
+  $("g5who").textContent = (S.gender === "m" ? "Dana" : "Yoni") + " asks";
+  $("g5final").hidden = true; $("g5ask").hidden = false;
+  drawTicket(); askStep(ORDER.start);
+  (function tick(){
+    if (o5.phase !== "final") $("g5count").textContent = fmt5(performance.now() - o5.t0);
+    raf = requestAnimationFrame(tick);
+  })();
+}
+function askStep(id){
+  if (id === "end") return finalOrder();
+  o5.step = id; o5.pick = null;
+  const st = ORDER.steps[id], q = res5(st.q);
+  $("g5qhe").textContent = heOf(q, true); $("g5qtr").textContent = trOf(q, true); $("g5qen").textContent = st.en;
+  const box = $("g5opts"); box.innerHTML = "";
+  st.opts.forEach((o, i) => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "opt";
+    const ic = document.createElement("span"); ic.textContent = o.icon; ic.setAttribute("aria-hidden", "true");
+    // the choice in Hebrew (or Latin letters), with the English underneath when Translation is on
+    const ids = res5(o.lb || o.tk), txt = document.createElement("div");
+    const w = document.createElement("b");
+    if (S.track === "read"){ w.lang = "he"; w.dir = "rtl"; w.textContent = heOf(ids); } else w.textContent = trOf(ids);
+    const en = document.createElement("small"); en.className = "g5en"; en.textContent = o.label;
+    txt.append(w, en); b.setAttribute("aria-label", o.label);
+    b.append(ic, txt);
+    b.addEventListener("click", () => choose5(i));
+    box.append(b);
+  });
+  box.hidden = false; $("g5say").hidden = true; $("g5ansb").hidden = true; rows5("");
+  $("g5bar").style.width = Math.min(100, o5.said.length / ORDER_STEPS * 100) + "%";
+  o5.phase = "choose"; pop($("g5card")); speak(q, false, true);
+}
+function choose5(i){
+  if (o5.phase !== "choose") return;
+  o5.pick = ORDER.steps[o5.step].opts[i];
+  $("g5opts").hidden = true; $("g5say").hidden = false;
+  $("g5cue").textContent = S.gloss !== false ? "Say in Hebrew: “" + o5.pick.en + "”" : "Say your answer in a full sentence";
+  const wait = 3000 + 800 * o5.pick.a.length;   // 3 s + 0.8 s per word of the answer
+  const fuse = $("g5fuse"); fuse.querySelector("i").style.animationDuration = (wait / 1000) + "s";
+  fuse.classList.remove("run"); void fuse.offsetWidth; fuse.classList.add("run");
+  rows5("show"); o5.phase = "say";
+  clearTimeout(timer); timer = setTimeout(reveal5, wait);
+}
+function reveal5(){
+  if (o5.phase !== "say") return;
+  clearTimeout(timer); o5.phase = "shown";
+  const ids = res5(o5.pick.a);
+  $("g5ahe").textContent = ansHe(ids); $("g5atr").textContent = ansTr(ids); $("g5aen").textContent = o5.pick.en;
+  $("g5say").hidden = true; $("g5ansb").hidden = false;
+  o5.said.push({ ids, en:o5.pick.en });
+  if (o5.pick.tk.length) o5.lines.push({ icon:o5.pick.icon, ids:o5.pick.tk });
+  drawTicket(); rows5("next");
+  $("g5next").textContent = o5.pick.next === "end" ? "See my order" : "Next";
+  $("g5bar").style.width = Math.min(100, o5.said.length / ORDER_STEPS * 100) + "%";
+  sfx("good"); speak(ids);
+}
+function drawTicket(){
+  const t = $("g5ticket"); t.innerHTML = "";
+  const title = document.createElement("b"); title.textContent = "Your order"; t.append(title);
+  if (!o5.lines.length){
+    const p = document.createElement("p"); p.textContent = "What you choose shows up here."; t.append(p); return;
+  }
+  const ul = document.createElement("ul");
+  if (S.track === "read") ul.dir = "rtl";
+  o5.lines.forEach(l => {
+    const li = document.createElement("li");
+    li.textContent = l.icon + " " + (S.track === "read" ? heOf(l.ids) : trOf(l.ids));
+    if (S.track === "read") li.lang = "he";
+    ul.append(li);
+  });
+  t.append(ul);
+}
+function finalOrder(){
+  o5.phase = "final"; o5.ms = performance.now() - o5.t0;
+  $("g5ask").hidden = true; $("g5opts").hidden = true; $("g5say").hidden = true; $("g5ansb").hidden = true;
+  const box = $("g5final"); box.innerHTML = "";
+  const cue = document.createElement("div"); cue.className = "cue"; cue.textContent = "Now say your whole order, one more time";
+  box.append(cue);
+  o5.said.forEach(x => {
+    const b = document.createElement("div"); b.className = "bub me";
+    const he = document.createElement("div"); he.className = "he"; he.lang = "he"; he.dir = "rtl"; he.textContent = ansHe(x.ids);
+    const tr = document.createElement("div"); tr.className = "tr"; tr.textContent = ansTr(x.ids);
+    const en = document.createElement("small"); en.id = ""; en.className = "g5en"; en.style.cssText = "text-transform:none;letter-spacing:0;margin-top:4px"; en.textContent = x.en;
+    b.append(he, tr, en); box.append(b);
+  });
+  box.hidden = false; rows5("done"); $("g5bar").style.width = "100%";
+  pop($("g5card")); sfx("pop");
+}
+$("g5start").addEventListener("click", () => { if (o5.phase !== "intro") return; if (o5.page === 1) introPage(2); else beginOrder(); });
+$("g5show").addEventListener("click", reveal5);
+$("g5next").addEventListener("click", () => { if (o5.phase === "shown") askStep(o5.pick.next); });
+$("g5done").addEventListener("click", () => {
+  if (o5.phase !== "final") return;
+  let best = 0;
+  try{ best = Number(localStorage.getItem(KEY + "_order")) || 0; }catch(e){}
+  if (!best || o5.ms < best){ best = o5.ms; try{ localStorage.setItem(KEY + "_order", String(Math.round(best))); }catch(e){} }
+  finish("Order up!", o5.said.length, "Hebrew sentences said to order what you wanted.",
+    "Your time: " + fmt5(o5.ms) + ". Fastest order so far: " + fmt5(best) + ".");
+});
+function paintGloss(){
+  const on = S.gloss !== false;
+  $("g5card").classList.toggle("nogloss", !on);
+  $("g5gloss").setAttribute("aria-pressed", String(on));
+  $("g5gloss").textContent = on ? "Translation: on" : "Translation: off";
+}
+$("g5gloss").addEventListener("click", () => { S.gloss = (S.gloss === false); persist(); paintGloss(); });
+paintGloss();
+
+/* ---------- GAME 6: Echo (flash, then rebuild from memory) ---------- */
+let i6 = 0, clean6 = 0, p6 = "idle", again6 = false, len6 = ECHO.length, picked6 = [];
+const ids6 = () => ECHO[i6][S.gender];
+const FLIP = {}; WHO.forEach(v => { FLIP[v.m] = v.f; FLIP[v.f] = v.m; });   // rotze <-> rotza, used as the trap tile
+function rows6(which){ ["again", "next"].forEach(r => $("g6" + r + "Row").hidden = (r !== which)); }
+function startEcho(){
+  len6 = (path && PATH[path.i].limit) || ECHO.length;
+  i6 = 0; clean6 = 0; again6 = false; showKeep("g6"); flashEcho();
+}
+function flashEcho(){
+  if (i6 >= len6) return finish("Echo!", clean6 + " / " + len6,
+    "sentences rebuilt from memory after one flash.", "The longest one was " + ECHO[len6 - 1].m.length + " words.");
+  const ids = ids6();
+  $("g6he").textContent = heOf(ids); $("g6tr").textContent = trOf(ids); $("g6en").textContent = ECHO[i6].en; $("g6en").hidden = false;
+  $("g6tag").textContent = "Look and listen";
+  $("g6level").textContent = ids.length + " words";
+  $("g6sent").hidden = false; $("g6slots").hidden = true; $("g6bank").hidden = true; $("g6listen").hidden = true;
+  rows6("");
+  $("g6bar").style.width = (i6 / len6 * 100) + "%";
+  $("g6count").textContent = (i6 + 1) + " / " + len6;
+  pop($("g6card")); p6 = "flash"; speak(ids);
+  clearTimeout(timer); timer = setTimeout(recallEcho, 900 + 350 * ids.length);
+}
+function recallEcho(){
+  p6 = "recall"; picked6 = [];
+  const ids = ids6(), heb = S.track === "read";
+  // trap tiles: the other-gender verb, plus one word that is not in the sentence
+  const extra = ids.filter(id => FLIP[id]).map(id => FLIP[id]);
+  const pool = ["kafe", "pitza", "mayim", "lo", "hu", "hi", "ivrit"].filter(w => !ids.includes(w) && !extra.includes(w));
+  extra.push(pool[Math.floor(Math.random() * pool.length)]);
+  $("g6sent").hidden = true; $("g6en").hidden = true;   // no English during recall: it would give the answer away
+  $("g6tag").textContent = "Rebuild it from memory";
+  $("g6slots").className = "slots" + (heb ? " rtl" : "");
+  const bank = $("g6bank"); bank.className = "bank" + (heb ? " rtl" : ""); bank.innerHTML = "";
+  shuffle(ids.concat(extra)).forEach((id, n) => {
+    const t = document.createElement("button");
+    t.type = "button"; t.className = "tile" + (heb ? " heb" : ""); t.dataset.n = n;
+    t.textContent = heb ? LEX[id].he : LEX[id].tr; if (heb) t.lang = "he";
+    t.addEventListener("click", () => {
+      if (p6 !== "recall" || t.disabled) return;
+      t.disabled = true; picked6.push({ id, n }); drawSlots6();
+      if (picked6.length === ids.length) checkEcho();
+    });
+    bank.append(t);
+  });
+  drawSlots6(); $("g6slots").hidden = false; bank.hidden = false; rows6("again"); sfx("tap");
+}
+function drawSlots6(){
+  const heb = S.track === "read", box = $("g6slots");
+  box.innerHTML = "";
+  picked6.forEach((p, idx) => {
+    const t = document.createElement("button");
+    t.type = "button"; t.className = "tile" + (heb ? " heb" : "");
+    t.textContent = heb ? LEX[p.id].he : LEX[p.id].tr; if (heb) t.lang = "he";
+    t.setAttribute("aria-label", "Remove " + LEX[p.id].tr);
+    t.addEventListener("click", () => {
+      if (p6 !== "recall") return;
+      picked6.splice(idx, 1);
+      const src = $("g6bank").querySelector('[data-n="' + p.n + '"]'); if (src) src.disabled = false;
+      drawSlots6();
+    });
+    box.append(t);
+  });
+}
+function checkEcho(){
+  const ids = ids6();
+  if (picked6.every((p, k) => p.id === ids[k])){
+    p6 = "said"; if (!again6) clean6++;
+    $("g6slots").classList.add("ok"); $("g6bank").hidden = true;
+    $("g6sent").hidden = false; $("g6en").hidden = false; $("g6listen").hidden = false;
+    $("g6tag").textContent = "Yes! Now say it out loud";
+    rows6("next"); sfx("good"); speak(ids);
+  } else {
+    p6 = "wait"; again6 = true; sfx("soft");
+    const box = $("g6slots"); box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+    $("g6tag").textContent = "Not quite. Watch it again";
+    rows6(""); clearTimeout(timer); timer = setTimeout(flashEcho, 1200);
+  }
+}
+$("g6again").addEventListener("click", () => { if (p6 === "recall"){ again6 = true; flashEcho(); } });
+$("g6next").addEventListener("click", () => { if (p6 === "said"){ i6++; again6 = false; flashEcho(); } });
+$("g6listen").addEventListener("click", () => speak(ids6()));
+
+/* ---------- GAME 7: Rush Hour ---------- */
+let r7 = { phase:"idle" };
+const pick7 = a => a[Math.floor(Math.random() * a.length)];
+function makeOrder(served){
+  // the customer speaks for themselves ("I want..."), so the verb follows the customer: a man says rotze, a woman rotza
+  const g = Math.random() < 0.5 ? "m" : "f", pron = "ani", He = "I";
+  const kinds = served < 3 ? ["simple", "need"] : served < 6 ? ["simple", "need", "neg", "strong"] : ["neg", "strong", "with", "with"];
+  const kind = pick7(kinds), V = RUSH_VERBS;
+  let ids, en, icon;
+  if (kind === "simple"){ const it = pick7(["kafe","te","mayim","uga","pitza"]);
+    ids = [pron, V.want[g], it]; en = He + " " + V.want.en + " " + RUSH_ITEMS[it][0]; icon = RUSH_ITEMS[it][1]; }
+  else if (kind === "need"){ const it = pick7(["mayim","sukar","chalav"]);
+    ids = [pron, V.need[g], it]; en = He + " " + V.need.en + " " + RUSH_ITEMS[it][0]; icon = RUSH_ITEMS[it][1]; }
+  else if (kind === "neg"){ const it = pick7(["kafe","te","uga","pitza"]);
+    ids = [pron, "lo", V.want[g], it]; en = He + " " + V.want.neg + " " + RUSH_ITEMS[it][0]; icon = "🚫" + RUSH_ITEMS[it][1]; }
+  else if (kind === "strong"){ const adj = pick7(["chazak","chalash"]);
+    ids = [pron, V.love[g], "kafe", adj]; en = He + " " + V.love.en + " " + (adj === "chazak" ? "strong" : "weak") + " coffee"; icon = adj === "chazak" ? "☕💪" : "☕🪶"; }
+  else { const d = pick7(["kafe","te"]), link = pick7(["im","bli"]), add = pick7(["chalav","sukar"]);
+    ids = [pron, V.want[g], d, link, add];
+    en = He + " " + V.want.en + " " + RUSH_ITEMS[d][0] + (link === "im" ? " with " : " without ") + RUSH_ITEMS[add][0];
+    icon = RUSH_ITEMS[d][1] + (link === "im" ? "➕" : "🚫") + RUSH_ITEMS[add][1]; }
+  return { g, ids, en, icon };
+}
+function startRush(){
+  // the story starts with the café opening; the shift itself begins on "Open the café"
+  r7 = { phase:"intro", lives:RUSH.lives, served:0, seen:0, combo:0, top:0, cur:null, idx:0, end:0, total:1, last:"",
+         review:[], queue:[], reviewing:false, fixed:0 };
+  show("g7");
+  $("g7barista").src = $("dAvatar").src;
+  $("g7story").textContent = (name() ? name() + ", the" : "The") + " customers order in English, and Eilai behind the bar only takes orders in Hebrew. " +
+    "Say each order in Hebrew, word by word, before the customer loses patience. A man says “rotze”, a woman says “rotza”. " + RUSH.customers + " customers, then the café closes.";
+  $("g7afterRow").hidden = true;
+  $("g7intro").hidden = false; $("g7play").hidden = true; $("g7openRow").hidden = false;
+  $("g7face").textContent = ""; $("g7cup").hidden = true; $("g7clock").textContent = "8:00";
+  $("g7bar").style.width = "100%"; hud7();
+}
+const clock7 = n => { const m = 8 * 60 + n * 7; return Math.floor(m / 60) + ":" + String(m % 60).padStart(2, "0"); };
+function openRush(){
+  if (r7.phase !== "intro") return;
+  $("g7intro").hidden = true; $("g7play").hidden = false; $("g7openRow").hidden = true;
+  nextCustomer();
+  (function tick(){
+    if (r7.phase === "play" && !r7.reviewing){
+      const left = r7.end - performance.now();
+      $("g7bar").style.width = Math.max(0, left / r7.total * 100) + "%";
+      if (left <= 0) missRush();
+    }
+    raf = requestAnimationFrame(tick);
+  })();
+}
+$("g7open").addEventListener("click", openRush);
+function hud7(){
+  if (r7.reviewing){
+    $("g7count").textContent = "no rush";
+    $("g7score").textContent = "Before you close: " + (r7.queue.length + (r7.phase === "play" ? 1 : 0)) + " to fix";
+    return;
+  }
+  $("g7count").textContent = "♥".repeat(r7.lives) + "♡".repeat(RUSH.lives - r7.lives);
+  $("g7score").textContent = "Customer " + r7.seen + " of " + RUSH.customers + " · " + r7.served + " served" + (r7.combo > 1 ? " · combo x" + r7.combo : "");
+}
+function nextCustomer(){
+  $("g7afterRow").hidden = true;
+  let o;
+  if (r7.reviewing) o = r7.queue.shift();
+  else do { o = makeOrder(r7.served); } while (o.ids.join() === r7.last);
+  r7.cur = o; r7.last = o.ids.join(); r7.idx = 0;
+  const heb = S.track === "read";
+  if (!r7.reviewing) r7.seen++;
+  $("g7face").textContent = pick7(o.g === "m" ? ["🧔", "👨", "👴", "👨‍🦱"] : ["👩", "👵", "👩‍🦰", "👱‍♀️"]);
+  $("g7who").textContent = r7.reviewing ? "Back for another try:" : (o.g === "m" ? "A man" : "A woman") + " walks in:";
+  $("g7ord").textContent = "“Hi! " + o.en + "”  " + o.icon;
+  $("g7tell").textContent = "Say it in Hebrew, the way " + (o.g === "m" ? "he" : "she") + " would";
+  $("g7clock").textContent = clock7(r7.seen);
+  $("g7cup").hidden = true;
+  $("g7msg").textContent = "";
+  const slots = $("g7slots"); slots.className = "slots" + (heb ? " rtl" : ""); slots.innerHTML = "";
+  // traps: the other-gender verb, the other pronoun, and one stray word
+  const extra = o.ids.filter(id => FLIP[id]).map(id => FLIP[id]);
+  extra.push(pick7(["hu", "hi"]));
+  const pool = ["kafe","te","mayim","uga","pitza","im","bli","lo","sukar"].filter(w => !o.ids.includes(w));
+  extra.push(pick7(pool));
+  const bank = $("g7bank"); bank.className = "bank" + (heb ? " rtl" : ""); bank.innerHTML = "";
+  shuffle(o.ids.concat(extra)).forEach(id => {
+    const t = document.createElement("button");
+    t.type = "button"; t.className = "tile" + (heb ? " heb" : ""); t.dataset.id = id;
+    t.textContent = heb ? LEX[id].he : LEX[id].tr; if (heb) t.lang = "he";
+    t.addEventListener("click", () => tapRush(t, id));
+    bank.append(t);
+  });
+  const c = $("g7face"); c.classList.remove("in", "out"); void c.offsetWidth; c.classList.add("in");
+  r7.total = (Math.max(RUSH.fastest, RUSH.seconds - r7.served * 0.5) + Math.max(0, o.ids.length - 3) * 1.5) * 1000;
+  r7.end = performance.now() + r7.total; r7.phase = "play"; hud7();
+  if (r7.reviewing) $("g7bar").style.width = "100%";
+}
+function tapRush(t, id){
+  if (r7.phase !== "play" || t.disabled) return;
+  const heb = S.track === "read";
+  if (id !== r7.cur.ids[r7.idx]){
+    // wrong word: no life lost, but it costs time
+    if (!r7.reviewing){ r7.end -= RUSH.penalty * 1000; r7.combo = 0; noteMiss(); }
+    hud7(); sfx("soft");
+    t.classList.remove("shake"); void t.offsetWidth; t.classList.add("shake");
+    return;
+  }
+  t.disabled = true; r7.idx++;
+  const s = document.createElement("span"); s.className = "tile land" + (heb ? " heb" : "");
+  s.textContent = heb ? LEX[id].he : LEX[id].tr; if (heb) s.lang = "he";
+  $("g7slots").append(s);
+  if (r7.idx < r7.cur.ids.length) return;
+  r7.phase = "pause";
+  if (r7.reviewing) r7.fixed++; else { r7.served++; r7.combo++; r7.top = Math.max(r7.top, r7.combo); }
+  $("g7slots").classList.add("ok"); $("g7msg").textContent = "Served! Listen, then say it out loud.";
+  $("g7who").textContent = r7.cur.g === "m" ? "He says:" : "She says:";
+  $("g7ord").textContent = "“" + LEX.toda.tr + "!”  (thank you)";
+  const cup = $("g7cup"); cup.textContent = r7.cur.icon.replace("🚫", ""); cup.hidden = false;
+  cup.classList.remove("slide"); void cup.offsetWidth; cup.classList.add("slide");
+  hud7(); sfx("good"); speak(r7.cur.ids);
+  after7(r7.reviewing ? (r7.queue.length ? nextCustomer : endRush) : (r7.seen >= RUSH.customers ? endRush : nextCustomer));
+}
+function missRush(){
+  r7.phase = "pause"; r7.lives--; r7.combo = 0; noteMiss(); hud7(); sfx("soft");
+  $("g7bar").style.width = "0%";
+  $("g7msg").textContent = "Too slow. It was: " + trOf(r7.cur.ids);
+  $("g7face").textContent = "😤"; $("g7face").classList.add("out");
+  $("g7ord").textContent = "“…”";
+  speak(r7.cur.ids);
+  after7(r7.reviewing ? (r7.queue.length ? nextCustomer : endRush) : (r7.lives > 0 && r7.seen < RUSH.customers ? nextCustomer : endRush));
+}
+/* every order that went wrong (a wrong word, or time ran out) is remembered once */
+/* after every customer the game stops: listen again as often as you like, then move on */
+function after7(fn){
+  r7.after = fn;
+  const closing = fn === endRush && (r7.reviewing || !r7.review.length);
+  $("g7nextBtn").textContent = closing ? "Close the café" : "Next customer";
+  $("g7afterRow").hidden = false;
+}
+$("g7hear").addEventListener("click", () => { if (r7.cur) speak(r7.cur.ids); });
+$("g7nextBtn").addEventListener("click", () => {
+  if (r7.phase !== "pause" || !r7.after) return;
+  const fn = r7.after; r7.after = null; $("g7afterRow").hidden = true; fn();
+});
+function noteMiss(){
+  const key = r7.cur.ids.join();
+  if (!r7.review.some(o => o.ids.join() === key)) r7.review.push(r7.cur);
+}
+function endRush(){
+  // before the final screen: the orders that went wrong come back, with no clock and no lives
+  if (!r7.reviewing && r7.review.length){
+    r7.reviewing = true; r7.queue = r7.review.slice(-4);
+    toast("Before you close: fix " + r7.queue.length);
+    return nextCustomer();
+  }
+  let best = 0;
+  try{ best = Number(localStorage.getItem(KEY + "_rush")) || 0; }catch(e){}
+  if (r7.served > best){ best = r7.served; try{ localStorage.setItem(KEY + "_rush", String(best)); }catch(e){} }
+  finish("Closing time!", r7.served, "customers served in Hebrew.", "You closed at " + clock7(r7.seen) + ". Best shift: " + best + ". Longest combo: " + r7.top + "." + (r7.fixed ? " Mistakes fixed: " + r7.fixed + "." : ""));
+}
+
+/* ---------- GAME 8: By Ear (listening only) ---------- */
+let e8 = { phase:"idle" };
+function makeEar(n){
+  const g = Math.random() < 0.5 ? "m" : "f";
+  let main, extra;
+  if (n < 3){ main = pick7(EAR_MAIN); extra = EAR_EXTRA[0]; }                       // first three: one thing, nothing else
+  else { main = pick7(EAR_MAIN.slice(0, 2)); extra = pick7(EAR_EXTRA.slice(1)); }     // then: a drink with or without something
+  return { main:main[0], extra:extra[0], ids:["ani", RUSH_VERBS.want[g], main[0]].concat(extra[3]),
+           en:"I want " + main[2] + (extra[3].length ? " " + extra[2] : "") };
+}
+function startEar(){
+  e8 = { phase:"idle", i:0, clean:0, tries:0, cur:null, main:null, extra:null, last:"" };
+  show("g8"); nextEar();
+}
+function row8(boxId, list, field){
+  const box = $(boxId); box.innerHTML = "";
+  list.forEach(x => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "pick";
+    const ic = document.createElement("span"); ic.textContent = x[1]; ic.setAttribute("aria-hidden", "true");
+    const lb = document.createElement("small"); lb.textContent = x[2];
+    b.append(ic, lb); b.setAttribute("aria-pressed", "false"); b.dataset.k = x[0];
+    b.addEventListener("click", () => {
+      if (e8.phase !== "listen") return;
+      e8[field] = x[0];
+      box.querySelectorAll(".pick").forEach(p => p.setAttribute("aria-pressed", String(p === b)));
+      if (e8.main !== null && e8.extra !== null) checkEar();
+    });
+    box.append(b);
+  });
+}
+function nextEar(){
+  if (e8.i >= EAR_ROUNDS) return finish("Good ear!", e8.clean + " / " + EAR_ROUNDS,
+    "orders understood by ear on the first try.", "No reading needed.");
+  let o; do { o = makeEar(e8.i); } while (o.ids.join() === e8.last);
+  e8.cur = o; e8.last = o.ids.join(); e8.tries = 0; e8.main = null; e8.extra = null;
+  row8("g8main", EAR_MAIN, "main"); row8("g8extra", EAR_EXTRA, "extra");
+  $("g8tag").textContent = "Listen. What did they order?";
+  $("g8msg").textContent = ""; $("g8sent").hidden = true; $("g8nextRow").hidden = true;
+  $("g8bar").style.width = (e8.i / EAR_ROUNDS * 100) + "%";
+  $("g8count").textContent = (e8.i + 1) + " / " + EAR_ROUNDS;
+  // with no Hebrew audio on this device, fall back to showing the sentence (and say so)
+  const audio = hasAudio(o.ids);
+  $("g8note").hidden = audio;
+  if (!audio){
+    $("g8note").textContent = "No Hebrew audio on this device yet, so the order is shown as text. With recordings added, this game is audio only.";
+    showSent8();
+  }
+  pop($("g8card")); e8.phase = "listen"; speak(o.ids);
+}
+function showSent8(){
+  $("g8he").textContent = heOf(e8.cur.ids); $("g8tr").textContent = trOf(e8.cur.ids);
+  $("g8en").textContent = e8.phase === "said" ? e8.cur.en : "";
+  $("g8sent").hidden = false;
+}
+function checkEar(){
+  const ok = e8.main === e8.cur.main && e8.extra === e8.cur.extra;
+  if (!ok && e8.tries === 0){
+    // one more chance: clear the picks and play it again, slower
+    e8.tries = 1; e8.main = null; e8.extra = null; sfx("soft");
+    document.querySelectorAll("#g8card .pick").forEach(p => p.setAttribute("aria-pressed", "false"));
+    $("g8msg").textContent = "Not quite. Listen again, slower.";
+    return speak(e8.cur.ids, true);
+  }
+  e8.phase = "said";
+  if (ok && e8.tries === 0) e8.clean++;
+  document.querySelectorAll("#g8card .pick").forEach(p => {
+    p.setAttribute("aria-pressed", "false");
+    if (p.dataset.k === e8.cur.main || p.dataset.k === e8.cur.extra) p.classList.add("right");
+  });
+  $("g8tag").textContent = ok ? "Yes! Now say it yourself" : "This was the order. Say it yourself";
+  $("g8msg").textContent = "";
+  showSent8(); $("g8nextRow").hidden = false;
+  sfx(ok ? "good" : "soft"); speak(e8.cur.ids);
+}
+$("g8play").addEventListener("click", () => { if (e8.cur) speak(e8.cur.ids); });
+$("g8slow").addEventListener("click", () => { if (e8.cur) speak(e8.cur.ids, true); });
+$("g8next").addEventListener("click", () => { if (e8.phase === "said"){ e8.i++; nextEar(); } });
+
+show("home");
+</script>
+<script>
+/* =====================================================================
+   HEBREW HACK app config. Edit this file only; no build step needed.
+   ===================================================================== */
+
+/* TODO: paste the Vimeo id of the STEP 4 intro video (the number in
+   https://vimeo.com/123456789). Empty = a placeholder card is shown. */
+const VIMEO_ID = "";
+
+/* TODO (access control, not active in the pilot).
+   Plan: a Systeme.io purchase adds a tag to the contact -> a Systeme webhook
+   (or automation) writes the email + tag into Supabase -> this app signs the
+   learner in (Supabase magic link) and reads their tags to unlock steps.
+   While mode is "open" everyone can play the unlocked steps and nothing is checked. */
+const ACCESS = {
+  mode: "open",                    // "open" (pilot) | "supabase" (later)
+  supabaseUrl: "",                 // TODO e.g. https://xxxx.supabase.co
+  supabaseAnonKey: "",             // TODO public anon key only, never a service key
+  requiredTag: "hebrew-hack-student", // TODO the Systeme tag given on purchase
+  buyUrl: "https://hebrewhack.com", // where a learner without access is sent
+  // which tag unlocks which step (later: levels 2 and 3 can get their own tags)
+  stepTags: { step4: "hebrew-hack-student" }
+};
+
+/* Returns { ok, reason }. In "open" mode it always lets the learner in.
+   Replace the body of the "supabase" branch when Supabase is connected. */
+async function checkAccess(stepId){
+  if (ACCESS.mode === "open") return { ok: true, reason: "pilot" };
+  // TODO: const { data } = await supabase.from("students").select("tags").eq("email", user.email).single();
+  // return { ok: (data?.tags || []).includes(ACCESS.stepTags[stepId] || ACCESS.requiredTag) };
+  return { ok: false, reason: "not-connected" };
+}
+
+</script>
+<script>
+/* =====================================================================
+   HEBREW HACK app shell: home path, STEP 4 lesson flow, XP, streak.
+   Runs after the Magic Four game script and reuses its functions
+   (starters, speak, sfx, confetti, show, finish) without changing them.
+   ===================================================================== */
+const AKEY = "hh_app";
+const A = { name:"", gender:"", read:true, xp:0, streak:0, lastDay:"", step4:{ pos:0, done:[], completed:0 } };
+try{ const s = JSON.parse(localStorage.getItem(AKEY)); if (s){ Object.assign(A, s); A.step4 = Object.assign({ pos:0, done:[], completed:0 }, s.step4); } }catch(e){}
+function saveA(){ try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){} }
+
+/* the course map; only STEP 4 is open in the pilot */
+const STEPS = [
+  { id:"welcome", n:"WELCOME",  t:"Welcome",           he:"שָׁלוֹם" },
+  { id:"step1",   n:"STEP 1",   t:"The Alphabet",      he:"א ב ג" },
+  { id:"step2",   n:"STEP 2",   t:"Niqud",             he:"בָּ בִּ בּוּ" },
+  { id:"step3",   n:"STEP 3",   t:"Pronouns",          he:"אֲנִי" },
+  { id:"step4",   n:"STEP 4",   t:"The Magic Four",    he:"רוֹצֶה", live:true },
+  { id:"step5",   n:"STEP 5",   t:"Infinitives",       he:"לֶאֱכֹל" },
+  { id:"step6",   n:"STEP 6",   t:"Yesh li / Ein li",  he:"יֵשׁ לִי" }
+];
+const ZIG = [0, -56, -78, -40, 30, 70, 36];
+
+/* STEP 4 lesson: intro video, then the five games (g = game number in the game script) */
+const LESSON = [
+  { k:"intro", icon:"🎬", name:"Intro video",  how:"Two minutes on the Magic Four: want, can, need, love." },
+  { k:6, icon:"⚡", name:"Echo",       how:"A sentence flashes and disappears. Rebuild it from memory, then say it out loud." },
+  { k:4, icon:"🔁", name:"Swap It",    how:"Tap the word that has to change and pick the new one. Then say the new sentence." },
+  { k:5, icon:"☕", name:"Café Order", how:"The barista asks what you want. Pick it, say it in Hebrew, and build your order." },
+  { k:8, icon:"👂", name:"By Ear",     how:"No text at all. Listen to the order and tap what they asked for." },
+  { k:7, icon:"⏱", name:"Rush Hour",  how:"The café opens at 8:00. Customers walk in; answer each one in Hebrew before the clock runs out." }
+];
+const XP_GAME = 10, XP_BONUS = 20;
+const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","words"];
+
+const dayStr = d => d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+function liveStreak(){
+  const t = new Date(), y = new Date(t); y.setDate(t.getDate() - 1);
+  return (A.lastDay === dayStr(t) || A.lastDay === dayStr(y)) ? A.streak : 0;
+}
+function bumpStreak(){
+  const t = new Date(), y = new Date(t); y.setDate(t.getDate() - 1);
+  if (A.lastDay === dayStr(t)) return;
+  A.streak = (A.lastDay === dayStr(y)) ? A.streak + 1 : 1; A.lastDay = dayStr(t);
+}
+function step4Progress(){ return A.step4.completed ? 1 : Math.min(1, A.step4.pos / LESSON.length); }
+
+/* ---------- screens ---------- */
+const SCREENS = ["sHome","sOnb","sStep","sLesson","sDone"];
+let booted = false;
+function go(id){
+  SCREENS.forEach(s => $(s).hidden = (s !== id));
+  $("app").hidden = false; $("play").hidden = true;
+  window.scrollTo(0, 0);
+}
+function enterPlay(){ $("app").hidden = true; $("play").hidden = false; window.scrollTo(0, 0); paintStrip(); }
+function stopGame(){ try{ player.pause(); }catch(e){} try{ speechSynthesis.cancel(); }catch(e){} }
+
+/* ---------- home ---------- */
+function paintHome(){
+  $("hStreak").textContent = "🔥 " + liveStreak();
+  $("hXp").textContent = "⚡ " + A.xp;
+  $("hHi").textContent = A.name ? "Shalom, " + A.name + "!" : "Shalom!";
+  const R = 46, C = 2 * Math.PI * R, prog = step4Progress();
+  $("hMap").innerHTML = "";
+  STEPS.forEach((st, i) => {
+    const li = document.createElement("li");
+    li.style.transform = "translateX(" + ZIG[i % ZIG.length] + "px)";
+    const live = !!st.live, done = live && A.step4.completed > 0;
+    if (live) li.className = "is-live";
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "hh-node" + (live ? (done ? " done" : " live") : "");
+    b.id = "node-" + st.id;
+    b.setAttribute("aria-label", st.n + " " + st.t + (live ? "" : ", coming soon"));
+    b.innerHTML = (live ? '<svg class="hh-ring" viewBox="0 0 104 104" aria-hidden="true"><circle class="bg" cx="52" cy="52" r="' + R + '"/>' +
+        '<circle class="fg" cx="52" cy="52" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="' + (C * (1 - prog)) + '"/></svg>' : "") +
+      '<span class="hh-glyph" lang="he" dir="rtl"></span>' + (live ? "" : '<span class="hh-lock" aria-hidden="true">🔒</span>');
+    b.querySelector(".hh-glyph").textContent = st.he;
+    if (live){
+      const bub = document.createElement("div"); bub.className = "hh-bubble";
+      bub.textContent = done ? "PLAY AGAIN" : A.step4.pos > 0 ? "CONTINUE" : "START";
+      li.append(bub);
+      b.addEventListener("click", () => openStep());
+    } else {
+      b.addEventListener("click", () => { sfx("soft"); toast(st.t + ": coming soon"); });
+    }
+    const cap = document.createElement("div"); cap.className = "hh-cap";
+    const pct = Math.round(prog * 100);
+    cap.innerHTML = "<small></small><b></b><em></em>";
+    cap.querySelector("small").textContent = st.n;
+    cap.querySelector("b").textContent = st.t;
+    cap.querySelector("em").textContent = live ? (done ? "Done · " + A.step4.completed + "×" : pct + "% · " + A.step4.pos + "/" + LESSON.length) : "Coming soon";
+    li.append(b, cap); $("hMap").append(li);
+  });
+  go("sHome");
+  // bring the open step into view, like the Duolingo path does
+  const live = $("node-step4"); if (live) live.scrollIntoView({ block:"center" });
+}
+$("hSet").addEventListener("click", () => openOnb(true));
+
+/* ---------- onboarding / settings ---------- */
+let onbGender = "";
+function paintOnb(){
+  document.querySelectorAll("#oGender button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.value === onbGender)));
+  $("oGo").disabled = !onbGender;
+}
+function openOnb(settings){
+  onbGender = A.gender; $("oName").value = A.name || "";
+  $("oRead").setAttribute("aria-checked", String(A.read !== false));
+  $("oTitle").textContent = settings ? "Settings" : "Welcome!";
+  $("oSub").textContent = settings ? "Change these any time." : "Two quick things and you're in.";
+  $("oGo").textContent = settings ? "Save" : "Start learning";
+  paintOnb(); go("sOnb");
+}
+$("oGender").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; onbGender = b.dataset.value; sfx("tap"); paintOnb(); });
+$("oRead").addEventListener("click", () => { const on = $("oRead").getAttribute("aria-checked") !== "true"; $("oRead").setAttribute("aria-checked", String(on)); sfx("tap"); });
+$("oGo").addEventListener("click", () => {
+  if (!onbGender) return;
+  A.name = $("oName").value.trim().slice(0, 20); A.gender = onbGender; A.read = $("oRead").getAttribute("aria-checked") === "true"; saveA();
+  syncGameSettings(); unlockAudio(); sfx("pop"); paintHome();
+});
+function syncGameSettings(){
+  S.gender = A.gender || "m"; S.name = A.name; S.track = A.read === false ? "speak" : "read"; S.setup = true; persist();
+}
+
+/* ---------- step overview ---------- */
+async function openStep(){
+  const acc = await checkAccess("step4");
+  if (!acc.ok){ toast("This step opens after you join"); return; }
+  $("stXp").textContent = "⚡ " + A.xp;
+  const ol = $("stParts"); ol.innerHTML = "";
+  LESSON.forEach((p, i) => {
+    const done = A.step4.completed > 0 || i < A.step4.pos, next = !A.step4.completed && i === A.step4.pos;
+    const li = document.createElement("li");
+    const b = document.createElement("button"); b.type = "button";
+    b.className = "hh-part" + (done ? " done" : "") + (next ? " next" : "");
+    b.innerHTML = "<i></i><span><b></b><small></small></span>";
+    b.querySelector("i").textContent = done ? "★" : p.icon;
+    b.querySelector("b").textContent = (i === 0 ? "" : "Part " + i + " · ") + p.name;
+    b.querySelector("small").textContent = done ? (i === 0 ? "Watched · tap to watch again" : "Done · tap to practise again") : next ? "Up next" : "Locked until the part before";
+    if (done) b.addEventListener("click", () => startSingle(i)); else if (next) b.addEventListener("click", () => startLesson()); else b.disabled = true;
+    li.append(b); ol.append(li);
+  });
+  $("stGo").textContent = A.step4.completed ? "Play the whole lesson again" : A.step4.pos > 0 ? "Continue the lesson" : "Start the lesson";
+  go("sStep");
+}
+$("stBack").addEventListener("click", () => paintHome());
+$("stGo").addEventListener("click", () => startLesson());
+
+/* ---------- lesson flow ---------- */
+let L = null;   // { mode:"lesson"|"single", pos, t0, said, xp, prev }
+function startLesson(){
+  unlockAudio(); syncGameSettings();
+  if (A.step4.completed || A.step4.pos >= LESSON.length) A.step4.pos = 0;
+  // a resumed lesson keeps what was already earned in it (saved in A.step4.run)
+  const run = (A.step4.pos > 0 && A.step4.run) || { said:0, xp:0, ms:0 };
+  L = { mode:"lesson", pos:A.step4.pos, t0:Date.now(), said:run.said, xp:run.xp, ms:run.ms, prev:"" };
+  renderCard();
+}
+function startSingle(i){ unlockAudio(); syncGameSettings(); L = { mode:"single", pos:i, t0:Date.now(), said:0, xp:0, ms:0, prev:"" }; renderCard(); }
+function lessonFrac(){ return L.mode === "single" ? 0 : L.pos / LESSON.length; }
+function renderCard(){
+  const p = LESSON[L.pos], card = $("lCard");
+  $("lBar").style.width = Math.round(lessonFrac() * 100) + "%";
+  $("lCount").textContent = (L.pos + 1) + "/" + LESSON.length;
+  card.innerHTML = "";
+  if (p.k === "intro"){
+    card.innerHTML = '<div class="brand">STEP 4 · INTRO</div><h2>The Magic Four</h2><div class="hh-video" id="lVideo"></div><p></p>';
+    card.querySelector("p").textContent = "Watch the short intro, then you'll use each verb out loud in five quick games.";
+    const v = card.querySelector("#lVideo");
+    if (VIMEO_ID){
+      const f = document.createElement("iframe");
+      f.src = "https://player.vimeo.com/video/" + encodeURIComponent(VIMEO_ID) + "?title=0&byline=0&portrait=0&playsinline=1&dnt=1";
+      f.allow = "autoplay; fullscreen; picture-in-picture"; f.allowFullscreen = true; f.title = "STEP 4 intro video";
+      v.append(f);
+    } else {
+      v.innerHTML = '<div class="hh-ph"><b>▶</b>Intro video goes here</div>';
+    }
+    $("lGo").textContent = L.mode === "single" ? "Done" : "I watched it · continue";
+  } else {
+    const head = document.createElement("div"); head.className = "brand";
+    head.textContent = "PART " + L.pos + " OF " + (LESSON.length - 1);
+    const em = document.createElement("div"); em.className = "hh-emoji"; em.textContent = p.icon;
+    const h = document.createElement("h2"); h.textContent = p.name;
+    const how = document.createElement("p"); how.textContent = p.how;
+    card.append(em, head, h, how);
+    head.style.marginTop = "14px";
+    if (L.prev){ const pr = document.createElement("div"); pr.className = "hh-prev"; pr.textContent = L.prev; card.append(pr); }
+    $("lGo").textContent = "Go";
+  }
+  pop(card); go("sLesson");
+}
+$("lGo").addEventListener("click", () => {
+  const p = LESSON[L.pos];
+  if (p.k === "intro"){
+    if (L.mode === "single") return openStep();
+    sfx("good"); return advance("Intro watched");
+  }
+  launchGame(p.k);
+});
+$("lQuit").addEventListener("click", () => { L = null; openStep(); });
+
+function launchGame(g){
+  unlockAudio();
+  const idx = PATH.findIndex(x => x.g === g);
+  path = { i:idx, said:0, t0:performance.now() };     // lets the games use the lesson limits (PATH in the game script)
+  current = String(g);
+  if (WORD_INTRO[g]) showWords(String(g)); else starters[g]();
+}
+function paintStrip(){
+  if (!L) return;
+  $("hhStripTxt").textContent = L.mode === "single" ? "STEP 4 · PRACTICE" : "STEP 4 · PART " + L.pos + " OF " + (LESSON.length - 1);
+  $("hhStripBar").style.width = Math.round(lessonFrac() * 100) + "%";
+}
+function advance(prev){
+  L.pos++; L.prev = prev || "";
+  L.ms += Date.now() - L.t0; L.t0 = Date.now();
+  A.step4.pos = L.pos; A.step4.run = { said:L.said, xp:L.xp, ms:L.ms }; saveA();
+  if (L.pos >= LESSON.length) return complete();
+  renderCard();
+}
+function complete(){
+  A.step4.completed++; A.step4.pos = 0; A.step4.run = null; A.xp += XP_BONUS; L.xp += XP_BONUS; bumpStreak(); saveA();
+  const sec = Math.round(L.ms / 1000);
+  $("cTitle").textContent = A.name ? "Kol hakavod, " + A.name + "!" : "Kol hakavod!";
+  $("cSaid").textContent = L.said; $("cTime").textContent = Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0");
+  $("cStreak").textContent = liveStreak();
+  go("sDone"); sfx("win");   // sfx("win") also throws the confetti
+  const target = L.xp, el = $("cXp"), t0 = performance.now();
+  (function tick(now){ const k = Math.min(1, (now - t0) / 900); el.firstChild.nodeValue = "+" + Math.round(target * k); if (k < 1) requestAnimationFrame(tick); })(t0);
+  L = null;
+}
+$("cHome").addEventListener("click", () => paintHome());
+
+/* ---------- hooks into the game script ---------- */
+const gameShow = show, gameFinish = finish;
+show = function(id){
+  gameShow(id);
+  if (!booted) return;
+  if (GAME_SECTIONS.includes(id)) return enterPlay();
+  // the game asked for its own menu (the ← button): go back to the lesson card instead
+  stopGame();
+  if (L && L.mode === "lesson") renderCard(); else if (L) { L = null; openStep(); } else openStep();
+};
+finish = function(title, big, sub, extra){
+  if (!L) return gameFinish(title, big, sub, extra);
+  const g = Number(current);
+  const said = g === 6 ? len6 : g === 4 ? cards4.length : g === 5 ? o5.said.length : g === 8 ? EAR_ROUNDS : g === 7 ? (r7.served || 0) : 0;
+  L.said += said; L.xp += XP_GAME; A.xp += XP_GAME;
+  if (!A.step4.done.includes(g)) A.step4.done.push(g);
+  bumpStreak(); saveA();
+  path = null; gameShow("home"); stopGame();     // the game's own cleanup (timers, mic), without its menu
+  sfx("good");
+  const prev = title.replace(/!$/, "") + " · " + big + "  ·  +" + XP_GAME + " XP";
+  if (L.mode === "single") toast("+" + XP_GAME + " XP");
+  if (L.mode === "single"){ L = null; return openStep(); }
+  advance(prev);
+};
+
+/* ---------- boot ---------- */
+booted = true;
+if (A.gender){ syncGameSettings(); paintHome(); } else openOnb(false);
+
+if ("serviceWorker" in navigator){
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
+
+</script>
+</body>
+</html>
