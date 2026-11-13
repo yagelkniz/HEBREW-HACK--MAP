@@ -412,6 +412,27 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 .hh-fclose{right:calc(env(safe-area-inset-right,0px) + 12px)}
 .hh-frot{left:calc(env(safe-area-inset-left,0px) + 12px)}
 .hh-frame.is-full.is-wide iframe{background:#000}
+
+/* Genially slides: Genially letterboxes its 16:9 slide inside the iframe and puts its round ← → arrows on the
+   iframe's left/right edges. Making the iframe WIDER than 16:9 leaves ~56px side margins for the arrows,
+   so they no longer cover the slide text. Videos are not affected. */
+:root{--hh-arrow-gap:112px}   /* both side margins together */
+.hh-frame.is-wide.is-slides{aspect-ratio:auto;height:calc((100vw - var(--hh-arrow-gap)) * 9 / 16);background:#1E4A3A}
+.hh-frame.is-wide.is-slides iframe{background:#1E4A3A}
+@media (orientation:landscape){ .hh-frame.is-wide.is-slides{height:auto} }
+/* upright full screen: same rule, full width */
+.hh-frame.is-full.is-wide.is-slides{background:#000;height:100dvh}
+.hh-frame.is-full.is-wide.is-slides iframe{width:100vw;height:calc((100vw - var(--hh-arrow-gap)) * 9 / 16)}
+@media (orientation:portrait){
+  /* sideways: the whole landscape area (about 844x390); the 16:9 slide fits by height and the arrows sit in the side margins */
+  .hh-frame.is-full.is-wide.is-slides.rot iframe{
+    width:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));
+    height:calc(100vw - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px))}
+}
+@media (orientation:landscape){
+  .hh-frame.is-full.is-wide.is-slides iframe{width:calc(100vw - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px));
+    height:calc(100dvh - env(safe-area-inset-top,0px) - 58px - env(safe-area-inset-bottom,0px))}
+}
 </style>
 </head>
 <body>
@@ -2184,7 +2205,7 @@ const ZIG = [0, -56, -78, -40, 30, 70, 36];
 const LESSON = [
   { type:"video", sec:"Watch",    icon:"🎬", name:"Sentence Builder", url:STEP4_EMBEDS.video1, xp:5,
     how:"See how one of the Magic Four verbs turns into a full sentence." },
-  { type:"embed", sec:"Learn",    icon:"📖", name:"The Magic Four", url:STEP4_EMBEDS.genially, xp:5, wide:true,
+  { type:"embed", sec:"Learn",    icon:"📖", name:"The Magic Four", url:STEP4_EMBEDS.genially, xp:5, wide:true, slides:true,
     how:"Tap ⤢ Full screen to see the slides bigger. Want, can, need, love, for he and for she." },
   { type:"video", sec:"Watch",    icon:"🎬", name:"At the Café", url:STEP4_EMBEDS.video2, xp:5,
     how:"The Magic Four at a café counter. Watch, then it's your turn to order." },
@@ -2372,7 +2393,7 @@ function renderEmbed(p){
   closeFull();
   paintBar("eBar", "eCount");
   $("eSec").textContent = partLabel(); $("eName").textContent = p.name; $("eHow").textContent = p.how;
-  const box = $("eFrame"); box.className = "hh-frame" + (p.type === "video" || p.wide ? " is-wide" : "");   // is-wide = 16:9 content (videos, slides)
+  const box = $("eFrame"); box.className = "hh-frame" + (p.type === "video" || p.wide ? " is-wide" : "") + (p.slides ? " is-slides" : "");   // is-slides = Genially: side margins for its arrows   // is-wide = 16:9 content (videos, slides)
   const f = document.createElement("iframe");
   f.src = embedUrl(p); f.title = p.name; f.loading = "eager";
   f.allow = FRAME_ALLOW + (p.mic ? "; microphone" : "");
