@@ -532,6 +532,8 @@ body{min-height:100dvh;overscroll-behavior-y:none}
     width:min(100%, calc(min(80vh, 100dvh - 260px) * 16 / 9 + var(--hh-arrow-gap)))}
   .hh-embed .hh-frame.is-full{width:100vw;height:100dvh;margin:0;border-radius:0;aspect-ratio:auto}
 }
+
+.hh-ver{text-align:center;font-size:11px;color:var(--cream-dim);opacity:.7;margin-top:10px;letter-spacing:.04em}
 </style>
 </head>
 <body>
@@ -579,6 +581,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
+  <p class="hh-ver" id="oVer">Version hh-v9-1960e3fd9f</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -2510,7 +2513,7 @@ function paintBar(barId, countId){
   $(barId).style.width = Math.round(lessonFrac() * 100) + "%";
   if (countId) $(countId).textContent = (L.pos + 1) + "/" + LESSON.length;
 }
-function clearEmbed(){ closeFull(); const box = $("eFrame"); if (box) box.innerHTML = ""; }   // stops video/mic when the card is left
+function clearEmbed(){ closeFull("leaving"); const box = $("eFrame"); if (box) box.innerHTML = ""; }   // stops video/mic when the card is left
 function renderCard(){
   const p = LESSON[L.pos];
   clearEmbed();
@@ -2616,6 +2619,7 @@ function openFull(){
   try{ if (!(history.state && history.state.hhFull)) history.pushState({ hhFull:1 }, ""); }catch(e){}
   $("eClose").hidden = false; $("eHome").hidden = false; $("eRot").hidden = !box.classList.contains("is-wide");
   layoutFull(); setTimeout(layoutFull, 350);   // again after the browser bars settle
+  refitVimeo(600);
   try{
     // ask for it on the whole card screen, so the ✕ and ↻ buttons stay above the frame in the browser's top layer
     const host = $("sEmbed"), req = host.requestFullscreen || host.webkitRequestFullscreen;
@@ -2623,9 +2627,10 @@ function openFull(){
   }catch(e){}
   sfx("tap");
 }
-function closeFull(){
+function closeFull(keepPlayer){
   const box = $("eFrame"); if (!box) return;
   const was = box.classList.contains("is-full");
+  if (was && keepPlayer !== "leaving") refitVimeo(250);   // back to the small card: let Vimeo size the picture again
   box.classList.remove("is-full", "rot"); layoutFull();
   document.body.classList.remove("hh-noscroll");
   $("eClose").hidden = true; $("eHome").hidden = true; $("eRot").hidden = true;
@@ -2656,6 +2661,36 @@ function layoutFull(){
   set("transform-origin", "center"); set("transform", "translate(-50%,-50%) rotate(90deg)");
 }
 ["resize", "orientationchange"].forEach(ev => window.addEventListener(ev, () => { layoutFull(); setTimeout(layoutFull, 300); }));
+window.addEventListener("orientationchange", () => { if ($("eFrame").classList.contains("is-full")) refitVimeo(700); });
+/* iPhone Safari: when the Vimeo iframe changes size after it has loaded (small card -> full screen), Vimeo's
+   captions and buttons follow the new size but the video picture keeps its first size (the small card),
+   so it shows tiny in the middle of the big player. Fix: reload the player at its new size, at the same
+   second, playing again if it was playing. */
+let refitTimer = 0, refitSeq = 0;
+function vimeoAsk(f, method){
+  return new Promise(res => {
+    const done = v => { window.removeEventListener("message", on); clearTimeout(t); res(v); };
+    const on = e => { if (e.source !== f.contentWindow || !/vimeo\.com$/.test(new URL(e.origin).hostname)) return;
+      let d = e.data; try{ if (typeof d === "string") d = JSON.parse(d); }catch(x){ return; }
+      if (d && d.method === method) done(d.value); };
+    const t = setTimeout(() => done(undefined), 500);
+    window.addEventListener("message", on);
+    try{ f.contentWindow.postMessage(JSON.stringify({ method }), "https://player.vimeo.com"); }catch(x){ done(undefined); }
+  });
+}
+function refitVimeo(delay){
+  clearTimeout(refitTimer); const seq = ++refitSeq;
+  refitTimer = setTimeout(async () => {
+    const f = $("eFrame").querySelector("iframe"); if (!f || !f.isConnected || !/player\.vimeo\.com/.test(f.src)) return;
+    const [t, paused] = await Promise.all([vimeoAsk(f, "getCurrentTime"), vimeoAsk(f, "getPaused")]);
+    if (seq !== refitSeq || !f.isConnected) return;
+    const u = new URL(f.src); u.hash = "";
+    if (paused === false) u.searchParams.set("autoplay", "1"); else u.searchParams.delete("autoplay");
+    const sec = Math.floor(Number(t) || 0);
+    f.src = u.toString() + (sec > 0 ? "#t=" + sec + "s" : "");
+    f.dataset.refit = String((Number(f.dataset.refit) || 0) + 1);
+  }, delay);
+}
 if (window.visualViewport) visualViewport.addEventListener("resize", layoutFull);
 ["fullscreenchange", "webkitfullscreenchange"].forEach(ev => document.addEventListener(ev, () => {
   if (!document.fullscreenElement && !document.webkitFullscreenElement && $("eFrame").classList.contains("is-full")) closeFull();
@@ -2716,7 +2751,19 @@ applyTr();
 if (A.gender && A.mode){ syncGameSettings(); paintHome(); } else openOnb(false);
 
 if ("serviceWorker" in navigator){
-  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").then(reg => {
+    // look for a new version whenever the app comes back to the front
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") reg.update().catch(() => {}); });
+  }).catch(() => {}));
+  // a new version took over (it calls skipWaiting + clients.claim): reload once so the new files are used now,
+  // but never in the middle of a lesson card or game
+  const hadController = !!navigator.serviceWorker.controller; let reloaded = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (!hadController || reloaded) return;
+    const reload = () => { if (reloaded) return; reloaded = true; location.reload(); };
+    const idle = () => !$("sHome").hidden || !$("sOnb").hidden;
+    if (idle()) reload(); else { const iv = setInterval(() => { if (idle()){ clearInterval(iv); reload(); } }, 2000); }
+  });
 }
 
 </script>
