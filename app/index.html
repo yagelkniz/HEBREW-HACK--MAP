@@ -578,6 +578,15 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 .is-optional .hh-cap b{opacity:.75}
 @media (max-width:375px){ .hh-pc i.only{font-size:11.5px} .hh-pc>div{gap:2px} .hh-pc .l1 b{font-size:13px} .hh-pc .l1 i{font-size:8.5px} .hh-pgrid{grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr))} }
 .hh-pron.speak .hh-pc>div{direction:ltr}   /* English letters only: he / she in reading order */
+
+/* one static tip line under videos, phones only */
+.hh-vtip{display:none}
+@media (pointer:coarse) and (max-width:899px){
+  .hh-vtip:not([hidden]){display:block;margin:8px 4px 0;text-align:center;font-size:12.5px;line-height:1.35;color:var(--cream);opacity:.6}
+  .hh-frame.is-wide:has(+ .hh-vtip:not([hidden])){margin-bottom:0}
+  .hh-vtip:not([hidden]){margin-bottom:auto}
+}
+@media (orientation:landscape) and (max-height:500px){ .hh-vtip{display:none!important} }
 </style>
 </head>
 <body>
@@ -625,7 +634,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v10-866989c6c2</p>
+  <p class="hh-ver" id="oVer">Version hh-v11-89d33d30d8</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -651,6 +660,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   </div>
   <p class="hh-ehow" id="eHow"></p>
   <div class="hh-frame" id="eFrame"></div>
+  <p class="hh-vtip" id="eTip" hidden>Tip: turn your phone sideways or pinch to zoom for a bigger video.</p>
   <button class="hh-fbtn hh-fclose" id="eClose" type="button" aria-label="Close full screen" hidden><span aria-hidden="true">✕</span> Close</button>
   <button class="hh-fbtn hh-fhome" id="eHome" type="button" data-home aria-label="Home: back to the map" hidden>⌂</button>
   <p class="hh-fhint" id="eHint" hidden>Turn your phone sideways for a bigger picture</p>
@@ -2695,6 +2705,7 @@ function renderEmbed(p){
   f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
   box.append(f);
   if (/player\.vimeo\.com/.test(f.src)) attachVimeo(f); else vPlayer = null;
+  $("eTip").hidden = p.type !== "video";   // one static tip line under videos (phones only, see CSS)
   $("eGo").textContent = L.mode === "single" ? "Done" : "Continue · +" + p.xp + " XP";
   go("sEmbed");
 }
