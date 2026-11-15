@@ -642,6 +642,39 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 @media (min-width:900px) and (min-height:501px){ .hh-embed .hh-ego{width:min(100%, 620px);margin:0 auto} .hh-embed .hh-ego .btn{margin:0;max-width:none} .hh-embed .hh-back{min-height:62px;padding:0 22px;font-size:17px} }
 .hh-logo{height:44px;width:auto;max-width:none;display:block}
 @media (max-width:370px){ .hh-logo{height:36px} }
+
+/* ===== v15 declutter: one thing per screen ===== */
+.hh-lxp{flex:none;min-height:34px;padding:0 12px;display:inline-flex;align-items:center;font-size:14px;font-weight:800}
+.hh-ehead .brand,#eHow{display:none}
+.hh-ehead{margin-top:14px}
+.hh-ehead b{font-size:22px}
+.hh-lcard{justify-content:center}
+.hh-lcard .hh-emoji{font-size:72px}
+.hh-lcard h2{font-size:30px;margin-top:14px}
+/* full screen: a slim outlined pill, so Continue stays the only pink button */
+.hh-fullbig{width:auto;align-self:center;min-height:40px;margin-top:10px;padding:0 16px;gap:8px;background:transparent;color:#F4F1E8;
+  border:1.5px solid rgba(244,241,232,.4);font-size:14px;font-weight:800;box-shadow:none}
+.hh-fullbig svg{width:18px;height:18px}
+.hh-fullbig:active{transform:scale(.97);box-shadow:none}
+/* the tip: one small muted line */
+p.hh-vtip{display:none}
+@media (pointer:coarse) and (max-width:899px){
+  p.hh-vtip:not([hidden]){display:flex;flex-direction:row;align-items:center;justify-content:center;gap:6px;margin:8px 0 0;padding:0;border:0;background:none;
+    color:var(--cream-dim);font-size:13px;font-weight:600} }
+p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
+@media (orientation:landscape) and (max-height:500px){ p.hh-vtip{display:none!important} .hh-fullbig{align-self:auto} }
+@media (min-width:900px) and (min-height:501px){ .hh-fullbig{min-height:46px;font-size:16px} }
+/* game strip: ✕ · progress · Pronouns · XP */
+#hhStrip{gap:8px;margin-bottom:12px}
+#hhStrip .hh-squit{flex:none;min-width:40px;min-height:40px}
+#hhStrip .bar{height:12px;flex:1;background:var(--green-deep)}
+#hhStrip .bar i{background:var(--coral)}
+.hh-pronbtn{flex:none;min-height:34px;padding:0 12px;border-radius:99px;border:1.5px solid var(--divider);background:transparent;color:var(--cream);
+  font:inherit;font-size:13px;font-weight:700;letter-spacing:0;cursor:pointer}
+.hh-pronbtn[hidden]{display:none}
+#hhStrip .hh-lxp{letter-spacing:0;color:var(--cream)}
+.hh-psheet .hh-cf-card{gap:10px;padding-top:10px}
+.hh-psheet .hh-pron{margin:0;width:100%}
 </style>
 </head>
 <body>
@@ -689,7 +722,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v14-9a41ef3806</p>
+  <p class="hh-ver" id="oVer">Version hh-v15-ae816654bc</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -708,7 +741,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 <!-- EMBED CARD (videos, slides, Speak, practice games): the iframe takes all the height that's left -->
 <div class="screen hh-embed" id="sEmbed" hidden>
   <div class="hh-lbar"><button class="back" id="eQuit" type="button" aria-label="Back to the lesson parts">✕</button>
-    <div class="bar"><i id="eBar"></i></div><div class="count" id="eCount"></div><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
+    <div class="bar"><i id="eBar"></i></div><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
   <div class="hh-ehead">
     <div><div class="brand" id="eSec"></div><b id="eName"></b></div>
   </div>
@@ -716,20 +749,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   <div class="hh-frame" id="eFrame"></div>
   <div class="hh-under">
   <button class="hh-fullbig" id="eFull" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="eFullTxt">Watch full screen</span></button>
-  <div class="hh-vtip" id="eTip" hidden role="note" aria-label="Tip for a bigger video">
-    <div class="hh-vtip-row">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="12" y="6" width="14" height="24" rx="3" fill="none" stroke="currentColor" stroke-width="2.6"/>
-        <circle cx="19" cy="26" r="1.4" fill="currentColor"/>
-        <path d="M30 12 a10 10 0 0 1 2 12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M28.5 21.5 L32.2 24.6 L34.6 20.4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="8" y="31" width="22" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 2" opacity=".7"/></svg>
-      <b>1. Turn your phone sideways</b></div>
-    <div class="hh-vtip-row">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M17 36 v-13 a3 3 0 0 1 6 0 v4 l7 2 a3 3 0 0 1 2 3.5 l-1.4 3.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M14 14 L6 6 M6 6 h6 M6 6 v6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M26 14 L34 6 M34 6 h-6 M34 6 v6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <b>2. Pinch to zoom for an even bigger video</b></div>
-  </div>
+  <p class="hh-vtip" id="eTip" hidden role="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Turn sideways, then pinch to zoom</p>
   </div>
   <button class="hh-fbtn hh-fclose" id="eClose" type="button" aria-label="Close full screen" hidden><span aria-hidden="true">✕</span> Close</button>
   <button class="hh-fbtn hh-fhome" id="eHome" type="button" data-home aria-label="Home: back to the map" hidden>⌂</button>
@@ -752,7 +772,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 <!-- LESSON CARD (the card before each game) -->
 <div class="screen" id="sLesson" hidden>
   <div class="hh-lbar"><button class="back" id="lQuit" type="button" aria-label="Back to the lesson parts">✕</button>
-    <div class="bar"><i id="lBar"></i></div><div class="count" id="lCount"></div><button class="hh-trbtn" type="button" data-trtoggle aria-pressed="true">abc</button><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
+    <div class="bar"><i id="lBar"></i></div><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
   <div class="hh-lcard pop" id="lCard"></div>
   <div class="push hh-ego"><button class="hh-back" id="lBack" type="button" aria-label="Back to the previous part">‹ Back</button><button class="btn" id="lGo" type="button">Continue</button></div>
 </div>
@@ -776,8 +796,10 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 </div>
 
 <main id="play" hidden>
-<div id="hhStrip"><button class="hh-back hh-sback" id="gBack" type="button" aria-label="Back to the previous part">‹</button><span id="hhStripTxt">STEP 4</span><div class="bar"><i id="hhStripBar"></i></div><button class="hh-trbtn" type="button" data-trtoggle aria-pressed="true">abc</button><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
-<div id="hhPron" class="hh-pron" aria-label="The Magic Four with every person"></div>
+<div id="hhStrip"><button class="hh-home hh-squit" id="gQuit" type="button" aria-label="Back to the lesson parts">✕</button><span id="hhStripTxt" hidden>STEP 4</span><div class="bar"><i id="hhStripBar"></i></div><button class="hh-pronbtn" id="gPron" type="button" aria-haspopup="dialog" aria-controls="pronSheet">Pronouns</button><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
+<div class="hh-cf hh-psheet" id="pronSheet" hidden><div class="hh-cf-card" role="dialog" aria-modal="true" aria-label="Pronouns">
+<div class="hh-cf-grip" aria-hidden="true"></div><div id="hhPron" class="hh-pron" aria-label="The Magic Four with every person"></div>
+<button class="hh-cf-no" id="pronClose" type="button">Close</button></div></div>
 
 
 <!-- HOME -->
@@ -2487,6 +2509,10 @@ async function checkAccess(stepId){
   return { ok: false, reason: "not-connected" };
 }
 
+/* Video full screen on phones: "rotate" = our own layer, turned sideways when the phone is upright (v15);
+   "native" = Vimeo's / iOS's own full screen (v10-v14). Desktop always uses Vimeo's own. */
+const VIDEO_FS = "rotate";
+
 /* Main-menu logo. Leave "" to show the mascot + "HEBREW HACK" text.
    To use a logo image: put the file in icons/ and set its path here, e.g. "icons/logo.png" (it is cached for offline use automatically). */
 const BRAND_LOGO = "icons/logo-header.png";   // Eli's logo, header crop without the @handle line (from /workspace/hh-logo/hebrew-hack-logo-dark-bg.png)
@@ -2751,8 +2777,11 @@ function lessonFrac(){ return L.mode === "single" ? 0 : L.pos / LESSON.length; }
 function partLabel(){ return L.mode === "single" ? "STEP 4 · AGAIN" : "STEP 4 · " + LESSON[L.pos].sec.toUpperCase() + " · " + (L.pos + 1) + "/" + LESSON.length; }
 function paintBar(barId, countId){
   $(barId).style.width = Math.round(lessonFrac() * 100) + "%";
-  if (countId) $(countId).textContent = (L.pos + 1) + "/" + LESSON.length;
+  if (countId && $(countId)) $(countId).textContent = (L.pos + 1) + "/" + LESSON.length;
+  paintXp();
 }
+/* the XP chip in every lesson top bar */
+function paintXp(){ document.querySelectorAll("[data-xp]").forEach(e => { e.textContent = "⚡ " + (A.xp || 0); }); }
 function clearEmbed(){ closeConfirm(); closeFull("leaving"); const box = $("eFrame"); if (box) box.innerHTML = ""; }   // stops video/mic when the card is left
 function renderCard(){
   const p = LESSON[L.pos];
@@ -2761,12 +2790,11 @@ function renderCard(){
   const card = $("lCard");
   paintBar("lBar", "lCount");
   card.innerHTML = "";
-  const head = document.createElement("div"); head.className = "brand"; head.textContent = partLabel(); head.style.marginTop = "14px";
+  // one thing per screen: the game's icon and name only (the game explains itself once it starts)
   const em = document.createElement("div"); em.className = "hh-emoji"; em.textContent = p.icon;
   const h = document.createElement("h2"); h.textContent = p.name;
-  const how = document.createElement("p"); how.textContent = p.how;
-  card.append(em, head, h, how);
-  if (L.prev){ const pr = document.createElement("div"); pr.className = "hh-prev"; pr.textContent = L.prev; card.append(pr); }
+  card.append(em, h);
+  if (L.prev){ toast(L.prev.split("  ·  ").filter(Boolean).slice(-1)[0]); L.prev = ""; }
   $("lGo").textContent = "Go";
   paintBack();
   pop(card); go("sLesson");
@@ -2819,7 +2847,7 @@ $("cfYes").addEventListener("click", () => {
 });
 /* Back: to the previous part. No confirm sheet, no XP change, nothing un-marked. Hidden on part 1 and when one part was opened alone. */
 function canBack(){ return !!L && L.mode === "lesson" && L.pos > 0; }
-function paintBack(){ const on = canBack(); ["eBack", "lBack", "gBack"].forEach(id => { const b = $(id); if (b) b.hidden = !on; }); }
+function paintBack(){ const on = canBack(); ["eBack", "lBack"].forEach(id => { const b = $(id); if (b) b.hidden = !on; }); }
 function backPart(){
   if (!canBack()) return;
   closeConfirm(); clearEmbed(); stopGame();
@@ -2830,10 +2858,10 @@ function backPart(){
   A.step4.pos = L.pos; A.step4.run = { said:L.said, xp:L.xp, ms:L.ms }; saveA();
   sfx("tap"); renderCard();
 }
-["eBack", "lBack", "gBack"].forEach(id => { const b = $(id); if (b) b.addEventListener("click", e => { e.preventDefault(); backPart(); }); });
+["eBack", "lBack"].forEach(id => { const b = $(id); if (b) b.addEventListener("click", e => { e.preventDefault(); backPart(); }); });
 /* XP once per part per run: going Back and moving on again does not pay twice */
 function firstTime(){ const g = L.got || (L.got = {}); const f = !g[L.pos]; g[L.pos] = 1; return f; }
-function earn(xp){ L.xp += xp; A.xp += xp; bumpStreak(); saveA(); }
+function earn(xp){ L.xp += xp; A.xp += xp; bumpStreak(); saveA(); paintXp(); }
 
 function launchGame(g){
   unlockAudio();
@@ -2849,6 +2877,7 @@ function paintPron(){
   const box = $("hhPron"); if (!box) return;
   const v = CONJ[pronVerb], read = A.read !== false;
   box.classList.toggle("speak", !read);
+  const pb = $("gPron"); if (pb) pb.hidden = !read && A.tr === false;   // Just speak with letters off: nothing to show
   // one chip per person: pronoun on top, its verb form under it (אֲנִי shows both: he / she)
   const he = (cls, t) => '<b class="' + cls + '" lang="he">' + t + "</b>";
   const tr = (cls, t) => '<i class="' + cls + ' hh-cj-tr">' + t + "</i>";
@@ -2868,7 +2897,7 @@ function paintPron(){
 function paintStrip(){
   if (!L) return;
   paintPron();
-  $("hhStripTxt").textContent = partLabel(); paintBack();
+  $("hhStripTxt").textContent = partLabel(); paintXp();
   $("hhStripBar").style.width = Math.round(lessonFrac() * 100) + "%";
 }
 function advance(prev){
@@ -2910,13 +2939,15 @@ function openFull(){
   document.body.classList.add("hh-noscroll");
   // the phone's Back button closes full screen instead of leaving the app
   try{ if (!(history.state && history.state.hhFull)) history.pushState({ hhFull:1 }, ""); }catch(e){}
-  $("eClose").hidden = false; $("eHome").hidden = false; $("eRot").hidden = !canRotate(box);
-  $("eHint").hidden = !(isVimeo(box) && isPortrait());
+  $("eClose").hidden = false; $("eHome").hidden = true; $("eRot").hidden = !(canRotate(box) && isPortrait());   // one clear Close; ↻ only on an upright phone
+  $("eHint").hidden = !(isVimeo(box) && isPortrait() && !canRotate(box));
   layoutFull(); setTimeout(layoutFull, 350);   // again after the browser bars settle
   try{
     // ask for it on the whole card screen, so the ✕ and ↻ buttons stay above the frame in the browser's top layer
     const host = $("sEmbed"), req = host.requestFullscreen || host.webkitRequestFullscreen;
-    if (req && !document.fullscreenElement){ const r = req.call(host); if (r && r.catch) r.catch(() => {}); }
+    if (req && !document.fullscreenElement){ const r = req.call(host);
+      // Android: real landscape once we are in full screen (then no CSS turn is needed); iPhone has no lock and keeps the CSS turn
+      if (r && r.then) r.then(() => { try{ if (canRotate($("eFrame")) && screen.orientation && screen.orientation.lock) screen.orientation.lock("landscape").then(() => setTimeout(layoutFull, 300)).catch(() => {}); }catch(e){} }).catch(() => {}); }
   }catch(e){}
   sfx("tap");
 }
@@ -2924,6 +2955,7 @@ function closeFull(keepPlayer){
   const box = $("eFrame"); if (!box) return;
   const was = box.classList.contains("is-full");
   box.classList.remove("is-full", "rot"); layoutFull();
+  try{ if (was && screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); }catch(e){}
   document.body.classList.remove("hh-noscroll");
   $("eClose").hidden = true; $("eHome").hidden = true; $("eRot").hidden = true; $("eHint").hidden = true;
   if (was && history.state && history.state.hhFull){ try{ history.back(); }catch(e){} }   // drop our Back-button entry
@@ -2935,7 +2967,11 @@ function closeFull(keepPlayer){
    If Vimeo says no: start the video and ask again (same tap). Last resort: our in-app full screen, not rotated,
    with a "turn your phone sideways" hint. Genially / Wordwall / Speak: our in-app full screen as before. */
 const isVimeo = box => !!(box && box.querySelector('iframe[src*="player.vimeo.com"]'));
-const canRotate = box => box.classList.contains("is-slides");   // only Genially is turned sideways by us
+/* phones (and small tablets held by touch): our own full-screen layer for videos too, turned sideways in portrait.
+   Desktop / laptop: Vimeo's native full screen. VIDEO_FS in config.js: "rotate" (default) or "native" to go back to v14. */
+const isPhone = () => matchMedia("(pointer: coarse)").matches && Math.min(innerWidth, innerHeight) <= 600;
+const videoRotate = () => (typeof VIDEO_FS === "undefined" || VIDEO_FS !== "native") && isPhone();
+const canRotate = box => box.classList.contains("is-slides") || (isVimeo(box) && videoRotate());
 let vimeoApi = null, vPlayer = null;
 function loadVimeoApi(){
   if (window.Vimeo && window.Vimeo.Player) return Promise.resolve(window.Vimeo);
@@ -2962,6 +2998,7 @@ function attachVimeo(f){
 }
 function fullClick(){
   const box = $("eFrame"), f = box.querySelector("iframe");
+  if (isVimeo(box) && videoRotate()){ openFull(); if (vPlayer && vPlayer.__f === f) vPlayer.play().catch(() => {}); return; }   // phone: our sideways layer, video starts
   if (!isVimeo(box) || !vPlayer || vPlayer.__f !== f || window.HH_NO_NATIVE_FS){ openFull(); return; }
   sfx("tap");
   let settled = false;
@@ -2989,7 +3026,8 @@ function layoutFull(){
   props.forEach(k => f.style.removeProperty(k));
   if (!box.classList.contains("is-full")) return;
   if (canRotate(box) && !userRot) box.classList.toggle("rot", isPortrait());
-  $("eHint").hidden = !(isVimeo(box) && isPortrait());
+  $("eHint").hidden = !(isVimeo(box) && isPortrait() && !canRotate(box));
+  $("eRot").hidden = !(canRotate(box) && isPortrait());
   if (!box.classList.contains("rot")) return;   // upright / landscape: the CSS sizes it
   const vv = window.visualViewport, W = Math.round(vv ? vv.width : innerWidth), H = Math.round(vv ? vv.height : innerHeight);
   const btn = $("eClose").getBoundingClientRect(), top = Math.max(0, Math.round(btn.bottom + 6));
@@ -3016,7 +3054,7 @@ window.addEventListener("popstate", () => { if ($("eFrame").classList.contains("
 
 /* ---------- home button on every screen: back to the map, progress kept ---------- */
 function goHome(){
-  try{ closeFull(); }catch(e){}
+  try{ closeFull(); }catch(e){} closePron();
   clearEmbed(); stopGame();
   if (window.earRelease) window.earRelease();
   if (!$("play").hidden){ path = null; gameShow("home"); }   // the game's own cleanup (timers, mic)
@@ -3024,6 +3062,22 @@ function goHome(){
   L = null;
   if (A.gender && A.mode) paintHome(); else openOnb(false);
 }
+/* ✕ in a game: back to the lesson parts (like ✕ on the other part screens), place kept */
+function quitToList(){
+  closePron(); stopGame();
+  if (window.earRelease) window.earRelease();
+  if (!$("play").hidden){ path = null; gameShow("home"); }
+  if (L && L.mode === "lesson"){ A.step4.pos = L.pos; A.step4.run = { said:L.said, xp:L.xp, ms:L.ms + (Date.now() - L.t0) }; saveA(); }
+  L = null; openStep();
+}
+$("gQuit").addEventListener("click", e => { e.preventDefault(); sfx("tap"); quitToList(); });
+/* Pronouns: the full table on demand, in a bottom sheet (not always on screen) */
+function openPron(){ paintPron(); const c = $("pronSheet"); c.hidden = false; requestAnimationFrame(() => c.classList.add("is-open")); $("gPron").setAttribute("aria-expanded", "true"); $("pronClose").focus(); }
+function closePron(){ const c = $("pronSheet"); if (!c) return; c.classList.remove("is-open"); c.hidden = true; const b = $("gPron"); if (b) b.setAttribute("aria-expanded", "false"); }
+$("gPron").addEventListener("click", () => { sfx("tap"); openPron(); });
+$("pronClose").addEventListener("click", () => { closePron(); $("gPron").focus(); });
+$("pronSheet").addEventListener("click", e => { if (e.target.id === "pronSheet") closePron(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("pronSheet").hidden) closePron(); });
 document.addEventListener("click", e => {
   const h = e.target.closest("[data-home]"); if (h && h.id !== "oHome"){ e.preventDefault(); sfx("tap"); goHome(); return; }
   const t = e.target.closest("[data-trtoggle]"); if (t){ A.tr = !(A.tr !== false); saveA(); applyTr(); sfx("tap"); }
@@ -3040,6 +3094,7 @@ function applyTr(){
 const gameShow = show, gameFinish = finish;
 show = function(id){
   if (id !== "g8" && window.earRelease) window.earRelease();   // mic off when By Ear is left
+  if (!GAME_SECTIONS.includes(id)) closePron();
   gameShow(id);
   if (!booted) return;
   if (GAME_SECTIONS.includes(id)) return enterPlay();
