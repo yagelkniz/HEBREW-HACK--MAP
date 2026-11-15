@@ -679,6 +679,15 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 /* v16: the self-compare line under My voice / Eilai: one line, a little more visible than a plain hint */
 #g8recnote{color:var(--cream);opacity:.85;font-size:14px;font-weight:600;line-height:1.4;margin-top:10px}
 .hh-fullbig[hidden]{display:none!important}
+
+/* v17: ‹ back to the lesson parts + ⌂ home, instead of ✕ (44px touch targets everywhere) */
+.hh-lbar,#hhStrip{gap:8px}
+.hh-toparts,.hh-tohome,#hhStrip .hh-home,#hhStrip .hh-squit,.hh-lbar .back,.hh-lbar .hh-home{flex:none;min-width:44px!important;min-height:44px!important;width:44px;height:44px;padding:0;
+  display:inline-flex;align-items:center;justify-content:center;line-height:1}
+.hh-toparts{font-size:30px!important;font-weight:700;padding-bottom:3px}
+.hh-tohome{font-size:21px!important}
+.hh-lbar .hh-tohome{order:0!important}
+@media (min-width:900px) and (min-height:501px){ .hh-embed .hh-lbar .hh-toparts,.hh-embed .hh-lbar .hh-tohome{width:52px;height:52px} }
 </style>
 </head>
 <body>
@@ -726,25 +735,25 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v16-d59ed9f977</p>
+  <p class="hh-ver" id="oVer">Version hh-v18-6911ac42cb</p>
 </div>
 
 <!-- STEP OVERVIEW -->
 <div class="screen" id="sStep" hidden>
   <div class="hh-top"><button class="hh-home" id="stBack" type="button" data-home aria-label="Home: back to the map">⌂</button>
-    <div class="brand">STEP 4</div><span class="hh-stats"><button class="hh-trbtn" type="button" data-trtoggle aria-pressed="true">abc</button><span class="hh-chip" id="stXp">⚡ 0</span></span></div>
-  <h1 style="margin-top:12px">The Magic Four</h1>
+    <div class="brand" id="stN">STEP 4</div><span class="hh-stats"><button class="hh-trbtn" type="button" data-trtoggle aria-pressed="true">abc</button><span class="hh-chip" id="stXp">⚡ 0</span></span></div>
+  <h1 style="margin-top:12px" id="stTitle">The Magic Four</h1>
   <div class="hh-hero hh-conj">
     <div class="hh-vtabs" id="cjTabs" role="tablist"></div>
     <table class="hh-table" id="cjTable"></table>
-    <p>Tap a verb to see it with every person. Watch, learn, play, practise.</p></div>
+    <p id="stIntro">Tap a verb to see it with every person. Watch, learn, play, practise.</p></div>
   <ol class="hh-parts" id="stParts"></ol>
   <div class="push"><button class="btn" id="stGo" type="button">Start the lesson</button></div>
 </div>
 
 <!-- EMBED CARD (videos, slides, Speak, practice games): the iframe takes all the height that's left -->
 <div class="screen hh-embed" id="sEmbed" hidden>
-  <div class="hh-lbar"><button class="back" id="eQuit" type="button" aria-label="Back to the lesson parts">✕</button>
+  <div class="hh-lbar"><button class="back hh-toparts" id="eQuit" type="button" aria-label="Back to the lesson parts">‹</button><button class="hh-home hh-tohome" type="button" data-home aria-label="Home: the lessons map">⌂</button>
     <div class="bar"><i id="eBar"></i></div><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
   <div class="hh-ehead">
     <div><div class="brand" id="eSec"></div><b id="eName"></b></div>
@@ -775,7 +784,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 
 <!-- LESSON CARD (the card before each game) -->
 <div class="screen" id="sLesson" hidden>
-  <div class="hh-lbar"><button class="back" id="lQuit" type="button" aria-label="Back to the lesson parts">✕</button>
+  <div class="hh-lbar"><button class="back hh-toparts" id="lQuit" type="button" aria-label="Back to the lesson parts">‹</button><button class="hh-home hh-tohome" type="button" data-home aria-label="Home: the lessons map">⌂</button>
     <div class="bar"><i id="lBar"></i></div><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
   <div class="hh-lcard pop" id="lCard"></div>
   <div class="push hh-ego"><button class="hh-back" id="lBack" type="button" aria-label="Back to the previous part">‹ Back</button><button class="btn" id="lGo" type="button">Continue</button></div>
@@ -785,11 +794,11 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 <div class="screen hh-done" id="sDone" hidden>
   <div class="hh-topright"><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
   <img src="icons/avatar.webp" alt="" id="cAvatar">
-  <div class="brand" style="margin-top:14px">STEP 4 COMPLETE</div>
+  <div class="brand" style="margin-top:14px" id="cStepDone">STEP 4 COMPLETE</div>
   <h1 id="cTitle">Kol hakavod!</h1>
   <div class="hh-xp" id="cXp">+0<small>XP EARNED</small></div>
   <div class="hh-tiles">
-    <div><b id="cSaid">0</b><small>sentences said</small></div>
+    <div><b id="cSaid">0</b><small id="cSaidL">sentences said</small></div>
     <div><b id="cTime">0:00</b><small>time</small></div>
     <div><b id="cStreak">1</b><small>day streak</small></div>
   </div>
@@ -800,7 +809,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 </div>
 
 <main id="play" hidden>
-<div id="hhStrip"><button class="hh-home hh-squit" id="gQuit" type="button" aria-label="Back to the lesson parts">✕</button><span id="hhStripTxt" hidden>STEP 4</span><div class="bar"><i id="hhStripBar"></i></div><button class="hh-pronbtn" id="gPron" type="button" aria-haspopup="dialog" aria-controls="pronSheet">Pronouns</button><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
+<div id="hhStrip"><button class="hh-home hh-squit hh-toparts" id="gQuit" type="button" aria-label="Back to the lesson parts">‹</button><button class="hh-home hh-tohome" type="button" data-home aria-label="Home: the lessons map">⌂</button><span id="hhStripTxt" hidden>STEP 4</span><div class="bar"><i id="hhStripBar"></i></div><button class="hh-pronbtn" id="gPron" type="button" aria-haspopup="dialog" aria-controls="pronSheet">Pronouns</button><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
 <div class="hh-cf hh-psheet" id="pronSheet" hidden><div class="hh-cf-card" role="dialog" aria-modal="true" aria-label="Pronouns">
 <div class="hh-cf-grip" aria-hidden="true"></div><div id="hhPron" class="hh-pron" aria-label="The Magic Four with every person"></div>
 <button class="hh-cf-no" id="pronClose" type="button">Close</button></div></div>
@@ -811,11 +820,11 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   
   <div class="brand" style="margin-top:14px">GAMES PILOT</div>
   <h1>Step 4 · The Magic Four</h1>
-  <p class="sub">Want, can, need, love. One short lesson in three parts, all out loud.</p>
+  <p class="sub">Want, can, need, love. All out loud.</p>
 
   <div style="margin-top:18px">
-    <button class="btn" id="pathBtn" type="button">Start the lesson · about 4 min</button>
-    <p class="sub" style="text-align:center;margin-top:8px">Echo → Swap It → Café Order</p>
+    <button class="btn" id="pathBtn" type="button">Start the lesson</button>
+    
     <div style="text-align:center"><button class="pill" id="setBtn" type="button">⚙ Settings</button></div>
   </div>
 
@@ -1040,7 +1049,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
     <div class="hint" id="g8how" style="margin-top:10px">Listen, then tap the sentence you heard. One tap is your answer.</div>
     <div class="opts" id="g8opts" style="margin-top:10px"></div>
     <div class="msg" id="g8msg" aria-live="polite"></div>
-    <div class="hh-rep" id="g8rep" hidden><button class="hh-recbtn" id="g8rec" type="button">🎙 Record yourself</button><div class="hh-reprow" id="g8cmp" hidden><button class="pill" id="g8mine" type="button">▶ My voice</button><button class="pill" id="g8orig" type="button" aria-label="Play Eilai saying it">▶ Eilai</button><button class="pill" id="g8again" type="button">↻ Try again</button></div><div class="hint" id="g8recnote" aria-live="polite"></div></div>
+    <div class="hh-rep" id="g8rep" hidden><button class="hh-recbtn" id="g8rec" type="button">🎙 Record yourself</button><div class="hh-reprow" id="g8cmp" hidden><button class="pill" id="g8mine" type="button">▶ My voice</button><button class="pill" id="g8orig" type="button" aria-label="Play Eilai saying it">▶ Eilai</button><button class="pill" id="g8again" type="button">↻ Try again</button><button class="pill" id="g8said" type="button" hidden>I said it</button></div><div class="hint" id="g8recnote" aria-live="polite"></div></div>
   </div>
   <div class="row" id="g8nextRow" hidden><button class="btn" id="g8next" type="button">Next</button></div>
 </section>
@@ -1340,9 +1349,9 @@ const ORDER = {
     teamilk: { q:["YOU","WANT","te","im","chalav"], en:"Do you want tea with milk?", opts:[
       { icon:"🥛", label:"With milk",    a:["ken","ani","WANT","te","im","chalav"], en:"Yes, I want tea with milk",   tk:["im","chalav"],  next:"sugar" },
       { icon:"🚫", label:"Without milk", a:["lo","ani","WANT","te","bli","chalav"], en:"No, I want tea without milk", tk:["bli","chalav"], next:"sugar" } ] },
-    strong: { q:["YOU","LOVE","kafe","chazak"], en:"Do you like strong coffee?", opts:[
-      { icon:"💪", label:"Strong", a:["ken","ani","LOVE","kafe","chazak"], en:"Yes, I like strong coffee", tk:["chazak"],  next:"sugar" },
-      { icon:"🪶", label:"Weak",   a:["lo","ani","LOVE","kafe","chalash"], en:"No, I like weak coffee",    tk:["chalash"], next:"sugar" } ] },
+    strong: { q:["YOU","LOVE","kafe","chazak"], en:"Do you love strong coffee?", opts:[
+      { icon:"💪", label:"Strong", a:["ken","ani","LOVE","kafe","chazak"], en:"Yes, I love strong coffee", tk:["chazak"],  next:"sugar" },
+      { icon:"🪶", label:"Weak",   a:["lo","ani","LOVE","kafe","chalash"], en:"No, I love weak coffee",    tk:["chalash"], next:"sugar" } ] },
     sugar: { q:["YOU","NEED","sukar"], en:"Do you need sugar?", opts:[
       { icon:"🍬", label:"Sugar",    a:["ken","ani","NEED","sukar"],     en:"Yes, I need sugar",      tk:["im","sukar"],  next:"food" },
       { icon:"🚫", label:"No sugar", a:["lo","ani","lo","NEED","sukar"], en:"No, I don't need sugar", tk:["bli","sukar"], next:"food" } ] },
@@ -1384,7 +1393,7 @@ const RUSH_ITEMS = {
 };
 const RUSH_VERBS = {
   want:{ m:"rotze",   f:"rotza",   en:"want", neg:"don't want" },
-  love:{ m:"ohev",    f:"ohevet",  en:"like" },
+  love:{ m:"ohev",    f:"ohevet",  en:"love" },
   need:{ m:"tzarich", f:"tzricha", en:"need" }
 };
 
@@ -1403,7 +1412,7 @@ const WORD_INTRO = {
   7: [["te","tea","🍵"], ["uga","cake","🍰"], ["chalav","milk","🥛"], ["sukar","sugar","🍬"],
       ["im","with","➕"], ["bli","without","🚫"], ["chazak","strong","💪"], ["chalash","weak","🪶"]],
   8: [["te","tea","🍵"], ["uga","cake","🍰"], ["chalav","milk","🥛"], ["sukar","sugar","🍬"],
-      ["im","with","➕"], ["bli","without","🚫"]]
+      ["chazak","strong","💪"], ["chalash","weak","🪶"]]
 };
 
 /* The lesson path: which games run, in what order, and how many items each one uses.
@@ -2171,8 +2180,8 @@ const pick7 = a => a[Math.floor(Math.random() * a.length)];
 function makeOrder(served){
   // the customer speaks for themselves ("I want..."), so the verb follows the customer: a man says rotze, a woman rotza
   const g = Math.random() < 0.5 ? "m" : "f", pron = "ani", He = "I";
-  const kinds = served < 3 ? ["simple", "need"] : served < 6 ? ["simple", "need", "strong"] : ["need", "strong", "with", "with"];   // "neg" dropped until two-part lines are recorded
-  const kind = pick7(kinds), V = RUSH_VERBS;
+  const kinds = served < 3 ? ["simple", "need"] : served < 6 ? ["simple", "need", "neg", "strong"] : ["need", "neg", "strong", "with", "with"];   // spec A5: "neg" back from the 4th customer (ani lo rotze / rotza + kafe, te, uga, pitza are recorded)
+  const kind = (!r7.hadNeg && r7.seen >= 5) ? "neg" : pick7(kinds), V = RUSH_VERBS;   // every shift has at least one "I don't want" order (by the 6th customer)
   let ids, en, icon;
   if (kind === "simple"){ const it = pick7(["kafe","te","mayim","uga","pitza"]);
     ids = [pron, V.want[g], it]; en = He + " " + V.want.en + " " + RUSH_ITEMS[it][0]; icon = RUSH_ITEMS[it][1]; }
@@ -2229,7 +2238,7 @@ function nextCustomer(){
   $("g7afterRow").hidden = true;
   let o;
   if (r7.reviewing) o = r7.queue.shift();
-  else do { o = makeOrder(r7.served); } while (o.ids.join() === r7.last);
+  else { do { o = makeOrder(r7.served); } while (o.ids.join() === r7.last); if (o.ids.includes("lo")) r7.hadNeg = true; }
   r7.cur = o; r7.last = o.ids.join(); r7.idx = 0;
   const heb = S.track === "read";
   if (!r7.reviewing) r7.seen++;
@@ -2333,18 +2342,21 @@ const EAR_SETS = {
           [["ani","lo","@want","kafe"],"I don't want coffee","🚫 ☕"],[["ani","lo","@want","pitza"],"I don't want pizza","🚫 🍕"]],
   ineed: [[["ani","@need","chalav"],"I need milk","🥛"],[["ani","@need","mayim"],"I need water","💧"],[["ani","@need","sukar"],"I need sugar","🍬"]],
   ilove: [[["ani","@love","kafe","chazak"],"I love strong coffee","☕ 💪"],[["ani","@love","kafe","chalash"],"I love weak coffee","☕ 🪶"],
-          [["ani","@love","ledaber","ivrit"],"I love to speak Hebrew","🗣"],[["ani","lo","@can","ledaber","ivrit"],"I can't speak Hebrew","🚫 🗣"]],
+          [["ani","@love","ledaber","ivrit"],"I love to speak Hebrew","🗣"]],
+  // spec A3: "can" gets its own round (only lines that are recorded)
+  can:   [[["ani","lo","@can","ledaber","ivrit"],"I can't speak Hebrew","🚫 🗣"],[["hi","yechola","ledaber","ivrit"],"She can speak Hebrew","👩 🗣"],
+          [["hi","lo","yechola","ledaber","ivrit"],"She can't speak Hebrew","👩 🚫 🗣"]],
   he:    [[["hu","rotze","pitza"],"He wants pizza","👨 🍕"],[["hu","rotze","mayim"],"He wants water","👨 💧"],[["hu","rotze","leechol","pitza"],"He wants to eat pizza","👨 🍽"],
           [["hu","ohev","pitza"],"He loves pizza","👨 ❤️"],[["hu","tzarich","mayim"],"He needs water","👨 💧"],[["hu","lo","rotze","leechol","pitza"],"He doesn't want to eat pizza","👨 🚫"]],
-  she:   [[["hi","ohevet","pitza"],"She loves pizza","👩 ❤️"],[["hi","yechola","ledaber","ivrit"],"She can speak Hebrew","👩 🗣"],[["hi","lo","rotza","pitza"],"She doesn't want pizza","👩 🚫"],
+  she:   [[["hi","ohevet","pitza"],"She loves pizza","👩 ❤️"],[["hi","lo","rotza","pitza"],"She doesn't want pizza","👩 🚫"],
           [["hi","lo","ohevet","pitza"],"She doesn't love pizza","👩 💔"],[["hi","lo","rotza","ledaber","ivrit"],"She doesn't want to speak Hebrew","👩 🚫 🗣"],
-          [["hi","lo","rotza","leechol","pitza"],"She doesn't want to eat pizza","👩 🚫 🍽"],[["hi","lo","yechola","ledaber","ivrit"],"She can't speak Hebrew","👩 🚫 🗣"]],
+          [["hi","lo","rotza","leechol","pitza"],"She doesn't want to eat pizza","👩 🚫 🍽"]],
   you:   [[["ata","rotze","kafe"],"Do you want coffee? (to a man)","👉👨 ☕",1],[["at","rotza","kafe"],"Do you want coffee? (to a woman)","👉👩 ☕",1],
           [["ata","tzarich","sukar"],"Do you need sugar? (to a man)","👉👨 🍬",1],[["at","tzricha","sukar"],"Do you need sugar? (to a woman)","👉👩 🍬",1],
           [["ata","ohev","kafe","chazak"],"Do you love strong coffee? (to a man)","👉👨 💪",1],[["at","ohevet","kafe","chazak"],"Do you love strong coffee? (to a woman)","👉👩 💪",1]]
 };
 const EAR_FORMS = { want:{m:"rotze",f:"rotza"}, need:{m:"tzarich",f:"tzricha"}, love:{m:"ohev",f:"ohevet"}, can:{m:"yachol",f:"yechola"} };
-const EAR_ORDER = ["iwant","he","she","ineed","you","ilove","she","he"];   // one round each: I, he, she, you, all four verbs
+const EAR_ORDER = ["iwant","he","she","ineed","you","ilove","can","he"];   // one round each: I, he, she, you, all four verbs (spec A3: "can" replaces the 2nd "she")
 function earItem(set, row, g){
   const ids = row[0].map(w => w[0] === "@" ? EAR_FORMS[w.slice(1)][g] : w), q = !!row[3];
   return { set, g, ids, q, k:ids.join("-") + (q ? "-q" : ""), en:row[1], icon:row[2] };
@@ -2355,13 +2367,13 @@ function earPool(g){
   return out;   // only lines with a recording
 }
 function makeEar(n){
-  const g = Math.random() < 0.5 ? "m" : "f";
+  const g = S.gender === "f" ? "f" : "m";   // spec A1: "ani" lines follow the learner's own gender (he / she / you lines are fixed)
   const pool = earPool(g), want = EAR_ORDER[n % EAR_ORDER.length];
   const opts = pool.filter(x => x.set === want && !e8.used.includes(x.en));
   return pick7(opts.length ? opts : pool);
 }
 function startEar(){
-  e8 = { phase:"idle", i:0, clean:0, cur:null, last:"", used:[] };
+  e8 = { phase:"idle", i:0, clean:0, cur:null, last:"", used:[], said:0, saidNow:false, noMic:!navigator.mediaDevices || !window.MediaRecorder };
   show("g8"); nextEar();
 }
 /* 4 cards: the sentence heard + 3 others, as full English sentences (never two with the same English) */
@@ -2378,7 +2390,7 @@ function nextEar(){
   if (e8.i >= EAR_ROUNDS){ earRelease(); return finish("Good ear!", e8.clean + " / " + EAR_ROUNDS,
     "sentences understood by ear on the first try.", "No reading needed."); }
   let o, guard = 0; do { o = makeEar(e8.i); } while (o.k === e8.last && guard++ < 10);
-  e8.cur = o; e8.last = o.k; e8.used.push(o.en);
+  e8.cur = o; e8.last = o.k; e8.used.push(o.en); e8.saidNow = false;
   const box = $("g8opts"); box.innerHTML = "";
   earCards(o).forEach(c => {
     const b = document.createElement("button"); b.type = "button"; b.className = "opt"; b.dataset.k = c.k;
@@ -2412,6 +2424,7 @@ function checkEar(c, btn){
   $("g8tag").textContent = ok ? "Now say it yourself" : "Not this time. This is what you heard. Say it yourself";
   $("g8how").hidden = true; $("g8msg").textContent = "";
   showSent8(); $("g8nextRow").hidden = false; $("g8rep").hidden = false;
+  if (e8.noMic) earNoMic();
   $("g8play").hidden = true; $("g8slow").hidden = true;   // replay is now the "Eilai" button next to "My voice"
   sfx(ok ? "good" : "soft"); speak(e8.cur.ids, false, e8.cur.q);   // the same recording, matching the text shown
 }
@@ -2423,7 +2436,14 @@ function earRepReset(){
   if (earUrl){ URL.revokeObjectURL(earUrl); earUrl = null; }
   $("g8rep").hidden = true; $("g8cmp").hidden = true; $("g8rec").hidden = false;
   $("g8rec").textContent = "🎙 Record yourself"; $("g8rec").classList.remove("on"); $("g8recnote").textContent = "";
-  $("g8orig").textContent = "▶ Eilai";
+  $("g8orig").textContent = "▶ Eilai"; $("g8said").hidden = true; $("g8said").disabled = false; $("g8said").textContent = "I said it";
+}
+/* spec C3: honest count. One per round, only when the learner recorded, or (no microphone) tapped "I said it". */
+function earCount(){ if (e8.cur && !e8.saidNow){ e8.saidNow = true; e8.said++; } }
+function earNoMic(){
+  $("g8recnote").textContent = "The microphone isn't available here. Say it out loud, tap I said it, then Next.";
+  $("g8rec").hidden = true; $("g8cmp").hidden = false; $("g8mine").hidden = true; $("g8again").hidden = true;
+  $("g8said").hidden = false; $("g8said").disabled = e8.saidNow; $("g8said").textContent = e8.saidNow ? "Counted" : "I said it";
 }
 function earRelease(){
   earStopRec(true);
@@ -2439,10 +2459,7 @@ async function earRecord(){
   try{
     if (!navigator.mediaDevices || !window.MediaRecorder) throw new Error("unsupported");
     if (!earMic) earMic = await navigator.mediaDevices.getUserMedia({ audio:true });
-  }catch(e){
-    $("g8recnote").textContent = "The microphone isn't available here. Say it out loud, then tap Next.";
-    $("g8rec").hidden = true; $("g8cmp").hidden = false; $("g8mine").hidden = true; $("g8again").hidden = true; return;
-  }
+  }catch(e){ e8.noMic = true; earNoMic(); return; }
   try{ player.pause(); }catch(e){}
   earChunks = [];
   const r = earRec = new MediaRecorder(earMic);
@@ -2452,7 +2469,8 @@ async function earRecord(){
     if (r.__drop || !earChunks.length){ $("g8rec").textContent = "🎙 Record yourself"; return; }
     if (earUrl) URL.revokeObjectURL(earUrl);
     earUrl = URL.createObjectURL(new Blob(earChunks, { type: r.mimeType || "audio/webm" }));
-    $("g8rec").hidden = true; $("g8cmp").hidden = false; $("g8mine").hidden = false; $("g8again").hidden = false;
+    $("g8rec").hidden = true; $("g8cmp").hidden = false; $("g8mine").hidden = false; $("g8again").hidden = false; $("g8said").hidden = true;
+    earCount();   // spec C3: a round counts as said only when the learner recorded themselves
     $("g8recnote").textContent = "Compare yourself: play your recording, then Eilai's. Sound close? Tap Next.";
     sfx("pop");
   };
@@ -2461,6 +2479,7 @@ async function earRecord(){
   earTimer = setTimeout(() => earStopRec(false), 7000);   // stops by itself after 7 seconds
 }
 $("g8rec").addEventListener("click", earRecord);
+$("g8said").addEventListener("click", () => { earCount(); $("g8said").disabled = true; $("g8said").textContent = "Counted"; sfx("pop"); });
 $("g8mine").addEventListener("click", () => { if (!earUrl) return; try{ speechSynthesis.cancel(); }catch(e){} player.playbackRate = 1; player.src = earUrl; const p = player.play(); if (p && p.catch) p.catch(()=>{}); });
 $("g8orig").addEventListener("click", () => { if (e8.cur) speak(e8.cur.ids, false, e8.cur.q); });
 $("g8again").addEventListener("click", () => { if (earUrl){ URL.revokeObjectURL(earUrl); earUrl = null; } $("g8cmp").hidden = true; $("g8rec").hidden = false; earRecord(); });
@@ -2487,6 +2506,17 @@ const STEP4_EMBEDS = {
   wordwall1:"https://wordwall.net/embed/98dd0be3eab74f9391b7964d525f4c10?themeId=65&templateId=25&fontStackId=0",
   wordwall2:"https://wordwall.net/embed/702775dacd644320abd98304ff1ca1ec?themeId=65&templateId=2&fontStackId=0",
   wordwall3:"https://wordwall.net/embed/6af3b7157b1a0ff798cc088797ba3463?themeId=66&templateId=35&fontStackId=0"
+};
+
+/* STEP 3 (Pronouns), Just speak track: from the Systeme course "HEBREW HACK without reading", page 45987478 */
+/* STEP 3 (Pronouns) is built but paused (Eli, Nov 15: a newer video is coming). false = the map shows it as "Coming soon", as before. */
+const STEP3_LIVE = false;
+const STEP3_EMBEDS = {
+  video1:   "https://player.vimeo.com/video/1237346336",
+  genially: "https://view.genially.com/6ada224922299051c6dcfe17",
+  wordwall1:"https://wordwall.net/embed/ecd1aaf8bb0f4d079015d70fc77e1db5?themeId=65&templateId=5&fontStackId=0",   // STEP 3 – Pick the right word
+  wordwall2:"https://wordwall.net/embed/3e6f3ec9ed9c4c42af56d86e0927e7f7?themeId=65&templateId=2&fontStackId=0",   // STEP 3 – Who is it? One or many
+  speak:    "https://kniz-speak.lovable.app/?lesson=pronouns&translit=1"
 };
 
 /* TODO (access control, not active in the pilot).
@@ -2553,17 +2583,17 @@ function stepUnlocked(i){ return PILOT_ALL_OPEN || STEPS.slice(0, i).filter(step
 /* STEP 4 lesson, one full-screen part at a time.
    type "video" / "embed" = an iframe card (url from STEP4_EMBEDS); type "game" = a Magic Four game (g = game number).
    sec = the section heading on the overview; xp = XP for finishing the part. */
-const LESSON = [
+const LESSON_STEP4 = [
   { type:"video", sec:"Watch",    icon:"🎬", key:"Sentence Builder", name:"Watch & learn", sub:"Eilai explains", url:STEP4_EMBEDS.video1, xp:5,
     how:"See how one of the Magic Four verbs turns into a full sentence." },
   { type:"embed", sec:"Learn",    icon:"📖", key:"The Magic Four", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP4_EMBEDS.genially, xp:5, wide:true, slides:true,
     how:"Tap Open full screen to see the slides bigger. Want, can, need, love, for he and for she." },
   { type:"video", sec:"Watch",    icon:"🎬", name:"At the Café", url:STEP4_EMBEDS.video2, xp:5, cc:false,   // captions burned into the video; the CC track (Latin letters) is optional, off at start
     how:"The Magic Four at a café counter. Watch, then it's your turn to order." },
-  // STEP 4 plays three games, in this order (Eli, Nov 14). Echo and Swap It are kept in HIDDEN_GAMES below.
+  // STEP 4 plays three games: listen, guided, then against the clock (spec A4, Nov 15; was By Ear, Rush Hour, Café Order). Echo and Swap It are kept in HIDDEN_GAMES below.
   { type:"game", sec:"Play", g:8, icon:"👂", name:"By Ear",     xp:10, how:"Listen to I, he, she and you with want, can, need and love. Tap the sentence you heard." },
-  { type:"game", sec:"Play", g:7, icon:"⏱", name:"Rush Hour",  xp:10, how:"The café opens at 8:00. Customers walk in; answer each one in Hebrew before the clock runs out." },
   { type:"game", sec:"Play", g:5, icon:"☕", name:"Café Order", xp:10, how:"The barista asks what you want. Pick it, say it in Hebrew, and build your order." },
+  { type:"game", sec:"Play", g:7, icon:"⏱", name:"Rush Hour",  xp:10, how:"The café opens at 8:00. Customers walk in; answer each one in Hebrew before the clock runs out." },
   // "Speak" (KNIZ Speak iframe) left STEP 4 on Nov 15 (Eli: it repeats By Ear). It is kept in HIDDEN_PARTS below.
   { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 1", url:STEP4_EMBEDS.wordwall1, xp:5, how:"A quick round to lock in the verbs." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 2", url:STEP4_EMBEDS.wordwall2, xp:5, how:"Another round, a little faster." },
@@ -2571,6 +2601,7 @@ const LESSON = [
 ];
 /* out of the STEP 4 flow for now; move an entry back into LESSON (and bump LESSON_VERSION + add the old names list) to restore it.
    Game code, audio and the STEP4_EMBEDS.speak URL are untouched. */
+let LESSON = LESSON_STEP4;   // the lesson being played (STEP 4 by default; useLesson() switches it)
 const HIDDEN_PARTS = [
   { type:"embed", sec:"Speak",    icon:"🎙", name:"Speak", url:STEP4_EMBEDS.speak, xp:10, mic:true,
     how:"Say the sentences into your phone and hear how close you are. Allow the microphone when asked." }
@@ -2579,25 +2610,29 @@ const HIDDEN_GAMES = [
   { type:"game", sec:"Play", g:6, icon:"⚡", name:"Echo",       xp:10, how:"A sentence flashes and disappears. Rebuild it from memory, then say it out loud." },
   { type:"game", sec:"Play", g:4, icon:"🔁", name:"Swap It",    xp:10, how:"Tap the word that has to change and pick the new one. Then say the new sentence." }
 ];
-const LESSON_VERSION = 4;   // bump when LESSON changes shape; saved progress from older lessons is carried over by part name below
+const LESSON_VERSION = 5;   // bump when LESSON changes shape; saved progress from older lessons is carried over by part name below
 // part names of every older lesson (index = saved position / saved done-part index)
 const OLD_NAMES = {
   2: ["Sentence Builder","The Magic Four","At the Café","Echo","Swap It","Café Order","By Ear","Rush Hour","Speak","Practice 1","Practice 2","Practice 3"],
-  3: ["Sentence Builder","The Magic Four","At the Café","By Ear","Rush Hour","Café Order","Speak","Practice 1","Practice 2","Practice 3"]   // v3 -> v4: Speak removed
+  3: ["Sentence Builder","The Magic Four","At the Café","By Ear","Rush Hour","Café Order","Speak","Practice 1","Practice 2","Practice 3"],   // v3 -> v4: Speak removed
+  4: ["Sentence Builder","The Magic Four","At the Café","By Ear","Rush Hour","Café Order","Practice 1","Practice 2","Practice 3"]   // v4 -> v5: Café Order before Rush Hour
 };
 const partKey = p => p.key || p.name;
 if (OLD_NAMES[A.step4.v]){
   const old = OLD_NAMES[A.step4.v], keys = LESSON.map(partKey);
   // finished parts keep counting; parts that no longer exist (Speak, Echo, Swap It) just drop out
   A.step4.parts = [...new Set((A.step4.parts || []).map(i => keys.indexOf(old[i])).filter(k => k >= 0))].sort((a, b) => a - b);
-  if (A.step4.v === 2) A.step4.parts = [...new Set(A.step4.parts.concat(old.slice(0, A.step4.pos || 0).map(n => keys.indexOf(n)).filter(k => k >= 0)))].sort((a, b) => a - b);
+  // every part before the saved place counted as done in the old lesson (i < pos), so it stays done
+  A.step4.parts = [...new Set(A.step4.parts.concat(old.slice(0, A.step4.pos || 0).map(n => keys.indexOf(n)).filter(k => k >= 0)))].sort((a, b) => a - b);
   // the saved place: the same part in the new lesson; a removed part -> the next part that still exists
   let pos = 0;
-  if (A.step4.v === 3 && A.step4.pos > 0){
+  if ((A.step4.v === 3 || A.step4.v === 4) && A.step4.pos > 0){
     let i = Math.min(A.step4.pos, old.length);
     while (i < old.length && keys.indexOf(old[i]) < 0) i++;
     pos = i >= old.length ? LESSON.length : keys.indexOf(old[i]);
     if (pos >= LESSON.length){ const n = LESSON.findIndex((p, k) => !A.step4.parts.includes(k)); pos = n < 0 ? 0 : n; }
+    // a part that moved up (v5: Café Order now before Rush Hour) and isn't done yet: the place moves back to it (spec A4)
+    const gap = LESSON.findIndex((p, k) => k < pos && !A.step4.parts.includes(k)); if (gap >= 0) pos = gap;
   } else if (A.step4.v === 2){
     const n = LESSON.findIndex((p, k) => !A.step4.parts.includes(k)); pos = n < 0 ? 0 : n; A.step4.run = null;
   }
@@ -2605,6 +2640,28 @@ if (OLD_NAMES[A.step4.v]){
   try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){}
 }
 if (A.step4.v !== LESSON_VERSION){ A.step4.pos = 0; A.step4.run = null; A.step4.done = []; A.step4.v = LESSON_VERSION; try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){} }
+/* STEP 3 (Pronouns), Just speak track: content from the Systeme course "HEBREW HACK without reading", page 45987478 */
+const LESSON_STEP3 = [
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Eilai explains", url:STEP3_EMBEDS.video1, xp:5,
+    how:"I, you, he, she: who is who in Hebrew." },
+  { type:"embed", sec:"Learn",    icon:"📖", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP3_EMBEDS.genially, xp:5, wide:true, slides:true,
+    how:"Tap Open full screen to see the slides bigger." },
+  { type:"embed", sec:"Play",     icon:"🎯", name:"Pick the right word", url:STEP3_EMBEDS.wordwall1, xp:5, how:"Pick the pronoun that fits." },
+  { type:"embed", sec:"Play",     icon:"👥", name:"Who is it?", sub:"One or many", url:STEP3_EMBEDS.wordwall2, xp:5, how:"One person or more than one? Pick who it is." },
+  { type:"embed", sec:"Speak",    icon:"🎙", name:"Say them out loud", url:STEP3_EMBEDS.speak, xp:10, mic:true,
+    how:"Say each pronoun into your phone and hear how close you are. Allow the microphone when asked." }
+];
+const LESSONS = {
+  step3:{ n:"STEP 3", title:"Pronouns", intro:"I, you, he, she: who is who in Hebrew. Watch, learn, play, say it.", parts:LESSON_STEP3, speakOnly:true },
+  step4:{ n:"STEP 4", title:"The Magic Four", intro:"Tap a verb to see it with every person. Watch, learn, play, practise.", parts:LESSON_STEP4 }
+};
+let CUR = "step4";
+const blankState = () => ({ pos:0, done:[], completed:0, parts:[], v:LESSON_VERSION });
+if (!A.step3) A.step3 = blankState();
+const ST = () => A[CUR];
+function useLesson(id){ if (!LESSONS[id]) return; CUR = id; LESSON = LESSONS[id].parts; A[id] = Object.assign(blankState(), A[id] || {}); }
+const lessonOpen = id => !!LESSONS[id] && (id !== "step3" || STEP3_LIVE) && (!LESSONS[id].speakOnly || A.read === false);   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
+function lessonProgress(id){ const s = A[id] || {}; return s.completed ? 1 : Math.min(1, (s.pos || 0) / LESSONS[id].parts.length); }
 const XP_BONUS = 20;
 const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","words"];
 
@@ -2618,7 +2675,7 @@ function bumpStreak(){
   if (A.lastDay === dayStr(t)) return;
   A.streak = (A.lastDay === dayStr(y)) ? A.streak + 1 : 1; A.lastDay = dayStr(t);
 }
-function step4Progress(){ return A.step4.completed ? 1 : Math.min(1, A.step4.pos / LESSON.length); }
+function step4Progress(){ return ST().completed ? 1 : Math.min(1, ST().pos / LESSON.length); }
 
 /* ---------- screens ---------- */
 const SCREENS = ["sHome","sOnb","sStep","sLesson","sEmbed","sDone"];
@@ -2637,12 +2694,14 @@ function paintHome(){
   $("hStreak").textContent = "🔥 " + liveStreak();
   $("hXp").textContent = "⚡ " + A.xp;
   $("hHi").textContent = A.name ? "Shalom, " + A.name + "!" : "Shalom!";
-  const R = 46, C = 2 * Math.PI * R, prog = step4Progress();
+  const R = 46, C = 2 * Math.PI * R;
   $("hMap").innerHTML = "";
+  // one START/CONTINUE bubble only: on the step to do next (the others stay tappable)
+  const nextStep = STEPS.find(st => lessonOpen(st.id) && !(A[st.id] || {}).completed);
   STEPS.forEach((st, i) => {
     const li = document.createElement("li");
     li.style.transform = "translateX(" + ZIG[i % ZIG.length] + "px)";
-    const live = !!st.live, done = live && A.step4.completed > 0;
+    const live = lessonOpen(st.id), sst = A[st.id] || {}, done = live && sst.completed > 0, prog = live ? lessonProgress(st.id) : 0;
     const optional = !stepRequired(st);
     li.className = (live ? "is-live" : "") + (st.reading ? " is-reading" : "") + (optional ? " is-optional" : "");
     const b = document.createElement("button");
@@ -2654,12 +2713,14 @@ function paintHome(){
       '<span class="hh-glyph" lang="he" dir="rtl"></span>' + (live ? "" : '<span class="hh-lock" aria-hidden="true">🔒</span>');
     b.querySelector(".hh-glyph").textContent = st.he;
     if (live){
-      const bub = document.createElement("div"); bub.className = "hh-bubble";
-      bub.textContent = done ? "PLAY AGAIN" : A.step4.pos > 0 ? "CONTINUE" : "START";
-      li.append(bub);
-      b.addEventListener("click", () => openStep());
+      if (nextStep ? nextStep === st : true){
+        const bub = document.createElement("div"); bub.className = "hh-bubble";
+        bub.textContent = done ? "PLAY AGAIN" : sst.pos > 0 ? "CONTINUE" : "START";
+        li.append(bub);
+      }
+      b.addEventListener("click", () => openStep(st.id));
     } else {
-      b.addEventListener("click", () => { sfx("soft"); toast(optional ? st.t + " is for reading. You can skip it and go on." : st.t + ": coming soon"); });
+      b.addEventListener("click", () => { sfx("soft"); toast(optional ? st.t + " is for reading. You can skip it and go on." : (LESSONS[st.id] && (st.id !== "step3" || STEP3_LIVE)) ? st.t + ": coming soon for Speak + read" : st.t + ": coming soon"); });
     }
     const cap = document.createElement("div"); cap.className = "hh-cap";
     const pct = Math.round(prog * 100);
@@ -2667,13 +2728,14 @@ function paintHome(){
     cap.querySelector("small").textContent = st.n;
     if (st.reading){ const tag = document.createElement("span"); tag.className = "hh-rtag"; tag.textContent = "Reading track"; cap.querySelector("small").after(tag); }
     cap.querySelector("b").textContent = st.t;
-    cap.querySelector("em").textContent = live ? (done ? "Done · " + A.step4.completed + "×" : pct + "% · " + A.step4.pos + "/" + LESSON.length)
+    cap.querySelector("em").textContent = live ? (done ? "Done · " + sst.completed + "×" : pct + "% · " + (sst.pos || 0) + "/" + LESSONS[st.id].parts.length)
       : optional ? "Optional · you can skip it" : "Coming soon";
     li.append(b, cap); $("hMap").append(li);
   });
   go("sHome");
   // bring the open step into view, like the Duolingo path does
-  const live = $("node-step4"); if (live) live.scrollIntoView({ block:"center" });
+  const firstOpen = STEPS.find(st => lessonOpen(st.id) && !(A[st.id] || {}).completed) || STEPS.find(st => lessonOpen(st.id));
+  const live = firstOpen && $("node-" + firstOpen.id); if (live) live.scrollIntoView({ block:"center" });
 }
 $("hSet").addEventListener("click", () => openOnb(true));
 if (typeof BRAND_LOGO === "string" && BRAND_LOGO){ const im = document.createElement("img"); im.className = "hh-logo"; im.src = BRAND_LOGO; im.alt = "HEBREW HACK"; $("hBrand").replaceChildren(im); }
@@ -2716,14 +2778,17 @@ function syncGameSettings(){
 }
 
 /* ---------- step overview ---------- */
-async function openStep(){
-  const acc = await checkAccess("step4");
+async function openStep(id){
+  if (id) useLesson(id);
+  const acc = await checkAccess(CUR);
   if (!acc.ok){ toast("This step opens after you join"); return; }
-  $("stXp").textContent = "⚡ " + A.xp; paintConj();
+  $("stXp").textContent = "⚡ " + A.xp;
+  const LS = LESSONS[CUR]; $("stN").textContent = LS.n; $("stTitle").textContent = LS.title; $("stIntro").textContent = LS.intro;
+  $("cjTabs").hidden = CUR !== "step4"; if (CUR === "step4") paintConj(); else paintPronTable();
   const ol = $("stParts"); ol.innerHTML = "";
   let lastSec = "";
   LESSON.forEach((p, i) => {
-    const done = partDone(i), next = !A.step4.completed && i === A.step4.pos;
+    const done = partDone(i), next = !ST().completed && i === ST().pos;
     if (p.sec !== lastSec){ lastSec = p.sec; const h = document.createElement("li"); h.className = "hh-sec"; h.textContent = p.sec; ol.append(h); }
     const li = document.createElement("li");
     const b = document.createElement("button"); b.type = "button";
@@ -2737,7 +2802,7 @@ async function openStep(){
     b.addEventListener("click", () => startAt(i));   // every part is open at any time, in any order
     li.append(b); ol.append(li);
   });
-  $("stGo").textContent = A.step4.completed ? "Play the whole lesson again" : A.step4.pos > 0 ? "Continue the lesson" : "Start the lesson";
+  $("stGo").textContent = ST().completed ? "Play the whole lesson again" : ST().pos > 0 ? "Continue the lesson" : "Start the lesson";
   go("sStep");
 }
 $("stBack").addEventListener("click", () => paintHome());
@@ -2747,7 +2812,7 @@ $("stGo").addEventListener("click", () => startLesson());
 const PRONOUNS = [
   ["אֲנִי","ani","I","mf"], ["אַתָּה","ata","you (m)","m"], ["אַתְּ","at","you (f)","f"], ["הוּא","hu","he","m"], ["הִיא","hi","she","f"],
   ["אֲנַחְנוּ","anachnu","we","pl"], ["אַתֶּם","atem","you (pl)","pl"], ["הֵם","hem","they","pl"]
-];
+];   // the in-game Pronouns sheet and the STEP 3 page use these
 const CONJ = {
   want:{ en:"want", m:["רוֹצֶה","rotze"],   f:["רוֹצָה","rotza"],    pl:["רוֹצִים","rotzim"] },
   can: { en:"can",  m:["יָכוֹל","yachol"],  f:["יְכוֹלָה","yechola"], pl:["יְכוֹלִים","yecholim"] },
@@ -2775,29 +2840,39 @@ function paintConj(){
   });
 }
 
+/* STEP 3 page header: every pronoun with its Latin letters and English */
+function paintPronTable(){
+  const tb = $("cjTable"); tb.innerHTML = "";
+  PRONOUNS.forEach(([he, tr, en, g]) => {
+    const r = document.createElement("tr");
+    r.innerHTML = '<td class="hh-p"><span lang="he" class="' + (g === "mf" ? "" : g) + '">' + he + '</span><span class="hh-cj-tr">' + tr + '</span></td><td class="hh-en">' + en + "</td>";
+    tb.append(r);
+  });
+}
+
 /* ---------- lesson flow ---------- */
 let L = null;   // { mode:"lesson"|"single", pos, t0, said, xp, prev }
 function startLesson(){
   unlockAudio(); syncGameSettings();
-  if (A.step4.completed || A.step4.pos >= LESSON.length) A.step4.pos = 0;
-  // a resumed lesson keeps what was already earned in it (saved in A.step4.run)
-  const run = (A.step4.pos > 0 && A.step4.run) || { said:0, xp:0, ms:0 };
-  L = { mode:"lesson", pos:A.step4.pos, t0:Date.now(), said:run.said, xp:run.xp, ms:run.ms, prev:"" };
+  if (ST().completed || ST().pos >= LESSON.length) ST().pos = 0;
+  // a resumed lesson keeps what was already earned in it (saved in ST().run)
+  const run = (ST().pos > 0 && ST().run) || { said:0, xp:0, ms:0 };
+  L = { mode:"lesson", pos:ST().pos, t0:Date.now(), said:run.said, xp:run.xp, ms:run.ms, prev:"" };
   renderCard();
 }
 /* progress marks: a part counts as done once finished, in any order */
-function partDone(i){ return A.step4.completed > 0 || (A.step4.parts || []).includes(i) || i < A.step4.pos; }
-function markPart(i){ A.step4.parts = A.step4.parts || []; if (!A.step4.parts.includes(i)) A.step4.parts.push(i); }
+function partDone(i){ return ST().completed > 0 || (ST().parts || []).includes(i) || i < ST().pos; }
+function markPart(i){ ST().parts = ST().parts || []; if (!ST().parts.includes(i)) ST().parts.push(i); }
 /* open any part directly; the lesson then carries on from there */
 function startAt(i){
   unlockAudio(); syncGameSettings();
-  const run = (!A.step4.completed && A.step4.run) || { said:0, xp:0, ms:0 };
+  const run = (!ST().completed && ST().run) || { said:0, xp:0, ms:0 };
   L = { mode:"lesson", pos:i, t0:Date.now(), said:run.said, xp:run.xp, ms:run.ms, prev:"" };
   renderCard();
 }
 function startSingle(i){ unlockAudio(); syncGameSettings(); L = { mode:"single", pos:i, t0:Date.now(), said:0, xp:0, ms:0, prev:"" }; renderCard(); }
 function lessonFrac(){ return L.mode === "single" ? 0 : L.pos / LESSON.length; }
-function partLabel(){ return L.mode === "single" ? "STEP 4 · AGAIN" : "STEP 4 · " + LESSON[L.pos].sec.toUpperCase() + " · " + (L.pos + 1) + "/" + LESSON.length; }
+function partLabel(){ const n = LESSONS[CUR].n; return L.mode === "single" ? n + " · AGAIN" : n + " · " + LESSON[L.pos].sec.toUpperCase() + " · " + (L.pos + 1) + "/" + LESSON.length; }
 function paintBar(barId, countId){
   $(barId).style.width = Math.round(lessonFrac() * 100) + "%";
   if (countId && $(countId)) $(countId).textContent = (L.pos + 1) + "/" + LESSON.length;
@@ -2879,7 +2954,7 @@ function backPart(){
   if (!$("play").hidden){ path = null; gameShow("home"); }   // leave a running game (timers, mic) without scoring it
   L.pos--; L.prev = "";
   L.ms += Date.now() - L.t0; L.t0 = Date.now();
-  A.step4.pos = L.pos; A.step4.run = { said:L.said, xp:L.xp, ms:L.ms }; saveA();
+  ST().pos = L.pos; ST().run = { said:L.said, xp:L.xp, ms:L.ms }; saveA();
   sfx("tap"); renderCard();
 }
 ["eBack", "lBack"].forEach(id => { const b = $(id); if (b) b.addEventListener("click", e => { e.preventDefault(); backPart(); }); });
@@ -2928,20 +3003,21 @@ function advance(prev){
   markPart(L.pos);
   L.pos++; L.prev = prev || "";
   L.ms += Date.now() - L.t0; L.t0 = Date.now();
-  A.step4.pos = L.pos; A.step4.run = { said:L.said, xp:L.xp, ms:L.ms }; saveA();
+  ST().pos = L.pos; ST().run = { said:L.said, xp:L.xp, ms:L.ms }; saveA();
   if (L.pos >= LESSON.length){
     // the lesson counts as complete only when every part has been done (in any order)
-    if (LESSON.every((x, k) => (A.step4.parts || []).includes(k))) return complete();
-    A.step4.pos = LESSON.findIndex((x, k) => !(A.step4.parts || []).includes(k)); saveA();
+    if (LESSON.every((x, k) => (ST().parts || []).includes(k))) return complete();
+    ST().pos = LESSON.findIndex((x, k) => !(ST().parts || []).includes(k)); saveA();
     toast(prev ? prev.split("  ·  ").pop() : "Saved"); L = null; return openStep();
   }
   renderCard();
 }
 function complete(){
-  A.step4.completed++; A.step4.pos = 0; A.step4.run = null; A.step4.parts = LESSON.map((x, k) => k); A.xp += XP_BONUS; L.xp += XP_BONUS; bumpStreak(); saveA();
+  ST().completed++; ST().pos = 0; ST().run = null; ST().parts = LESSON.map((x, k) => k); A.xp += XP_BONUS; L.xp += XP_BONUS; bumpStreak(); saveA();
   const sec = Math.round(L.ms / 1000);
   $("cTitle").textContent = A.name ? "Kol hakavod, " + A.name + "!" : "Kol hakavod!";
-  $("cSaid").textContent = L.said; $("cTime").textContent = Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0");
+  $("cStepDone").textContent = LESSONS[CUR].n + " COMPLETE";
+  $("cSaid").textContent = L.said || LESSON.length; $("cSaidL").textContent = L.said ? "sentences said" : "parts done"; $("cTime").textContent = Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0");
   $("cStreak").textContent = liveStreak();
   go("sDone"); sfx("win");   // sfx("win") also throws the confetti
   const target = L.xp, el = $("cXp"), t0 = performance.now();
@@ -3013,7 +3089,8 @@ function attachVimeo(f, part){
     const pl = vPlayer;
     pl.getTextTracks().then(tr => {
       f.dataset.tracks = JSON.stringify((tr || []).map(t => t.language + ":" + t.kind + ":" + t.label));
-      const real = (tr || []).filter(x => !/autogen|auto-generated/i.test((x.language || "") + " " + (x.label || "")));   // never Vimeo's auto-generated captions (the café video only has those)
+      const isAuto = x => /autogen|auto-generated|automatic|\(AI\)|\bAI\b/i.test((x.language || "") + " " + (x.label || "") + " " + (x.kind || ""));   // Vimeo's machine captions only
+      const real = (tr || []).filter(x => !isAuto(x));   // never Vimeo's auto-generated captions (the café video only has those)
       const t = real.find(x => /^en/i.test(x.language)) || real[0];
       if (!t || (part && part.cc === false)) return pl.disableTextTrack().catch(() => {});   // café: CC menu offers the track, nothing forced
       if (t) return pl.enableTextTrack(t.language, t.kind).then(x => { f.dataset.cc = x.language + ":" + x.kind; });
@@ -3082,7 +3159,7 @@ function goHome(){
   clearEmbed(); stopGame();
   if (window.earRelease) window.earRelease();
   if (!$("play").hidden){ path = null; gameShow("home"); }   // the game's own cleanup (timers, mic)
-  if (L && L.mode === "lesson"){ A.step4.pos = L.pos; A.step4.run = { said:L.said, xp:L.xp, ms:L.ms + (Date.now() - L.t0) }; saveA(); }
+  if (L && L.mode === "lesson"){ ST().pos = L.pos; ST().run = { said:L.said, xp:L.xp, ms:L.ms + (Date.now() - L.t0) }; saveA(); }
   L = null;
   if (A.gender && A.mode) paintHome(); else openOnb(false);
 }
@@ -3091,7 +3168,7 @@ function quitToList(){
   closePron(); stopGame();
   if (window.earRelease) window.earRelease();
   if (!$("play").hidden){ path = null; gameShow("home"); }
-  if (L && L.mode === "lesson"){ A.step4.pos = L.pos; A.step4.run = { said:L.said, xp:L.xp, ms:L.ms + (Date.now() - L.t0) }; saveA(); }
+  if (L && L.mode === "lesson"){ ST().pos = L.pos; ST().run = { said:L.said, xp:L.xp, ms:L.ms + (Date.now() - L.t0) }; saveA(); }
   L = null; openStep();
 }
 $("gQuit").addEventListener("click", e => { e.preventDefault(); sfx("tap"); quitToList(); });
@@ -3129,10 +3206,10 @@ show = function(id){
 finish = function(title, big, sub, extra){
   if (!L) return gameFinish(title, big, sub, extra);
   const g = Number(current);
-  const said = g === 6 ? len6 : g === 4 ? cards4.length : g === 5 ? o5.said.length : g === 8 ? EAR_ROUNDS : g === 7 ? (r7.served || 0) : 0;
+  const said = g === 6 ? len6 : g === 4 ? cards4.length : g === 5 ? o5.said.length : g === 8 ? (e8.said || 0) : g === 7 ? (r7.served || 0) : 0;
   const part = LESSON[L.pos], xp = part.xp || 10;
   L.said += said;
-  if (!A.step4.done.includes(g)) A.step4.done.push(g);
+  if (!ST().done.includes(g)) ST().done.push(g);
   const first = firstTime(); if (first) earn(xp);
   if (window.earRelease) window.earRelease();
   path = null; gameShow("home"); stopGame();     // the game's own cleanup (timers, mic), without its menu
