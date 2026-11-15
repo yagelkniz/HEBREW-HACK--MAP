@@ -579,14 +579,41 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 @media (max-width:375px){ .hh-pc i.only{font-size:11.5px} .hh-pc>div{gap:2px} .hh-pc .l1 b{font-size:13px} .hh-pc .l1 i{font-size:8.5px} .hh-pgrid{grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr))} }
 .hh-pron.speak .hh-pc>div{direction:ltr}   /* English letters only: he / she in reading order */
 
-/* one static tip line under videos, phones only */
+/* tip card under videos, phones only */
 .hh-vtip{display:none}
 @media (pointer:coarse) and (max-width:899px){
-  .hh-vtip:not([hidden]){display:block;margin:8px 4px 0;text-align:center;font-size:12.5px;line-height:1.35;color:var(--cream);opacity:.6}
+  .hh-vtip:not([hidden]){display:flex;flex-direction:column;gap:8px;margin:10px 0 auto;padding:12px 14px;border-radius:16px;background:#26543F;border:2px solid #FF6FA5}
   .hh-frame.is-wide:has(+ .hh-vtip:not([hidden])){margin-bottom:0}
-  .hh-vtip:not([hidden]){margin-bottom:auto}
 }
+.hh-vtip-row{display:flex;align-items:center;gap:12px}
+.hh-vtip-row svg{flex:none;width:34px;height:34px;color:#FF6FA5}
+.hh-vtip-row b{font-weight:800;font-size:16px;line-height:1.25;color:#F4F1E8}
 @media (orientation:landscape) and (max-height:500px){ .hh-vtip{display:none!important} }
+
+/* main-menu brand: mascot + wordmark (or a logo image via BRAND_LOGO in config.js) */
+.hh-brandbox{display:flex;align-items:center;gap:8px;min-width:0}
+.hh-mascot{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid var(--coral);background:var(--cream);flex:none}
+.hh-brandtxt{font-family:"Noto Sans Hebrew",system-ui,sans-serif;font-weight:900;font-size:21px;letter-spacing:.03em;color:var(--cream);white-space:nowrap}
+.hh-brandtxt span{color:var(--coral)}
+.hh-logo{height:40px;width:auto;max-width:200px;object-fit:contain;display:block}
+.hh-brand .hh-brandtxt{color:var(--cream);font-size:18px}
+.hh-brand .hh-brandtxt span{color:var(--coral)}
+#sHome .hh-mascot{width:34px;height:34px}
+#sHome .hh-chip{white-space:nowrap}
+#sHome .hh-top{gap:6px}
+@media (max-width:370px){ .hh-brand .hh-brandtxt{font-size:16px} #sHome .hh-mascot{width:30px;height:30px} }
+.hh-cf{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center;background:rgba(10,25,19,0);transition:background .2s}
+.hh-cf[hidden]{display:none}
+.hh-cf.is-open{background:rgba(10,25,19,.6)}
+.hh-cf-card{width:100%;max-width:480px;box-sizing:border-box;background:#26543F;border:2px solid #FF6FA5;border-bottom:0;border-radius:24px 24px 0 0;padding:10px 20px calc(20px + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center;gap:12px;transform:translateY(100%);transition:transform .22s ease-out}
+.hh-cf.is-open .hh-cf-card{transform:none}
+.hh-cf-grip{width:44px;height:5px;border-radius:3px;background:rgba(244,241,232,.3)}
+.hh-cf-av{width:56px;height:56px;border-radius:50%;border:2px solid #FF6FA5}
+.hh-cf-card h2{margin:0 0 4px;font-size:21px;font-weight:800;color:#F4F1E8;text-align:center}
+.hh-cf-card .btn{width:100%}
+.hh-cf-no{width:100%;min-height:50px;border-radius:999px;background:transparent;border:2px solid rgba(244,241,232,.35);color:#F4F1E8;font:inherit;font-weight:700;font-size:16px;cursor:pointer}
+@media (min-width:900px) and (min-height:501px){ .hh-cf{align-items:center} .hh-cf-card{border-radius:24px;border-bottom:2px solid #FF6FA5;max-width:420px} }
+@media (orientation:landscape) and (max-height:500px){ .hh-cf-card{max-width:420px;gap:8px;padding-top:8px} .hh-cf-av{display:none} }
 </style>
 </head>
 <body>
@@ -595,7 +622,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 <!-- HOME: the path -->
 <div class="screen" id="sHome" hidden>
   <header class="hh-top hh-sticky">
-    <div class="hh-brand">HEBREW <span>HACK</span></div>
+    <div class="hh-brand hh-brandbox" id="hBrand"><img class="hh-mascot" src="icons/avatar.webp" alt=""><span class="hh-brandtxt">HEBREW <span>HACK</span></span></div>
     <div class="hh-stats">
       <span class="hh-chip" id="hStreak" title="Days in a row">🔥 0</span>
       <span class="hh-chip" id="hXp" title="XP">⚡ 0</span>
@@ -634,7 +661,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v12-5c24ec944f</p>
+  <p class="hh-ver" id="oVer">Version hh-v13-13f813424d</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -660,12 +687,36 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   </div>
   <p class="hh-ehow" id="eHow"></p>
   <div class="hh-frame" id="eFrame"></div>
-  <p class="hh-vtip" id="eTip" hidden>Tip: turn your phone sideways or pinch to zoom for a bigger video.</p>
+  <div class="hh-vtip" id="eTip" hidden role="note" aria-label="Tip for a bigger video">
+    <div class="hh-vtip-row">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="12" y="6" width="14" height="24" rx="3" fill="none" stroke="currentColor" stroke-width="2.6"/>
+        <circle cx="19" cy="26" r="1.4" fill="currentColor"/>
+        <path d="M30 12 a10 10 0 0 1 2 12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M28.5 21.5 L32.2 24.6 L34.6 20.4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="8" y="31" width="22" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 2" opacity=".7"/></svg>
+      <b>1. Turn your phone sideways</b></div>
+    <div class="hh-vtip-row">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M17 36 v-13 a3 3 0 0 1 6 0 v4 l7 2 a3 3 0 0 1 2 3.5 l-1.4 3.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 14 L6 6 M6 6 h6 M6 6 v6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M26 14 L34 6 M34 6 h-6 M34 6 v6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <b>2. Pinch to zoom for an even bigger video</b></div>
+  </div>
   <button class="hh-fbtn hh-fclose" id="eClose" type="button" aria-label="Close full screen" hidden><span aria-hidden="true">✕</span> Close</button>
   <button class="hh-fbtn hh-fhome" id="eHome" type="button" data-home aria-label="Home: back to the map" hidden>⌂</button>
   <p class="hh-fhint" id="eHint" hidden>Turn your phone sideways for a bigger picture</p>
   <button class="hh-fbtn hh-frot" id="eRot" type="button" aria-label="Turn the video" hidden>↻</button>
   <div class="hh-ego"><button class="btn" id="eGo" type="button">Continue</button></div>
+</div>
+
+<!-- CONFIRM SHEET (pink Continue button on every part) -->
+<div class="hh-cf" id="cfSheet" hidden>
+  <div class="hh-cf-card" role="dialog" aria-modal="true" aria-labelledby="cfTitle">
+    <div class="hh-cf-grip" aria-hidden="true"></div>
+    <img class="hh-cf-av" src="icons/avatar.webp" alt="">
+    <h2 id="cfTitle">Did you finish this part?</h2>
+    <button class="btn" id="cfYes" type="button">Yes, continue</button>
+    <button class="hh-cf-no" id="cfNo" type="button">Not yet</button>
+  </div>
 </div>
 
 <!-- LESSON CARD (the card before each game) -->
@@ -2405,6 +2456,10 @@ async function checkAccess(stepId){
   return { ok: false, reason: "not-connected" };
 }
 
+/* Main-menu logo. Leave "" to show the mascot + "HEBREW HACK" text.
+   To use a logo image: put the file in icons/ and set its path here, e.g. "icons/logo.png" (it is cached for offline use automatically). */
+const BRAND_LOGO = "";
+
 </script>
 <script>
 /* =====================================================================
@@ -2438,9 +2493,9 @@ function stepUnlocked(i){ return PILOT_ALL_OPEN || STEPS.slice(0, i).filter(step
    type "video" / "embed" = an iframe card (url from STEP4_EMBEDS); type "game" = a Magic Four game (g = game number).
    sec = the section heading on the overview; xp = XP for finishing the part. */
 const LESSON = [
-  { type:"video", sec:"Watch",    icon:"🎬", name:"Sentence Builder", url:STEP4_EMBEDS.video1, xp:5,
+  { type:"video", sec:"Watch",    icon:"🎬", key:"Sentence Builder", name:"Watch & learn", sub:"Eilai explains", url:STEP4_EMBEDS.video1, xp:5,
     how:"See how one of the Magic Four verbs turns into a full sentence." },
-  { type:"embed", sec:"Learn",    icon:"📖", name:"The Magic Four", url:STEP4_EMBEDS.genially, xp:5, wide:true, slides:true,
+  { type:"embed", sec:"Learn",    icon:"📖", key:"The Magic Four", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP4_EMBEDS.genially, xp:5, wide:true, slides:true,
     how:"Tap ⤢ Full screen to see the slides bigger. Want, can, need, love, for he and for she." },
   { type:"video", sec:"Watch",    icon:"🎬", name:"At the Café", url:STEP4_EMBEDS.video2, xp:5,
     how:"The Magic Four at a café counter. Watch, then it's your turn to order." },
@@ -2464,7 +2519,7 @@ const LESSON_VERSION = 3;   // bump when LESSON changes shape, so saved position
 const V2_NAMES = ["Sentence Builder","The Magic Four","At the Café","Echo","Swap It","Café Order","By Ear","Rush Hour","Speak","Practice 1","Practice 2","Practice 3"];
 if (A.step4.v === 2){
   const names = (A.step4.parts || []).map(i => V2_NAMES[i]).concat(V2_NAMES.slice(0, A.step4.pos || 0));
-  A.step4.parts = LESSON.map((p, k) => names.includes(p.name) ? k : -1).filter(k => k >= 0);
+  A.step4.parts = LESSON.map((p, k) => names.includes(p.key || p.name) ? k : -1).filter(k => k >= 0);
   const next = LESSON.findIndex((p, k) => !A.step4.parts.includes(k));
   A.step4.pos = next < 0 ? 0 : next; A.step4.run = null; A.step4.v = LESSON_VERSION;
   try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){}
@@ -2541,6 +2596,7 @@ function paintHome(){
   const live = $("node-step4"); if (live) live.scrollIntoView({ block:"center" });
 }
 $("hSet").addEventListener("click", () => openOnb(true));
+if (typeof BRAND_LOGO === "string" && BRAND_LOGO){ const im = document.createElement("img"); im.className = "hh-logo"; im.src = BRAND_LOGO; im.alt = "HEBREW HACK"; $("hBrand").replaceChildren(im); }
 
 /* ---------- onboarding / settings ---------- */
 let onbGender = "", onbMode = "", onbTr = true, onbSettings = false;
@@ -2596,7 +2652,8 @@ async function openStep(){
     b.querySelector("i").textContent = done ? "★" : p.icon;
     b.querySelector("b").textContent = p.name;
     b.querySelector("em").textContent = "+" + p.xp;
-    b.querySelector("small").textContent = done ? "Done · tap to open again" : next ? "Up next" : "Tap to open";
+    b.querySelector("small").textContent = (p.sub ? p.sub + "\n" : "") + (done ? "Done · tap to open again" : next ? "Up next" : "Tap to open");
+    b.querySelector("small").style.whiteSpace = "pre-line";   // subtitle on its own line, then the status
     b.addEventListener("click", () => startAt(i));   // every part is open at any time, in any order
     li.append(b); ol.append(li);
   });
@@ -2665,7 +2722,7 @@ function paintBar(barId, countId){
   $(barId).style.width = Math.round(lessonFrac() * 100) + "%";
   if (countId) $(countId).textContent = (L.pos + 1) + "/" + LESSON.length;
 }
-function clearEmbed(){ closeFull("leaving"); const box = $("eFrame"); if (box) box.innerHTML = ""; }   // stops video/mic when the card is left
+function clearEmbed(){ closeConfirm(); closeFull("leaving"); const box = $("eFrame"); if (box) box.innerHTML = ""; }   // stops video/mic when the card is left
 function renderCard(){
   const p = LESSON[L.pos];
   clearEmbed();
@@ -2712,7 +2769,15 @@ function renderEmbed(p){
 $("lGo").addEventListener("click", () => launchGame(LESSON[L.pos].g));
 $("lQuit").addEventListener("click", () => { L = null; openStep(); });
 $("eQuit").addEventListener("click", () => { clearEmbed(); L = null; openStep(); });
-$("eGo").addEventListener("click", () => {
+/* Confirm sheet: the pink button only asks; "Yes, continue" is what advances and awards XP. */
+function openConfirm(){ const c = $("cfSheet"); c.hidden = false; requestAnimationFrame(() => c.classList.add("is-open")); $("cfYes").focus(); }
+function closeConfirm(){ const c = $("cfSheet"); c.classList.remove("is-open"); c.hidden = true; }
+$("eGo").addEventListener("click", openConfirm);
+$("cfNo").addEventListener("click", () => { closeConfirm(); $("eGo").focus(); });
+$("cfSheet").addEventListener("click", e => { if (e.target.id === "cfSheet") closeConfirm(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("cfSheet").hidden) closeConfirm(); });
+$("cfYes").addEventListener("click", () => {
+  closeConfirm(); if (!L || $("sEmbed").hidden) return;
   const p = LESSON[L.pos]; clearEmbed();
   if (L.mode === "single"){ L = null; return openStep(); }
   earn(p.xp); sfx("good");
