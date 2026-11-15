@@ -2325,7 +2325,7 @@ async function openStep(){
   const ol = $("stParts"); ol.innerHTML = "";
   let lastSec = "";
   LESSON.forEach((p, i) => {
-    const done = A.step4.completed > 0 || i < A.step4.pos, next = !A.step4.completed && i === A.step4.pos;
+    const done = partDone(i), next = !A.step4.completed && i === A.step4.pos;
     if (p.sec !== lastSec){ lastSec = p.sec; const h = document.createElement("li"); h.className = "hh-sec"; h.textContent = p.sec; ol.append(h); }
     const li = document.createElement("li");
     const b = document.createElement("button"); b.type = "button";
@@ -2334,8 +2334,8 @@ async function openStep(){
     b.querySelector("i").textContent = done ? "★" : p.icon;
     b.querySelector("b").textContent = p.name;
     b.querySelector("em").textContent = "+" + p.xp;
-    b.querySelector("small").textContent = done ? "Done · tap to open again" : next ? "Up next" : "Opens after the part before";
-    if (done) b.addEventListener("click", () => startSingle(i)); else if (next) b.addEventListener("click", () => startLesson()); else b.disabled = true;
+    b.querySelector("small").textContent = done ? "Done · tap to open again" : next ? "Up next" : "Tap to open";
+    b.addEventListener("click", () => startAt(i));   // every part is open at any time, in any order
     li.append(b); ol.append(li);
   });
   $("stGo").textContent = A.step4.completed ? "Play the whole lesson again" : A.step4.pos > 0 ? "Continue the lesson" : "Start the lesson";
@@ -2352,6 +2352,16 @@ function startLesson(){
   // a resumed lesson keeps what was already earned in it (saved in A.step4.run)
   const run = (A.step4.pos > 0 && A.step4.run) || { said:0, xp:0, ms:0 };
   L = { mode:"lesson", pos:A.step4.pos, t0:Date.now(), said:run.said, xp:run.xp, ms:run.ms, prev:"" };
+  renderCard();
+}
+/* progress marks: a part counts as done once finished, in any order */
+function partDone(i){ return A.step4.completed > 0 || (A.step4.parts || []).includes(i) || i < A.step4.pos; }
+function markPart(i){ A.step4.parts = A.step4.parts || []; if (!A.step4.parts.includes(i)) A.step4.parts.push(i); }
+/* open any part directly; the lesson then carries on from there */
+function startAt(i){
+  unlockAudio(); syncGameSettings();
+  const run = (!A.step4.completed && A.step4.run) || { said:0, xp:0, ms:0 };
+  L = { mode:"lesson", pos:i, t0:Date.now(), said:run.said, xp:run.xp, ms:run.ms, prev:"" };
   renderCard();
 }
 function startSingle(i){ unlockAudio(); syncGameSettings(); L = { mode:"single", pos:i, t0:Date.now(), said:0, xp:0, ms:0, prev:"" }; renderCard(); }
@@ -2427,14 +2437,20 @@ function paintStrip(){
   $("hhStripBar").style.width = Math.round(lessonFrac() * 100) + "%";
 }
 function advance(prev){
+  markPart(L.pos);
   L.pos++; L.prev = prev || "";
   L.ms += Date.now() - L.t0; L.t0 = Date.now();
   A.step4.pos = L.pos; A.step4.run = { said:L.said, xp:L.xp, ms:L.ms }; saveA();
-  if (L.pos >= LESSON.length) return complete();
+  if (L.pos >= LESSON.length){
+    // the lesson counts as complete only when every part has been done (in any order)
+    if (LESSON.every((x, k) => (A.step4.parts || []).includes(k))) return complete();
+    A.step4.pos = LESSON.findIndex((x, k) => !(A.step4.parts || []).includes(k)); saveA();
+    toast(prev ? prev.split("  ·  ").pop() : "Saved"); L = null; return openStep();
+  }
   renderCard();
 }
 function complete(){
-  A.step4.completed++; A.step4.pos = 0; A.step4.run = null; A.xp += XP_BONUS; L.xp += XP_BONUS; bumpStreak(); saveA();
+  A.step4.completed++; A.step4.pos = 0; A.step4.run = null; A.step4.parts = LESSON.map((x, k) => k); A.xp += XP_BONUS; L.xp += XP_BONUS; bumpStreak(); saveA();
   const sec = Math.round(L.ms / 1000);
   $("cTitle").textContent = A.name ? "Kol hakavod, " + A.name + "!" : "Kol hakavod!";
   $("cSaid").textContent = L.said; $("cTime").textContent = Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0");
