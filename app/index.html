@@ -672,6 +672,10 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 .hh-pronbtn{flex:none;min-height:34px;padding:0 12px;border-radius:99px;border:1.5px solid var(--divider);background:transparent;color:var(--cream);
   font:inherit;font-size:13px;font-weight:700;letter-spacing:0;cursor:pointer}
 .hh-pronbtn[hidden]{display:none}
+/* v18: it's a button that opens the table, not the game title: filled chip with a table icon */
+.hh-pronbtn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px 0 10px;background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.28);font-size:12.5px;white-space:nowrap;box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.hh-pronbtn .hh-pronico{font-size:15px;line-height:1;color:var(--coral)}
+.hh-pronbtn:active{transform:translateY(1px);box-shadow:none}
 #hhStrip .hh-lxp{letter-spacing:0;color:var(--cream)}
 .hh-psheet .hh-cf-card{gap:10px;padding-top:10px}
 .hh-psheet .hh-pron{margin:0;width:100%}
@@ -719,15 +723,15 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   <input class="name" id="oName" type="text" maxlength="20" autocomplete="given-name" placeholder="What should we call you?">
   <div class="label">I speak as</div>
   <div class="hh-gender" id="oGender">
-    <button type="button" data-value="m" aria-pressed="false"><span class="hh-he" lang="he">אֲנִי רוֹצֶה</span>He<small>ani rotze</small></button>
-    <button type="button" data-value="f" aria-pressed="false"><span class="hh-he" lang="he">אֲנִי רוֹצָה</span>She<small>ani rotza</small></button>
+    <button type="button" data-value="m" aria-pressed="false"><span class="hh-he" lang="he">אֲנִי רוֹצֶה</span>He<small>ani rotse</small></button>
+    <button type="button" data-value="f" aria-pressed="false"><span class="hh-he" lang="he">אֲנִי רוֹצָה</span>She<small>ani rotsa</small></button>
   </div>
   <p class="sub" style="font-size:13px;margin-top:8px">Hebrew verbs change with the speaker, so every sentence you say will match you.</p>
   <div class="label">How I want to learn</div>
   <div class="hh-mode" id="oMode">
     <button type="button" data-value="speak" aria-pressed="false">
       <span class="hh-mode-ic" aria-hidden="true">🎧</span><b>Just speak</b>
-      <span class="hh-mode-demo">ani rotze</span><small>Sound only, no Hebrew letters</small></button>
+      <span class="hh-mode-demo">ani rotse</span><small>Sound only, no Hebrew letters</small></button>
     <button type="button" data-value="read" aria-pressed="false">
       <span class="hh-mode-ic" aria-hidden="true">📖</span><b>Speak + read</b>
       <span class="hh-mode-demo hh-he" lang="he" dir="rtl">אֲנִי רוֹצֶה</span><small>Shows the Hebrew letters</small></button>
@@ -735,7 +739,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v18-6911ac42cb</p>
+  <p class="hh-ver" id="oVer">Version hh-v18-d83e280d2a</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -809,7 +813,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 </div>
 
 <main id="play" hidden>
-<div id="hhStrip"><button class="hh-home hh-squit hh-toparts" id="gQuit" type="button" aria-label="Back to the lesson parts">‹</button><button class="hh-home hh-tohome" type="button" data-home aria-label="Home: the lessons map">⌂</button><span id="hhStripTxt" hidden>STEP 4</span><div class="bar"><i id="hhStripBar"></i></div><button class="hh-pronbtn" id="gPron" type="button" aria-haspopup="dialog" aria-controls="pronSheet">Pronouns</button><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
+<div id="hhStrip"><button class="hh-home hh-squit hh-toparts" id="gQuit" type="button" aria-label="Back to the lesson parts">‹</button><button class="hh-home hh-tohome" type="button" data-home aria-label="Home: the lessons map">⌂</button><span id="hhStripTxt" hidden>STEP 4</span><div class="bar"><i id="hhStripBar"></i></div><button class="hh-pronbtn" id="gPron" type="button" aria-haspopup="dialog" aria-controls="pronSheet" aria-label="Open the pronoun table"><span class="hh-pronico" aria-hidden="true">▦</span>Pronoun table</button><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
 <div class="hh-cf hh-psheet" id="pronSheet" hidden><div class="hh-cf-card" role="dialog" aria-modal="true" aria-label="Pronouns">
 <div class="hh-cf-grip" aria-hidden="true"></div><div id="hhPron" class="hh-pron" aria-label="The Magic Four with every person"></div>
 <button class="hh-cf-no" id="pronClose" type="button">Close</button></div></div>
@@ -1128,19 +1132,19 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 const LEX = {
   ani:{he:"אֲנִי",tr:"ani"}, ata:{he:"אַתָּה",tr:"ata"}, at:{he:"אַתְּ",tr:"at"},
   hu:{he:"הוּא",tr:"hu"}, hi:{he:"הִיא",tr:"hi"}, lo:{he:"לֹא",tr:"lo"}, ken:{he:"כֵּן",tr:"ken"},
-  rotze:{he:"רוֹצֶה",tr:"rotze"}, rotza:{he:"רוֹצָה",tr:"rotza"},
+  rotze:{he:"רוֹצֶה",tr:"rotse"}, rotza:{he:"רוֹצָה",tr:"rotsa"},
   ohev:{he:"אוֹהֵב",tr:"ohev"}, ohevet:{he:"אוֹהֶבֶת",tr:"ohevet"},
-  tzarich:{he:"צָרִיךְ",tr:"tzarich"}, tzricha:{he:"צְרִיכָה",tr:"tzricha"},
-  yachol:{he:"יָכוֹל",tr:"yachol"}, yechola:{he:"יְכוֹלָה",tr:"yechola"},
-  kafe:{he:"קָפֶה",tr:"kafe"}, pitza:{he:"פִּיצָה",tr:"pitza"}, mayim:{he:"מַיִם",tr:"mayim"},
-  ledaber:{he:"לְדַבֵּר",tr:"ledaber"}, ivrit:{he:"עִבְרִית",tr:"ivrit"}, leechol:{he:"לֶאֱכֹל",tr:"le'echol"},
+  tzarich:{he:"צָרִיךְ",tr:"tsarikh"}, tzricha:{he:"צְרִיכָה",tr:"tsrikha"},
+  yachol:{he:"יָכוֹל",tr:"yakhol"}, yechola:{he:"יְכוֹלָה",tr:"yekhola"},
+  kafe:{he:"קָפֶה",tr:"kafe"}, pitza:{he:"פִּיצָה",tr:"pitsa"}, mayim:{he:"מַיִם",tr:"mayim"},
+  ledaber:{he:"לְדַבֵּר",tr:"ledaber"}, ivrit:{he:"עִבְרִית",tr:"ivrit"}, leechol:{he:"לֶאֱכֹל",tr:"le'ekhol"},
   /* extra words used only in the café chat (game 5) */
-  chalav:{he:"חָלָב",tr:"chalav"}, sukar:{he:"סֻכָּר",tr:"sukar"}, te:{he:"תֵּה",tr:"te"}, uga:{he:"עוּגָה",tr:"uga"},
+  chalav:{he:"חָלָב",tr:"khalav"}, sukar:{he:"סֻכָּר",tr:"sukar"}, te:{he:"תֵּה",tr:"te"}, uga:{he:"עוּגָה",tr:"uga"},
   im:{he:"עִם",tr:"im"}, bli:{he:"בְּלִי",tr:"bli"}, od:{he:"עוֹד",tr:"od"},
-  chazak:{he:"חָזָק",tr:"chazak"}, chalash:{he:"חַלָּשׁ",tr:"chalash"},
+  chazak:{he:"חָזָק",tr:"khazak"}, chalash:{he:"חַלָּשׁ",tr:"khalash"},
   gdola:{he:"גְּדוֹלָה",tr:"gdola"}, ktana:{he:"קְטַנָּה",tr:"ktana"},
   yoni:{he:"יוֹנִי",tr:"Yoni"}, dana:{he:"דָּנָה",tr:"Dana"},
-  bruchim:{he:"בְּרוּכִים",tr:"bruchim"}, habaim:{he:"הַבָּאִים",tr:"haba'im"}, toda:{he:"תּוֹדָה",tr:"toda"}
+  bruchim:{he:"בְּרוּכִים",tr:"brukhim"}, habaim:{he:"הַבָּאִים",tr:"haba'im"}, toda:{he:"תּוֹדָה",tr:"toda"}
 };
 
 /* Optional recorded audio. Key = word ids joined by "-", value = MP3 URL.
@@ -2177,8 +2181,37 @@ $("g6listen").addEventListener("click", () => speak(ids6()));
 /* ---------- GAME 7: Rush Hour ---------- */
 let r7 = { phase:"idle" };
 const pick7 = a => a[Math.floor(Math.random() * a.length)];
+/* Rush Hour, spec B2: orders for someone else (he / she / we / they), from the 7th customer.
+   Only orders with a real recording are used (KNIZ ENGLISH, eleven_v4, Nov 15). Traps: the other pronoun, "ani", and the verb form that doesn't fit. */
+Object.assign(LEX, {
+  anachnu:{he:"אֲנַחְנוּ",tr:"anakhnu"}, hem:{he:"הֵם",tr:"hem"}, hen:{he:"הֵן",tr:"hen"},
+  rotzim:{he:"רוֹצִים",tr:"rotsim"}, rotzot:{he:"רוֹצוֹת",tr:"rotsot"},
+  tzrichim:{he:"צְרִיכִים",tr:"tsrikhim"}, tzrichot:{he:"צְרִיכוֹת",tr:"tsrikhot"}
+});
+const RUSH3_WHO = { hu:["He","👨","hi"], hi:["She","👩","hu"], anachnu:["We","👥","hem"], hem:["They (men)","👬","hen"], hen:["They (women)","👭","hem"] };
+const RUSH3_VERB = {   // form -> [English (he/she), English (plural), the trap form]
+  rotze:["wants","want","rotza"], rotza:["wants","want","rotze"], tzarich:["needs","need","tzricha"], tzricha:["needs","need","tzarich"],
+  rotzim:["wants","want","rotzot"], rotzot:["wants","want","rotzim"], tzrichim:["needs","need","tzrichot"], tzrichot:["needs","need","tzrichim"]
+};
+const RUSH3 = ["hu-rotze-kafe","hu-rotze-mayim","hu-rotze-pitza","hu-tzarich-mayim","hu-tzarich-sukar","hu-lo-rotze-te",
+  "hi-rotza-mayim","hi-rotza-kafe","hi-tzricha-chalav","hi-lo-rotza-uga","hi-lo-rotza-pitza",
+  "anachnu-rotzim-pitza","anachnu-rotzim-te","anachnu-tzrichim-mayim",
+  "hem-rotzim-kafe","hem-rotzim-uga","hem-lo-rotzim-pitza","hen-rotzot-te","hen-rotzot-pitza","hen-tzrichot-sukar"];
+function rush3Order(key){
+  const ids = key.split("-"), who = RUSH3_WHO[ids[0]], neg = ids[1] === "lo", v = ids[neg ? 2 : 1], it = ids[ids.length - 1];
+  const sg = ids[0] === "hu" || ids[0] === "hi", vb = RUSH3_VERB[v];
+  const en = who[0] + " " + (neg ? (sg ? "doesn't " : "don't ") + (vb[1]) : (sg ? vb[0] : vb[1])) + " " + RUSH_ITEMS[it][0];
+  // the trap verb: for "we" also the one-person form, so ani / anachnu has to be matched too
+  const trapV = ids[0] === "anachnu" ? (v.startsWith("tz") ? "tzarich" : "rotze") : vb[2];
+  return { g: Math.random() < 0.5 ? "m" : "f", ids, en, icon: who[1] + " " + (neg ? "🚫" : "") + RUSH_ITEMS[it][1], third:true, traps:[who[2], "ani", trapV] };
+}
+const rush3Pool = () => RUSH3.filter(k => audioUrl(k.split("-")));
+
+Object.assign(AUDIO, {"hu-rotze-kafe": "hu-rotze-kafe.mp3", "hu-rotze-mayim": "hu-rotze-mayim.mp3", "hu-rotze-pitza": "hu-rotze-pitza.mp3", "hu-tzarich-mayim": "hu-tzarich-mayim.mp3", "hu-tzarich-sukar": "hu-tzarich-sukar.mp3", "hu-lo-rotze-te": "hu-lo-rotze-te.mp3", "hi-rotza-mayim": "hi-rotza-mayim.mp3", "hi-rotza-kafe": "hi-rotza-kafe.mp3", "hi-tzricha-chalav": "hi-tzricha-chalav.mp3", "hi-lo-rotza-uga": "hi-lo-rotza-uga.mp3", "hi-lo-rotza-pitza": "hi-lo-rotza-pitza.mp3", "anachnu-rotzim-pitza": "anachnu-rotzim-pitza.mp3", "anachnu-rotzim-te": "anachnu-rotzim-te.mp3", "anachnu-tzrichim-mayim": "anachnu-tzrichim-mayim.mp3", "hem-rotzim-kafe": "hem-rotzim-kafe.mp3", "hem-rotzim-uga": "hem-rotzim-uga.mp3", "hem-lo-rotzim-pitza": "hem-lo-rotzim-pitza.mp3", "hen-rotzot-te": "hen-rotzot-te.mp3", "hen-rotzot-pitza": "hen-rotzot-pitza.mp3", "hen-tzrichot-sukar": "hen-tzrichot-sukar.mp3"});
 function makeOrder(served){
   // the customer speaks for themselves ("I want..."), so the verb follows the customer: a man says rotze, a woman rotza
+  if (r7.seen >= 6){ const pool = rush3Pool().filter(k => k !== r7.last.replace(/,/g, "-")), need = 2 - (r7.third || 0);
+    if (pool.length && (need >= RUSH.customers - r7.seen || (need > 0 && Math.random() < 0.4) || Math.random() < 0.2)) return rush3Order(pick7(pool)); }
   const g = Math.random() < 0.5 ? "m" : "f", pron = "ani", He = "I";
   const kinds = served < 3 ? ["simple", "need"] : served < 6 ? ["simple", "need", "neg", "strong"] : ["need", "neg", "strong", "with", "with"];   // spec A5: "neg" back from the 4th customer (ani lo rotze / rotza + kafe, te, uga, pitza are recorded)
   const kind = (!r7.hadNeg && r7.seen >= 5) ? "neg" : pick7(kinds), V = RUSH_VERBS;   // every shift has at least one "I don't want" order (by the 6th customer)
@@ -2238,21 +2271,21 @@ function nextCustomer(){
   $("g7afterRow").hidden = true;
   let o;
   if (r7.reviewing) o = r7.queue.shift();
-  else { do { o = makeOrder(r7.served); } while (o.ids.join() === r7.last); if (o.ids.includes("lo")) r7.hadNeg = true; }
+  else { do { o = makeOrder(r7.served); } while (o.ids.join() === r7.last); if (o.ids.includes("lo")) r7.hadNeg = true; if (o.third) r7.third = (r7.third || 0) + 1; }
   r7.cur = o; r7.last = o.ids.join(); r7.idx = 0;
   const heb = S.track === "read";
   if (!r7.reviewing) r7.seen++;
   $("g7face").textContent = pick7(o.g === "m" ? ["🧔", "👨", "👴", "👨‍🦱"] : ["👩", "👵", "👩‍🦰", "👱‍♀️"]);
   $("g7who").textContent = r7.reviewing ? "Back for another try:" : (o.g === "m" ? "A man" : "A woman") + " walks in:";
   $("g7ord").textContent = "“" + o.en + "”  " + o.icon;
-  $("g7tell").textContent = "Say it in Hebrew, the way " + (o.g === "m" ? "he" : "she") + " would";
+  $("g7tell").textContent = o.third ? "Say it in Hebrew" : "Say it in Hebrew, the way " + (o.g === "m" ? "he" : "she") + " would";
   $("g7clock").textContent = clock7(r7.seen);
   $("g7cup").hidden = true;
   $("g7msg").textContent = "";
   const slots = $("g7slots"); slots.className = "slots" + (heb ? " rtl" : ""); slots.innerHTML = "";
   // traps: the other-gender verb, the other pronoun, and one stray word
-  const extra = o.ids.filter(id => FLIP[id]).map(id => FLIP[id]);
-  extra.push(pick7(["hu", "hi"]));
+  const extra = o.traps ? o.traps.slice() : o.ids.filter(id => FLIP[id]).map(id => FLIP[id]);
+  if (!o.traps) extra.push(pick7(["hu", "hi"]));
   const pool = ["kafe","te","mayim","uga","pitza","im","bli","lo","sukar"].filter(w => !o.ids.includes(w));
   extra.push(pick7(pool));
   const bank = $("g7bank"); bank.className = "bank" + (heb ? " rtl" : ""); bank.innerHTML = "";
@@ -2430,18 +2463,18 @@ function checkEar(c, btn){
 }
 
 /* ---------- listen & repeat: record yourself, then compare with the original as often as you like ---------- */
-let earMic = null, earRec = null, earChunks = [], earUrl = null, earTimer = 0;
+let earAsking = false, earMic = null, earRec = null, earChunks = [], earUrl = null, earTimer = 0;
 function earRepReset(){
   earStopRec(true);
   if (earUrl){ URL.revokeObjectURL(earUrl); earUrl = null; }
   $("g8rep").hidden = true; $("g8cmp").hidden = true; $("g8rec").hidden = false;
-  $("g8rec").textContent = "🎙 Record yourself"; $("g8rec").classList.remove("on"); $("g8recnote").textContent = "";
+  $("g8rec").textContent = earAsking ? "🎙 Asking for the microphone…" : "🎙 Record yourself"; $("g8rec").disabled = earAsking; $("g8rec").classList.remove("on"); $("g8recnote").textContent = "";
   $("g8orig").textContent = "▶ Eilai"; $("g8said").hidden = true; $("g8said").disabled = false; $("g8said").textContent = "I said it";
 }
 /* spec C3: honest count. One per round, only when the learner recorded, or (no microphone) tapped "I said it". */
 function earCount(){ if (e8.cur && !e8.saidNow){ e8.saidNow = true; e8.said++; } }
-function earNoMic(){
-  $("g8recnote").textContent = "The microphone isn't available here. Say it out loud, tap I said it, then Next.";
+function earNoMic(why){
+  $("g8recnote").textContent = (why === "blocked" ? "The microphone is blocked in this browser." : why === "timeout" ? "The microphone didn't answer." : "No microphone here.") + " Say it out loud, tap I said it, then Next.";
   $("g8rec").hidden = true; $("g8cmp").hidden = false; $("g8mine").hidden = true; $("g8again").hidden = true;
   $("g8said").hidden = false; $("g8said").disabled = e8.saidNow; $("g8said").textContent = e8.saidNow ? "Counted" : "I said it";
 }
@@ -2456,10 +2489,24 @@ function earStopRec(discard){
 }
 async function earRecord(){
   if (earRec && earRec.state === "recording"){ earStopRec(false); return; }
+  if (earAsking) return;
   try{
-    if (!navigator.mediaDevices || !window.MediaRecorder) throw new Error("unsupported");
-    if (!earMic) earMic = await navigator.mediaDevices.getUserMedia({ audio:true });
-  }catch(e){ e8.noMic = true; earNoMic(); return; }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) throw new Error("unsupported");
+    if (!earMic){
+      // visible state right away: the browser may sit on a permission prompt, or there may be no microphone at all
+      earAsking = true; $("g8rec").disabled = true; $("g8rec").textContent = "🎙 Asking for the microphone…";
+      $("g8recnote").textContent = "Allow the microphone when your browser asks.";
+      try{ const devs = await navigator.mediaDevices.enumerateDevices(); if (devs.length && !devs.some(d => d.kind === "audioinput")) throw new Error("NotFoundError"); }catch(e){ if (e.message === "NotFoundError") throw e; }
+      earMic = await Promise.race([navigator.mediaDevices.getUserMedia({ audio:true }),
+        new Promise((_, no) => setTimeout(() => no(new Error("timeout")), 10000))]);
+      earAsking = false; $("g8rec").disabled = false;
+      if (!e8.cur || e8.phase !== "said" || $("g8rep").hidden){ earRepReset(); return; }   // the learner moved on meanwhile
+    }
+  }catch(e){
+    earAsking = false; $("g8rec").disabled = false; e8.noMic = true;
+    const why = e && (e.name === "NotAllowedError" || e.name === "SecurityError") ? "blocked" : e && e.message === "timeout" ? "timeout" : "missing";
+    earNoMic(why); return;
+  }
   try{ player.pause(); }catch(e){}
   earChunks = [];
   const r = earRec = new MediaRecorder(earMic);
@@ -2509,8 +2556,8 @@ const STEP4_EMBEDS = {
 };
 
 /* STEP 3 (Pronouns), Just speak track: from the Systeme course "HEBREW HACK without reading", page 45987478 */
-/* STEP 3 (Pronouns) is built but paused (Eli, Nov 15: a newer video is coming). false = the map shows it as "Coming soon", as before. */
-const STEP3_LIVE = false;
+/* STEP 3 (Pronouns) on the map for the Just speak track. false = the map shows it as "Coming soon". */
+const STEP3_LIVE = true;   // live from Nov 15 (Eli), with the Vimeo 1237346336 video
 const STEP3_EMBEDS = {
   video1:   "https://player.vimeo.com/video/1237346336",
   genially: "https://view.genially.com/6ada224922299051c6dcfe17",
@@ -2595,9 +2642,9 @@ const LESSON_STEP4 = [
   { type:"game", sec:"Play", g:5, icon:"☕", name:"Café Order", xp:10, how:"The barista asks what you want. Pick it, say it in Hebrew, and build your order." },
   { type:"game", sec:"Play", g:7, icon:"⏱", name:"Rush Hour",  xp:10, how:"The café opens at 8:00. Customers walk in; answer each one in Hebrew before the clock runs out." },
   // "Speak" (KNIZ Speak iframe) left STEP 4 on Nov 15 (Eli: it repeats By Ear). It is kept in HIDDEN_PARTS below.
-  { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 1", url:STEP4_EMBEDS.wordwall1, xp:5, how:"A quick round to lock in the verbs." },
-  { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 2", url:STEP4_EMBEDS.wordwall2, xp:5, how:"Another round, a little faster." },
-  { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 3", url:STEP4_EMBEDS.wordwall3, xp:5, how:"Last round, then the lesson is done." }
+  { type:"embed", sec:"Practice", icon:"🧩", key:"Practice 1", name:"Find the pairs", sub:"Food and drinks", url:STEP4_EMBEDS.wordwall1, xp:5, how:"Match each food and drink word to its meaning." },
+  { type:"embed", sec:"Practice", icon:"🧩", key:"Practice 2", name:"HU, HI or HEM", sub:"Sort the verbs", url:STEP4_EMBEDS.wordwall2, xp:5, how:"Sort want, need, love and can into he, she and they." },
+  { type:"embed", sec:"Practice", icon:"🧩", key:"Practice 3", name:"Pair or no pair?", sub:"True or false", url:STEP4_EMBEDS.wordwall3, xp:5, how:"Does the sentence match the English? Last round, then the lesson is done." }
 ];
 /* out of the STEP 4 flow for now; move an entry back into LESSON (and bump LESSON_VERSION + add the old names list) to restore it.
    Game code, audio and the STEP4_EMBEDS.speak URL are untouched. */
@@ -2646,8 +2693,8 @@ const LESSON_STEP3 = [
     how:"I, you, he, she: who is who in Hebrew." },
   { type:"embed", sec:"Learn",    icon:"📖", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP3_EMBEDS.genially, xp:5, wide:true, slides:true,
     how:"Tap Open full screen to see the slides bigger." },
-  { type:"embed", sec:"Play",     icon:"🎯", name:"Pick the right word", url:STEP3_EMBEDS.wordwall1, xp:5, how:"Pick the pronoun that fits." },
-  { type:"embed", sec:"Play",     icon:"👥", name:"Who is it?", sub:"One or many", url:STEP3_EMBEDS.wordwall2, xp:5, how:"One person or more than one? Pick who it is." },
+  { type:"embed", sec:"Practice", icon:"👥", name:"Who is it?", sub:"One or many", url:STEP3_EMBEDS.wordwall2, xp:5, how:"One person or more than one? Pick who it is." },
+  { type:"embed", sec:"Practice", icon:"🎯", name:"Pick the right word", url:STEP3_EMBEDS.wordwall1, xp:5, how:"Pick the pronoun that fits." },
   { type:"embed", sec:"Speak",    icon:"🎙", name:"Say them out loud", url:STEP3_EMBEDS.speak, xp:10, mic:true,
     how:"Say each pronoun into your phone and hear how close you are. Allow the microphone when asked." }
 ];
@@ -2811,12 +2858,12 @@ $("stGo").addEventListener("click", () => startLesson());
 /* ---------- the Magic Four with every person (STEP 4 page header) ---------- */
 const PRONOUNS = [
   ["אֲנִי","ani","I","mf"], ["אַתָּה","ata","you (m)","m"], ["אַתְּ","at","you (f)","f"], ["הוּא","hu","he","m"], ["הִיא","hi","she","f"],
-  ["אֲנַחְנוּ","anachnu","we","pl"], ["אַתֶּם","atem","you (pl)","pl"], ["הֵם","hem","they","pl"]
+  ["אֲנַחְנוּ","anakhnu","we","pl"], ["אַתֶּם","atem","you (pl)","pl"], ["הֵם","hem","they","pl"]
 ];   // the in-game Pronouns sheet and the STEP 3 page use these
 const CONJ = {
-  want:{ en:"want", m:["רוֹצֶה","rotze"],   f:["רוֹצָה","rotza"],    pl:["רוֹצִים","rotzim"] },
-  can: { en:"can",  m:["יָכוֹל","yachol"],  f:["יְכוֹלָה","yechola"], pl:["יְכוֹלִים","yecholim"] },
-  need:{ en:"need", m:["צָרִיךְ","tzarich"], f:["צְרִיכָה","tzricha"], pl:["צְרִיכִים","tzrichim"] },
+  want:{ en:"want", m:["רוֹצֶה","rotse"],   f:["רוֹצָה","rotsa"],    pl:["רוֹצִים","rotsim"] },
+  can: { en:"can",  m:["יָכוֹל","yakhol"],  f:["יְכוֹלָה","yekhola"], pl:["יְכוֹלִים","yekholim"] },
+  need:{ en:"need", m:["צָרִיךְ","tsarikh"], f:["צְרִיכָה","tsrikha"], pl:["צְרִיכִים","tsrikhim"] },
   love:{ en:"love", m:["אוֹהֵב","ohev"],    f:["אוֹהֶבֶת","ohevet"],  pl:["אוֹהֲבִים","ohavim"] }
 };
 let conjVerb = "want";
@@ -2840,10 +2887,14 @@ function paintConj(){
   });
 }
 
-/* STEP 3 page header: every pronoun with its Latin letters and English */
+/* STEP 3 page header: all 10 pronouns with their Latin letters and English (STEP 4 sheets keep the 8 that go with the verb table) */
+const PRONOUNS_ALL = [
+  ["אֲנִי","ani","I","mf"], ["אַתָּה","ata","you (m)","m"], ["אַתְּ","at","you (f)","f"], ["הוּא","hu","he","m"], ["הִיא","hi","she","f"],
+  ["אֲנַחְנוּ","anakhnu","we","pl"], ["אַתֶּם","atem","you (pl, m)","pl"], ["אַתֶּן","aten","you (pl, f)","pl"], ["הֵם","hem","they (m)","pl"], ["הֵן","hen","they (f)","pl"]
+];
 function paintPronTable(){
   const tb = $("cjTable"); tb.innerHTML = "";
-  PRONOUNS.forEach(([he, tr, en, g]) => {
+  PRONOUNS_ALL.forEach(([he, tr, en, g]) => {
     const r = document.createElement("tr");
     r.innerHTML = '<td class="hh-p"><span lang="he" class="' + (g === "mf" ? "" : g) + '">' + he + '</span><span class="hh-cj-tr">' + tr + '</span></td><td class="hh-en">' + en + "</td>";
     tb.append(r);
