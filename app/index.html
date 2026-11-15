@@ -506,6 +506,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   .hh-embed .hh-frame.is-wide.is-slides{width:min(100%, calc((100dvh - 60px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px)) * 16 / 9 + var(--hh-arrow-gap)))}
   .hh-embed .hh-lbar{display:flex;gap:6px}
   .hh-embed .hh-lbar .hh-home{order:2}
+  .hh-frame.is-full.is-wide.is-slides:not(.rot) iframe{top:0;left:0;right:0;bottom:0;transform:none;width:100vw;height:100dvh}
   .hh-frame.is-full.is-wide:not(.is-slides) iframe{width:min(100vw, calc(100dvh * 16 / 9));height:calc(min(100vw, calc(100dvh * 16 / 9)) * 9 / 16)}
   .hh-embed .hh-frame.is-full,.hh-embed .hh-frame.is-full.is-wide,.hh-embed .hh-frame.is-full.is-wide.is-slides{width:100vw;height:100dvh;margin:0;border-radius:0}
 }
@@ -2609,11 +2610,12 @@ function openFull(){
   const box = $("eFrame"); if (!box.firstChild || box.classList.contains("is-full")) return;
   box.classList.add("is-full");
   // portrait phone + video: turn the player sideways so it uses the whole screen (tap ↻ to undo)
-  box.classList.toggle("rot", box.classList.contains("is-wide") && isPortrait());
+  box.classList.toggle("rot", box.classList.contains("is-wide") && isPortrait()); userRot = false;
   document.body.classList.add("hh-noscroll");
   // the phone's Back button closes full screen instead of leaving the app
   try{ if (!(history.state && history.state.hhFull)) history.pushState({ hhFull:1 }, ""); }catch(e){}
   $("eClose").hidden = false; $("eHome").hidden = false; $("eRot").hidden = !box.classList.contains("is-wide");
+  layoutFull(); setTimeout(layoutFull, 350);   // again after the browser bars settle
   try{
     // ask for it on the whole card screen, so the ✕ and ↻ buttons stay above the frame in the browser's top layer
     const host = $("sEmbed"), req = host.requestFullscreen || host.webkitRequestFullscreen;
@@ -2624,7 +2626,7 @@ function openFull(){
 function closeFull(){
   const box = $("eFrame"); if (!box) return;
   const was = box.classList.contains("is-full");
-  box.classList.remove("is-full", "rot");
+  box.classList.remove("is-full", "rot"); layoutFull();
   document.body.classList.remove("hh-noscroll");
   $("eClose").hidden = true; $("eHome").hidden = true; $("eRot").hidden = true;
   if (was && history.state && history.state.hhFull){ try{ history.back(); }catch(e){} }   // drop our Back-button entry
@@ -2632,7 +2634,29 @@ function closeFull(){
 }
 $("eFull").addEventListener("click", openFull);
 $("eClose").addEventListener("click", () => { closeFull(); sfx("tap"); });
-$("eRot").addEventListener("click", () => { $("eFrame").classList.toggle("rot"); sfx("tap"); });
+$("eRot").addEventListener("click", () => { $("eFrame").classList.toggle("rot"); userRot = true; layoutFull(); sfx("tap"); });
+/* Sideways full screen on an upright phone, sized in real pixels from the window (Safari's dvh/vh are not reliable
+   inside a fixed layer with a transform). The player gets the whole height below the button row as its long side
+   and the whole width as its short side; Vimeo/Genially fit their 16:9 picture inside that box. */
+let userRot = false;
+function layoutFull(){
+  const box = $("eFrame"), f = box && box.querySelector("iframe"); if (!f) return;
+  const props = ["position","top","left","width","height","transform","transform-origin","right","bottom"];
+  props.forEach(k => f.style.removeProperty(k));
+  if (!box.classList.contains("is-full")) return;
+  if (box.classList.contains("is-wide") && !userRot) box.classList.toggle("rot", isPortrait());
+  if (!box.classList.contains("rot")) return;   // upright / landscape: the CSS sizes it
+  const vv = window.visualViewport, W = Math.round(vv ? vv.width : innerWidth), H = Math.round(vv ? vv.height : innerHeight);
+  const btn = $("eClose").getBoundingClientRect(), top = Math.max(0, Math.round(btn.bottom + 6));
+  const long = H - top, short = W;
+  const set = (k, v) => f.style.setProperty(k, v, "important");
+  set("position", "absolute"); set("right", "auto"); set("bottom", "auto");
+  set("width", long + "px"); set("height", short + "px");
+  set("left", Math.round(W / 2) + "px"); set("top", Math.round(top + long / 2) + "px");
+  set("transform-origin", "center"); set("transform", "translate(-50%,-50%) rotate(90deg)");
+}
+["resize", "orientationchange"].forEach(ev => window.addEventListener(ev, () => { layoutFull(); setTimeout(layoutFull, 300); }));
+if (window.visualViewport) visualViewport.addEventListener("resize", layoutFull);
 ["fullscreenchange", "webkitfullscreenchange"].forEach(ev => document.addEventListener(ev, () => {
   if (!document.fullscreenElement && !document.webkitFullscreenElement && $("eFrame").classList.contains("is-full")) closeFull();
 }));
