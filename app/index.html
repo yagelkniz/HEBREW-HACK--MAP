@@ -749,6 +749,45 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 #g9card.shake{animation:shake .35s}
 .hh-snap{align-items:stretch;justify-content:flex-start;text-align:left}
 .hh-snap .msg,.hh-snap .hint{text-align:center}
+/* ---------- v20: ROOFTOP PARTY (game 10, STEP 3) ---------- */
+#g10 .top{display:flex;align-items:center;gap:12px}
+#g10 .top .bar{flex:1}
+#g10card.shake{animation:shake .35s}
+.hh-rp-intro{background:linear-gradient(#2a2350,#5a3a6e 60%,#c9677d);border-radius:18px;padding:14px 14px 10px;color:#fff}
+.hh-rp-intro p{margin:0 0 10px;font-weight:700;font-size:14.5px;line-height:1.35}
+.hh-rp-intro ul{list-style:none;margin:0 0 8px;padding:0;display:flex;flex-direction:column;gap:8px}
+.hh-rp-intro li{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.1);border-radius:12px;padding:8px 10px}
+.hh-rp-intro li b{font-size:28px}
+.hh-rp-intro li span{display:flex;flex-direction:column;font-size:13px;opacity:.95}
+.hh-rp-intro li strong{font-size:14px}
+.hh-rp-intro .hint{color:#ffd8a8;margin:0}
+.hh-rp-scene{position:relative;border-radius:18px;border:3px solid #f6efe2;overflow:hidden;background:linear-gradient(#241f48 0,#4c3468 55%,#b8607a 100%)}
+.hh-rp-scene::before{content:"✨ 🏮 ✨ 🏮 ✨ 🏮 ✨";display:block;text-align:center;font-size:13px;letter-spacing:4px;padding-top:4px;opacity:.8}
+.hh-rp-cue{display:flex;align-items:center;gap:8px;margin:4px 10px 0;padding:6px 10px;border-radius:12px;background:rgba(0,0,0,.4);color:#fff;font-weight:800;font-size:14px}
+.hh-rp-cue b{font-size:26px;line-height:1}
+.hh-rp-cue span{flex:1}
+.hh-rp-timer{font-style:normal;background:var(--coral);color:#1E4A3A;border-radius:99px;padding:1px 9px;font-size:13px}
+.hh-rp-scene[data-cue="about"] .hh-rp-cue{background:rgba(40,20,60,.75)}
+.hh-rp-scene[data-cue="photo"]{border-color:#ffd8a8}
+.hh-rp-guests{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:6px 12px;padding:14px 10px 12px;min-height:110px}
+.hh-rp-guests .hh-sn-face span{background:#f6efe2}
+.hh-rp-guests .hh-sn-face.me span{background:var(--coral)}
+.hh-rp-scene[data-cue="about"] .hh-sn-face:not(.me){opacity:.85;transform:scale(.88)}
+.hh-rp-scene[data-cue="about"] .hh-sn-face.me{margin-right:18px}
+.hh-rp-guests .hh-sn-face.join{animation:hhRpJoin .6s ease-out}
+.hh-rp-guests .hh-sn-face.join span{background:#ffd8a8}
+@keyframes hhRpJoin{from{transform:translateX(80px);opacity:0}to{transform:none;opacity:1}}
+.hh-rp-time{height:6px;background:rgba(0,0,0,.35)}
+.hh-rp-time i{display:block;height:100%;width:100%;background:var(--coral);transition:width .5s linear}
+.hh-rp-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.hh-rp-opts[hidden]{display:none}
+.hh-rp-opt{min-height:52px;border-radius:14px;border:2px solid rgba(255,255,255,.22);background:rgba(255,255,255,.07);color:var(--cream);font:inherit;font-size:16px;font-weight:900;cursor:pointer}
+.hh-rp-opt.right{background:#9fe0c8;border-color:#9fe0c8;color:#1E4A3A}
+.hh-rp-opt.wrong{background:#ffb4c0;border-color:#ffb4c0;color:#1E4A3A}
+.hh-rp-opt:disabled{cursor:default}
+.hh-rp-guests{flex-wrap:nowrap;gap:6px 8px}
+.hh-rp-guests .hh-sn-face b{font-size:40px}
+.hh-rp-scene[data-cue="about"] .hh-sn-face.me{margin-right:10px}
 </style>
 </head>
 <body>
@@ -796,7 +835,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v19-b2aa316568</p>
+  <p class="hh-ver" id="oVer">Version hh-v20-68334fb0b4</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -1214,6 +1253,41 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   <div class="row" id="g9shotRow"><button class="btn hh-sn-shutter" id="g9shoot" type="button">📸 Snap</button></div>
   <div class="row" id="g9nextRow" hidden><button class="btn" id="g9next" type="button">Next photo</button></div>
   <div class="row" id="g9doneRow" hidden><button class="btn" id="g9done" type="button">Continue</button></div>
+</section>
+
+<!-- ROOFTOP PARTY (STEP 3): you host a rooftop party. The cue says the direction (to them / about them / with me), the guests say number and gender: pick the pronoun fast. -->
+<section id="g10" hidden>
+  <div class="top"><div class="bar"><i id="g10bar"></i></div><div class="count" id="g10count"></div></div>
+  <div class="card hh-snap hh-rp" id="g10card">
+    <div class="hh-sn-head"><div class="tag" id="g10tag" aria-live="polite">Rooftop party in Tel Aviv</div>
+      <button class="hh-sn-hear" id="g10hear" type="button" aria-label="Hear the word again" hidden>🔊</button></div>
+    <div class="hh-sn-stage" id="g10stage" hidden></div>
+    <div class="hh-rp-intro" id="g10intro">
+      <p>You're the host. Each round shows what you're doing and who is there. Pick the word fast.</p>
+      <ul>
+        <li><b>👋</b><span><strong>Talking TO them</strong> ata · at · atem · aten</span></li>
+        <li><b>🤫</b><span><strong>Whispering ABOUT them</strong> hu · hi · hem · hen</span></li>
+        <li><b>📸</b><span><strong>A photo with you in it</strong> ani (just you) · anakhnu (you + friends)</span></li>
+      </ul>
+      <p class="hint">Watch the door: sometimes a guest joins the group.</p>
+    </div>
+    <div class="hh-rp-scene" id="g10scene" data-cue="to" hidden>
+      <div class="hh-rp-cue" id="g10cue"><b id="g10cueI"></b><span id="g10cueT"></span><i class="hh-rp-timer" id="g10timer"></i></div>
+      <div class="hh-rp-guests" id="g10guests" aria-live="polite"></div>
+      <div class="hh-rp-time"><i id="g10tbar"></i></div>
+    </div>
+    <div class="hh-rp-opts" id="g10opts" role="group" aria-label="Pick the word"></div>
+    <div class="msg hh-sn-msg" id="g10msg" aria-live="polite"></div>
+    <div class="hh-sn-say" id="g10say" hidden>
+      <button class="hh-recbtn" id="g10rec" type="button">🎙 Say it</button>
+      <div class="hh-reprow" id="g10cmp" hidden><button class="pill" id="g10mine" type="button">▶ My voice</button><button class="pill" id="g10orig" type="button">▶ Eilai</button><button class="pill" id="g10said" type="button" hidden>I said it</button></div>
+      <div class="hint" id="g10recnote" aria-live="polite"></div>
+    </div>
+    <div class="hh-sn-end" id="g10end" hidden></div>
+  </div>
+  <div class="row" id="g10startRow"><button class="btn" id="g10start" type="button">🎉 Start the party</button></div>
+  <div class="row" id="g10nextRow" hidden><button class="btn" id="g10next" type="button">Next round</button></div>
+  <div class="row" id="g10doneRow" hidden><button class="btn" id="g10done" type="button">Continue</button></div>
 </section>
 
 </main>
@@ -1649,7 +1723,7 @@ function unlockAudio(){
 
 function show(id){
   cancelAnimationFrame(raf); clearTimeout(timer); recStop(true); streak = 0;
-  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","words","setup","stage","done"].forEach(s => $(s).hidden = (s !== id));
+  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","words","setup","stage","done"].forEach(s => $(s).hidden = (s !== id));
   document.querySelectorAll(".card").forEach(c => c.classList.toggle("speak-track", S.track === "speak"));
 }
 function showKeep(id){ show(id); }
@@ -2642,19 +2716,18 @@ const SNAP_PEOPLE = [
 ];
 const SNAP_EN = { ani:"I", anachnu:"we", hu:"he", hi:"she", hem:"they (boys / mixed)", hen:"they (girls)", ata:"you (to a boy)", at:"you (to a girl)", atem:"you (to boys / mixed)", aten:"you (to girls)" };
 const SNAP_MODE = { selfie:["🤳 Selfie", "including me"], back:["📷 Camera", "about them"], call:["📱 Video call", "talking to them"] };
-/* the ramp: 4 stages, 20 photos. pre = people already in the frame, mode = the camera mode it starts in, sec = shutter timer */
-const SNAP_STAGES = [
-  { title:"Selfie or camera?", tip:"Selfie = it includes you. Camera = you talk about someone.", modes:["selfie","back"],
-    shots:[{t:"ani"},{t:"hu"},{t:"hi"},{t:"ani"},{t:"hi"}] },
-  { title:"Video call: talking TO someone", tip:"On a video call they look at you: ata (a boy), at (a girl).", modes:["selfie","back","call"],
-    shots:[{t:"at"},{t:"hi"},{t:"ata"},{t:"at"},{t:"hu"}] },
-  { title:"Groups: more than one", tip:"Anakhnu = you and others: take a selfie with friends.", modes:["selfie","back","call"],
-    shots:[{t:"anachnu"},{t:"hem"},{t:"hen"},{t:"atem"},{t:"aten"}], shuffle:true },
-  { title:"Mixed groups, shutter timer", tip:"Girls only → hen / aten. One boy in the group → hem / atem.", modes:["selfie","back","call"],
-    shots:[{t:"hem", pre:["noa","maya"], mode:"back", sec:6}, {t:"hen", pre:["noa","maya","dani"], mode:"back", sec:5},
-           {t:"aten", pre:["noa","maya"], mode:"back", sec:4}, {t:"atem", pre:["maya","yosi"], mode:"call", sec:3},
-           {t:"anachnu", pre:["dani","noa"], mode:"back", sec:3}] }
+/* v20 ramp (Eli: "switch a lot more between the persons"): one mixed run of 20, no blocks of one mode.
+   From shot 2 on the mode changes every shot (one exception: the hen -> hem trap, both are Camera) and no pronoun comes twice in a row.
+   Trap pairs back-to-back: at/hi, ata/hu, anakhnu/hem, hem/atem, hen/hem, aten/hen. Mixed groups from shot 8.
+   pre = people already in the frame (otherwise the frame keeps the last photo's people); the shutter timer drops from 5s to 2.5s. */
+const SNAP_SHOTS = [
+  { t:"ani", banner:"Three modes: switch fast", pre:[] }, { t:"hu", pre:[] }, { t:"at" }, { t:"hi" }, { t:"ata" }, { t:"hu" },
+  { t:"anachnu", banner:"Groups: more than one" }, { t:"hem", pre:["dani","noa"], banner:"Mixed groups: one boy makes it hem" }, { t:"atem" },
+  { t:"hen", pre:["noa","maya","dani"] }, { t:"hem" }, { t:"aten", pre:["noa","maya","yosi"] }, { t:"hen" },
+  { t:"ani", banner:"Faster now" }, { t:"at" }, { t:"hi" }, { t:"anachnu" }, { t:"hem", pre:["maya","noa"] }, { t:"atem" }, { t:"hen", pre:["noa","yosi","maya"] }
 ];
+const SNAP_TIP = "Selfie = it includes you. Camera = you talk about someone. Video call = you talk to them.";
+const snapSec = i => Math.round((5 - 2.5 * i / (SNAP_SHOTS.length - 1)) * 2) / 2;
 let s9 = null;
 const snapPerson = id => SNAP_PEOPLE.find(p => p.id === id);
 /* what does the photo say? mode + who is in it */
@@ -2690,8 +2763,7 @@ function snapWhy(t, got, mode){
   return "Right direction, check who: " + tw + " is " + snapWho(t) + ". Your photo says " + gw + (T[1] === 2 ? " (one boy makes it " + snapTr(T[0] === "back" ? "hem" : "atem") + ")" : "") + ".";
 }
 function startSnap(){
-  const order = [];
-  SNAP_STAGES.forEach((st, k) => { const sh = st.shuffle ? shuffle(st.shots.slice()) : st.shots.slice(); sh.forEach((x, j) => order.push(Object.assign({ stage:k, first:j === 0 }, x))); });
+  const order = SNAP_SHOTS.map((x, i) => Object.assign({ sec:snapSec(i) }, x));
   s9 = { order, i:0, clean:0, said:0, tries:0, mode:"back", inFrame:[], phase:"idle", saidNow:false, noMic:!navigator.mediaDevices || !window.MediaRecorder, t:0, left:0 };
   show("g9"); snapWatch(); nextSnap();
 }
@@ -2703,15 +2775,15 @@ function snapStop(){ clearInterval(s9 && s9.t); if (s9) s9.t = 0; snapMicOff(); 
 function nextSnap(){
   snapStop();
   if (s9.i >= s9.order.length) return snapEnd();
-  const o = s9.order[s9.i], st = SNAP_STAGES[o.stage];
+  const o = s9.order[s9.i];
   s9.cur = o; s9.tries = 0; s9.saidNow = false; s9.phase = "aim";
-  s9.mode = o.mode || (st.modes.includes(s9.mode) ? s9.mode : "back"); s9.inFrame = (o.pre || []).slice();
+  if (o.pre) s9.inFrame = o.pre.slice();   // otherwise the last photo's people stay in the frame: fix it fast
   $("g9bar").style.width = (s9.i / s9.order.length * 100) + "%";
   $("g9count").textContent = (s9.i + 1) + " / " + s9.order.length;
-  document.querySelectorAll("#g9modes button").forEach(b => { b.hidden = !st.modes.includes(b.dataset.mode); });
-  $("g9tip").textContent = st.tip;
-  const sg = $("g9stage"); sg.hidden = !o.first; sg.textContent = o.first ? "Part " + (o.stage + 1) + " of 4 · " + st.title : "";
-  $("g9tag").textContent = o.pre ? "Listen, then fix the photo before the timer runs out" : "Listen, then take the photo";
+  document.querySelectorAll("#g9modes button").forEach(b => { b.hidden = false; });
+  $("g9tip").textContent = SNAP_TIP;
+  const sg = $("g9stage"); sg.hidden = !o.banner; sg.textContent = o.banner || "";
+  $("g9tag").textContent = "Listen, then snap before the timer runs out";
   $("g9msg").textContent = ""; $("g9msg").className = "msg hh-sn-msg";
   $("g9photo").hidden = true; $("g9frame").hidden = false; $("g9say").hidden = true; $("g9end").hidden = true;
   $("g9shotRow").hidden = false; $("g9nextRow").hidden = true; $("g9doneRow").hidden = true;
@@ -2721,13 +2793,14 @@ function nextSnap(){
   if (o.sec) snapTimer(o.sec);
 }
 function snapTimer(sec){
-  s9.left = sec; const tm = $("g9timer"); tm.hidden = false; tm.textContent = "⏱ " + sec;
-  $("g9shoot").textContent = "📸 Snap · " + sec;
+  const fmt = x => (Math.max(0, x)).toFixed(Math.max(0, x) % 1 ? 1 : 0);
+  s9.left = sec; const tm = $("g9timer"); tm.hidden = false; tm.textContent = "⏱ " + fmt(sec);
+  $("g9shoot").textContent = "📸 Snap · " + fmt(sec);
   s9.t = setInterval(() => {
     if (s9.phase !== "aim"){ clearInterval(s9.t); return; }
-    s9.left--; tm.textContent = "⏱ " + Math.max(0, s9.left); $("g9shoot").textContent = "📸 Snap · " + Math.max(0, s9.left);
+    s9.left = Math.round((s9.left - 0.5) * 2) / 2; tm.textContent = "⏱ " + fmt(s9.left); $("g9shoot").textContent = "📸 Snap · " + fmt(s9.left);
     if (s9.left <= 0){ clearInterval(s9.t); s9.t = 0; snapShoot(true); }
-  }, 1000);
+  }, 500);
 }
 function paintSnap(){
   const vf = $("g9vf"); vf.dataset.mode = s9.mode;
@@ -2853,7 +2926,196 @@ $("g9orig").addEventListener("click", () => { if (s9 && s9.cur) speak([s9.cur.t]
 $("g9said").addEventListener("click", () => { snapCount(); $("g9said").disabled = true; $("g9said").textContent = "Counted"; sfx("pop"); });
 starters[9] = startSnap;
 /* for the tests: the photo that would be right for the current shot */
-window.snapAnswer = () => { const T = SNAP_FEAT[s9.cur.t]; return { t:s9.cur.t, mode:T[0], people: T[0] === "selfie" ? (T[1] === 1 ? [] : ["noa"]) : T[1] === 1 ? [T[2] === "m" ? "dani" : "maya"] : T[2] === "f" ? ["noa","maya"] : (s9.inFrame.length >= 2 ? s9.inFrame.filter(id => snapPerson(id).g === "f").concat("dani") : ["noa","dani"]) }; };
+window.snapAnswer = () => { const t = s9.cur.t, T = SNAP_FEAT[t];
+  const keep = snapRead(T[0], s9.inFrame) === t;
+  return { t, mode:T[0], people: keep ? s9.inFrame.slice() : T[0] === "selfie" ? (T[1] === 1 ? [] : ["noa"]) : T[1] === 1 ? [T[2] === "m" ? "dani" : "maya"] : T[2] === "f" ? ["noa","maya"] : (s9.inFrame.length >= 2 && s9.inFrame.some(id => snapPerson(id).g === "f") ? s9.inFrame.filter(id => snapPerson(id).g === "f").concat("dani") : ["noa","dani"]) }; };
+
+/* ---------- Game 10: ROOFTOP PARTY (STEP 3, Pronouns): the speed game ----------
+   SNAP! builds the picture (understanding); here the picture is given and you retrieve the word fast.
+   Cue = direction: 👋 talking TO the guests, 🤫 whispering ABOUT them to a friend, 📸 a photo that includes you.
+   The guests give number and gender. Join rounds: a guest walks over mid-round and the word has to flip (hen -> hem).
+   Audio: the KNIZ Speak pronoun recordings only (same files as SNAP!). Uses SNAP_PEOPLE / SNAP_FEAT / snapRead from snap.js. */
+const RP_CUE = { to:["👋", "Talking TO them", "call"], about:["🤫", "Whispering ABOUT them", "back"], photo:["📸", "Photo with you in it", "selfie"] };
+/* 20 rounds, the cue changes every round, no word twice in a row; options and timer ramp up */
+const RP_ROUNDS = [
+  { cue:"to", g:["noa"], banner:"Warm-up: one guest" }, { cue:"about", g:["dani"] }, { cue:"photo", g:[] }, { cue:"to", g:["yonatan"] },
+  { cue:"about", g:["maya"] }, { cue:"photo", g:["noa"] },
+  { cue:"to", g:["noa","maya"], banner:"Groups: more than one" }, { cue:"about", g:["dani","yosi"] }, { cue:"to", g:["yonatan","dani"] },
+  { cue:"about", g:["noa","maya"], join:"dani", banner:"Watch the door" }, { cue:"photo", g:["dani","maya"] }, { cue:"to", g:["maya"] },
+  { cue:"about", g:["noa","maya"] },
+  { cue:"to", g:["noa","maya","yosi"], banner:"Fast and mixed" }, { cue:"about", g:["yosi"] }, { cue:"photo", g:[] },
+  { cue:"to", g:["noa","maya"], join:"yonatan" }, { cue:"about", g:["maya","dani"] }, { cue:"to", g:["dani"] }, { cue:"about", g:["noa","maya"] }
+];
+const RP_ALL = ["ani","anachnu","hu","hi","hem","hen","ata","at","atem","aten"];
+const rpSec = i => Math.round((6 - 3 * i / (RP_ROUNDS.length - 1)) * 2) / 2;
+const rpN = i => i < 6 ? 3 : i < 13 ? 4 : 6;
+let r10 = null;
+const rpAns = (cue, ids) => snapRead(RP_CUE[cue][2], ids);
+const rpWord = id => (A.read !== false ? LEX[id].he + "  " : "") + LEX[id].tr;
+function rpOptions(t, n, extra){
+  const T = SNAP_FEAT[t], diff = w => { const G = SNAP_FEAT[w]; return (G[0] !== T[0]) + (G[1] !== T[1]) + (G[2] !== T[2] && G[0] !== "selfie" && T[0] !== "selfie"); };
+  // the trap twin is always there: same people, other direction (aten <-> hen), or ani <-> anakhnu
+  const twin = RP_ALL.find(w => w !== t && (T[0] === "selfie" ? SNAP_FEAT[w][0] === "selfie" : SNAP_FEAT[w][0] !== "selfie" && SNAP_FEAT[w][1] === T[1] && SNAP_FEAT[w][2] === T[2]));
+  const first = [t, twin].concat(extra && extra !== t && extra !== twin ? [extra] : []);
+  const rest = shuffle(RP_ALL.filter(w => !first.includes(w))).sort((a, b) => diff(a) - diff(b));
+  return shuffle(first.concat(rest).slice(0, n));
+}
+const rpNames = ids => ids.map(id => snapPerson(id).name).join(" + ");
+/* feedback: name the one feature that is off */
+function rpWhy(t, got, ids){
+  const T = SNAP_FEAT[t], G = SNAP_FEAT[got], tw = snapTr(t), gw = snapTr(got);
+  if (T[0] !== G[0]){
+    if (T[0] === "selfie") return "Includes me: you're in the photo → " + tw + ", not " + gw + ".";
+    if (G[0] === "selfie") return "Includes me: you're not in it, " + (T[0] === "call" ? "you're talking TO " : "you're whispering ABOUT ") + rpNames(ids) + " → " + tw + ".";
+    return "Direction: " + (T[0] === "call" ? "👋 you're talking TO " : "🤫 you're whispering ABOUT ") + rpNames(ids) + " → " + tw + ", not " + gw + ".";
+  }
+  if (T[1] !== G[1]){
+    if (T[0] === "selfie") return "Number: " + (T[1] === 1 ? "just you in the selfie → " : "you + " + rpNames(ids) + " → ") + tw + ", not " + gw + ".";
+    return "Number: " + (ids.length === 1 ? "one guest, " + rpNames(ids) : ids.length + " guests") + " → " + tw + ", not " + gw + ".";
+  }
+  if (T[1] === 1) return "Gender: " + rpNames(ids) + " is a " + (T[2] === "m" ? "boy" : "girl") + " → " + tw + ", not " + gw + ".";
+  const boys = ids.filter(id => snapPerson(id).g === "m").map(id => snapPerson(id).name);
+  return "Gender: " + (T[2] === "m" ? (boys.length === 1 && ids.length > 1 ? "one boy (" + boys[0] + ") makes it " : "boys in the group → ") : "girls only → ") + tw + ", not " + gw + ".";
+}
+function startRooftop(){
+  r10 = { i:0, clean:0, said:0, phase:"intro", saidNow:false, noMic:!navigator.mediaDevices || !window.MediaRecorder, t:0, ms:[], ok:true, step:0 };
+  show("g10");
+  ["g10scene","g10say","g10end","g10nextRow","g10doneRow","g10hear","g10stage"].forEach(id => $(id).hidden = true);
+  $("g10intro").hidden = false; $("g10startRow").hidden = false; $("g10opts").innerHTML = ""; $("g10msg").textContent = "";
+  $("g10tag").textContent = "Rooftop party in Tel Aviv"; $("g10bar").style.width = "0%"; $("g10count").textContent = "0 / " + RP_ROUNDS.length;
+  clearInterval(r10.watch); r10.watch = setInterval(() => { if ($("g10").hidden){ rpStop(); clearInterval(r10.watch); } }, 400);
+}
+function rpStop(){ clearInterval(r10 && r10.t); if (r10) r10.t = 0; rpMicOff(); }
+$("g10start").addEventListener("click", () => { if (!r10 || r10.phase !== "intro") return; $("g10intro").hidden = true; $("g10startRow").hidden = true; if (typeof unlockAudio === "function") unlockAudio(); rpRound(); });
+function rpRound(){
+  rpStop();
+  if (r10.i >= RP_ROUNDS.length) return rpEnd();
+  const o = RP_ROUNDS[r10.i];
+  r10.cur = o; r10.ids = o.g.slice(); r10.step = 0; r10.ok = true; r10.saidNow = false;
+  $("g10bar").style.width = (r10.i / RP_ROUNDS.length * 100) + "%";
+  $("g10count").textContent = (r10.i + 1) + " / " + RP_ROUNDS.length;
+  const sg = $("g10stage"); sg.hidden = !o.banner; sg.textContent = o.banner || "";
+  $("g10tag").textContent = "Pick the word before the time runs out";
+  ["g10say","g10nextRow","g10hear"].forEach(id => $(id).hidden = true); $("g10scene").hidden = false;
+  rpAsk(rpSec(r10.i));
+  pop($("g10card"));
+}
+function rpPaint(joined){
+  const o = r10.cur, c = RP_CUE[o.cue], sc = $("g10scene"); sc.dataset.cue = o.cue;
+  $("g10cueI").textContent = c[0]; $("g10cueT").textContent = c[1];
+  const box = $("g10guests"); box.innerHTML = "";
+  const face = (f, name, cls) => { const d = document.createElement("div"); d.className = "hh-sn-face " + (cls || ""); d.innerHTML = "<b></b><span></span>"; d.firstChild.textContent = f; d.lastChild.textContent = name; return d; };
+  if (o.cue === "photo") box.append(face("🙂", "You", "me"));
+  else box.append(face(o.cue === "to" ? "🙂" : "🤫", o.cue === "to" ? "You" : "You + a friend", "me host"));
+  r10.ids.forEach(id => { const p = snapPerson(id); box.append(face(p.face, p.name, p.g + (id === joined ? " join" : ""))); });
+}
+function rpAsk(sec, extra){
+  const o = r10.cur; r10.t0 = performance.now(); r10.phase = "ask";
+  r10.ans = rpAns(o.cue, r10.ids);
+  rpPaint(r10.step === 1 ? o.join : "");
+  $("g10msg").textContent = r10.step === 1 ? snapPerson(o.join).name + " joins the group! Pick again." : ""; $("g10msg").className = "msg hh-sn-msg" + (r10.step === 1 ? " good" : "");
+  const box = $("g10opts"); box.innerHTML = ""; box.hidden = false;
+  rpOptions(r10.ans, rpN(r10.i), extra).forEach(w => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "hh-rp-opt"; b.dataset.w = w; b.textContent = rpWord(w);
+    b.addEventListener("click", () => rpPick(w)); box.append(b);
+  });
+  r10.sec = sec; r10.left = sec; const tm = $("g10timer"), tb = $("g10tbar");
+  const paint = () => { tm.textContent = "⏱ " + Math.max(0, r10.left).toFixed(r10.left % 1 ? 1 : 0); tb.style.width = Math.max(0, r10.left / r10.sec * 100) + "%"; };
+  paint();
+  r10.t = setInterval(() => {
+    if (r10.phase !== "ask"){ clearInterval(r10.t); return; }
+    r10.left = Math.round((r10.left - 0.5) * 2) / 2; paint();
+    if (r10.left <= 0){ clearInterval(r10.t); r10.t = 0; rpPick(""); }
+  }, 500);
+}
+function rpPick(w){
+  if (!r10 || r10.phase !== "ask") return;
+  clearInterval(r10.t); r10.t = 0; r10.phase = "shown";
+  const t = r10.ans, right = w === t; r10.ms.push(performance.now() - r10.t0);
+  if (!right) r10.ok = false;
+  document.querySelectorAll("#g10opts .hh-rp-opt").forEach(b => { b.disabled = true; if (b.dataset.w === t) b.classList.add("right"); else if (b.dataset.w === w) b.classList.add("wrong"); });
+  const m = $("g10msg");
+  if (right){ sfx("good"); m.className = "msg hh-sn-msg good"; m.textContent = (r10.left >= r10.sec / 2 ? "Fast! " : "Yes! ") + snapTr(t) + ": " + SNAP_EN[t] + "."; }
+  else { sfx("soft"); m.className = "msg hh-sn-msg bad"; m.textContent = (w ? "" : "Time's up! ") + (w ? rpWhy(t, w, r10.ids) : "It's " + snapTr(t) + ": " + SNAP_EN[t] + ".");
+    $("g10card").classList.remove("shake"); void $("g10card").offsetWidth; $("g10card").classList.add("shake"); }
+  speak([t]);
+  if (r10.step === 0 && r10.cur.join){   // a guest walks over: the word has to flip
+    const first = t;
+    setTimeout(() => { if (!r10 || r10.phase !== "shown" || $("g10").hidden) return; r10.step = 1; r10.ids.push(r10.cur.join); sfx("pop"); rpAsk(Math.max(3, rpSec(r10.i) - 1), first); }, 1500);
+    return;
+  }
+  if (r10.ok) r10.clean++;
+  r10.phase = "done"; $("g10hear").hidden = false;
+  rpSayReset(); $("g10say").hidden = false; if (r10.noMic) rpNoMic();
+  $("g10nextRow").hidden = false;
+}
+$("g10hear").addEventListener("click", () => { if (r10 && r10.ans) speak([r10.ans]); });
+$("g10next").addEventListener("click", () => { if (!r10 || r10.phase !== "done") return; r10.i++; rpRound(); });
+function rpEnd(){
+  rpStop(); r10.phase = "end";
+  $("g10bar").style.width = "100%"; $("g10count").textContent = RP_ROUNDS.length + " / " + RP_ROUNDS.length;
+  ["g10scene","g10opts","g10say","g10stage","g10hear","g10nextRow"].forEach(id => $(id).hidden = true);
+  $("g10msg").textContent = ""; $("g10tag").textContent = "The party's over";
+  const avg = r10.ms.length ? r10.ms.reduce((a, b) => a + b, 0) / r10.ms.length / 1000 : 0;
+  const e = $("g10end"); e.hidden = false;
+  e.innerHTML = '<div class="hh-sn-big"></div><div class="hint"></div><div class="hh-sn-said"></div><div class="hh-sn-said"></div>';
+  e.children[0].textContent = r10.clean + " / " + RP_ROUNDS.length;
+  e.children[1].textContent = "rounds right on the first try";
+  e.children[2].textContent = "⏱ " + avg.toFixed(1) + "s per answer";
+  e.children[3].textContent = r10.said ? r10.said + " said out loud" : "Next time, say each one out loud too.";
+  $("g10doneRow").hidden = false; sfx("win");
+}
+$("g10done").addEventListener("click", () => { if (r10 && r10.phase === "end") finish("Great party!", r10.clean + " / " + RP_ROUNDS.length, "rounds right on the first try.", ""); });
+
+/* say it: record yourself (or "I said it" without a microphone). Counts once per round. */
+let rpMic = null, rpRec = null, rpUrl = null, rpAskMic = false;
+function rpCount(){ if (!r10.saidNow){ r10.saidNow = true; r10.said++; } }
+function rpSayReset(){
+  if (rpUrl){ URL.revokeObjectURL(rpUrl); rpUrl = null; }
+  $("g10rec").hidden = false; $("g10rec").disabled = rpAskMic; $("g10rec").textContent = "🎙 Say it"; $("g10rec").classList.remove("on");
+  $("g10cmp").hidden = true; $("g10said").hidden = true; $("g10said").disabled = false; $("g10said").textContent = "I said it"; $("g10recnote").textContent = "";
+}
+function rpNoMic(why){
+  $("g10recnote").textContent = (why === "blocked" ? "The microphone is blocked in this browser." : "No microphone here.") + " Say it out loud, then tap I said it.";
+  $("g10rec").hidden = true; $("g10cmp").hidden = false; $("g10mine").hidden = true; $("g10said").hidden = false;
+  $("g10said").disabled = r10.saidNow; $("g10said").textContent = r10.saidNow ? "Counted" : "I said it";
+}
+function rpMicOff(){
+  try{ if (rpRec && rpRec.state === "recording"){ rpRec.__drop = true; rpRec.stop(); } }catch(e){}
+  if (rpMic){ rpMic.getTracks().forEach(t => t.stop()); rpMic = null; }
+}
+async function rpRecord(){
+  if (rpRec && rpRec.state === "recording"){ rpRec.stop(); return; }
+  if (rpAskMic) return;
+  try{
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) throw new Error("unsupported");
+    if (!rpMic){
+      rpAskMic = true; $("g10rec").disabled = true; $("g10rec").textContent = "🎙 Asking for the microphone…"; $("g10recnote").textContent = "Allow the microphone when your browser asks.";
+      rpMic = await Promise.race([navigator.mediaDevices.getUserMedia({ audio:true }), new Promise((_, no) => setTimeout(() => no(new Error("timeout")), 10000))]);
+      rpAskMic = false; $("g10rec").disabled = false;
+      if (!r10 || r10.phase !== "done"){ rpMicOff(); return; }
+    }
+  }catch(e){ rpAskMic = false; $("g10rec").disabled = false; r10.noMic = true; rpNoMic(e && (e.name === "NotAllowedError" || e.name === "SecurityError") ? "blocked" : ""); return; }
+  const chunks = [], r = rpRec = new MediaRecorder(rpMic);
+  r.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+  r.onstop = () => {
+    $("g10rec").classList.remove("on"); $("g10rec").textContent = "🎙 Say it again";
+    if (r.__drop || !chunks.length) return;
+    if (rpUrl) URL.revokeObjectURL(rpUrl);
+    rpUrl = URL.createObjectURL(new Blob(chunks, { type:r.mimeType || "audio/webm" }));
+    $("g10cmp").hidden = false; $("g10mine").hidden = false; $("g10recnote").textContent = "Play yours, then Eilai's. Close? Tap Next round.";
+    rpCount(); sfx("pop");
+  };
+  r.start(); $("g10rec").textContent = "■ Stop"; $("g10rec").classList.add("on"); $("g10recnote").textContent = "Say it now…";
+  setTimeout(() => { try{ if (r.state === "recording") r.stop(); }catch(e){} }, 4000);
+}
+$("g10rec").addEventListener("click", rpRecord);
+$("g10mine").addEventListener("click", () => { if (!rpUrl) return; player.playbackRate = 1; player.src = rpUrl; const p = player.play(); if (p && p.catch) p.catch(()=>{}); });
+$("g10orig").addEventListener("click", () => { if (r10 && r10.ans) speak([r10.ans]); });
+$("g10said").addEventListener("click", () => { rpCount(); $("g10said").disabled = true; $("g10said").textContent = "Counted"; sfx("pop"); });
+starters[10] = startRooftop;
+/* for the tests */
+window.rpState = () => ({ phase:r10.phase, i:r10.i, step:r10.step, ans:r10.ans, ids:r10.ids.slice(), cue:r10.cur && r10.cur.cue, opts:[...document.querySelectorAll("#g10opts .hh-rp-opt")].map(b => b.dataset.w), msg:$("g10msg").textContent });
 </script>
 <script>
 /* =====================================================================
@@ -3014,6 +3276,8 @@ const LESSON_STEP3 = [
     how:"Tap Open full screen to see the slides bigger." },
   { type:"game", sec:"Play", g:9, icon:"📸", name:"SNAP!", sub:"Beach photos: who is it?", xp:10,
     how:"A day at the beach. Hear a pronoun, pick Selfie, Camera or Video call, put the right people in the photo and snap." },
+  { type:"game", sec:"Play", g:10, icon:"🎉", name:"ROOFTOP PARTY", sub:"Pick the word fast", xp:10,
+    how:"You host a rooftop party. 👋 talking to guests, 🤫 whispering about them, 📸 a photo with you: pick the pronoun before the time runs out." },
   { type:"embed", sec:"Practice", icon:"👥", name:"Who is it?", sub:"One or many", url:STEP3_EMBEDS.wordwall2, xp:5, how:"One person or more than one? Pick who it is." },
   { type:"embed", sec:"Practice", icon:"🎯", name:"Pick the right word", url:STEP3_EMBEDS.wordwall1, xp:5, how:"Pick the pronoun that fits." },
   { type:"embed", sec:"Speak",    icon:"🎙", name:"Say them out loud", url:STEP3_EMBEDS.speak, xp:10, mic:true,
@@ -3027,7 +3291,9 @@ let CUR = "step4";
 const blankState = () => ({ pos:0, done:[], completed:0, parts:[], v:LESSON_VERSION });
 if (!A.step3) A.step3 = blankState();
 /* STEP 3 part list v2 (Nov 15): SNAP! added after Explore. Saved progress moves over by part name; the place moves back to the first part not done. */
-const STEP3_VERSION = 2, STEP3_OLD = { 1: ["Watch & learn","Explore on your own","Who is it?","Pick the right word","Say them out loud"] };
+/* v3 (Nov 15): ROOFTOP PARTY added after SNAP! */
+const STEP3_VERSION = 3, STEP3_OLD = { 1: ["Watch & learn","Explore on your own","Who is it?","Pick the right word","Say them out loud"],
+  2: ["Watch & learn","Explore on your own","SNAP!","Who is it?","Pick the right word","Say them out loud"] };
 if (A.step3.sv !== STEP3_VERSION){
   const old = STEP3_OLD[A.step3.sv || 1], keys = LESSON_STEP3.map(partKey), s3 = A.step3;
   s3.parts = [...new Set((s3.parts || []).map(i => keys.indexOf(old[i])).concat(old.slice(0, s3.pos || 0).map(n => keys.indexOf(n))).filter(k => k >= 0))].sort((a, b) => a - b);
@@ -3041,7 +3307,7 @@ function useLesson(id){ if (!LESSONS[id]) return; CUR = id; LESSON = LESSONS[id]
 const lessonOpen = id => !!LESSONS[id] && (id !== "step3" || STEP3_LIVE) && (!LESSONS[id].speakOnly || A.read === false);   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
 function lessonProgress(id){ const s = A[id] || {}; return s.completed ? 1 : Math.min(1, (s.pos || 0) / LESSONS[id].parts.length); }
 const XP_BONUS = 20;
-const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","words"];
+const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","words"];
 
 const dayStr = d => d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
 function liveStreak(){
@@ -3358,7 +3624,7 @@ function paintPron(){
   const box = $("hhPron"); if (!box) return;
   const v = CONJ[pronVerb], read = A.read !== false;
   box.classList.toggle("speak", !read);
-  const pb = $("gPron"); if (pb) pb.hidden = (!read && A.tr === false) || String(current) === "9";   // SNAP! tests the pronouns: no table there   // Just speak with letters off: nothing to show
+  const pb = $("gPron"); if (pb) pb.hidden = (!read && A.tr === false) || String(current) === "9" || String(current) === "10";   // SNAP! tests the pronouns: no table there   // Just speak with letters off: nothing to show
   // one chip per person: pronoun on top, its verb form under it (אֲנִי shows both: he / she)
   const he = (cls, t) => '<b class="' + cls + '" lang="he">' + t + "</b>";
   const tr = (cls, t) => '<i class="' + cls + ' hh-cj-tr">' + t + "</i>";
@@ -3588,7 +3854,7 @@ show = function(id){
 finish = function(title, big, sub, extra){
   if (!L) return gameFinish(title, big, sub, extra);
   const g = Number(current);
-  const said = g === 6 ? len6 : g === 4 ? cards4.length : g === 5 ? o5.said.length : g === 8 ? (e8.said || 0) : g === 7 ? (r7.served || 0) : g === 9 ? ((s9 && s9.said) || 0) : 0;
+  const said = g === 6 ? len6 : g === 4 ? cards4.length : g === 5 ? o5.said.length : g === 8 ? (e8.said || 0) : g === 7 ? (r7.served || 0) : g === 9 ? ((s9 && s9.said) || 0) : g === 10 ? ((r10 && r10.said) || 0) : 0;
   const part = LESSON[L.pos], xp = part.xp || 10;
   L.said += said;
   if (!ST().done.includes(g)) ST().done.push(g);
