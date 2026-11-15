@@ -534,6 +534,50 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 }
 
 .hh-ver{text-align:center;font-size:11px;color:var(--cream-dim);opacity:.7;margin-top:10px;letter-spacing:.04em}
+
+/* in-app full screen for a video held upright (only when Vimeo's own full screen is not available) */
+.hh-fhint{position:fixed;z-index:61;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 28px);
+  margin:0;padding:10px 16px;border-radius:99px;background:rgba(244,241,232,.95);color:var(--green-deep);font-weight:800;font-size:15px;
+  white-space:nowrap;box-shadow:0 2px 12px rgba(0,0,0,.45)}
+
+/* pronoun bar under the game strip: all 8 persons at once, 2 rows of 4, no sideways scrolling */
+.hh-pron{margin:-6px 0 6px}
+.hh-ptop{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.hh-pverb{min-height:24px;padding:1px 10px;border-radius:99px;border:1.5px solid var(--coral);background:var(--coral);color:var(--green-deep);
+  font-family:inherit;font-weight:900;font-size:12px;cursor:pointer}
+.hh-pnote{font-size:11px;color:var(--cream-dim);letter-spacing:.04em}
+.hh-pgrid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:3px}
+.hh-pc{min-width:0;padding:2px 2px 3px;border-radius:10px;background:var(--green-soft);text-align:center;line-height:1.1;overflow:hidden}
+.hh-pc>div{display:flex;justify-content:center;align-items:baseline;gap:3px;white-space:nowrap}
+.hh-pc b{font-weight:900;font-size:14px}
+.hh-pc i{font-style:normal;font-size:9.5px;color:var(--cream-dim)}
+.hh-pc .l1 b{color:var(--cream);font-size:14px}
+.hh-pc .l2{margin-top:1px}
+.hh-pc .sl{font-size:10px;color:var(--cream-dim);margin:0 1px}
+.hh-pc .m{color:var(--he)} .hh-pc .f{color:var(--she)} .hh-pc .pl{color:var(--cream)}
+.hh-pc .l3 i.m{color:var(--he);opacity:.85} .hh-pc .l3 i.f{color:var(--she);opacity:.85} .hh-pc .l3 i.pl{color:var(--cream-dim)}
+.hh-pc i.only{font-size:12.5px;font-weight:800}
+.hh-pc i.only.p{color:var(--cream)}
+.hh-pc:first-child b:not(.p){font-size:12.5px}
+.hh-notr .hh-pron.speak{display:none}   /* Just speak with English letters off: nothing to show */
+@media (orientation:landscape) and (max-height:500px){ .hh-pron{margin-bottom:4px} .hh-pgrid{grid-template-columns:repeat(8,minmax(0,1fr))} }
+
+/* By Ear: listen & repeat */
+.hh-rep{margin-top:12px;display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.hh-recbtn{min-height:52px;padding:0 22px;border-radius:99px;border:2px solid var(--coral);background:transparent;color:var(--cream);font-family:inherit;font-weight:900;font-size:17px;cursor:pointer}
+.hh-recbtn.on{background:var(--coral);color:var(--green-deep);animation:hhPulse 1s ease-in-out infinite}
+@keyframes hhPulse{50%{transform:scale(1.04)}}
+.hh-reprow{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.hh-reprow .pill{min-height:46px;font-size:15px;font-weight:800}
+#g8opts .opt[hidden]{display:none!important}
+
+/* map: reading-track steps */
+.hh-rtag{display:inline-block;margin:2px auto 2px;padding:1px 8px;border-radius:99px;border:1px solid var(--he);color:var(--he);font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.hh-cap .hh-rtag{display:table}
+.is-optional .hh-node{opacity:.6;border-style:dashed}
+.is-optional .hh-cap b{opacity:.75}
+@media (max-width:375px){ .hh-pc i.only{font-size:11.5px} .hh-pc>div{gap:2px} .hh-pc .l1 b{font-size:13px} .hh-pc .l1 i{font-size:8.5px} .hh-pgrid{grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr))} }
+.hh-pron.speak .hh-pc>div{direction:ltr}   /* English letters only: he / she in reading order */
 </style>
 </head>
 <body>
@@ -581,7 +625,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v9-1960e3fd9f</p>
+  <p class="hh-ver" id="oVer">Version hh-v10-866989c6c2</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -609,6 +653,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   <div class="hh-frame" id="eFrame"></div>
   <button class="hh-fbtn hh-fclose" id="eClose" type="button" aria-label="Close full screen" hidden><span aria-hidden="true">✕</span> Close</button>
   <button class="hh-fbtn hh-fhome" id="eHome" type="button" data-home aria-label="Home: back to the map" hidden>⌂</button>
+  <p class="hh-fhint" id="eHint" hidden>Turn your phone sideways for a bigger picture</p>
   <button class="hh-fbtn hh-frot" id="eRot" type="button" aria-label="Turn the video" hidden>↻</button>
   <div class="hh-ego"><button class="btn" id="eGo" type="button">Continue</button></div>
 </div>
@@ -641,6 +686,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 
 <main id="play" hidden>
 <div id="hhStrip"><span id="hhStripTxt">STEP 4</span><div class="bar"><i id="hhStripBar"></i></div><button class="hh-trbtn" type="button" data-trtoggle aria-pressed="true">abc</button><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
+<div id="hhPron" class="hh-pron" aria-label="The Magic Four with every person"></div>
 
 
 <!-- HOME -->
@@ -874,11 +920,12 @@ body{min-height:100dvh;overscroll-behavior-y:none}
       <div class="tr" id="g8tr"></div>
       <div class="hint" id="g8en"></div>
     </div>
-    <div class="hint" id="g8how" style="margin-top:10px">Listen, then tap the order you heard. One tap is your answer.</div>
+    <div class="hint" id="g8how" style="margin-top:10px">Listen, then tap the sentence you heard. One tap is your answer.</div>
     <div class="opts" id="g8opts" style="margin-top:10px"></div>
     <div class="msg" id="g8msg" aria-live="polite"></div>
+    <div class="hh-rep" id="g8rep" hidden><button class="hh-recbtn" id="g8rec" type="button">🎙 Record yourself</button><div class="hh-reprow" id="g8cmp" hidden><button class="pill" id="g8mine" type="button">▶ My voice</button><button class="pill" id="g8orig" type="button">▶ Original</button><button class="pill" id="g8again" type="button">↻ Try again</button></div><div class="hint" id="g8recnote" aria-live="polite"></div></div>
   </div>
-  <div class="row" id="g8nextRow" hidden><button class="btn" id="g8next" type="button">I said it · next</button></div>
+  <div class="row" id="g8nextRow" hidden><button class="btn" id="g8next" type="button">Next</button></div>
 </section>
 
 <!-- SETUP: asked once before the first game, and reachable from Settings -->
@@ -2161,73 +2208,147 @@ function endRush(){
 
 /* ---------- GAME 8: By Ear (listening only) ---------- */
 let e8 = { phase:"idle" };
-const earOrder = (g, main, extra) => ({ g, main:main[0], extra:extra[0], ids:["ani", RUSH_VERBS.want[g], main[0]].concat(extra[3]),
-  en:"I want " + main[2] + (extra[3].length ? " " + extra[2] : ""), icon:main[1] + (extra[3].length ? " " + extra[1] : "") });
-/* every order this game can play (each one has its own recording) */
-function earAll(g){
-  const out = EAR_MAIN.map(m => earOrder(g, m, EAR_EXTRA[0]));
-  EAR_MAIN.slice(0, 2).forEach(m => EAR_EXTRA.slice(1).forEach(x => out.push(earOrder(g, m, x))));
-  return out;
+/* By Ear: many people and all four verbs, only sentences that have a real recording.
+   [ids, English, icon, question?]. "ani" lines come in a he and a she version (same English). */
+const EAR_SETS = {
+  iwant: [[["ani","@want","kafe"],"I want coffee","☕"],[["ani","@want","te"],"I want tea","🍵"],[["ani","@want","pitza"],"I want pizza","🍕"],
+          [["ani","@want","uga"],"I want cake","🍰"],[["ani","@want","mayim"],"I want water","💧"],[["ani","@want","leechol","pitza"],"I want to eat pizza","🍽 🍕"],
+          [["ani","lo","@want","kafe"],"I don't want coffee","🚫 ☕"],[["ani","lo","@want","pitza"],"I don't want pizza","🚫 🍕"]],
+  ineed: [[["ani","@need","chalav"],"I need milk","🥛"],[["ani","@need","mayim"],"I need water","💧"],[["ani","@need","sukar"],"I need sugar","🍬"]],
+  ilove: [[["ani","@love","kafe","chazak"],"I love strong coffee","☕ 💪"],[["ani","@love","kafe","chalash"],"I love weak coffee","☕ 🪶"],
+          [["ani","@love","ledaber","ivrit"],"I love to speak Hebrew","🗣"],[["ani","lo","@can","ledaber","ivrit"],"I can't speak Hebrew","🚫 🗣"]],
+  he:    [[["hu","rotze","pitza"],"He wants pizza","👨 🍕"],[["hu","rotze","mayim"],"He wants water","👨 💧"],[["hu","rotze","leechol","pitza"],"He wants to eat pizza","👨 🍽"],
+          [["hu","ohev","pitza"],"He loves pizza","👨 ❤️"],[["hu","tzarich","mayim"],"He needs water","👨 💧"],[["hu","lo","rotze","leechol","pitza"],"He doesn't want to eat pizza","👨 🚫"]],
+  she:   [[["hi","ohevet","pitza"],"She loves pizza","👩 ❤️"],[["hi","yechola","ledaber","ivrit"],"She can speak Hebrew","👩 🗣"],[["hi","lo","rotza","pitza"],"She doesn't want pizza","👩 🚫"],
+          [["hi","lo","ohevet","pitza"],"She doesn't love pizza","👩 💔"],[["hi","lo","rotza","ledaber","ivrit"],"She doesn't want to speak Hebrew","👩 🚫 🗣"],
+          [["hi","lo","rotza","leechol","pitza"],"She doesn't want to eat pizza","👩 🚫 🍽"],[["hi","lo","yechola","ledaber","ivrit"],"She can't speak Hebrew","👩 🚫 🗣"]],
+  you:   [[["ata","rotze","kafe"],"Do you want coffee? (to a man)","👉👨 ☕",1],[["at","rotza","kafe"],"Do you want coffee? (to a woman)","👉👩 ☕",1],
+          [["ata","tzarich","sukar"],"Do you need sugar? (to a man)","👉👨 🍬",1],[["at","tzricha","sukar"],"Do you need sugar? (to a woman)","👉👩 🍬",1],
+          [["ata","ohev","kafe","chazak"],"Do you love strong coffee? (to a man)","👉👨 💪",1],[["at","ohevet","kafe","chazak"],"Do you love strong coffee? (to a woman)","👉👩 💪",1]]
+};
+const EAR_FORMS = { want:{m:"rotze",f:"rotza"}, need:{m:"tzarich",f:"tzricha"}, love:{m:"ohev",f:"ohevet"}, can:{m:"yachol",f:"yechola"} };
+const EAR_ORDER = ["iwant","he","she","ineed","you","ilove","she","he"];   // one round each: I, he, she, you, all four verbs
+function earItem(set, row, g){
+  const ids = row[0].map(w => w[0] === "@" ? EAR_FORMS[w.slice(1)][g] : w), q = !!row[3];
+  return { set, g, ids, q, k:ids.join("-") + (q ? "-q" : ""), en:row[1], icon:row[2] };
+}
+function earPool(g){
+  const out = [];
+  Object.keys(EAR_SETS).forEach(s => EAR_SETS[s].forEach(r => { const it = earItem(s, r, g); if (audioUrl(it.ids, it.q)) out.push(it); }));
+  return out;   // only lines with a recording
 }
 function makeEar(n){
   const g = Math.random() < 0.5 ? "m" : "f";
-  const main = n < 3 ? pick7(EAR_MAIN) : pick7(EAR_MAIN.slice(0, 2));      // first three: one thing; then a drink with or without something
-  const extra = n < 3 ? EAR_EXTRA[0] : pick7(EAR_EXTRA.slice(1));
-  return earOrder(g, main, extra);
+  const pool = earPool(g), want = EAR_ORDER[n % EAR_ORDER.length];
+  const opts = pool.filter(x => x.set === want && !e8.used.includes(x.en));
+  return pick7(opts.length ? opts : pool);
 }
 function startEar(){
-  e8 = { phase:"idle", i:0, clean:0, cur:null, last:"" };
+  e8 = { phase:"idle", i:0, clean:0, cur:null, last:"", used:[] };
   show("g8"); nextEar();
 }
-/* 4 cards: the order heard + 3 close ones (same food or same extra), as full English sentences */
+/* 4 cards: the sentence heard + 3 others, as full English sentences (never two with the same English) */
 function earCards(o){
-  const pool = earAll(o.g).filter(x => x.ids.join() !== o.ids.join());
-  const near = shuffle(pool.filter(x => x.main === o.main || x.extra === o.extra));
-  const far = shuffle(pool.filter(x => !(x.main === o.main || x.extra === o.extra)));
-  return shuffle([o].concat(near.concat(far).slice(0, 3)));
+  const pool = earPool(o.g).filter(x => x.en !== o.en);
+  const verb = ids => ids.find(w => /^(rotz|tzar|tzri|ohev|yach|yech)/.test(w)) || "";
+  const near = shuffle(pool.filter(x => x.set === o.set || verb(x.ids).slice(0, 3) === verb(o.ids).slice(0, 3)));
+  const far = shuffle(pool.filter(x => !near.includes(x)));
+  const out = [o], seen = new Set([o.en]);
+  near.slice(0, 2).concat(far).concat(near.slice(2)).forEach(x => { if (out.length < 4 && !seen.has(x.en)){ seen.add(x.en); out.push(x); } });
+  return shuffle(out);
 }
 function nextEar(){
-  if (e8.i >= EAR_ROUNDS) return finish("Good ear!", e8.clean + " / " + EAR_ROUNDS,
-    "orders understood by ear on the first try.", "No reading needed.");
-  let o; do { o = makeEar(e8.i); } while (o.ids.join() === e8.last);
-  e8.cur = o; e8.last = o.ids.join();
+  if (e8.i >= EAR_ROUNDS){ earRelease(); return finish("Good ear!", e8.clean + " / " + EAR_ROUNDS,
+    "sentences understood by ear on the first try.", "No reading needed."); }
+  let o, guard = 0; do { o = makeEar(e8.i); } while (o.k === e8.last && guard++ < 10);
+  e8.cur = o; e8.last = o.k; e8.used.push(o.en);
   const box = $("g8opts"); box.innerHTML = "";
   earCards(o).forEach(c => {
-    const b = document.createElement("button"); b.type = "button"; b.className = "opt"; b.dataset.k = c.ids.join("-");
+    const b = document.createElement("button"); b.type = "button"; b.className = "opt"; b.dataset.k = c.k;
     const ic = document.createElement("span"); ic.textContent = c.icon; ic.setAttribute("aria-hidden", "true");
     const t = document.createElement("b"); t.textContent = c.en;
     b.append(ic, t); b.addEventListener("click", () => checkEar(c, b)); box.append(b);
   });
-  $("g8tag").textContent = "Listen. What did they order?";
+  $("g8tag").textContent = "Listen. What did you hear?";
   $("g8how").hidden = false;
-  $("g8msg").textContent = ""; $("g8sent").hidden = true; $("g8nextRow").hidden = true;
+  $("g8msg").textContent = ""; $("g8sent").hidden = true; $("g8nextRow").hidden = true; earRepReset(); $("g8play").hidden = false; $("g8slow").hidden = false;
   $("g8bar").style.width = (e8.i / EAR_ROUNDS * 100) + "%";
   $("g8count").textContent = (e8.i + 1) + " / " + EAR_ROUNDS;
-  const audio = hasAudio(o.ids);
+  const audio = hasAudio(o.ids, o.q);
   $("g8note").hidden = audio;
-  if (!audio){ $("g8note").textContent = "No Hebrew audio on this device yet, so the order is shown as text."; showSent8(); }
-  pop($("g8card")); e8.phase = "listen"; speak(o.ids);
+  if (!audio){ $("g8note").textContent = "No Hebrew audio on this device yet, so the sentence is shown as text."; showSent8(); }
+  pop($("g8card")); e8.phase = "listen"; speak(o.ids, false, o.q);
 }
 function showSent8(){
-  $("g8he").textContent = heOf(e8.cur.ids); $("g8tr").textContent = trOf(e8.cur.ids);
+  $("g8he").textContent = heOf(e8.cur.ids, e8.cur.q); $("g8tr").textContent = trOf(e8.cur.ids, e8.cur.q);
   $("g8en").textContent = e8.phase === "said" ? e8.cur.en : "";
   $("g8sent").hidden = false;
 }
 /* exactly one tap = the answer */
 function checkEar(c, btn){
   if (e8.phase !== "listen") return;
-  const ok = c.ids.join() === e8.cur.ids.join();
+  const ok = c.k === e8.cur.k;
   e8.phase = "said"; if (ok) e8.clean++;
   document.querySelectorAll("#g8opts .opt").forEach(b => {
-    if (b.dataset.k === e8.cur.ids.join("-")) b.classList.add("right"); else if (b === btn) b.classList.add("wrong"); else b.classList.add("dim");
+    if (b.dataset.k === e8.cur.k) b.classList.add("right"); else if (b === btn) b.classList.add("wrong"); else { b.classList.add("dim"); b.hidden = true; }
   });
-  $("g8tag").textContent = ok ? "Yes! Now say it yourself" : "Not this time. This was the order. Say it yourself";
+  $("g8tag").textContent = ok ? "Yes! Now say it yourself" : "Not this time. This is what you heard. Say it yourself";
   $("g8how").hidden = true; $("g8msg").textContent = "";
-  showSent8(); $("g8nextRow").hidden = false;
-  sfx(ok ? "good" : "soft"); speak(e8.cur.ids);   // the recording of the order that was heard, matching the text shown
+  showSent8(); $("g8nextRow").hidden = false; $("g8rep").hidden = false;
+  $("g8play").hidden = true; $("g8slow").hidden = true;   // replay is now the "Eilai" button next to "My voice"
+  sfx(ok ? "good" : "soft"); speak(e8.cur.ids, false, e8.cur.q);   // the same recording, matching the text shown
 }
-$("g8play").addEventListener("click", () => { if (e8.cur) speak(e8.cur.ids); });
-$("g8slow").addEventListener("click", () => { if (e8.cur) speak(e8.cur.ids, true); });
+
+/* ---------- listen & repeat: record yourself, then compare with the original as often as you like ---------- */
+let earMic = null, earRec = null, earChunks = [], earUrl = null, earTimer = 0;
+function earRepReset(){
+  earStopRec(true);
+  if (earUrl){ URL.revokeObjectURL(earUrl); earUrl = null; }
+  $("g8rep").hidden = true; $("g8cmp").hidden = true; $("g8rec").hidden = false;
+  $("g8rec").textContent = "🎙 Record yourself"; $("g8rec").classList.remove("on"); $("g8recnote").textContent = "";
+  $("g8orig").textContent = "▶ Original";
+}
+function earRelease(){
+  earStopRec(true);
+  if (earMic){ earMic.getTracks().forEach(t => t.stop()); earMic = null; }
+}
+window.earRelease = earRelease;
+function earStopRec(discard){
+  clearTimeout(earTimer);
+  try{ if (earRec && earRec.state === "recording"){ earRec.__drop = !!discard; earRec.stop(); } }catch(e){}
+}
+async function earRecord(){
+  if (earRec && earRec.state === "recording"){ earStopRec(false); return; }
+  try{
+    if (!navigator.mediaDevices || !window.MediaRecorder) throw new Error("unsupported");
+    if (!earMic) earMic = await navigator.mediaDevices.getUserMedia({ audio:true });
+  }catch(e){
+    $("g8recnote").textContent = "The microphone isn't available here. Say it out loud, then tap Next.";
+    $("g8rec").hidden = true; $("g8cmp").hidden = false; $("g8mine").hidden = true; $("g8again").hidden = true; return;
+  }
+  try{ player.pause(); }catch(e){}
+  earChunks = [];
+  const r = earRec = new MediaRecorder(earMic);
+  r.ondataavailable = e => { if (e.data && e.data.size) earChunks.push(e.data); };
+  r.onstop = () => {
+    $("g8rec").classList.remove("on");
+    if (r.__drop || !earChunks.length){ $("g8rec").textContent = "🎙 Record yourself"; return; }
+    if (earUrl) URL.revokeObjectURL(earUrl);
+    earUrl = URL.createObjectURL(new Blob(earChunks, { type: r.mimeType || "audio/webm" }));
+    $("g8rec").hidden = true; $("g8cmp").hidden = false; $("g8mine").hidden = false; $("g8again").hidden = false;
+    $("g8recnote").textContent = "Listen to both. Same sound? Tap Next.";
+    sfx("pop");
+  };
+  r.start(); sfx("tap");
+  $("g8rec").textContent = "■ Stop"; $("g8rec").classList.add("on"); $("g8recnote").textContent = "Say it now…";
+  earTimer = setTimeout(() => earStopRec(false), 7000);   // stops by itself after 7 seconds
+}
+$("g8rec").addEventListener("click", earRecord);
+$("g8mine").addEventListener("click", () => { if (!earUrl) return; try{ speechSynthesis.cancel(); }catch(e){} player.playbackRate = 1; player.src = earUrl; const p = player.play(); if (p && p.catch) p.catch(()=>{}); });
+$("g8orig").addEventListener("click", () => { if (e8.cur) speak(e8.cur.ids, false, e8.cur.q); });
+$("g8again").addEventListener("click", () => { if (earUrl){ URL.revokeObjectURL(earUrl); earUrl = null; } $("g8cmp").hidden = true; $("g8rec").hidden = false; earRecord(); });
+$("g8play").addEventListener("click", () => { if (e8.cur) speak(e8.cur.ids, false, e8.cur.q); });
+$("g8slow").addEventListener("click", () => { if (e8.cur) speak(e8.cur.ids, true, e8.cur.q); });
 $("g8next").addEventListener("click", () => { if (e8.phase === "said"){ e8.i++; nextEar(); } });
 
 show("home");
@@ -2289,14 +2410,19 @@ function saveA(){ try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){
 /* the course map; only STEP 4 is open in the pilot */
 const STEPS = [
   { id:"welcome", n:"WELCOME",  t:"Welcome",           he:"שָׁלוֹם" },
-  { id:"step1",   n:"STEP 1",   t:"The Alphabet",      he:"א ב ג" },
-  { id:"step2",   n:"STEP 2",   t:"Niqud",             he:"בָּ בִּ בּוּ" },
+  { id:"step1",   n:"STEP 1",   t:"The Alphabet",      he:"א ב ג", reading:true },   // reading track only
+  { id:"step2",   n:"STEP 2",   t:"Niqud",             he:"בָּ בִּ בּוּ", reading:true },
   { id:"step3",   n:"STEP 3",   t:"Pronouns",          he:"אֲנִי" },
   { id:"step4",   n:"STEP 4",   t:"The Magic Four",    he:"רוֹצֶה", live:true },
   { id:"step5",   n:"STEP 5",   t:"Infinitives",       he:"לֶאֱכֹל" },
   { id:"step6",   n:"STEP 6",   t:"Yesh li / Ein li",  he:"יֵשׁ לִי" }
 ];
 const ZIG = [0, -56, -78, -40, 30, 70, 36];
+/* Reading-track steps (alphabet, niqud) are optional for "Just speak": they never block the steps after them.
+   Unlocking a step only looks at the earlier steps that are required for this learner. */
+const stepRequired = st => !(st.reading && A.read === false);
+const PILOT_ALL_OPEN = true;   // pilot: nothing is locked by order yet
+function stepUnlocked(i){ return PILOT_ALL_OPEN || STEPS.slice(0, i).filter(stepRequired).every(st => !!st.done); }
 
 /* STEP 4 lesson, one full-screen part at a time.
    type "video" / "embed" = an iframe card (url from STEP4_EMBEDS); type "game" = a Magic Four game (g = game number).
@@ -2308,18 +2434,31 @@ const LESSON = [
     how:"Tap ⤢ Full screen to see the slides bigger. Want, can, need, love, for he and for she." },
   { type:"video", sec:"Watch",    icon:"🎬", name:"At the Café", url:STEP4_EMBEDS.video2, xp:5,
     how:"The Magic Four at a café counter. Watch, then it's your turn to order." },
-  { type:"game", sec:"Play", g:6, icon:"⚡", name:"Echo",       xp:10, how:"A sentence flashes and disappears. Rebuild it from memory, then say it out loud." },
-  { type:"game", sec:"Play", g:4, icon:"🔁", name:"Swap It",    xp:10, how:"Tap the word that has to change and pick the new one. Then say the new sentence." },
-  { type:"game", sec:"Play", g:5, icon:"☕", name:"Café Order", xp:10, how:"The barista asks what you want. Pick it, say it in Hebrew, and build your order." },
-  { type:"game", sec:"Play", g:8, icon:"👂", name:"By Ear",     xp:10, how:"No text at all. Listen to the order and tap what they asked for." },
+  // STEP 4 plays three games, in this order (Eli, Nov 14). Echo and Swap It are kept in HIDDEN_GAMES below.
+  { type:"game", sec:"Play", g:8, icon:"👂", name:"By Ear",     xp:10, how:"Listen to I, he, she and you with want, can, need and love. Tap the sentence you heard." },
   { type:"game", sec:"Play", g:7, icon:"⏱", name:"Rush Hour",  xp:10, how:"The café opens at 8:00. Customers walk in; answer each one in Hebrew before the clock runs out." },
+  { type:"game", sec:"Play", g:5, icon:"☕", name:"Café Order", xp:10, how:"The barista asks what you want. Pick it, say it in Hebrew, and build your order." },
   { type:"embed", sec:"Speak",    icon:"🎙", name:"Speak", url:STEP4_EMBEDS.speak, xp:10, mic:true,
     how:"Say the sentences into your phone and hear how close you are. Allow the microphone when asked." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 1", url:STEP4_EMBEDS.wordwall1, xp:5, how:"A quick round to lock in the verbs." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 2", url:STEP4_EMBEDS.wordwall2, xp:5, how:"Another round, a little faster." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 3", url:STEP4_EMBEDS.wordwall3, xp:5, how:"Last round, then the lesson is done." }
 ];
-const LESSON_VERSION = 2;   // bump when LESSON changes shape, so saved positions from an older lesson start fresh
+/* out of the STEP 4 flow for now; put an entry back into LESSON to restore it (game code and audio are untouched) */
+const HIDDEN_GAMES = [
+  { type:"game", sec:"Play", g:6, icon:"⚡", name:"Echo",       xp:10, how:"A sentence flashes and disappears. Rebuild it from memory, then say it out loud." },
+  { type:"game", sec:"Play", g:4, icon:"🔁", name:"Swap It",    xp:10, how:"Tap the word that has to change and pick the new one. Then say the new sentence." }
+];
+const LESSON_VERSION = 3;   // bump when LESSON changes shape, so saved positions from an older lesson start fresh
+// v2 -> v3: keep what the learner already did, matched by part name (Echo / Swap It drop out)
+const V2_NAMES = ["Sentence Builder","The Magic Four","At the Café","Echo","Swap It","Café Order","By Ear","Rush Hour","Speak","Practice 1","Practice 2","Practice 3"];
+if (A.step4.v === 2){
+  const names = (A.step4.parts || []).map(i => V2_NAMES[i]).concat(V2_NAMES.slice(0, A.step4.pos || 0));
+  A.step4.parts = LESSON.map((p, k) => names.includes(p.name) ? k : -1).filter(k => k >= 0);
+  const next = LESSON.findIndex((p, k) => !A.step4.parts.includes(k));
+  A.step4.pos = next < 0 ? 0 : next; A.step4.run = null; A.step4.v = LESSON_VERSION;
+  try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){}
+}
 if (A.step4.v !== LESSON_VERSION){ A.step4.pos = 0; A.step4.run = null; A.step4.done = []; A.step4.v = LESSON_VERSION; try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){} }
 const XP_BONUS = 20;
 const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","words"];
@@ -2359,11 +2498,12 @@ function paintHome(){
     const li = document.createElement("li");
     li.style.transform = "translateX(" + ZIG[i % ZIG.length] + "px)";
     const live = !!st.live, done = live && A.step4.completed > 0;
-    if (live) li.className = "is-live";
+    const optional = !stepRequired(st);
+    li.className = (live ? "is-live" : "") + (st.reading ? " is-reading" : "") + (optional ? " is-optional" : "");
     const b = document.createElement("button");
     b.type = "button"; b.className = "hh-node" + (live ? (done ? " done" : " live") : "");
     b.id = "node-" + st.id;
-    b.setAttribute("aria-label", st.n + " " + st.t + (live ? "" : ", coming soon"));
+    b.setAttribute("aria-label", st.n + " " + st.t + (st.reading ? ", reading track" : "") + (optional ? ", optional" : "") + (live ? "" : ", coming soon"));
     b.innerHTML = (live ? '<svg class="hh-ring" viewBox="0 0 104 104" aria-hidden="true"><circle class="bg" cx="52" cy="52" r="' + R + '"/>' +
         '<circle class="fg" cx="52" cy="52" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="' + (C * (1 - prog)) + '"/></svg>' : "") +
       '<span class="hh-glyph" lang="he" dir="rtl"></span>' + (live ? "" : '<span class="hh-lock" aria-hidden="true">🔒</span>');
@@ -2374,14 +2514,16 @@ function paintHome(){
       li.append(bub);
       b.addEventListener("click", () => openStep());
     } else {
-      b.addEventListener("click", () => { sfx("soft"); toast(st.t + ": coming soon"); });
+      b.addEventListener("click", () => { sfx("soft"); toast(optional ? st.t + " is for reading. You can skip it and go on." : st.t + ": coming soon"); });
     }
     const cap = document.createElement("div"); cap.className = "hh-cap";
     const pct = Math.round(prog * 100);
     cap.innerHTML = "<small></small><b></b><em></em>";
     cap.querySelector("small").textContent = st.n;
+    if (st.reading){ const tag = document.createElement("span"); tag.className = "hh-rtag"; tag.textContent = "Reading track"; cap.querySelector("small").after(tag); }
     cap.querySelector("b").textContent = st.t;
-    cap.querySelector("em").textContent = live ? (done ? "Done · " + A.step4.completed + "×" : pct + "% · " + A.step4.pos + "/" + LESSON.length) : "Coming soon";
+    cap.querySelector("em").textContent = live ? (done ? "Done · " + A.step4.completed + "×" : pct + "% · " + A.step4.pos + "/" + LESSON.length)
+      : optional ? "Optional · you can skip it" : "Coming soon";
     li.append(b, cap); $("hMap").append(li);
   });
   go("sHome");
@@ -2552,6 +2694,7 @@ function renderEmbed(p){
   f.allowFullscreen = true; f.setAttribute("allowfullscreen", ""); f.setAttribute("webkitallowfullscreen", ""); f.setAttribute("mozallowfullscreen", "");
   f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
   box.append(f);
+  if (/player\.vimeo\.com/.test(f.src)) attachVimeo(f); else vPlayer = null;
   $("eGo").textContent = L.mode === "single" ? "Done" : "Continue · +" + p.xp + " XP";
   go("sEmbed");
 }
@@ -2573,8 +2716,32 @@ function launchGame(g){
   current = String(g);
   if (WORD_INTRO[g]) showWords(String(g)); else starters[g]();
 }
+/* all the persons at the top of every game screen (not only אֲנִי): pronoun + the verb form, he/she/plural colours.
+   Tap the verb name to switch want / can / need / love. Text only, no audio. */
+let pronVerb = "want";
+function paintPron(){
+  const box = $("hhPron"); if (!box) return;
+  const v = CONJ[pronVerb], read = A.read !== false;
+  box.classList.toggle("speak", !read);
+  // one chip per person: pronoun on top, its verb form under it (אֲנִי shows both: he / she)
+  const he = (cls, t) => '<b class="' + cls + '" lang="he">' + t + "</b>";
+  const tr = (cls, t) => '<i class="' + cls + ' hh-cj-tr">' + t + "</i>";
+  const cells = PRONOUNS.map(([p, ptr, en, g]) => {
+    const forms = g === "mf" ? [["m", v.m], ["f", v.f]] : [[g, v[g]]];
+    const vHe = forms.map(([c, f]) => he(c, f[0])).join('<span class="sl">/</span>');
+    const vTr = forms.map(([c, f]) => tr(c, f[1])).join('<span class="sl">/</span>');
+    return '<div class="hh-pc" title="' + en + " " + v.en + '">' +
+      (read ? '<div class="l1">' + he("p", p) + tr("p", ptr) + '</div><div class="l2">' + vHe + '</div><div class="l3">' + vTr + "</div>"
+            : '<div class="l1">' + '<i class="p only">' + ptr + '</i></div><div class="l2">' + forms.map(([c, f]) => '<i class="' + c + ' only">' + f[1] + "</i>").join('<span class="sl">/</span>') + "</div>") +
+      "</div>";
+  }).join("");
+  box.innerHTML = '<div class="hh-ptop"><button type="button" class="hh-pverb" aria-label="Change the verb">' + v.en + ' ▾</button>' +
+    '<span class="hh-pnote">' + Object.keys(CONJ).join(" · ") + '</span></div><div class="hh-pgrid" dir="rtl">' + cells + "</div>";
+  box.querySelector(".hh-pverb").onclick = () => { const k = Object.keys(CONJ); pronVerb = k[(k.indexOf(pronVerb) + 1) % k.length]; sfx("tap"); paintPron(); };
+}
 function paintStrip(){
   if (!L) return;
+  paintPron();
   $("hhStripTxt").textContent = partLabel();
   $("hhStripBar").style.width = Math.round(lessonFrac() * 100) + "%";
 }
@@ -2613,13 +2780,13 @@ function openFull(){
   const box = $("eFrame"); if (!box.firstChild || box.classList.contains("is-full")) return;
   box.classList.add("is-full");
   // portrait phone + video: turn the player sideways so it uses the whole screen (tap ↻ to undo)
-  box.classList.toggle("rot", box.classList.contains("is-wide") && isPortrait()); userRot = false;
+  box.classList.toggle("rot", canRotate(box) && isPortrait()); userRot = false;
   document.body.classList.add("hh-noscroll");
   // the phone's Back button closes full screen instead of leaving the app
   try{ if (!(history.state && history.state.hhFull)) history.pushState({ hhFull:1 }, ""); }catch(e){}
-  $("eClose").hidden = false; $("eHome").hidden = false; $("eRot").hidden = !box.classList.contains("is-wide");
+  $("eClose").hidden = false; $("eHome").hidden = false; $("eRot").hidden = !canRotate(box);
+  $("eHint").hidden = !(isVimeo(box) && isPortrait());
   layoutFull(); setTimeout(layoutFull, 350);   // again after the browser bars settle
-  refitVimeo(600);
   try{
     // ask for it on the whole card screen, so the ✕ and ↻ buttons stay above the frame in the browser's top layer
     const host = $("sEmbed"), req = host.requestFullscreen || host.webkitRequestFullscreen;
@@ -2630,14 +2797,57 @@ function openFull(){
 function closeFull(keepPlayer){
   const box = $("eFrame"); if (!box) return;
   const was = box.classList.contains("is-full");
-  if (was && keepPlayer !== "leaving") refitVimeo(250);   // back to the small card: let Vimeo size the picture again
   box.classList.remove("is-full", "rot"); layoutFull();
   document.body.classList.remove("hh-noscroll");
-  $("eClose").hidden = true; $("eHome").hidden = true; $("eRot").hidden = true;
+  $("eClose").hidden = true; $("eHome").hidden = true; $("eRot").hidden = true; $("eHint").hidden = true;
   if (was && history.state && history.state.hhFull){ try{ history.back(); }catch(e){} }   // drop our Back-button entry
   if (was){ try{ if (document.fullscreenElement) document.exitFullscreen(); else if (document.webkitFullscreenElement) document.webkitExitFullscreen(); }catch(e){} }
 }
-$("eFull").addEventListener("click", openFull);
+/* ---------- Full screen button ----------
+   Vimeo videos: Vimeo's own full screen through its Player API. On iPhone that is the native iOS video player:
+   always the whole screen, turns with the phone, closes with iOS's own Done / ✕.
+   If Vimeo says no: start the video and ask again (same tap). Last resort: our in-app full screen, not rotated,
+   with a "turn your phone sideways" hint. Genially / Wordwall / Speak: our in-app full screen as before. */
+const isVimeo = box => !!(box && box.querySelector('iframe[src*="player.vimeo.com"]'));
+const canRotate = box => box.classList.contains("is-slides");   // only Genially is turned sideways by us
+let vimeoApi = null, vPlayer = null;
+function loadVimeoApi(){
+  if (window.Vimeo && window.Vimeo.Player) return Promise.resolve(window.Vimeo);
+  if (!vimeoApi) vimeoApi = new Promise((res, rej) => {
+    const sc = document.createElement("script"); sc.src = "https://player.vimeo.com/api/player.js"; sc.async = true;
+    sc.onload = () => window.Vimeo ? res(window.Vimeo) : rej(); sc.onerror = () => { vimeoApi = null; rej(); };
+    document.head.append(sc);
+  });
+  return vimeoApi;
+}
+function attachVimeo(f){
+  vPlayer = null;
+  loadVimeoApi().then(V => { if (!f.isConnected) return; try{ vPlayer = new V.Player(f); vPlayer.__f = f; }catch(e){ vPlayer = null; return; }
+    // captions on by default (also in iOS's own full screen): English if there is one, else the first track
+    const pl = vPlayer;
+    pl.getTextTracks().then(tr => {
+      f.dataset.tracks = JSON.stringify((tr || []).map(t => t.language + ":" + t.kind + ":" + t.label));
+      const t = (tr || []).find(x => /^en/i.test(x.language)) || (tr || [])[0];
+      if (t) return pl.enableTextTrack(t.language, t.kind).then(x => { f.dataset.cc = x.language + ":" + x.kind; });
+    }).catch(() => {});
+  }).catch(() => {});
+}
+function fullClick(){
+  const box = $("eFrame"), f = box.querySelector("iframe");
+  if (!isVimeo(box) || !vPlayer || vPlayer.__f !== f || window.HH_NO_NATIVE_FS){ openFull(); return; }
+  sfx("tap");
+  let settled = false;
+  const fallback = () => { if (settled) return; settled = true; openFull(); };
+  const ok = () => { settled = true; };
+  const timer = setTimeout(fallback, 2500);   // no answer from Vimeo: use ours
+  // play + full screen both go out inside this tap (iOS only opens its video player from a tap);
+  // if Vimeo still says no, ask once more now that it is playing, then fall back to ours
+  vPlayer.play().catch(() => {});
+  vPlayer.requestFullscreen().then(() => { clearTimeout(timer); ok(); }).catch(() => {
+    setTimeout(() => vPlayer.requestFullscreen().then(() => { clearTimeout(timer); ok(); }).catch(() => { clearTimeout(timer); fallback(); }), 300);
+  });
+}
+$("eFull").addEventListener("click", fullClick);
 $("eClose").addEventListener("click", () => { closeFull(); sfx("tap"); });
 $("eRot").addEventListener("click", () => { $("eFrame").classList.toggle("rot"); userRot = true; layoutFull(); sfx("tap"); });
 /* Sideways full screen on an upright phone, sized in real pixels from the window (Safari's dvh/vh are not reliable
@@ -2649,7 +2859,8 @@ function layoutFull(){
   const props = ["position","top","left","width","height","transform","transform-origin","right","bottom"];
   props.forEach(k => f.style.removeProperty(k));
   if (!box.classList.contains("is-full")) return;
-  if (box.classList.contains("is-wide") && !userRot) box.classList.toggle("rot", isPortrait());
+  if (canRotate(box) && !userRot) box.classList.toggle("rot", isPortrait());
+  $("eHint").hidden = !(isVimeo(box) && isPortrait());
   if (!box.classList.contains("rot")) return;   // upright / landscape: the CSS sizes it
   const vv = window.visualViewport, W = Math.round(vv ? vv.width : innerWidth), H = Math.round(vv ? vv.height : innerHeight);
   const btn = $("eClose").getBoundingClientRect(), top = Math.max(0, Math.round(btn.bottom + 6));
@@ -2661,36 +2872,8 @@ function layoutFull(){
   set("transform-origin", "center"); set("transform", "translate(-50%,-50%) rotate(90deg)");
 }
 ["resize", "orientationchange"].forEach(ev => window.addEventListener(ev, () => { layoutFull(); setTimeout(layoutFull, 300); }));
-window.addEventListener("orientationchange", () => { if ($("eFrame").classList.contains("is-full")) refitVimeo(700); });
-/* iPhone Safari: when the Vimeo iframe changes size after it has loaded (small card -> full screen), Vimeo's
-   captions and buttons follow the new size but the video picture keeps its first size (the small card),
-   so it shows tiny in the middle of the big player. Fix: reload the player at its new size, at the same
-   second, playing again if it was playing. */
-let refitTimer = 0, refitSeq = 0;
-function vimeoAsk(f, method){
-  return new Promise(res => {
-    const done = v => { window.removeEventListener("message", on); clearTimeout(t); res(v); };
-    const on = e => { if (e.source !== f.contentWindow || !/vimeo\.com$/.test(new URL(e.origin).hostname)) return;
-      let d = e.data; try{ if (typeof d === "string") d = JSON.parse(d); }catch(x){ return; }
-      if (d && d.method === method) done(d.value); };
-    const t = setTimeout(() => done(undefined), 500);
-    window.addEventListener("message", on);
-    try{ f.contentWindow.postMessage(JSON.stringify({ method }), "https://player.vimeo.com"); }catch(x){ done(undefined); }
-  });
-}
-function refitVimeo(delay){
-  clearTimeout(refitTimer); const seq = ++refitSeq;
-  refitTimer = setTimeout(async () => {
-    const f = $("eFrame").querySelector("iframe"); if (!f || !f.isConnected || !/player\.vimeo\.com/.test(f.src)) return;
-    const [t, paused] = await Promise.all([vimeoAsk(f, "getCurrentTime"), vimeoAsk(f, "getPaused")]);
-    if (seq !== refitSeq || !f.isConnected) return;
-    const u = new URL(f.src); u.hash = "";
-    if (paused === false) u.searchParams.set("autoplay", "1"); else u.searchParams.delete("autoplay");
-    const sec = Math.floor(Number(t) || 0);
-    f.src = u.toString() + (sec > 0 ? "#t=" + sec + "s" : "");
-    f.dataset.refit = String((Number(f.dataset.refit) || 0) + 1);
-  }, delay);
-}
+
+
 if (window.visualViewport) visualViewport.addEventListener("resize", layoutFull);
 ["fullscreenchange", "webkitfullscreenchange"].forEach(ev => document.addEventListener(ev, () => {
   if (!document.fullscreenElement && !document.webkitFullscreenElement && $("eFrame").classList.contains("is-full")) closeFull();
@@ -2702,6 +2885,7 @@ window.addEventListener("popstate", () => { if ($("eFrame").classList.contains("
 function goHome(){
   try{ closeFull(); }catch(e){}
   clearEmbed(); stopGame();
+  if (window.earRelease) window.earRelease();
   if (!$("play").hidden){ path = null; gameShow("home"); }   // the game's own cleanup (timers, mic)
   if (L && L.mode === "lesson"){ A.step4.pos = L.pos; A.step4.run = { said:L.said, xp:L.xp, ms:L.ms + (Date.now() - L.t0) }; saveA(); }
   L = null;
@@ -2722,6 +2906,7 @@ function applyTr(){
 /* ---------- hooks into the game script ---------- */
 const gameShow = show, gameFinish = finish;
 show = function(id){
+  if (id !== "g8" && window.earRelease) window.earRelease();   // mic off when By Ear is left
   gameShow(id);
   if (!booted) return;
   if (GAME_SECTIONS.includes(id)) return enterPlay();
@@ -2737,6 +2922,7 @@ finish = function(title, big, sub, extra){
   L.said += said;
   if (!A.step4.done.includes(g)) A.step4.done.push(g);
   earn(xp);
+  if (window.earRelease) window.earRelease();
   path = null; gameShow("home"); stopGame();     // the game's own cleanup (timers, mic), without its menu
   sfx("good");
   const prev = title.replace(/!$/, "") + " · " + big + "  ·  +" + xp + " XP";
