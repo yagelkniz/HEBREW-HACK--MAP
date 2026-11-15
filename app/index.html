@@ -433,6 +433,104 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   .hh-frame.is-full.is-wide.is-slides iframe{width:calc(100vw - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px));
     height:calc(100dvh - env(safe-area-inset-top,0px) - 58px - env(safe-area-inset-bottom,0px))}
 }
+
+/* home button: on every screen, same look */
+.hh-home{flex:none;min-width:44px;min-height:44px;border-radius:12px;border:1.5px solid var(--divider);background:var(--green-soft);
+  color:var(--cream);font-size:22px;line-height:1;font-weight:900;cursor:pointer}
+.hh-home:active{transform:scale(.96)}
+#hhStrip .hh-home{min-width:40px;min-height:40px;font-size:20px}
+.hh-fhome{right:calc(env(safe-area-inset-right,0px) + 64px)}
+.hh-topright{align-self:flex-end;margin-bottom:-30px}
+/* English letters toggle (pill) */
+.hh-trbtn{flex:none;min-height:36px;padding:4px 10px;border-radius:99px;border:1.5px solid var(--divider);background:transparent;color:var(--cream-dim);
+  font-family:inherit;font-weight:800;font-size:13px;cursor:pointer;text-decoration:line-through}
+.hh-trbtn[aria-pressed="true"]{background:var(--cream);color:var(--green);border-color:var(--cream);text-decoration:none}
+.hh-notr .tr,.hh-notr #g8tr,.hh-notr .hh-cj-tr{display:none!important}
+/* pronoun table on the STEP 4 page */
+.hh-vtabs{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.hh-vtabs button{min-height:36px;padding:4px 12px;border-radius:99px;border:1.5px solid var(--divider);background:transparent;color:var(--cream);
+  font-family:inherit;font-weight:800;font-size:14px;cursor:pointer}
+.hh-vtabs button[aria-selected="true"]{background:var(--coral);border-color:var(--coral);color:var(--green-deep)}
+.hh-table{width:100%;margin-top:10px;border-collapse:collapse;direction:rtl}
+.hh-table td{padding:5px 6px;border-top:1px solid var(--divider);vertical-align:middle}
+.hh-table tr:first-child td{border-top:0}
+.hh-table .hh-p{font-size:20px;font-weight:900;text-align:right;white-space:nowrap}
+.hh-table .hh-v{font-size:20px;font-weight:900;text-align:right}
+.hh-table .hh-v .m{color:var(--he)} .hh-table .hh-v .f{color:var(--she)} .hh-table .hh-v .pl{color:var(--cream)}
+.hh-table .hh-en{direction:ltr;text-align:left;font-size:12px;color:var(--cream-dim);line-height:1.25}
+.hh-cj-tr{display:block;font-size:12px;color:var(--cream-dim);font-weight:600;direction:ltr;text-align:right}
+/* By Ear cards */
+#g8opts .opt{width:100%}
+#g8opts .opt span{font-size:22px;min-width:64px;text-align:center;white-space:nowrap;flex:none}
+#g8opts .opt.right{background:var(--coral);border-color:var(--coral);color:var(--green-deep)}
+#g8opts .opt.wrong{border-color:var(--cream);opacity:.6} #g8opts .opt.wrong b{text-decoration:line-through}
+#g8opts .opt.dim{opacity:.35}
+
+/* full screen: big, always visible, high-contrast close button (safe-area aware) */
+.hh-fbtn.hh-fclose{width:auto;height:52px;min-width:52px;padding:0 18px 0 14px;border-radius:99px;border:0;background:var(--cream);color:var(--green-deep);
+  font-size:17px;font-weight:900;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 12px rgba(0,0,0,.45);
+  top:calc(env(safe-area-inset-top,0px) + 6px);right:calc(env(safe-area-inset-right,0px) + 10px)}
+.hh-fclose span{font-size:22px;line-height:1}
+.hh-fbtn{height:48px;width:48px;top:calc(env(safe-area-inset-top,0px) + 8px)}
+.hh-fhome{right:calc(env(safe-area-inset-right,0px) + 136px)}
+
+/* ===== phone held sideways (short and wide): use the whole width, slim header ===== */
+@media (orientation:landscape) and (max-height:500px){
+  #app,main{max-width:none}
+  main{padding-block:6px 8px}
+  .screen{padding-top:calc(env(safe-area-inset-top,0px) + 6px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 8px)}
+  .screen:not(.hh-embed)>*,main>section>*{max-width:900px;margin-left:auto;margin-right:auto;width:100%}
+  h1{font-size:22px;margin-top:4px}
+  #hhStrip{margin-bottom:4px}
+  .back,.hh-home{min-height:38px;min-width:38px}
+  .btn{min-height:46px}
+  /* answer cards side by side */
+  main section .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  main section .opts .opt{margin:0}
+  /* lesson parts on the STEP 4 page: two columns */
+  .hh-parts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  /* video / slides: fill the screen under one slim bar */
+  .hh-embed{display:grid;grid-template-columns:auto 1fr auto auto;grid-template-rows:auto 1fr;column-gap:10px;padding-top:calc(env(safe-area-inset-top,0px) + 4px);
+    padding-bottom:calc(env(safe-area-inset-bottom,0px) + 4px)}
+  .hh-embed .hh-lbar{grid-column:1/2;grid-row:1}
+  .hh-embed .hh-lbar .bar,.hh-embed .hh-lbar .count{display:none}
+  .hh-embed .hh-ehead{grid-column:2/3;grid-row:1;margin-top:0}
+  .hh-embed .hh-ehead b{font-size:16px} .hh-embed .hh-ehead .brand{font-size:10px}
+  .hh-embed .hh-ehow{display:none}
+  .hh-embed .hh-ego{grid-column:3/5;grid-row:1;padding-top:0}
+  .hh-embed .hh-ego .btn{min-height:40px;padding:0 16px;font-size:15px;width:auto}
+  .hh-embed .hh-frame{grid-column:1/-1;grid-row:2;margin:6px 0 0;min-height:0}
+  .hh-embed .hh-frame.is-wide{aspect-ratio:auto;max-height:none;border-radius:10px;justify-self:center;
+    height:calc(100dvh - 60px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));
+    width:min(100%, calc((100dvh - 60px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px)) * 16 / 9))}
+  .hh-embed .hh-frame.is-wide.is-slides{width:min(100%, calc((100dvh - 60px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px)) * 16 / 9 + var(--hh-arrow-gap)))}
+  .hh-embed .hh-lbar{display:flex;gap:6px}
+  .hh-embed .hh-lbar .hh-home{order:2}
+  .hh-frame.is-full.is-wide:not(.is-slides) iframe{width:min(100vw, calc(100dvh * 16 / 9));height:calc(min(100vw, calc(100dvh * 16 / 9)) * 9 / 16)}
+  .hh-embed .hh-frame.is-full,.hh-embed .hh-frame.is-full.is-wide,.hh-embed .hh-frame.is-full.is-wide.is-slides{width:100vw;height:100dvh;margin:0;border-radius:0}
+}
+
+/* ===== desktop / laptop: wide column, bigger type and buttons, big embeds ===== */
+@media (min-width:900px) and (min-height:501px){
+  #app{max-width:1100px}
+  /* the game and lesson screens are scaled up as a whole so every part keeps its proportions */
+  main{max-width:780px;zoom:1.3;min-height:calc(100dvh / 1.3)}
+  .screen:not(.hh-embed){max-width:780px;width:100%;margin:0 auto;zoom:1.3;min-height:calc(100dvh / 1.3)}
+  #play{min-height:calc(100dvh / 1.3)}
+  .hh-embed{max-width:1100px;width:100%;margin:0 auto;padding-left:24px;padding-right:24px}
+  .hh-embed .hh-lbar .back,.hh-embed .hh-home{min-width:52px;min-height:52px;font-size:22px}
+  .hh-embed .hh-ehead b{font-size:28px} .hh-embed .brand{font-size:14px}
+  .hh-embed .hh-ehow{font-size:17px}
+  .hh-full{min-height:48px;padding:8px 20px;font-size:17px;font-weight:800;background:var(--cream);color:var(--green-deep);border-color:var(--cream)}
+  .hh-embed .btn{min-height:62px;font-size:20px;max-width:520px;margin:0 auto;display:block;width:100%}
+  /* video: the column width at 16:9, never taller than ~80% of the window */
+  .hh-embed .hh-frame,.hh-embed .hh-frame.is-wide{flex:none;margin:14px auto 0;border-radius:16px;
+    width:min(100%, calc(min(80vh, 100dvh - 260px) * 16 / 9));aspect-ratio:16/9;height:auto;max-height:none}
+  .hh-embed .hh-frame:not(.is-wide){aspect-ratio:auto;height:min(80vh, calc(100dvh - 260px))}
+  .hh-embed .hh-frame.is-wide.is-slides{aspect-ratio:auto;height:min(80vh, calc(100dvh - 260px));
+    width:min(100%, calc(min(80vh, 100dvh - 260px) * 16 / 9 + var(--hh-arrow-gap)))}
+  .hh-embed .hh-frame.is-full{width:100vw;height:100dvh;margin:0;border-radius:0;aspect-ratio:auto}
+}
 </style>
 </head>
 <body>
@@ -457,7 +555,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 
 <!-- ONBOARDING (once) / SETTINGS -->
 <div class="screen hh-onb" id="sOnb" hidden>
-  <div class="hh-brand">HEBREW <span>HACK</span></div>
+  <div class="hh-top"><div class="hh-brand">HEBREW <span>HACK</span></div><button class="hh-home" type="button" data-home id="oHome" hidden aria-label="Home: back to the map">⌂</button></div>
   <h1 id="oTitle" style="margin-top:18px">Welcome!</h1>
   <p class="sub" id="oSub">Two quick things and you're in.</p>
   <label class="label" for="oName" style="display:block">Your name</label>
@@ -477,45 +575,51 @@ body{min-height:100dvh;overscroll-behavior-y:none}
       <span class="hh-mode-ic" aria-hidden="true">📖</span><b>Speak + read</b>
       <span class="hh-mode-demo hh-he" lang="he" dir="rtl">אֲנִי רוֹצֶה</span><small>Shows the Hebrew letters</small></button>
   </div>
+  <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
+    <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
 </div>
 
 <!-- STEP OVERVIEW -->
 <div class="screen" id="sStep" hidden>
-  <div class="hh-top"><button class="back" id="stBack" type="button" aria-label="Back to the path">←</button>
-    <div class="brand">STEP 4</div><span class="hh-chip" id="stXp">⚡ 0</span></div>
+  <div class="hh-top"><button class="hh-home" id="stBack" type="button" data-home aria-label="Home: back to the map">⌂</button>
+    <div class="brand">STEP 4</div><span class="hh-stats"><button class="hh-trbtn" type="button" data-trtoggle aria-pressed="true">abc</button><span class="hh-chip" id="stXp">⚡ 0</span></span></div>
   <h1 style="margin-top:12px">The Magic Four</h1>
-  <div class="hh-hero"><div class="hh-he" lang="he" dir="rtl">רוֹצֶה · יָכוֹל · צָרִיךְ · אוֹהֵב</div>
-    <p>want · can · need · love. Watch, learn, play, speak, practise.</p></div>
+  <div class="hh-hero hh-conj">
+    <div class="hh-vtabs" id="cjTabs" role="tablist"></div>
+    <table class="hh-table" id="cjTable"></table>
+    <p>Tap a verb to see it with every person. Watch, learn, play, speak, practise.</p></div>
   <ol class="hh-parts" id="stParts"></ol>
   <div class="push"><button class="btn" id="stGo" type="button">Start the lesson</button></div>
 </div>
 
 <!-- EMBED CARD (videos, slides, Speak, practice games): the iframe takes all the height that's left -->
 <div class="screen hh-embed" id="sEmbed" hidden>
-  <div class="hh-lbar"><button class="back" id="eQuit" type="button" aria-label="Leave the lesson">✕</button>
-    <div class="bar"><i id="eBar"></i></div><div class="count" id="eCount"></div></div>
+  <div class="hh-lbar"><button class="back" id="eQuit" type="button" aria-label="Back to the lesson parts">✕</button>
+    <div class="bar"><i id="eBar"></i></div><div class="count" id="eCount"></div><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
   <div class="hh-ehead">
     <div><div class="brand" id="eSec"></div><b id="eName"></b></div>
     <button class="hh-full" id="eFull" type="button">⤢ Full screen</button>
   </div>
   <p class="hh-ehow" id="eHow"></p>
   <div class="hh-frame" id="eFrame"></div>
-  <button class="hh-fbtn hh-fclose" id="eClose" type="button" aria-label="Close full screen" hidden>✕</button>
+  <button class="hh-fbtn hh-fclose" id="eClose" type="button" aria-label="Close full screen" hidden><span aria-hidden="true">✕</span> Close</button>
+  <button class="hh-fbtn hh-fhome" id="eHome" type="button" data-home aria-label="Home: back to the map" hidden>⌂</button>
   <button class="hh-fbtn hh-frot" id="eRot" type="button" aria-label="Turn the video" hidden>↻</button>
   <div class="hh-ego"><button class="btn" id="eGo" type="button">Continue</button></div>
 </div>
 
 <!-- LESSON CARD (the card before each game) -->
 <div class="screen" id="sLesson" hidden>
-  <div class="hh-lbar"><button class="back" id="lQuit" type="button" aria-label="Leave the lesson">✕</button>
-    <div class="bar"><i id="lBar"></i></div><div class="count" id="lCount"></div></div>
+  <div class="hh-lbar"><button class="back" id="lQuit" type="button" aria-label="Back to the lesson parts">✕</button>
+    <div class="bar"><i id="lBar"></i></div><div class="count" id="lCount"></div><button class="hh-trbtn" type="button" data-trtoggle aria-pressed="true">abc</button><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
   <div class="hh-lcard pop" id="lCard"></div>
   <div class="push"><button class="btn" id="lGo" type="button">Continue</button></div>
 </div>
 
 <!-- COMPLETE -->
 <div class="screen hh-done" id="sDone" hidden>
+  <div class="hh-topright"><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
   <img src="icons/avatar.webp" alt="" id="cAvatar">
   <div class="brand" style="margin-top:14px">STEP 4 COMPLETE</div>
   <h1 id="cTitle">Kol hakavod!</h1>
@@ -532,7 +636,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 </div>
 
 <main id="play" hidden>
-<div id="hhStrip"><span id="hhStripTxt">STEP 4</span><div class="bar"><i id="hhStripBar"></i></div></div>
+<div id="hhStrip"><span id="hhStripTxt">STEP 4</span><div class="bar"><i id="hhStripBar"></i></div><button class="hh-trbtn" type="button" data-trtoggle aria-pressed="true">abc</button><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
 
 
 <!-- HOME -->
@@ -766,10 +870,8 @@ body{min-height:100dvh;overscroll-behavior-y:none}
       <div class="tr" id="g8tr"></div>
       <div class="hint" id="g8en"></div>
     </div>
-    <div class="label" style="margin-bottom:0">They want</div>
-    <div class="picks" id="g8main"></div>
-    <div class="label" style="margin-bottom:0">And</div>
-    <div class="picks" id="g8extra"></div>
+    <div class="hint" id="g8how" style="margin-top:10px">Listen, then tap the order you heard. One tap is your answer.</div>
+    <div class="opts" id="g8opts" style="margin-top:10px"></div>
     <div class="msg" id="g8msg" aria-live="polite"></div>
   </div>
   <div class="row" id="g8nextRow" hidden><button class="btn" id="g8next" type="button">I said it · next</button></div>
@@ -1665,7 +1767,7 @@ function startOrder(){
   $("g5bar").style.width = "0%"; $("g5count").textContent = "";
   rows5("start"); introPage(1);
 }
-const word5 = id => S.track === "read" ? LEX[id].he + "  " + LEX[id].tr : LEX[id].tr;
+const word5 = id => S.track === "read" ? LEX[id].he + (window.HH_TR === false ? "" : "  " + LEX[id].tr) : LEX[id].tr;
 function introPage(n){
   o5.page = n;
   const grid = $("g5words"); grid.innerHTML = "";
@@ -1901,7 +2003,7 @@ const pick7 = a => a[Math.floor(Math.random() * a.length)];
 function makeOrder(served){
   // the customer speaks for themselves ("I want..."), so the verb follows the customer: a man says rotze, a woman rotza
   const g = Math.random() < 0.5 ? "m" : "f", pron = "ani", He = "I";
-  const kinds = served < 3 ? ["simple", "need"] : served < 6 ? ["simple", "need", "neg", "strong"] : ["neg", "strong", "with", "with"];
+  const kinds = served < 3 ? ["simple", "need"] : served < 6 ? ["simple", "need", "strong"] : ["need", "strong", "with", "with"];   // "neg" dropped until two-part lines are recorded
   const kind = pick7(kinds), V = RUSH_VERBS;
   let ids, en, icon;
   if (kind === "simple"){ const it = pick7(["kafe","te","mayim","uga","pitza"]);
@@ -1965,7 +2067,7 @@ function nextCustomer(){
   if (!r7.reviewing) r7.seen++;
   $("g7face").textContent = pick7(o.g === "m" ? ["🧔", "👨", "👴", "👨‍🦱"] : ["👩", "👵", "👩‍🦰", "👱‍♀️"]);
   $("g7who").textContent = r7.reviewing ? "Back for another try:" : (o.g === "m" ? "A man" : "A woman") + " walks in:";
-  $("g7ord").textContent = "“Hi! " + o.en + "”  " + o.icon;
+  $("g7ord").textContent = "“" + o.en + "”  " + o.icon;
   $("g7tell").textContent = "Say it in Hebrew, the way " + (o.g === "m" ? "he" : "she") + " would";
   $("g7clock").textContent = clock7(r7.seen);
   $("g7cup").hidden = true;
@@ -2055,51 +2157,51 @@ function endRush(){
 
 /* ---------- GAME 8: By Ear (listening only) ---------- */
 let e8 = { phase:"idle" };
+const earOrder = (g, main, extra) => ({ g, main:main[0], extra:extra[0], ids:["ani", RUSH_VERBS.want[g], main[0]].concat(extra[3]),
+  en:"I want " + main[2] + (extra[3].length ? " " + extra[2] : ""), icon:main[1] + (extra[3].length ? " " + extra[1] : "") });
+/* every order this game can play (each one has its own recording) */
+function earAll(g){
+  const out = EAR_MAIN.map(m => earOrder(g, m, EAR_EXTRA[0]));
+  EAR_MAIN.slice(0, 2).forEach(m => EAR_EXTRA.slice(1).forEach(x => out.push(earOrder(g, m, x))));
+  return out;
+}
 function makeEar(n){
   const g = Math.random() < 0.5 ? "m" : "f";
-  let main, extra;
-  if (n < 3){ main = pick7(EAR_MAIN); extra = EAR_EXTRA[0]; }                       // first three: one thing, nothing else
-  else { main = pick7(EAR_MAIN.slice(0, 2)); extra = pick7(EAR_EXTRA.slice(1)); }     // then: a drink with or without something
-  return { main:main[0], extra:extra[0], ids:["ani", RUSH_VERBS.want[g], main[0]].concat(extra[3]),
-           en:"I want " + main[2] + (extra[3].length ? " " + extra[2] : "") };
+  const main = n < 3 ? pick7(EAR_MAIN) : pick7(EAR_MAIN.slice(0, 2));      // first three: one thing; then a drink with or without something
+  const extra = n < 3 ? EAR_EXTRA[0] : pick7(EAR_EXTRA.slice(1));
+  return earOrder(g, main, extra);
 }
 function startEar(){
-  e8 = { phase:"idle", i:0, clean:0, tries:0, cur:null, main:null, extra:null, last:"" };
+  e8 = { phase:"idle", i:0, clean:0, cur:null, last:"" };
   show("g8"); nextEar();
 }
-function row8(boxId, list, field){
-  const box = $(boxId); box.innerHTML = "";
-  list.forEach(x => {
-    const b = document.createElement("button"); b.type = "button"; b.className = "pick";
-    const ic = document.createElement("span"); ic.textContent = x[1]; ic.setAttribute("aria-hidden", "true");
-    const lb = document.createElement("small"); lb.textContent = x[2];
-    b.append(ic, lb); b.setAttribute("aria-pressed", "false"); b.dataset.k = x[0];
-    b.addEventListener("click", () => {
-      if (e8.phase !== "listen") return;
-      e8[field] = x[0];
-      box.querySelectorAll(".pick").forEach(p => p.setAttribute("aria-pressed", String(p === b)));
-      if (e8.main !== null && e8.extra !== null) checkEar();
-    });
-    box.append(b);
-  });
+/* 4 cards: the order heard + 3 close ones (same food or same extra), as full English sentences */
+function earCards(o){
+  const pool = earAll(o.g).filter(x => x.ids.join() !== o.ids.join());
+  const near = shuffle(pool.filter(x => x.main === o.main || x.extra === o.extra));
+  const far = shuffle(pool.filter(x => !(x.main === o.main || x.extra === o.extra)));
+  return shuffle([o].concat(near.concat(far).slice(0, 3)));
 }
 function nextEar(){
   if (e8.i >= EAR_ROUNDS) return finish("Good ear!", e8.clean + " / " + EAR_ROUNDS,
     "orders understood by ear on the first try.", "No reading needed.");
   let o; do { o = makeEar(e8.i); } while (o.ids.join() === e8.last);
-  e8.cur = o; e8.last = o.ids.join(); e8.tries = 0; e8.main = null; e8.extra = null;
-  row8("g8main", EAR_MAIN, "main"); row8("g8extra", EAR_EXTRA, "extra");
+  e8.cur = o; e8.last = o.ids.join();
+  const box = $("g8opts"); box.innerHTML = "";
+  earCards(o).forEach(c => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "opt"; b.dataset.k = c.ids.join("-");
+    const ic = document.createElement("span"); ic.textContent = c.icon; ic.setAttribute("aria-hidden", "true");
+    const t = document.createElement("b"); t.textContent = c.en;
+    b.append(ic, t); b.addEventListener("click", () => checkEar(c, b)); box.append(b);
+  });
   $("g8tag").textContent = "Listen. What did they order?";
+  $("g8how").hidden = false;
   $("g8msg").textContent = ""; $("g8sent").hidden = true; $("g8nextRow").hidden = true;
   $("g8bar").style.width = (e8.i / EAR_ROUNDS * 100) + "%";
   $("g8count").textContent = (e8.i + 1) + " / " + EAR_ROUNDS;
-  // with no Hebrew audio on this device, fall back to showing the sentence (and say so)
   const audio = hasAudio(o.ids);
   $("g8note").hidden = audio;
-  if (!audio){
-    $("g8note").textContent = "No Hebrew audio on this device yet, so the order is shown as text. With recordings added, this game is audio only.";
-    showSent8();
-  }
+  if (!audio){ $("g8note").textContent = "No Hebrew audio on this device yet, so the order is shown as text."; showSent8(); }
   pop($("g8card")); e8.phase = "listen"; speak(o.ids);
 }
 function showSent8(){
@@ -2107,25 +2209,18 @@ function showSent8(){
   $("g8en").textContent = e8.phase === "said" ? e8.cur.en : "";
   $("g8sent").hidden = false;
 }
-function checkEar(){
-  const ok = e8.main === e8.cur.main && e8.extra === e8.cur.extra;
-  if (!ok && e8.tries === 0){
-    // one more chance: clear the picks and play it again, slower
-    e8.tries = 1; e8.main = null; e8.extra = null; sfx("soft");
-    document.querySelectorAll("#g8card .pick").forEach(p => p.setAttribute("aria-pressed", "false"));
-    $("g8msg").textContent = "Not quite. Listen again, slower.";
-    return speak(e8.cur.ids, true);
-  }
-  e8.phase = "said";
-  if (ok && e8.tries === 0) e8.clean++;
-  document.querySelectorAll("#g8card .pick").forEach(p => {
-    p.setAttribute("aria-pressed", "false");
-    if (p.dataset.k === e8.cur.main || p.dataset.k === e8.cur.extra) p.classList.add("right");
+/* exactly one tap = the answer */
+function checkEar(c, btn){
+  if (e8.phase !== "listen") return;
+  const ok = c.ids.join() === e8.cur.ids.join();
+  e8.phase = "said"; if (ok) e8.clean++;
+  document.querySelectorAll("#g8opts .opt").forEach(b => {
+    if (b.dataset.k === e8.cur.ids.join("-")) b.classList.add("right"); else if (b === btn) b.classList.add("wrong"); else b.classList.add("dim");
   });
-  $("g8tag").textContent = ok ? "Yes! Now say it yourself" : "This was the order. Say it yourself";
-  $("g8msg").textContent = "";
+  $("g8tag").textContent = ok ? "Yes! Now say it yourself" : "Not this time. This was the order. Say it yourself";
+  $("g8how").hidden = true; $("g8msg").textContent = "";
   showSent8(); $("g8nextRow").hidden = false;
-  sfx(ok ? "good" : "soft"); speak(e8.cur.ids);
+  sfx(ok ? "good" : "soft"); speak(e8.cur.ids);   // the recording of the order that was heard, matching the text shown
 }
 $("g8play").addEventListener("click", () => { if (e8.cur) speak(e8.cur.ids); });
 $("g8slow").addEventListener("click", () => { if (e8.cur) speak(e8.cur.ids, true); });
@@ -2292,25 +2387,36 @@ function paintHome(){
 $("hSet").addEventListener("click", () => openOnb(true));
 
 /* ---------- onboarding / settings ---------- */
-let onbGender = "", onbMode = "";
+let onbGender = "", onbMode = "", onbTr = true, onbSettings = false;
 function paintOnb(){
   document.querySelectorAll("#oGender button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.value === onbGender)));
   document.querySelectorAll("#oMode button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.value === onbMode)));
   $("oGo").disabled = !onbGender || !onbMode;   // both choices are required
+  $("oTr").setAttribute("aria-checked", String(onbTr));
+  $("oHome").hidden = !(onbSettings || (onbGender && onbMode));   // home shows once the track is picked
 }
 function openOnb(settings){
   onbGender = A.gender; $("oName").value = A.name || "";
   onbMode = A.mode || "";   // A.mode is set only once the learner has picked it
+  onbSettings = !!settings; onbTr = A.tr !== undefined ? A.tr : onbMode !== "read";
   $("oTitle").textContent = settings ? "Settings" : "Welcome!";
   $("oSub").textContent = settings ? "Change these any time." : "Two quick things and you're in.";
   $("oGo").textContent = settings ? "Save" : "Start learning";
   paintOnb(); go("sOnb");
 }
 $("oGender").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; onbGender = b.dataset.value; sfx("tap"); paintOnb(); });
-$("oMode").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; onbMode = b.dataset.value; sfx("tap"); paintOnb(); });
+$("oMode").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.value !== onbMode) onbTr = b.dataset.value === "speak";   // default: on for Just speak, off for Speak + read
+  onbMode = b.dataset.value; sfx("tap"); paintOnb(); });
+$("oTr").addEventListener("click", () => { onbTr = !onbTr; sfx("tap"); paintOnb(); });
+$("oHome").addEventListener("click", e => {
+  e.stopPropagation();
+  if (!onbSettings && onbGender && onbMode) return $("oGo").click();   // first run: same as Start once both are picked
+  if (A.gender && A.mode) paintHome();
+});
 $("oGo").addEventListener("click", () => {
   if (!onbGender || !onbMode) return;
-  A.name = $("oName").value.trim().slice(0, 20); A.gender = onbGender; A.mode = onbMode; A.read = onbMode === "read"; saveA();
+  A.name = $("oName").value.trim().slice(0, 20); A.gender = onbGender; A.mode = onbMode; A.read = onbMode === "read"; A.tr = onbTr; saveA(); applyTr();
   syncGameSettings(); unlockAudio(); sfx("pop"); paintHome();
 });
 function syncGameSettings(){
@@ -2321,7 +2427,7 @@ function syncGameSettings(){
 async function openStep(){
   const acc = await checkAccess("step4");
   if (!acc.ok){ toast("This step opens after you join"); return; }
-  $("stXp").textContent = "⚡ " + A.xp;
+  $("stXp").textContent = "⚡ " + A.xp; paintConj();
   const ol = $("stParts"); ol.innerHTML = "";
   let lastSec = "";
   LESSON.forEach((p, i) => {
@@ -2343,6 +2449,38 @@ async function openStep(){
 }
 $("stBack").addEventListener("click", () => paintHome());
 $("stGo").addEventListener("click", () => startLesson());
+
+/* ---------- the Magic Four with every person (STEP 4 page header) ---------- */
+const PRONOUNS = [
+  ["אֲנִי","ani","I","mf"], ["אַתָּה","ata","you (m)","m"], ["אַתְּ","at","you (f)","f"], ["הוּא","hu","he","m"], ["הִיא","hi","she","f"],
+  ["אֲנַחְנוּ","anachnu","we","pl"], ["אַתֶּם","atem","you (pl)","pl"], ["הֵם","hem","they","pl"]
+];
+const CONJ = {
+  want:{ en:"want", m:["רוֹצֶה","rotze"],   f:["רוֹצָה","rotza"],    pl:["רוֹצִים","rotzim"] },
+  can: { en:"can",  m:["יָכוֹל","yachol"],  f:["יְכוֹלָה","yechola"], pl:["יְכוֹלִים","yecholim"] },
+  need:{ en:"need", m:["צָרִיךְ","tzarich"], f:["צְרִיכָה","tzricha"], pl:["צְרִיכִים","tzrichim"] },
+  love:{ en:"love", m:["אוֹהֵב","ohev"],    f:["אוֹהֶבֶת","ohevet"],  pl:["אוֹהֲבִים","ohavim"] }
+};
+let conjVerb = "want";
+function paintConj(){
+  const tabs = $("cjTabs"); tabs.innerHTML = "";
+  Object.keys(CONJ).forEach(k => {
+    const b = document.createElement("button"); b.type = "button"; b.setAttribute("role", "tab");
+    b.textContent = CONJ[k].en; b.setAttribute("aria-selected", String(k === conjVerb));
+    b.addEventListener("click", () => { conjVerb = k; sfx("tap"); paintConj(); }); tabs.append(b);
+  });
+  const v = CONJ[conjVerb], tb = $("cjTable"); tb.innerHTML = "";
+  const form = (cls, f) => '<span class="' + cls + '" lang="he">' + f[0] + '</span><span class="hh-cj-tr">' + f[1] + "</span>";
+  PRONOUNS.forEach(([he, tr, en, g]) => {
+    const tr_ = document.createElement("tr");
+    const verb = g === "mf" ? '<span style="display:flex;gap:10px;justify-content:flex-start"><span>' + form("m", v.m) + '</span><span>' + form("f", v.f) + "</span></span>"
+               : form(g === "pl" ? "pl" : g, v[g]);
+    const enV = g === "mf" || g === "pl" ? v.en : (v.en === "can" ? "can" : v.en + "s");
+    tr_.innerHTML = '<td class="hh-p"><span lang="he">' + he + '</span><span class="hh-cj-tr">' + tr + '</span></td><td class="hh-v">' + verb +
+      '</td><td class="hh-en">' + en + " " + (en.startsWith("you") || en === "I" || en === "we" || en === "they" ? v.en : enV) + "</td>";
+    tb.append(tr_);
+  });
+}
 
 /* ---------- lesson flow ---------- */
 let L = null;   // { mode:"lesson"|"single", pos, t0, said, xp, prev }
@@ -2473,7 +2611,9 @@ function openFull(){
   // portrait phone + video: turn the player sideways so it uses the whole screen (tap ↻ to undo)
   box.classList.toggle("rot", box.classList.contains("is-wide") && isPortrait());
   document.body.classList.add("hh-noscroll");
-  $("eClose").hidden = false; $("eRot").hidden = !box.classList.contains("is-wide");
+  // the phone's Back button closes full screen instead of leaving the app
+  try{ if (!(history.state && history.state.hhFull)) history.pushState({ hhFull:1 }, ""); }catch(e){}
+  $("eClose").hidden = false; $("eHome").hidden = false; $("eRot").hidden = !box.classList.contains("is-wide");
   try{
     // ask for it on the whole card screen, so the ✕ and ↻ buttons stay above the frame in the browser's top layer
     const host = $("sEmbed"), req = host.requestFullscreen || host.webkitRequestFullscreen;
@@ -2486,7 +2626,8 @@ function closeFull(){
   const was = box.classList.contains("is-full");
   box.classList.remove("is-full", "rot");
   document.body.classList.remove("hh-noscroll");
-  $("eClose").hidden = true; $("eRot").hidden = true;
+  $("eClose").hidden = true; $("eHome").hidden = true; $("eRot").hidden = true;
+  if (was && history.state && history.state.hhFull){ try{ history.back(); }catch(e){} }   // drop our Back-button entry
   if (was){ try{ if (document.fullscreenElement) document.exitFullscreen(); else if (document.webkitFullscreenElement) document.webkitExitFullscreen(); }catch(e){} }
 }
 $("eFull").addEventListener("click", openFull);
@@ -2496,6 +2637,28 @@ $("eRot").addEventListener("click", () => { $("eFrame").classList.toggle("rot");
   if (!document.fullscreenElement && !document.webkitFullscreenElement && $("eFrame").classList.contains("is-full")) closeFull();
 }));
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeFull(); });
+window.addEventListener("popstate", () => { if ($("eFrame").classList.contains("is-full")) closeFull(); });
+
+/* ---------- home button on every screen: back to the map, progress kept ---------- */
+function goHome(){
+  try{ closeFull(); }catch(e){}
+  clearEmbed(); stopGame();
+  if (!$("play").hidden){ path = null; gameShow("home"); }   // the game's own cleanup (timers, mic)
+  if (L && L.mode === "lesson"){ A.step4.pos = L.pos; A.step4.run = { said:L.said, xp:L.xp, ms:L.ms + (Date.now() - L.t0) }; saveA(); }
+  L = null;
+  if (A.gender && A.mode) paintHome(); else openOnb(false);
+}
+document.addEventListener("click", e => {
+  const h = e.target.closest("[data-home]"); if (h && h.id !== "oHome"){ e.preventDefault(); sfx("tap"); goHome(); return; }
+  const t = e.target.closest("[data-trtoggle]"); if (t){ A.tr = !(A.tr !== false); saveA(); applyTr(); sfx("tap"); }
+});
+/* English letters under the Hebrew: on/off everywhere, saved */
+function applyTr(){
+  const on = A.tr !== false; window.HH_TR = on;
+  document.body.classList.toggle("hh-notr", !on);
+  document.querySelectorAll("[data-trtoggle]").forEach(b => { b.setAttribute("aria-pressed", String(on));
+    b.setAttribute("aria-label", on ? "English letters: on. Tap to hide" : "English letters: off. Tap to show"); b.title = "Show English letters"; });
+}
 
 /* ---------- hooks into the game script ---------- */
 const gameShow = show, gameFinish = finish;
@@ -2524,6 +2687,8 @@ finish = function(title, big, sub, extra){
 
 /* ---------- boot ---------- */
 booted = true;
+if (A.tr === undefined && A.mode) A.tr = A.mode === "speak";
+applyTr();
 if (A.gender && A.mode){ syncGameSettings(); paintHome(); } else openOnb(false);
 
 if ("serviceWorker" in navigator){
