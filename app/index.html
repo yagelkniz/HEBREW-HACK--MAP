@@ -634,7 +634,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v11-89d33d30d8</p>
+  <p class="hh-ver" id="oVer">Version hh-v12-5c24ec944f</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -2865,6 +2865,7 @@ $("eRot").addEventListener("click", () => { $("eFrame").classList.toggle("rot");
    inside a fixed layer with a transform). The player gets the whole height below the button row as its long side
    and the whole width as its short side; Vimeo/Genially fit their 16:9 picture inside that box. */
 let userRot = false;
+const SLIDE_GUTTER = 128;   // px, both sides together (Genially arrow ~44px + its inset + breathing room)
 function layoutFull(){
   const box = $("eFrame"), f = box && box.querySelector("iframe"); if (!f) return;
   const props = ["position","top","left","width","height","transform","transform-origin","right","bottom"];
@@ -2875,7 +2876,11 @@ function layoutFull(){
   if (!box.classList.contains("rot")) return;   // upright / landscape: the CSS sizes it
   const vv = window.visualViewport, W = Math.round(vv ? vv.width : innerWidth), H = Math.round(vv ? vv.height : innerHeight);
   const btn = $("eClose").getBoundingClientRect(), top = Math.max(0, Math.round(btn.bottom + 6));
-  const long = H - top, short = W;
+  const long = H - top;
+  // Genially draws its round ← → arrows on the iframe's left and right edges and fits the 16:9 slide inside.
+  // Keep the iframe short enough that the slide leaves a gutter of SLIDE_GUTTER/2 on each side for those
+  // arrows, so they sit beside the slide instead of on top of it.
+  const short = box.classList.contains("is-slides") ? Math.min(W, Math.floor((long - SLIDE_GUTTER) * 9 / 16)) : W;
   const set = (k, v) => f.style.setProperty(k, v, "important");
   set("position", "absolute"); set("right", "auto"); set("bottom", "auto");
   set("width", long + "px"); set("height", short + "px");
