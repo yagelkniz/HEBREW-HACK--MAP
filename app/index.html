@@ -526,10 +526,10 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   .hh-embed .btn{min-height:62px;font-size:20px;max-width:520px;margin:0 auto;display:block;width:100%}
   /* video: the column width at 16:9, never taller than ~80% of the window */
   .hh-embed .hh-frame,.hh-embed .hh-frame.is-wide{flex:none;margin:14px auto 0;border-radius:16px;
-    width:min(100%, calc(min(80vh, 100dvh - 260px) * 16 / 9));aspect-ratio:16/9;height:auto;max-height:none}
-  .hh-embed .hh-frame:not(.is-wide){aspect-ratio:auto;height:min(80vh, calc(100dvh - 260px))}
-  .hh-embed .hh-frame.is-wide.is-slides{aspect-ratio:auto;height:min(80vh, calc(100dvh - 260px));
-    width:min(100%, calc(min(80vh, 100dvh - 260px) * 16 / 9 + var(--hh-arrow-gap)))}
+    width:min(100%, calc(min(74vh, 100dvh - 340px) * 16 / 9));aspect-ratio:16/9;height:auto;max-height:none}
+  .hh-embed .hh-frame:not(.is-wide){aspect-ratio:auto;height:min(74vh, calc(100dvh - 340px))}
+  .hh-embed .hh-frame.is-wide.is-slides{aspect-ratio:auto;height:min(74vh, calc(100dvh - 340px));
+    width:min(100%, calc(min(74vh, 100dvh - 340px) * 16 / 9 + var(--hh-arrow-gap)))}
   .hh-embed .hh-frame.is-full{width:100vw;height:100dvh;margin:0;border-radius:0;aspect-ratio:auto}
 }
 
@@ -583,7 +583,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 .hh-vtip{display:none}
 @media (pointer:coarse) and (max-width:899px){
   .hh-vtip:not([hidden]){display:flex;flex-direction:column;gap:8px;margin:10px 0 auto;padding:12px 14px;border-radius:16px;background:#26543F;border:2px solid #FF6FA5}
-  .hh-frame.is-wide:has(+ .hh-vtip:not([hidden])){margin-bottom:0}
+  
 }
 .hh-vtip-row{display:flex;align-items:center;gap:12px}
 .hh-vtip-row svg{flex:none;width:34px;height:34px;color:#FF6FA5}
@@ -614,6 +614,34 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 .hh-cf-no{width:100%;min-height:50px;border-radius:999px;background:transparent;border:2px solid rgba(244,241,232,.35);color:#F4F1E8;font:inherit;font-weight:700;font-size:16px;cursor:pointer}
 @media (min-width:900px) and (min-height:501px){ .hh-cf{align-items:center} .hh-cf-card{border-radius:24px;border-bottom:2px solid #FF6FA5;max-width:420px} }
 @media (orientation:landscape) and (max-height:500px){ .hh-cf-card{max-width:420px;gap:8px;padding-top:8px} .hh-cf-av{display:none} }
+
+/* v14 Back button: small secondary pill left of the pink button */
+.hh-ego{display:flex;align-items:stretch;gap:10px}
+.hh-ego .btn{flex:1;min-width:0}
+.hh-back{flex:none;min-height:50px;padding:0 16px;border-radius:999px;border:2px solid rgba(244,241,232,.35);background:transparent;color:#F4F1E8;font:inherit;font-weight:700;font-size:15px;cursor:pointer}
+.hh-back[hidden]{display:none}
+.hh-back:active{transform:scale(.96)}
+#hhStrip .hh-sback{min-height:40px;min-width:40px;padding:0;font-size:22px;line-height:1;border-radius:12px}
+@media (orientation:landscape) and (max-height:500px){ .hh-embed .hh-ego .hh-back{min-height:40px;padding:0 12px;font-size:14px} .hh-embed .hh-ego .btn{flex:none} }
+
+/* v14: big full-screen button right under the video / slides (replaces the small pill in the header) */
+.hh-frame.is-wide{margin-bottom:0}
+.hh-under{flex:none;display:flex;flex-direction:column;margin-bottom:auto}
+.hh-under .hh-vtip:not([hidden]){margin:10px 0 0}
+.hh-fullbig{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;margin-top:12px;border:0;border-radius:999px;background:#FF6FA5;color:#173A2D;font:inherit;font-size:18px;font-weight:900;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.hh-fullbig svg{width:24px;height:24px;flex:none}
+.hh-fullbig:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.18)}
+@media (orientation:landscape) and (max-height:500px){
+  .hh-under{display:contents}
+  .hh-fullbig{grid-column:3;grid-row:1;width:auto;min-height:40px;margin:0;padding:0 14px;font-size:14px;box-shadow:none}
+  .hh-fullbig svg{width:18px;height:18px}
+  .hh-embed .hh-ego{grid-column:4/5} }
+@media (min-width:900px) and (min-height:501px){
+  .hh-under{width:min(100%, 520px);margin:0 auto auto}
+  .hh-fullbig{min-height:58px;font-size:19px} }
+@media (min-width:900px) and (min-height:501px){ .hh-embed .hh-ego{width:min(100%, 620px);margin:0 auto} .hh-embed .hh-ego .btn{margin:0;max-width:none} .hh-embed .hh-back{min-height:62px;padding:0 22px;font-size:17px} }
+.hh-logo{height:44px;width:auto;max-width:none;display:block}
+@media (max-width:370px){ .hh-logo{height:36px} }
 </style>
 </head>
 <body>
@@ -661,7 +689,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v13-13f813424d</p>
+  <p class="hh-ver" id="oVer">Version hh-v14-9a41ef3806</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -683,10 +711,11 @@ body{min-height:100dvh;overscroll-behavior-y:none}
     <div class="bar"><i id="eBar"></i></div><div class="count" id="eCount"></div><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
   <div class="hh-ehead">
     <div><div class="brand" id="eSec"></div><b id="eName"></b></div>
-    <button class="hh-full" id="eFull" type="button">⤢ Full screen</button>
   </div>
   <p class="hh-ehow" id="eHow"></p>
   <div class="hh-frame" id="eFrame"></div>
+  <div class="hh-under">
+  <button class="hh-fullbig" id="eFull" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="eFullTxt">Watch full screen</span></button>
   <div class="hh-vtip" id="eTip" hidden role="note" aria-label="Tip for a bigger video">
     <div class="hh-vtip-row">
       <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="12" y="6" width="14" height="24" rx="3" fill="none" stroke="currentColor" stroke-width="2.6"/>
@@ -701,11 +730,12 @@ body{min-height:100dvh;overscroll-behavior-y:none}
         <path d="M26 14 L34 6 M34 6 h-6 M34 6 v6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <b>2. Pinch to zoom for an even bigger video</b></div>
   </div>
+  </div>
   <button class="hh-fbtn hh-fclose" id="eClose" type="button" aria-label="Close full screen" hidden><span aria-hidden="true">✕</span> Close</button>
   <button class="hh-fbtn hh-fhome" id="eHome" type="button" data-home aria-label="Home: back to the map" hidden>⌂</button>
   <p class="hh-fhint" id="eHint" hidden>Turn your phone sideways for a bigger picture</p>
   <button class="hh-fbtn hh-frot" id="eRot" type="button" aria-label="Turn the video" hidden>↻</button>
-  <div class="hh-ego"><button class="btn" id="eGo" type="button">Continue</button></div>
+  <div class="hh-ego"><button class="hh-back" id="eBack" type="button" aria-label="Back to the previous part">‹ Back</button><button class="btn" id="eGo" type="button">Continue</button></div>
 </div>
 
 <!-- CONFIRM SHEET (pink Continue button on every part) -->
@@ -724,7 +754,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
   <div class="hh-lbar"><button class="back" id="lQuit" type="button" aria-label="Back to the lesson parts">✕</button>
     <div class="bar"><i id="lBar"></i></div><div class="count" id="lCount"></div><button class="hh-trbtn" type="button" data-trtoggle aria-pressed="true">abc</button><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
   <div class="hh-lcard pop" id="lCard"></div>
-  <div class="push"><button class="btn" id="lGo" type="button">Continue</button></div>
+  <div class="push hh-ego"><button class="hh-back" id="lBack" type="button" aria-label="Back to the previous part">‹ Back</button><button class="btn" id="lGo" type="button">Continue</button></div>
 </div>
 
 <!-- COMPLETE -->
@@ -746,7 +776,7 @@ body{min-height:100dvh;overscroll-behavior-y:none}
 </div>
 
 <main id="play" hidden>
-<div id="hhStrip"><span id="hhStripTxt">STEP 4</span><div class="bar"><i id="hhStripBar"></i></div><button class="hh-trbtn" type="button" data-trtoggle aria-pressed="true">abc</button><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
+<div id="hhStrip"><button class="hh-back hh-sback" id="gBack" type="button" aria-label="Back to the previous part">‹</button><span id="hhStripTxt">STEP 4</span><div class="bar"><i id="hhStripBar"></i></div><button class="hh-trbtn" type="button" data-trtoggle aria-pressed="true">abc</button><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
 <div id="hhPron" class="hh-pron" aria-label="The Magic Four with every person"></div>
 
 
@@ -2425,7 +2455,8 @@ show("home");
 const STEP4_EMBEDS = {
   video1:   "https://player.vimeo.com/video/1239983927?texttrack=false&loop=1",
   genially: "https://view.genially.com/6ada21a1dab74c119dc03c95",
-  video2:   "https://player.vimeo.com/video/1239342378?texttrack=false",
+  video2:   "https://player.vimeo.com/video/1246948321",   // At the Café: new café animation (Nov 14, no captions track)
+  // video2_old: "https://player.vimeo.com/video/1239342378?texttrack=false",   // previous At the Café video: paste back into video2 to revert
   speak:    "https://kniz-speak.lovable.app/?lesson=verbs&translit=1",
   wordwall1:"https://wordwall.net/embed/98dd0be3eab74f9391b7964d525f4c10?themeId=65&templateId=25&fontStackId=0",
   wordwall2:"https://wordwall.net/embed/702775dacd644320abd98304ff1ca1ec?themeId=65&templateId=2&fontStackId=0",
@@ -2458,7 +2489,7 @@ async function checkAccess(stepId){
 
 /* Main-menu logo. Leave "" to show the mascot + "HEBREW HACK" text.
    To use a logo image: put the file in icons/ and set its path here, e.g. "icons/logo.png" (it is cached for offline use automatically). */
-const BRAND_LOGO = "";
+const BRAND_LOGO = "icons/logo-header.png";   // Eli's logo, header crop without the @handle line (from /workspace/hh-logo/hebrew-hack-logo-dark-bg.png)
 
 </script>
 <script>
@@ -2496,7 +2527,7 @@ const LESSON = [
   { type:"video", sec:"Watch",    icon:"🎬", key:"Sentence Builder", name:"Watch & learn", sub:"Eilai explains", url:STEP4_EMBEDS.video1, xp:5,
     how:"See how one of the Magic Four verbs turns into a full sentence." },
   { type:"embed", sec:"Learn",    icon:"📖", key:"The Magic Four", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP4_EMBEDS.genially, xp:5, wide:true, slides:true,
-    how:"Tap ⤢ Full screen to see the slides bigger. Want, can, need, love, for he and for she." },
+    how:"Tap Open full screen to see the slides bigger. Want, can, need, love, for he and for she." },
   { type:"video", sec:"Watch",    icon:"🎬", name:"At the Café", url:STEP4_EMBEDS.video2, xp:5,
     how:"The Magic Four at a café counter. Watch, then it's your turn to order." },
   // STEP 4 plays three games, in this order (Eli, Nov 14). Echo and Swap It are kept in HIDDEN_GAMES below.
@@ -2737,6 +2768,7 @@ function renderCard(){
   card.append(em, head, h, how);
   if (L.prev){ const pr = document.createElement("div"); pr.className = "hh-prev"; pr.textContent = L.prev; card.append(pr); }
   $("lGo").textContent = "Go";
+  paintBack();
   pop(card); go("sLesson");
 }
 /* Vimeo: captions on (the videos have English subtitles; texttrack=false in the old Systeme URLs switched them off),
@@ -2762,8 +2794,10 @@ function renderEmbed(p){
   f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
   box.append(f);
   if (/player\.vimeo\.com/.test(f.src)) attachVimeo(f); else vPlayer = null;
-  $("eTip").hidden = p.type !== "video";   // one static tip line under videos (phones only, see CSS)
+  $("eTip").hidden = p.type !== "video";
+  $("eFullTxt").textContent = p.type === "video" ? "Watch full screen" : "Open full screen";   // one static tip line under videos (phones only, see CSS)
   $("eGo").textContent = L.mode === "single" ? "Done" : "Continue · +" + p.xp + " XP";
+  paintBack();
   go("sEmbed");
 }
 $("lGo").addEventListener("click", () => launchGame(LESSON[L.pos].g));
@@ -2780,9 +2814,25 @@ $("cfYes").addEventListener("click", () => {
   closeConfirm(); if (!L || $("sEmbed").hidden) return;
   const p = LESSON[L.pos]; clearEmbed();
   if (L.mode === "single"){ L = null; return openStep(); }
-  earn(p.xp); sfx("good");
-  advance(p.name + "  ·  +" + p.xp + " XP");
+  const first = firstTime(); if (first) earn(p.xp); sfx("good");
+  advance(p.name + (first ? "  ·  +" + p.xp + " XP" : ""));
 });
+/* Back: to the previous part. No confirm sheet, no XP change, nothing un-marked. Hidden on part 1 and when one part was opened alone. */
+function canBack(){ return !!L && L.mode === "lesson" && L.pos > 0; }
+function paintBack(){ const on = canBack(); ["eBack", "lBack", "gBack"].forEach(id => { const b = $(id); if (b) b.hidden = !on; }); }
+function backPart(){
+  if (!canBack()) return;
+  closeConfirm(); clearEmbed(); stopGame();
+  if (window.earRelease) window.earRelease();
+  if (!$("play").hidden){ path = null; gameShow("home"); }   // leave a running game (timers, mic) without scoring it
+  L.pos--; L.prev = "";
+  L.ms += Date.now() - L.t0; L.t0 = Date.now();
+  A.step4.pos = L.pos; A.step4.run = { said:L.said, xp:L.xp, ms:L.ms }; saveA();
+  sfx("tap"); renderCard();
+}
+["eBack", "lBack", "gBack"].forEach(id => { const b = $(id); if (b) b.addEventListener("click", e => { e.preventDefault(); backPart(); }); });
+/* XP once per part per run: going Back and moving on again does not pay twice */
+function firstTime(){ const g = L.got || (L.got = {}); const f = !g[L.pos]; g[L.pos] = 1; return f; }
 function earn(xp){ L.xp += xp; A.xp += xp; bumpStreak(); saveA(); }
 
 function launchGame(g){
@@ -2818,7 +2868,7 @@ function paintPron(){
 function paintStrip(){
   if (!L) return;
   paintPron();
-  $("hhStripTxt").textContent = partLabel();
+  $("hhStripTxt").textContent = partLabel(); paintBack();
   $("hhStripBar").style.width = Math.round(lessonFrac() * 100) + "%";
 }
 function advance(prev){
@@ -2903,7 +2953,9 @@ function attachVimeo(f){
     const pl = vPlayer;
     pl.getTextTracks().then(tr => {
       f.dataset.tracks = JSON.stringify((tr || []).map(t => t.language + ":" + t.kind + ":" + t.label));
-      const t = (tr || []).find(x => /^en/i.test(x.language)) || (tr || [])[0];
+      const real = (tr || []).filter(x => !/autogen|auto-generated/i.test((x.language || "") + " " + (x.label || "")));   // never Vimeo's auto-generated captions (the café video only has those)
+      const t = real.find(x => /^en/i.test(x.language)) || real[0];
+      if (!t) return pl.disableTextTrack().catch(() => {});
       if (t) return pl.enableTextTrack(t.language, t.kind).then(x => { f.dataset.cc = x.language + ":" + x.kind; });
     }).catch(() => {});
   }).catch(() => {});
@@ -3002,11 +3054,11 @@ finish = function(title, big, sub, extra){
   const part = LESSON[L.pos], xp = part.xp || 10;
   L.said += said;
   if (!A.step4.done.includes(g)) A.step4.done.push(g);
-  earn(xp);
+  const first = firstTime(); if (first) earn(xp);
   if (window.earRelease) window.earRelease();
   path = null; gameShow("home"); stopGame();     // the game's own cleanup (timers, mic), without its menu
   sfx("good");
-  const prev = title.replace(/!$/, "") + " · " + big + "  ·  +" + xp + " XP";
+  const prev = title.replace(/!$/, "") + " · " + big + (first ? "  ·  +" + xp + " XP" : "");
   if (L.mode === "single"){ toast("+" + xp + " XP"); L = null; return openStep(); }
   advance(prev);
 };
