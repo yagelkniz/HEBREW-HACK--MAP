@@ -675,6 +675,10 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 #hhStrip .hh-lxp{letter-spacing:0;color:var(--cream)}
 .hh-psheet .hh-cf-card{gap:10px;padding-top:10px}
 .hh-psheet .hh-pron{margin:0;width:100%}
+
+/* v16: the self-compare line under My voice / Eilai: one line, a little more visible than a plain hint */
+#g8recnote{color:var(--cream);opacity:.85;font-size:14px;font-weight:600;line-height:1.4;margin-top:10px}
+.hh-fullbig[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -722,7 +726,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v15-ae816654bc</p>
+  <p class="hh-ver" id="oVer">Version hh-v16-d59ed9f977</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -733,7 +737,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   <div class="hh-hero hh-conj">
     <div class="hh-vtabs" id="cjTabs" role="tablist"></div>
     <table class="hh-table" id="cjTable"></table>
-    <p>Tap a verb to see it with every person. Watch, learn, play, speak, practise.</p></div>
+    <p>Tap a verb to see it with every person. Watch, learn, play, practise.</p></div>
   <ol class="hh-parts" id="stParts"></ol>
   <div class="push"><button class="btn" id="stGo" type="button">Start the lesson</button></div>
 </div>
@@ -1036,7 +1040,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
     <div class="hint" id="g8how" style="margin-top:10px">Listen, then tap the sentence you heard. One tap is your answer.</div>
     <div class="opts" id="g8opts" style="margin-top:10px"></div>
     <div class="msg" id="g8msg" aria-live="polite"></div>
-    <div class="hh-rep" id="g8rep" hidden><button class="hh-recbtn" id="g8rec" type="button">🎙 Record yourself</button><div class="hh-reprow" id="g8cmp" hidden><button class="pill" id="g8mine" type="button">▶ My voice</button><button class="pill" id="g8orig" type="button">▶ Original</button><button class="pill" id="g8again" type="button">↻ Try again</button></div><div class="hint" id="g8recnote" aria-live="polite"></div></div>
+    <div class="hh-rep" id="g8rep" hidden><button class="hh-recbtn" id="g8rec" type="button">🎙 Record yourself</button><div class="hh-reprow" id="g8cmp" hidden><button class="pill" id="g8mine" type="button">▶ My voice</button><button class="pill" id="g8orig" type="button" aria-label="Play Eilai saying it">▶ Eilai</button><button class="pill" id="g8again" type="button">↻ Try again</button></div><div class="hint" id="g8recnote" aria-live="polite"></div></div>
   </div>
   <div class="row" id="g8nextRow" hidden><button class="btn" id="g8next" type="button">Next</button></div>
 </section>
@@ -2405,7 +2409,7 @@ function checkEar(c, btn){
   document.querySelectorAll("#g8opts .opt").forEach(b => {
     if (b.dataset.k === e8.cur.k) b.classList.add("right"); else if (b === btn) b.classList.add("wrong"); else { b.classList.add("dim"); b.hidden = true; }
   });
-  $("g8tag").textContent = ok ? "Yes! Now say it yourself" : "Not this time. This is what you heard. Say it yourself";
+  $("g8tag").textContent = ok ? "Now say it yourself" : "Not this time. This is what you heard. Say it yourself";
   $("g8how").hidden = true; $("g8msg").textContent = "";
   showSent8(); $("g8nextRow").hidden = false; $("g8rep").hidden = false;
   $("g8play").hidden = true; $("g8slow").hidden = true;   // replay is now the "Eilai" button next to "My voice"
@@ -2419,7 +2423,7 @@ function earRepReset(){
   if (earUrl){ URL.revokeObjectURL(earUrl); earUrl = null; }
   $("g8rep").hidden = true; $("g8cmp").hidden = true; $("g8rec").hidden = false;
   $("g8rec").textContent = "🎙 Record yourself"; $("g8rec").classList.remove("on"); $("g8recnote").textContent = "";
-  $("g8orig").textContent = "▶ Original";
+  $("g8orig").textContent = "▶ Eilai";
 }
 function earRelease(){
   earStopRec(true);
@@ -2449,7 +2453,7 @@ async function earRecord(){
     if (earUrl) URL.revokeObjectURL(earUrl);
     earUrl = URL.createObjectURL(new Blob(earChunks, { type: r.mimeType || "audio/webm" }));
     $("g8rec").hidden = true; $("g8cmp").hidden = false; $("g8mine").hidden = false; $("g8again").hidden = false;
-    $("g8recnote").textContent = "Listen to both. Same sound? Tap Next.";
+    $("g8recnote").textContent = "Compare yourself: play your recording, then Eilai's. Sound close? Tap Next.";
     sfx("pop");
   };
   r.start(); sfx("tap");
@@ -2554,31 +2558,50 @@ const LESSON = [
     how:"See how one of the Magic Four verbs turns into a full sentence." },
   { type:"embed", sec:"Learn",    icon:"📖", key:"The Magic Four", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP4_EMBEDS.genially, xp:5, wide:true, slides:true,
     how:"Tap Open full screen to see the slides bigger. Want, can, need, love, for he and for she." },
-  { type:"video", sec:"Watch",    icon:"🎬", name:"At the Café", url:STEP4_EMBEDS.video2, xp:5,
+  { type:"video", sec:"Watch",    icon:"🎬", name:"At the Café", url:STEP4_EMBEDS.video2, xp:5, cc:false,   // captions burned into the video; the CC track (Latin letters) is optional, off at start
     how:"The Magic Four at a café counter. Watch, then it's your turn to order." },
   // STEP 4 plays three games, in this order (Eli, Nov 14). Echo and Swap It are kept in HIDDEN_GAMES below.
   { type:"game", sec:"Play", g:8, icon:"👂", name:"By Ear",     xp:10, how:"Listen to I, he, she and you with want, can, need and love. Tap the sentence you heard." },
   { type:"game", sec:"Play", g:7, icon:"⏱", name:"Rush Hour",  xp:10, how:"The café opens at 8:00. Customers walk in; answer each one in Hebrew before the clock runs out." },
   { type:"game", sec:"Play", g:5, icon:"☕", name:"Café Order", xp:10, how:"The barista asks what you want. Pick it, say it in Hebrew, and build your order." },
-  { type:"embed", sec:"Speak",    icon:"🎙", name:"Speak", url:STEP4_EMBEDS.speak, xp:10, mic:true,
-    how:"Say the sentences into your phone and hear how close you are. Allow the microphone when asked." },
+  // "Speak" (KNIZ Speak iframe) left STEP 4 on Nov 15 (Eli: it repeats By Ear). It is kept in HIDDEN_PARTS below.
   { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 1", url:STEP4_EMBEDS.wordwall1, xp:5, how:"A quick round to lock in the verbs." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 2", url:STEP4_EMBEDS.wordwall2, xp:5, how:"Another round, a little faster." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Practice 3", url:STEP4_EMBEDS.wordwall3, xp:5, how:"Last round, then the lesson is done." }
 ];
-/* out of the STEP 4 flow for now; put an entry back into LESSON to restore it (game code and audio are untouched) */
+/* out of the STEP 4 flow for now; move an entry back into LESSON (and bump LESSON_VERSION + add the old names list) to restore it.
+   Game code, audio and the STEP4_EMBEDS.speak URL are untouched. */
+const HIDDEN_PARTS = [
+  { type:"embed", sec:"Speak",    icon:"🎙", name:"Speak", url:STEP4_EMBEDS.speak, xp:10, mic:true,
+    how:"Say the sentences into your phone and hear how close you are. Allow the microphone when asked." }
+];
 const HIDDEN_GAMES = [
   { type:"game", sec:"Play", g:6, icon:"⚡", name:"Echo",       xp:10, how:"A sentence flashes and disappears. Rebuild it from memory, then say it out loud." },
   { type:"game", sec:"Play", g:4, icon:"🔁", name:"Swap It",    xp:10, how:"Tap the word that has to change and pick the new one. Then say the new sentence." }
 ];
-const LESSON_VERSION = 3;   // bump when LESSON changes shape, so saved positions from an older lesson start fresh
-// v2 -> v3: keep what the learner already did, matched by part name (Echo / Swap It drop out)
-const V2_NAMES = ["Sentence Builder","The Magic Four","At the Café","Echo","Swap It","Café Order","By Ear","Rush Hour","Speak","Practice 1","Practice 2","Practice 3"];
-if (A.step4.v === 2){
-  const names = (A.step4.parts || []).map(i => V2_NAMES[i]).concat(V2_NAMES.slice(0, A.step4.pos || 0));
-  A.step4.parts = LESSON.map((p, k) => names.includes(p.key || p.name) ? k : -1).filter(k => k >= 0);
-  const next = LESSON.findIndex((p, k) => !A.step4.parts.includes(k));
-  A.step4.pos = next < 0 ? 0 : next; A.step4.run = null; A.step4.v = LESSON_VERSION;
+const LESSON_VERSION = 4;   // bump when LESSON changes shape; saved progress from older lessons is carried over by part name below
+// part names of every older lesson (index = saved position / saved done-part index)
+const OLD_NAMES = {
+  2: ["Sentence Builder","The Magic Four","At the Café","Echo","Swap It","Café Order","By Ear","Rush Hour","Speak","Practice 1","Practice 2","Practice 3"],
+  3: ["Sentence Builder","The Magic Four","At the Café","By Ear","Rush Hour","Café Order","Speak","Practice 1","Practice 2","Practice 3"]   // v3 -> v4: Speak removed
+};
+const partKey = p => p.key || p.name;
+if (OLD_NAMES[A.step4.v]){
+  const old = OLD_NAMES[A.step4.v], keys = LESSON.map(partKey);
+  // finished parts keep counting; parts that no longer exist (Speak, Echo, Swap It) just drop out
+  A.step4.parts = [...new Set((A.step4.parts || []).map(i => keys.indexOf(old[i])).filter(k => k >= 0))].sort((a, b) => a - b);
+  if (A.step4.v === 2) A.step4.parts = [...new Set(A.step4.parts.concat(old.slice(0, A.step4.pos || 0).map(n => keys.indexOf(n)).filter(k => k >= 0)))].sort((a, b) => a - b);
+  // the saved place: the same part in the new lesson; a removed part -> the next part that still exists
+  let pos = 0;
+  if (A.step4.v === 3 && A.step4.pos > 0){
+    let i = Math.min(A.step4.pos, old.length);
+    while (i < old.length && keys.indexOf(old[i]) < 0) i++;
+    pos = i >= old.length ? LESSON.length : keys.indexOf(old[i]);
+    if (pos >= LESSON.length){ const n = LESSON.findIndex((p, k) => !A.step4.parts.includes(k)); pos = n < 0 ? 0 : n; }
+  } else if (A.step4.v === 2){
+    const n = LESSON.findIndex((p, k) => !A.step4.parts.includes(k)); pos = n < 0 ? 0 : n; A.step4.run = null;
+  }
+  A.step4.pos = pos; A.step4.v = LESSON_VERSION;   // run (said / xp / time so far) and completed count are kept
   try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){}
 }
 if (A.step4.v !== LESSON_VERSION){ A.step4.pos = 0; A.step4.run = null; A.step4.done = []; A.step4.v = LESSON_VERSION; try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){} }
@@ -2805,8 +2828,8 @@ const VIMEO_TEXTTRACK = "en";
 function embedUrl(p){
   if (!/player\.vimeo\.com/.test(p.url)) return p.url;
   const u = new URL(p.url);
-  u.searchParams.set("texttrack", VIMEO_TEXTTRACK);
-  [["title","0"],["byline","0"],["portrait","0"],["playsinline","1"]].forEach(([k, v]) => { if (!u.searchParams.has(k)) u.searchParams.set(k, v); });
+  if (p.cc === false) u.searchParams.delete("texttrack"); else u.searchParams.set("texttrack", VIMEO_TEXTTRACK);
+  [["speed","1"],["title","0"],["byline","0"],["portrait","0"],["playsinline","1"]].forEach(([k, v]) => { if (!u.searchParams.has(k)) u.searchParams.set(k, v); });
   return u.toString();
 }
 const FRAME_ALLOW = "autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write";
@@ -2821,9 +2844,10 @@ function renderEmbed(p){
   f.allowFullscreen = true; f.setAttribute("allowfullscreen", ""); f.setAttribute("webkitallowfullscreen", ""); f.setAttribute("mozallowfullscreen", "");
   f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
   box.append(f);
-  if (/player\.vimeo\.com/.test(f.src)) attachVimeo(f); else vPlayer = null;
+  if (/player\.vimeo\.com/.test(f.src)) attachVimeo(f, p); else vPlayer = null;
   $("eTip").hidden = p.type !== "video";
-  $("eFullTxt").textContent = p.type === "video" ? "Watch full screen" : "Open full screen";   // one static tip line under videos (phones only, see CSS)
+  $("eFullTxt").textContent = p.type === "video" ? "Watch full screen" : "Open full screen";
+  $("eFull").hidden = !!p.mic;   // Speak: no full-screen button (Eli, Nov 15); videos, slides and practice keep it   // one static tip line under videos (phones only, see CSS)
   $("eGo").textContent = L.mode === "single" ? "Done" : "Continue · +" + p.xp + " XP";
   paintBack();
   go("sEmbed");
@@ -2982,7 +3006,7 @@ function loadVimeoApi(){
   });
   return vimeoApi;
 }
-function attachVimeo(f){
+function attachVimeo(f, part){
   vPlayer = null;
   loadVimeoApi().then(V => { if (!f.isConnected) return; try{ vPlayer = new V.Player(f); vPlayer.__f = f; }catch(e){ vPlayer = null; return; }
     // captions on by default (also in iOS's own full screen): English if there is one, else the first track
@@ -2991,7 +3015,7 @@ function attachVimeo(f){
       f.dataset.tracks = JSON.stringify((tr || []).map(t => t.language + ":" + t.kind + ":" + t.label));
       const real = (tr || []).filter(x => !/autogen|auto-generated/i.test((x.language || "") + " " + (x.label || "")));   // never Vimeo's auto-generated captions (the café video only has those)
       const t = real.find(x => /^en/i.test(x.language)) || real[0];
-      if (!t) return pl.disableTextTrack().catch(() => {});
+      if (!t || (part && part.cc === false)) return pl.disableTextTrack().catch(() => {});   // café: CC menu offers the track, nothing forced
       if (t) return pl.enableTextTrack(t.language, t.kind).then(x => { f.dataset.cc = x.language + ":" + x.kind; });
     }).catch(() => {});
   }).catch(() => {});
