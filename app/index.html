@@ -788,6 +788,43 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 .hh-rp-guests{flex-wrap:nowrap;gap:6px 8px}
 .hh-rp-guests .hh-sn-face b{font-size:40px}
 .hh-rp-scene[data-cue="about"] .hh-sn-face.me{margin-right:10px}
+/* ---------- v21: how-to-play demos ---------- */
+#hhHand{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;font-size:46px;line-height:1;transition:transform .75s cubic-bezier(.45,.05,.25,1);filter:drop-shadow(0 4px 6px rgba(0,0,0,.45))}
+#hhHand[hidden]{display:none}
+#hhHand span{display:block;transition:transform .15s}
+#hhHand.tap span{transform:scale(.8) translateY(4px)}
+.hh-demo-hit{box-shadow:0 0 0 6px rgba(255,124,150,.55)!important}
+.hh-pulse{animation:hhPulse 1s ease-in-out infinite;position:relative;z-index:2}
+@keyframes hhPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,124,150,.9)}50%{box-shadow:0 0 0 9px rgba(255,124,150,0)}}
+.hh-demo-lab{align-self:center;background:var(--coral);color:#1E4A3A;font-weight:900;font-size:20px;border-radius:99px;padding:6px 18px;text-align:center;box-shadow:0 3px 0 rgba(0,0,0,.25)}
+.hh-demo-lab[hidden]{display:none}
+.hh-howbtn{flex:none;width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,.35);background:transparent;color:var(--cream);font:inherit;font-weight:900;font-size:17px;cursor:pointer}
+.hh-skip{flex:none;font-size:13px;padding:6px 12px}
+.hh-sn-head .hh-hbtns{display:flex;align-items:center;gap:8px}
+.hh-howbtn[hidden],.hh-skip[hidden]{display:none}
+/* ---------- v24: CHAT BACK (game 11, STEP 5) ---------- */
+#g11 .top{display:flex;align-items:center;gap:12px}
+#g11 .top .bar{flex:1}
+.hh-cb-chat{border-radius:18px;border:3px solid #f6efe2;overflow:hidden;background:#0f2a21 radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/14px 14px}
+.hh-cb-chat[hidden],.hh-cb-build[hidden]{display:none}
+.hh-cb-who{display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(0,0,0,.4);color:#fff;font-weight:800;font-size:14px}
+.hh-cb-who b{font-size:24px;line-height:1}
+.hh-cb-msgs{display:flex;flex-direction:column;gap:8px;padding:12px 10px;min-height:118px}
+.hh-cb-b{max-width:82%;padding:8px 12px;border-radius:16px;font-weight:800;font-size:17px;line-height:1.3;animation:hhSnIn .22s ease-out;display:flex;align-items:flex-end;gap:6px}
+.hh-cb-b.in{align-self:flex-start;background:#f6efe2;color:#1E4A3A;border-bottom-left-radius:4px}
+.hh-cb-b.out{align-self:flex-end;background:var(--coral);color:#1E4A3A;border-bottom-right-radius:4px}
+.hh-cb-ticks{flex:none;width:18px;height:10px;position:relative;margin-bottom:3px}
+.hh-cb-ticks::before,.hh-cb-ticks::after{content:"";position:absolute;top:0;width:5px;height:9px;border:solid #2c6fd1;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.hh-cb-ticks::before{left:2px}.hh-cb-ticks::after{left:8px}
+.hh-cb-build{display:flex;flex-direction:column;gap:8px}
+.hh-cb-draft{align-self:flex-end;max-width:90%;padding:8px 12px;border-radius:16px;border-bottom-right-radius:4px;border:2px dashed var(--coral);color:var(--cream);font-weight:800;font-size:16px}
+.hh-cb-row{display:flex;align-items:center;gap:8px}
+.hh-cb-row small{flex:none;width:58px;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--coral)}
+.hh-cb-chips{flex:1;display:flex;flex-wrap:wrap;gap:6px}
+.hh-cb-chip{min-height:40px;padding:6px 12px;border-radius:99px;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.07);color:var(--cream);font:inherit;font-size:15px;font-weight:800;cursor:pointer}
+.hh-cb-chip.on{background:#f6efe2;border-color:#f6efe2;color:#1E4A3A}
+.hh-cb-chip.bad{background:#ffb4c0;border-color:#ffb4c0;color:#1E4A3A;animation:shake .35s}
+#g11card.shake{animation:shake .35s}
 </style>
 </head>
 <body>
@@ -835,7 +872,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v20-68334fb0b4</p>
+  <p class="hh-ver" id="oVer">Version hh-v24-12c9e9590a</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -1224,7 +1261,9 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   <div class="top"><div class="bar"><i id="g9bar"></i></div><div class="count" id="g9count"></div></div>
   <div class="card hh-snap" id="g9card">
     <div class="hh-sn-head"><div class="tag" id="g9tag" aria-live="polite">Listen, then take the photo</div>
-      <button class="hh-sn-hear" id="g9hear" type="button" aria-label="Hear the word again">🔊</button></div>
+      <div class="hh-hbtns"><button class="pill hh-skip" id="g9skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g9how" type="button" aria-label="How to play">?</button>
+      <button class="hh-sn-hear" id="g9hear" type="button" aria-label="Hear the word again">🔊</button></div></div>
+    <div class="hh-demo-lab" id="g9lab" hidden></div>
     <div class="hh-sn-stage" id="g9stage" hidden></div>
     <div class="hh-sn-vf" id="g9vf" data-mode="back">
       <div class="hh-sn-vfhead"><span id="g9mlabel"></span><span class="hh-sn-timer" id="g9timer" hidden></span></div>
@@ -1260,9 +1299,11 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   <div class="top"><div class="bar"><i id="g10bar"></i></div><div class="count" id="g10count"></div></div>
   <div class="card hh-snap hh-rp" id="g10card">
     <div class="hh-sn-head"><div class="tag" id="g10tag" aria-live="polite">Rooftop party in Tel Aviv</div>
-      <button class="hh-sn-hear" id="g10hear" type="button" aria-label="Hear the word again" hidden>🔊</button></div>
+      <div class="hh-hbtns"><button class="pill hh-skip" id="g10skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g10how" type="button" aria-label="How to play">?</button>
+      <button class="hh-sn-hear" id="g10hear" type="button" aria-label="Hear the word again" hidden>🔊</button></div></div>
+    <div class="hh-demo-lab" id="g10lab" hidden></div>
     <div class="hh-sn-stage" id="g10stage" hidden></div>
-    <div class="hh-rp-intro" id="g10intro">
+    <div class="hh-rp-intro" id="g10intro" hidden>
       <p>You're the host. Each round shows what you're doing and who is there. Pick the word fast.</p>
       <ul>
         <li><b>👋</b><span><strong>Talking TO them</strong> ata · at · atem · aten</span></li>
@@ -1285,9 +1326,34 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
     </div>
     <div class="hh-sn-end" id="g10end" hidden></div>
   </div>
-  <div class="row" id="g10startRow"><button class="btn" id="g10start" type="button">🎉 Start the party</button></div>
+  <div class="row" id="g10startRow" hidden><button class="btn" id="g10start" type="button">🎉 Start the party</button></div>
   <div class="row" id="g10nextRow" hidden><button class="btn" id="g10next" type="button">Next round</button></div>
   <div class="row" id="g10doneRow" hidden><button class="btn" id="g10done" type="button">Continue</button></div>
+</section>
+
+<!-- CHAT BACK (STEP 5): a friend texts a question, you build the reply: Ken, + who + Magic Four form + TO-word. -->
+<section id="g11" hidden>
+  <div class="top"><div class="bar"><i id="g11bar"></i></div><div class="count" id="g11count"></div></div>
+  <div class="card hh-snap hh-cb" id="g11card">
+    <div class="hh-sn-head"><div class="tag" id="g11tag" aria-live="polite">Answer your friend</div>
+      <div class="hh-hbtns"><button class="pill hh-skip" id="g11skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g11how" type="button" aria-label="How to play">?</button>
+      <button class="hh-sn-hear" id="g11hear" type="button" aria-label="Hear the message (coming soon)" disabled hidden>🔊</button></div></div>
+    <div class="hh-demo-lab" id="g11lab" hidden></div>
+    <div class="hh-cb-chat" id="g11chat">
+      <div class="hh-cb-who"><b id="g11face"></b><span id="g11name"></span></div>
+      <div class="hh-cb-msgs" id="g11msgs" aria-live="polite"></div>
+    </div>
+    <div class="hh-cb-build" id="g11build">
+      <div class="hh-cb-draft" id="g11draft"></div>
+      <div class="hh-cb-row"><small>Who</small><div class="hh-cb-chips" id="g11r0"></div></div>
+      <div class="hh-cb-row"><small>Verb</small><div class="hh-cb-chips" id="g11r1"></div></div>
+      <div class="hh-cb-row"><small>TO-word</small><div class="hh-cb-chips" id="g11r2"></div></div>
+    </div>
+    <div class="msg hh-sn-msg" id="g11msg" aria-live="polite"></div>
+    <div class="hh-sn-end" id="g11end" hidden></div>
+  </div>
+  <div class="row" id="g11sendRow"><button class="btn" id="g11send" type="button" disabled>Send ➤</button></div>
+  <div class="row" id="g11doneRow" hidden><button class="btn" id="g11done" type="button">Continue</button></div>
 </section>
 
 </main>
@@ -1723,7 +1789,7 @@ function unlockAudio(){
 
 function show(id){
   cancelAnimationFrame(raf); clearTimeout(timer); recStop(true); streak = 0;
-  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","words","setup","stage","done"].forEach(s => $(s).hidden = (s !== id));
+  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","words","setup","stage","done"].forEach(s => $(s).hidden = (s !== id));
   document.querySelectorAll(".card").forEach(c => c.classList.toggle("speak-track", S.track === "speak"));
 }
 function showKeep(id){ show(id); }
@@ -2703,6 +2769,33 @@ $("g8next").addEventListener("click", () => { if (e8.phase === "said"){ e8.i++; 
 
 show("home");
 
+/* ---------- v21: How-to-play demos (SNAP!, ROOFTOP PARTY) ----------
+   An animated hand plays one turn by itself on the real game screen, then one guided turn (pulsing next tap, no timer). */
+const DEMO = { hand:null };
+function demoHand(){
+  if (!DEMO.hand){ const h = document.createElement("div"); h.id = "hhHand"; h.setAttribute("aria-hidden", "true"); h.innerHTML = "<span>👆</span>"; h.hidden = true; document.body.append(h); DEMO.hand = h; }
+  return DEMO.hand;
+}
+const demoWait = ms => new Promise(r => setTimeout(r, ms));
+async function demoTap(el, ok){
+  if (!el || !ok()) return false;
+  const h = demoHand();
+  if (h.hidden){ h.style.transition = "none"; h.style.transform = "translate(" + (innerWidth / 2) + "px," + (innerHeight - 90) + "px)"; h.hidden = false; void h.offsetWidth; h.style.transition = ""; }
+  el.scrollIntoView({ block:"nearest" });
+  const r = el.getBoundingClientRect();
+  h.style.transform = "translate(" + (r.left + r.width / 2 - 14) + "px," + (r.top + r.height / 2 - 2) + "px)";
+  await demoWait(800); if (!ok()) return false;
+  h.classList.add("tap"); el.classList.add("hh-demo-hit"); await demoWait(260);
+  h.classList.remove("tap"); el.classList.remove("hh-demo-hit"); if (!ok()) return false;
+  el.click(); await demoWait(300); return ok();
+}
+function demoHide(){ if (DEMO.hand) DEMO.hand.hidden = true; }
+function demoPulse(el){ document.querySelectorAll(".hh-pulse").forEach(e => { if (e !== el) e.classList.remove("hh-pulse"); }); if (el) el.classList.add("hh-pulse"); }
+function demoLab(id, txt){ const l = $(id); l.hidden = !txt; l.textContent = txt || ""; if (txt) pop(l); }
+/* left the game mid-demo (‹, ⌂): no hand or pulse left on screen */
+setInterval(() => { if (DEMO.hand && !DEMO.hand.hidden && $("g9").hidden && $("g10").hidden){ demoHide(); demoPulse(null); } }, 400);
+setInterval(() => { if (typeof snapNarr !== "undefined" && !snapNarr.paused && $("g9").hidden) snapNarrStop(); }, 400);
+
 /* ---------- Game 9: SNAP! (STEP 3, Pronouns) ----------
    A beach day in Tel Aviv. You hold the phone; the camera mode is the pronoun family, always from your side:
    Selfie = including me (ani / anakhnu), Camera = about them (hu / hi / hem / hen), Video call = to them (ata / at / atem / aten).
@@ -2726,7 +2819,7 @@ const SNAP_SHOTS = [
   { t:"hen", pre:["noa","maya","dani"] }, { t:"hem" }, { t:"aten", pre:["noa","maya","yosi"] }, { t:"hen" },
   { t:"ani", banner:"Faster now" }, { t:"at" }, { t:"hi" }, { t:"anachnu" }, { t:"hem", pre:["maya","noa"] }, { t:"atem" }, { t:"hen", pre:["noa","yosi","maya"] }
 ];
-const SNAP_TIP = "Selfie = it includes you. Camera = you talk about someone. Video call = you talk to them.";
+const SNAP_TIP = "🤳 with me · 📷 about them · 📱 to them";
 const snapSec = i => Math.round((5 - 2.5 * i / (SNAP_SHOTS.length - 1)) * 2) / 2;
 let s9 = null;
 const snapPerson = id => SNAP_PEOPLE.find(p => p.id === id);
@@ -2765,7 +2858,7 @@ function snapWhy(t, got, mode){
 function startSnap(){
   const order = SNAP_SHOTS.map((x, i) => Object.assign({ sec:snapSec(i) }, x));
   s9 = { order, i:0, clean:0, said:0, tries:0, mode:"back", inFrame:[], phase:"idle", saidNow:false, noMic:!navigator.mediaDevices || !window.MediaRecorder, t:0, left:0 };
-  show("g9"); snapWatch(); nextSnap();
+  snapReal = null; show("g9"); snapWatch(); snapDemo();
 }
 function snapWatch(){   // stops the timer and the mic when the game is left any way (‹, ⌂, Back)
   clearInterval(s9.watch);
@@ -2788,8 +2881,9 @@ function nextSnap(){
   $("g9photo").hidden = true; $("g9frame").hidden = false; $("g9say").hidden = true; $("g9end").hidden = true;
   $("g9shotRow").hidden = false; $("g9nextRow").hidden = true; $("g9doneRow").hidden = true;
   $("g9beach").hidden = false; $("g9modes").hidden = false; $("g9hear").hidden = false; $("g9vf").hidden = false;
+  if (s9.demo){ $("g9count").textContent = s9.practice ? "Your turn" : "Demo"; $("g9bar").style.width = "0%"; $("g9stage").hidden = true; $("g9tag").textContent = "How to play"; }
   paintSnap(); pop($("g9card"));
-  speak([o.t]);
+  if (!s9.hush) speak([o.t]);
   if (o.sec) snapTimer(o.sec);
 }
 function snapTimer(sec){
@@ -2858,12 +2952,86 @@ function snapDevelop(w){
   $("g9frame").hidden = true; const ph = $("g9photo"); ph.hidden = false; ph.classList.remove("dev"); void ph.offsetWidth; ph.classList.add("dev");
   const m = $("g9msg"); m.className = "msg hh-sn-msg good"; m.textContent = s9.tries === 0 ? "Snap! That's " + snapTr(w) + "." : "That's it: " + snapTr(w) + ".";
   $("g9beach").hidden = true; $("g9modes").hidden = true; $("g9shotRow").hidden = true; $("g9nextRow").hidden = false;
-  snapSayReset(); $("g9say").hidden = false; if (s9.noMic) snapNoMic();
+  snapSayReset(); $("g9say").hidden = !!s9.demo; if (s9.noMic && !s9.demo) snapNoMic();
   setTimeout(() => speak([w]), 350);
 }
 $("g9shoot").addEventListener("click", () => snapShoot(false));
 $("g9hear").addEventListener("click", () => { if (s9 && s9.cur) speak([s9.cur.t]); });
-$("g9next").addEventListener("click", () => { if (!s9 || s9.phase !== "photo") return; s9.i++; nextSnap(); });
+$("g9next").addEventListener("click", () => { if (!s9 || s9.phase !== "photo") return; if (s9.practice){ if (!A.snapDemoSeen){ A.snapDemoSeen = 1; saveA(); } return snapDemoEnd(); } s9.i++; nextSnap(); });
+/* v21 how to play: the hand plays "hi" (Camera + Noa + Snap), then "at" (Video call), then one guided turn ("hu"), then the real run */
+let snapReal = null, snapTok = 0, snapGuide = 0;
+const snapDemoS = order => ({ order, i:0, clean:0, said:0, tries:0, mode:"selfie", inFrame:[], phase:"idle", saidNow:false, noMic:true, t:0, left:0, demo:true });
+const snapModeBtn = m => document.querySelector('#g9modes button[data-mode="' + m + '"]');
+/* v22: spoken narration (KNIZ English voice, one ElevenLabs take, 11.7s). The hand follows its words on a clock:
+   0.0 "You'll hear a word" -> 🔊 hi | 2.6 "selfie" | 4.4 "camera" | 6.1 "phone" | 7.7 picks Camera | 8.3 "tap the right people" -> Noa | 9.8 "Quick, before the timer…" -> timer, Snap */
+const snapNarr = new Audio(AUDIO_BASE + "snap_demo_narration.mp3"); snapNarr.preload = "auto";
+function snapNarrStop(){ try{ snapNarr.pause(); snapNarr.currentTime = 0; }catch(e){} }
+async function demoPoint(el, ok){   // move the hand there and hold, no tap
+  if (!el || !ok()) return false;
+  const h = demoHand();
+  if (h.hidden){ h.style.transition = "none"; h.style.transform = "translate(" + (innerWidth / 2) + "px," + (innerHeight - 90) + "px)"; h.hidden = false; void h.offsetWidth; h.style.transition = ""; }
+  const r = el.getBoundingClientRect(); h.style.transform = "translate(" + (r.left + r.width / 2 - 14) + "px," + (r.top + r.height / 2 - 2) + "px)";
+  await demoWait(800); if (!ok()) return false; el.classList.add("hh-demo-hit"); setTimeout(() => el.classList.remove("hh-demo-hit"), 1200); return true;
+}
+async function snapDemo(){
+  snapStop(); clearInterval(snapGuide); demoPulse(null);
+  if (!snapReal) snapReal = s9;
+  const tok = ++snapTok, ok = () => tok === snapTok && !$("g9").hidden;
+  s9 = snapDemoS([{ t:"hi", pre:[], sec:0 }, { t:"at", sec:0 }]); s9.hush = true;
+  $("g9skip").hidden = !A.snapDemoSeen; $("g9how").hidden = true;   // v23: first time, the demo + guided turn are a must (no Skip)
+  nextSnap(); s9.hush = false; demoLab("g9lab", "👂 Listen");
+  snapNarrStop(); try{ const pp = snapNarr.play(); if (pp && pp.catch) pp.catch(() => {}); }catch(e){}
+  const t0 = performance.now(), until = async t => { const d = t0 + t * 1000 - performance.now(); if (d > 0) await demoWait(d); return ok(); };
+  const tapAt = async (el, t) => (await until(t - 1.06)) && demoTap(el, ok), pointAt = async (el, t) => (await until(t - 0.8)) && demoPoint(el, ok);
+  if (!await tapAt($("g9hear"), 1.0)) return;
+  if (!await until(1.45)) return; demoLab("g9lab", "Pick the camera");
+  if (!await pointAt(snapModeBtn("selfie"), 2.6)) return; demoLab("g9lab", "🤳 with me");
+  if (!await pointAt(snapModeBtn("back"), 4.4)) return; demoLab("g9lab", "📷 about them");
+  if (!await pointAt(snapModeBtn("call"), 6.15)) return; demoLab("g9lab", "📱 to them");
+  if (!await tapAt(snapModeBtn("back"), 7.7)) return; demoLab("g9lab", "hi → 📷");
+  if (!await until(8.3)) return; demoLab("g9lab", "👆 Tap the right people");
+  if (!await tapAt(document.querySelector('#g9beach [data-id="noa"]'), 9.0)) return;
+  if (!await until(9.8)) return; demoLab("g9lab", "⏱ Quick!");
+  const tm = $("g9timer"); [3, 2].forEach((n, k) => setTimeout(() => { if (!ok() || s9.phase !== "aim") return; tm.hidden = false; tm.textContent = "⏱ " + n; $("g9shoot").textContent = "📸 Snap · " + n; }, k * 1000));
+  if (!await tapAt($("g9shoot"), 11.6)) return;
+  await demoWait(2200); if (!ok()) return;
+  demoLab("g9lab", "Now: at");
+  if (!await demoTap($("g9next"), ok)) return;
+  await demoWait(900); demoLab("g9lab", "📱 Talking TO her");
+  if (!await demoTap(snapModeBtn("call"), ok)) return;
+  if (!await demoTap($("g9shoot"), ok)) return;
+  await demoWait(2200); if (!ok()) return;
+  demoHide(); snapPractice();
+}
+function snapPractice(){
+  snapStop(); clearInterval(snapGuide);
+  s9 = snapDemoS([{ t:"hu", pre:[], sec:0 }]); s9.practice = true;
+  $("g9skip").hidden = !A.snapDemoSeen; $("g9how").hidden = true;   // v23: first time, the demo + guided turn are a must (no Skip)
+  nextSnap(); demoLab("g9lab", "Your turn");
+  snapGuide = setInterval(() => {
+    if (!s9 || !s9.practice || $("g9").hidden){ clearInterval(snapGuide); demoPulse(null); return; }
+    demoPulse(snapGuideTarget());
+  }, 250);
+}
+function snapGuideTarget(){
+  if (s9.phase === "photo") return $("g9next");
+  const T = SNAP_FEAT[s9.cur.t];
+  if (s9.mode !== T[0]) return snapModeBtn(T[0]);
+  if (snapRead(s9.mode, s9.inFrame) === s9.cur.t) return $("g9shoot");
+  const want = window.snapAnswer().people, off = s9.inFrame.find(id => !want.includes(id)) || want.find(id => !s9.inFrame.includes(id));
+  return off ? document.querySelector('#g9beach [data-id="' + off + '"]') : $("g9shoot");
+}
+function snapDemoEnd(){
+  snapTok++; clearInterval(snapGuide); demoPulse(null); demoHide(); snapStop(); snapNarrStop();
+  demoLab("g9lab", ""); $("g9skip").hidden = true; $("g9how").hidden = false;
+  if (!snapReal) return;
+  s9 = snapReal; snapReal = null;
+  if (s9.phase === "photo") s9.i++;
+  if (s9.phase === "end") return snapEnd();
+  nextSnap();
+}
+$("g9skip").addEventListener("click", snapDemoEnd);
+$("g9how").addEventListener("click", () => { if (!s9 || s9.demo || s9.phase === "end") return; snapDemo(); });
 function snapEnd(){
   snapStop(); s9.phase = "end";
   $("g9bar").style.width = "100%"; $("g9count").textContent = s9.order.length + " / " + s9.order.length;
@@ -2979,25 +3147,29 @@ function rpWhy(t, got, ids){
 }
 function startRooftop(){
   r10 = { i:0, clean:0, said:0, phase:"intro", saidNow:false, noMic:!navigator.mediaDevices || !window.MediaRecorder, t:0, ms:[], ok:true, step:0 };
-  show("g10");
+  rpReal = null; show("g10");
   ["g10scene","g10say","g10end","g10nextRow","g10doneRow","g10hear","g10stage"].forEach(id => $(id).hidden = true);
   $("g10intro").hidden = false; $("g10startRow").hidden = false; $("g10opts").innerHTML = ""; $("g10msg").textContent = "";
   $("g10tag").textContent = "Rooftop party in Tel Aviv"; $("g10bar").style.width = "0%"; $("g10count").textContent = "0 / " + RP_ROUNDS.length;
-  clearInterval(r10.watch); r10.watch = setInterval(() => { if ($("g10").hidden){ rpStop(); clearInterval(r10.watch); } }, 400);
+  clearInterval(rpWatch); rpWatch = setInterval(() => { if ($("g10").hidden){ rpStop(); clearInterval(rpWatch); } }, 400);
+  rpDemo();
 }
+let rpWatch = 0;
 function rpStop(){ clearInterval(r10 && r10.t); if (r10) r10.t = 0; rpMicOff(); }
 $("g10start").addEventListener("click", () => { if (!r10 || r10.phase !== "intro") return; $("g10intro").hidden = true; $("g10startRow").hidden = true; if (typeof unlockAudio === "function") unlockAudio(); rpRound(); });
 function rpRound(){
   rpStop();
-  if (r10.i >= RP_ROUNDS.length) return rpEnd();
-  const o = RP_ROUNDS[r10.i];
+  const R = r10.rounds || RP_ROUNDS;
+  if (r10.i >= R.length) return rpEnd();
+  const o = R[r10.i];
   r10.cur = o; r10.ids = o.g.slice(); r10.step = 0; r10.ok = true; r10.saidNow = false;
   $("g10bar").style.width = (r10.i / RP_ROUNDS.length * 100) + "%";
   $("g10count").textContent = (r10.i + 1) + " / " + RP_ROUNDS.length;
   const sg = $("g10stage"); sg.hidden = !o.banner; sg.textContent = o.banner || "";
   $("g10tag").textContent = "Pick the word before the time runs out";
   ["g10say","g10nextRow","g10hear"].forEach(id => $(id).hidden = true); $("g10scene").hidden = false;
-  rpAsk(rpSec(r10.i));
+  if (r10.demo){ $("g10count").textContent = r10.practice ? "Your turn" : "Demo"; $("g10bar").style.width = "0%"; $("g10tag").textContent = "How to play"; }
+  rpAsk(r10.demo ? 0 : rpSec(r10.i));
   pop($("g10card"));
 }
 function rpPaint(joined){
@@ -3015,13 +3187,14 @@ function rpAsk(sec, extra){
   rpPaint(r10.step === 1 ? o.join : "");
   $("g10msg").textContent = r10.step === 1 ? snapPerson(o.join).name + " joins the group! Pick again." : ""; $("g10msg").className = "msg hh-sn-msg" + (r10.step === 1 ? " good" : "");
   const box = $("g10opts"); box.innerHTML = ""; box.hidden = false;
-  rpOptions(r10.ans, rpN(r10.i), extra).forEach(w => {
+  rpOptions(r10.ans, r10.demo ? 4 : rpN(r10.i), extra).forEach(w => {
     const b = document.createElement("button"); b.type = "button"; b.className = "hh-rp-opt"; b.dataset.w = w; b.textContent = rpWord(w);
     b.addEventListener("click", () => rpPick(w)); box.append(b);
   });
   r10.sec = sec; r10.left = sec; const tm = $("g10timer"), tb = $("g10tbar");
   const paint = () => { tm.textContent = "⏱ " + Math.max(0, r10.left).toFixed(r10.left % 1 ? 1 : 0); tb.style.width = Math.max(0, r10.left / r10.sec * 100) + "%"; };
-  paint();
+  paint(); $("g10timer").hidden = !sec; $("g10tbar").parentNode.hidden = !sec;
+  if (!sec) return;
   r10.t = setInterval(() => {
     if (r10.phase !== "ask"){ clearInterval(r10.t); return; }
     r10.left = Math.round((r10.left - 0.5) * 2) / 2; paint();
@@ -3046,11 +3219,53 @@ function rpPick(w){
   }
   if (r10.ok) r10.clean++;
   r10.phase = "done"; $("g10hear").hidden = false;
-  rpSayReset(); $("g10say").hidden = false; if (r10.noMic) rpNoMic();
+  rpSayReset(); $("g10say").hidden = !!r10.demo; if (r10.noMic && !r10.demo) rpNoMic();
   $("g10nextRow").hidden = false;
 }
 $("g10hear").addEventListener("click", () => { if (r10 && r10.ans) speak([r10.ans]); });
-$("g10next").addEventListener("click", () => { if (!r10 || r10.phase !== "done") return; r10.i++; rpRound(); });
+$("g10next").addEventListener("click", () => { if (!r10 || r10.phase !== "done") return; if (r10.practice) return rpDemoEnd(); r10.i++; rpRound(); });
+/* v21 how to play: the hand plays one 👋 (aten), one 🤫 (hen), one 📸 (anakhnu); then one guided round (hu); then the real party */
+let rpReal = null, rpTok = 0, rpGuide = 0;
+const rpDemoS = rounds => ({ rounds, i:0, clean:0, said:0, phase:"idle", saidNow:false, noMic:true, t:0, ms:[], ok:true, step:0, demo:true });
+const rpOpt = w => document.querySelector('#g10opts [data-w="' + w + '"]');
+async function rpDemo(){
+  rpStop(); clearInterval(rpGuide); demoPulse(null);
+  if (!rpReal) rpReal = r10;
+  const tok = ++rpTok, ok = () => tok === rpTok && !$("g10").hidden;
+  r10 = rpDemoS([{ cue:"to", g:["noa","maya"] }, { cue:"about", g:["noa","maya"] }, { cue:"photo", g:["noa"] }]);
+  ["g10intro","g10startRow","g10end","g10doneRow","g10how"].forEach(id => $(id).hidden = true); $("g10skip").hidden = false; $("g10opts").hidden = false;
+  const labs = { to:"👋 Talking TO them", about:"🤫 Whispering ABOUT them", photo:"📸 You're in it" };
+  for (let k = 0; k < 3; k++){
+    if (k) { if (!await demoTap($("g10next"), ok)) return; }
+    else rpRound();
+    demoLab("g10lab", labs[r10.cur.cue]);
+    await demoWait(1300); if (!ok()) return;
+    if (!await demoTap(rpOpt(r10.ans), ok)) return;
+    demoLab("g10lab", "→ " + snapTr(r10.ans));
+    await demoWait(1700); if (!ok()) return;
+  }
+  demoHide(); rpPractice();
+}
+function rpPractice(){
+  rpStop(); clearInterval(rpGuide);
+  r10 = rpDemoS([{ cue:"about", g:["dani"] }]); r10.practice = true;
+  rpRound(); demoLab("g10lab", "Your turn");
+  rpGuide = setInterval(() => {
+    if (!r10 || !r10.practice || $("g10").hidden){ clearInterval(rpGuide); demoPulse(null); return; }
+    demoPulse(r10.phase === "done" ? $("g10next") : r10.phase === "ask" ? rpOpt(r10.ans) : null);
+  }, 250);
+}
+function rpDemoEnd(){
+  rpTok++; clearInterval(rpGuide); demoPulse(null); demoHide(); rpStop();
+  demoLab("g10lab", ""); $("g10skip").hidden = true; $("g10how").hidden = false;
+  if (!rpReal) return;
+  r10 = rpReal; rpReal = null;
+  if (r10.phase === "end") return rpEnd();
+  if (r10.phase === "done") r10.i++;
+  r10.phase = "round"; rpRound();
+}
+$("g10skip").addEventListener("click", rpDemoEnd);
+$("g10how").addEventListener("click", () => { if (!r10 || r10.demo || r10.phase === "end") return; rpDemo(); });
 function rpEnd(){
   rpStop(); r10.phase = "end";
   $("g10bar").style.width = "100%"; $("g10count").textContent = RP_ROUNDS.length + " / " + RP_ROUNDS.length;
@@ -3116,6 +3331,189 @@ $("g10said").addEventListener("click", () => { rpCount(); $("g10said").disabled 
 starters[10] = startRooftop;
 /* for the tests */
 window.rpState = () => ({ phase:r10.phase, i:r10.i, step:r10.step, ans:r10.ans, ids:r10.ids.slice(), cue:r10.cur && r10.cur.cue, opts:[...document.querySelectorAll("#g10opts .hh-rp-opt")].map(b => b.dataset.w), msg:$("g10msg").textContent });
+
+/* ---------- Game 11: CHAT BACK (STEP 5, The TO-Words) ----------
+   A friend texts "At rotsa lishon? 😴". You answer "Ken, ani rotsa lishon": the key skill is the pronoun switch
+   (at / ata -> ani in your own gender form, atem -> anakhnu + -im, aten -> anakhnu + -ot, hu -> hu, hi -> hi).
+   Latin letters only, no audio yet (the 🔊 button stays hidden until recordings exist). */
+const CB_VERB = {
+  rotse:  { m:"rotse",  f:"rotsa",   mp:"rotsim",   fp:"rotsot" },
+  yakhol: { m:"yakhol", f:"yekhola", mp:"yekholim", fp:"yekholot" },
+  tsarikh:{ m:"tsarikh",f:"tsrikha", mp:"tsrikhim", fp:"tsrikhot" },
+  ohev:   { m:"ohev",   f:"ohevet",  mp:"ohavim",   fp:"ohavot" }
+};
+const CB_INF = ["le'ekhol","lishtot","lishon","lalekhet","lilmod","ledaber","liknot","lesakhek","lavo","lenasot","laazor","leshalem"];
+const CB_FORM = { ata:"m", at:"f", atem:"mp", aten:"fp", hu:"m", hi:"f", ani:"", anakhnu:"" };
+/* q: you (one, your gender) | youMix (you + a boy: atem) | youGirls (you + girls: aten; atem for a boy) | hu | hi */
+const CB_ROUNDS = [
+  { who:"noa", q:"you", v:"rotse", inf:"lishon", emo:"😴", back:"😴💤" },
+  { who:"yonatan", q:"you", v:"ohev", inf:"lesakhek", emo:"⚽", back:"⚽🙌" },
+  { who:"maya", q:"youMix", v:"rotse", inf:"le'ekhol", emo:"🍕", back:"🍕😋" },
+  { who:"dani", q:"hu", v:"yakhol", inf:"lalekhet", emo:"👦🚶", back:"👍" },
+  { who:"noa", q:"you", v:"tsarikh", inf:"liknot", emo:"🛒", back:"🛒👌" },
+  { who:"yosi", q:"youGirls", v:"tsarikh", inf:"lilmod", emo:"📚", back:"📚💪" },
+  { who:"maya", q:"hi", v:"ohev", inf:"ledaber", emo:"👧🗣️", back:"😄" },
+  { who:"dani", q:"you", v:"yakhol", inf:"lishtot", emo:"☕", back:"☕😊" },
+  { who:"noa", q:"youMix", v:"yakhol", inf:"lavo", emo:"🏃", back:"🎉" },
+  { who:"yonatan", q:"you", v:"rotse", inf:"lenasot", emo:"🍝", back:"🍝👏" }
+];
+let c11 = null, cbReal = null, cbTok = 0, cbGuide = 0, cbWatch = 0;
+const cbG = () => (A.gender === "m" ? "m" : "f");
+const cbCap = s => s.charAt(0).toUpperCase() + s.slice(1);
+/* the question's pronoun, and the reply (pronoun + verb form) */
+function cbParts(o){
+  const g = cbG();
+  const qp = o.q === "you" ? (g === "m" ? "ata" : "at") : o.q === "youMix" ? "atem" : o.q === "youGirls" ? (g === "m" ? "atem" : "aten") : o.q;
+  const ap = qp === "ata" || qp === "at" ? "ani" : qp === "atem" || qp === "aten" ? "anakhnu" : qp;
+  const af = ap === "ani" ? g : ap === "anakhnu" ? CB_FORM[qp] : CB_FORM[qp];
+  return { qp, qf:CB_FORM[qp], ap, af, verbQ:CB_VERB[o.v][CB_FORM[qp]], verbA:CB_VERB[o.v][af] };
+}
+function cbChips(o, P){
+  const prons = [P.ap, P.qp].concat(P.ap === "ani" ? ["anakhnu", P.qp === "at" ? "hi" : "hu"] : P.ap === "anakhnu" ? ["ani", P.qp === "aten" ? "hen" : "hem"] : [P.ap === "hu" ? "hi" : "hu", "ani"]);
+  const forms = ["m","f","mp","fp"].map(f => CB_VERB[o.v][f]);
+  const infs = [o.inf].concat(shuffle(CB_INF.filter(x => x !== o.inf)).slice(0, 2));
+  return [shuffle([...new Set(prons)].slice(0, 4)), shuffle(forms), shuffle(infs)];
+}
+function startChat(){
+  cbReal = null;
+  c11 = cbState(CB_ROUNDS.map(x => Object.assign({}, x)));
+  show("g11");
+  clearInterval(cbWatch); cbWatch = setInterval(() => { if ($("g11").hidden){ clearInterval(cbWatch); clearInterval(cbGuide); cbTok++; demoHide(); demoPulse(null); } }, 400);
+  cbDemo();
+}
+const cbState = rounds => ({ rounds, i:0, clean:0, tries:0, pick:[null,null,null], phase:"idle", t:0 });
+function cbRound(){
+  clearTimeout(c11.t);
+  if (c11.i >= c11.rounds.length) return cbEnd();
+  const o = c11.rounds[c11.i], P = cbParts(o), friend = snapPerson(o.who);
+  c11.cur = o; c11.P = P; c11.tries = 0; c11.pick = [null,null,null]; c11.phase = "build";
+  $("g11bar").style.width = (c11.i / c11.rounds.length * 100) + "%";
+  $("g11count").textContent = c11.demo ? (c11.practice ? "Your turn" : "Demo") : (c11.i + 1) + " / " + c11.rounds.length;
+  if (c11.demo) $("g11bar").style.width = "0%";
+  $("g11tag").textContent = c11.demo ? "How to play" : "Answer your friend";
+  $("g11face").textContent = friend.face; $("g11name").textContent = friend.name;
+  const ms = $("g11msgs"); ms.innerHTML = "";
+  cbBubble("in", cbCap(P.qp) + " " + P.verbQ + " " + o.inf + "? " + o.emo);
+  ["g11chat","g11build","g11sendRow"].forEach(id => $(id).hidden = false); $("g11end").hidden = true; $("g11doneRow").hidden = true;
+  $("g11msg").textContent = ""; $("g11msg").className = "msg hh-sn-msg";
+  const rows = cbChips(o, P);
+  rows.forEach((list, r) => {
+    const box = $("g11r" + r); box.innerHTML = "";
+    list.forEach(w => { const b = document.createElement("button"); b.type = "button"; b.className = "hh-cb-chip"; b.dataset.w = w; b.dataset.r = r; b.textContent = w;
+      b.addEventListener("click", () => cbPick(r, w)); box.append(b); });
+  });
+  cbDraft(); pop($("g11card"));
+}
+function cbBubble(side, txt, ticks){
+  const d = document.createElement("div"); d.className = "hh-cb-b " + side;
+  const t = document.createElement("span"); t.textContent = txt; d.append(t);
+  if (ticks){ const k = document.createElement("i"); k.className = "hh-cb-ticks"; k.setAttribute("aria-label", "sent and read"); d.append(k); }
+  $("g11msgs").append(d); d.scrollIntoView({ block:"nearest" }); return d;
+}
+function cbDraft(){
+  const p = c11.pick, w = k => p[k] || "___";
+  $("g11draft").textContent = "Ken, " + w(0) + " " + w(1) + " " + w(2);
+  $("g11send").disabled = !(p[0] && p[1] && p[2]) || c11.phase !== "build";
+  document.querySelectorAll("#g11build .hh-cb-chip").forEach(b => b.classList.toggle("on", p[+b.dataset.r] === b.dataset.w));
+}
+function cbPick(r, w){
+  if (!c11 || c11.phase !== "build") return;
+  c11.pick[r] = c11.pick[r] === w ? null : w;
+  document.querySelectorAll("#g11r" + r + " .hh-cb-chip").forEach(b => b.classList.remove("bad"));
+  sfx("tap"); cbDraft();
+}
+/* gentle feedback: the first chip that is off, and why */
+function cbWhy(o, P, p){
+  if (p[0] !== P.ap){
+    if (p[0] === P.qp) return P.qp === "ata" || P.qp === "at" ? "They asked about you: answer with ani." : P.qp === "atem" || P.qp === "aten" ? "They asked about you and your friends: answer with anakhnu." : "Who is it? " + P.ap + ".";
+    return "Who is it? They asked " + P.qp + ", so you answer " + P.ap + ".";
+  }
+  if (p[1] !== P.verbA) return P.ap === "ani" ? "Ani for a " + (P.af === "m" ? "boy" : "girl") + ": " + P.verbA + "." : P.ap === "anakhnu" ? (P.af === "mp" ? "A group with a boy: " : "Girls only: ") + P.verbA + "." : cbCap(P.ap) + " goes with " + P.verbA + ".";
+  return "Look at the message: " + o.inf + " " + o.emo + ".";
+}
+function cbSend(){
+  if (!c11 || c11.phase !== "build") return;
+  const o = c11.cur, P = c11.P, p = c11.pick;
+  const right = [P.ap, P.verbA, o.inf];
+  if (p.every((w, k) => w === right[k])){
+    c11.phase = "sent"; if (c11.tries === 0) c11.clean++;
+    sfx("good");
+    cbBubble("out", "Ken, " + p.join(" "), true);
+    $("g11msg").className = "msg hh-sn-msg good"; $("g11msg").textContent = c11.tries === 0 ? "Sent!" : "That's it.";
+    $("g11build").hidden = true; $("g11sendRow").hidden = true;
+    setTimeout(() => { if (!c11 || c11.cur !== o) return; cbBubble("in", o.back); sfx("pop"); }, 700);
+    if (!c11.demo) c11.t = setTimeout(() => { if (!c11 || c11.cur !== o || $("g11").hidden) return; c11.i++; cbRound(); }, 1900);
+    else if (c11.practice) c11.t = setTimeout(() => { if (c11 && c11.practice) cbDemoEnd(); }, 1900);
+    return;
+  }
+  c11.tries++; sfx("soft");
+  const k = p.findIndex((w, j) => w !== right[j]);
+  const b = document.querySelector('#g11r' + k + ' .hh-cb-chip[data-w="' + CSS.escape(p[k]) + '"]'); if (b) b.classList.add("bad");
+  $("g11msg").className = "msg hh-sn-msg bad"; $("g11msg").textContent = cbWhy(o, P, p);
+}
+$("g11send").addEventListener("click", cbSend);
+function cbEnd(){
+  c11.phase = "end"; clearTimeout(c11.t);
+  $("g11bar").style.width = "100%"; $("g11count").textContent = c11.rounds.length + " / " + c11.rounds.length;
+  ["g11chat","g11build","g11sendRow"].forEach(id => $(id).hidden = true);
+  $("g11msg").textContent = ""; $("g11tag").textContent = "Chat done";
+  const e = $("g11end"); e.hidden = false;
+  e.innerHTML = '<div class="hh-sn-big"></div><div class="hint"></div>';
+  e.children[0].textContent = c11.clean + " / " + c11.rounds.length;
+  e.children[1].textContent = "replies right on the first try";
+  $("g11doneRow").hidden = false; sfx("win");
+}
+$("g11done").addEventListener("click", () => { if (c11 && c11.phase === "end") finish("Nice chat!", c11.clean + " / " + c11.rounds.length, "replies right on the first try.", ""); });
+/* how to play: the hand answers one message, then one guided turn, then the real chat. A must on the first visit. */
+const cbChip = (r, w) => document.querySelector('#g11r' + r + ' .hh-cb-chip[data-w="' + CSS.escape(w) + '"]');
+async function cbDemo(){
+  clearTimeout(c11 && c11.t); clearInterval(cbGuide); demoPulse(null);
+  if (!cbReal) cbReal = c11;
+  const tok = ++cbTok, ok = () => tok === cbTok && !$("g11").hidden;
+  c11 = cbState([{ who:"noa", q:"you", v:"rotse", inf:"lishon", emo:"😴", back:"😴💤" }]); c11.demo = true;
+  $("g11skip").hidden = !A.chatDemoSeen; $("g11how").hidden = true;
+  cbRound(); demoLab("g11lab", "💬 Read the message");
+  await demoWait(1600); if (!ok()) return;
+  const P = c11.P;
+  demoLab("g11lab", "1 · Who? You → " + P.ap);
+  if (!await demoTap(cbChip(0, P.ap), ok)) return;
+  demoLab("g11lab", "2 · The verb");
+  if (!await demoTap(cbChip(1, P.verbA), ok)) return;
+  demoLab("g11lab", "3 · The TO-word");
+  if (!await demoTap(cbChip(2, c11.cur.inf), ok)) return;
+  demoLab("g11lab", "Send ➤");
+  if (!await demoTap($("g11send"), ok)) return;
+  await demoWait(1900); if (!ok()) return;
+  demoHide(); cbPractice();
+}
+function cbPractice(){
+  clearInterval(cbGuide);
+  c11 = cbState([{ who:"dani", q:"youMix", v:"ohev", inf:"lishtot", emo:"🥤", back:"🥤🙌" }]); c11.demo = true; c11.practice = true;
+  $("g11skip").hidden = !A.chatDemoSeen; $("g11how").hidden = true;
+  cbRound(); demoLab("g11lab", "Your turn");
+  cbGuide = setInterval(() => {
+    if (!c11 || !c11.practice || $("g11").hidden){ clearInterval(cbGuide); demoPulse(null); return; }
+    if (c11.phase !== "build") return demoPulse(null);
+    const right = [c11.P.ap, c11.P.verbA, c11.cur.inf], k = c11.pick.findIndex((w, j) => w !== right[j]);
+    demoPulse(k < 0 ? $("g11send") : cbChip(k, right[k]));
+  }, 250);
+}
+function cbDemoEnd(){
+  const fromPractice = c11 && c11.practice;
+  cbTok++; clearInterval(cbGuide); demoPulse(null); demoHide(); clearTimeout(c11 && c11.t);
+  if (fromPractice && !A.chatDemoSeen){ A.chatDemoSeen = 1; saveA(); }
+  demoLab("g11lab", ""); $("g11skip").hidden = true; $("g11how").hidden = false;
+  if (!cbReal) return;
+  c11 = cbReal; cbReal = null;
+  if (c11.phase === "end") return cbEnd();
+  if (c11.phase === "sent") c11.i++;
+  cbRound();
+}
+$("g11skip").addEventListener("click", cbDemoEnd);
+$("g11how").addEventListener("click", () => { if (!c11 || c11.demo || c11.phase === "end") return; cbDemo(); });
+starters[11] = startChat;
+/* for the tests */
+window.cbState11 = () => ({ phase:c11.phase, i:c11.i, demo:!!c11.demo, practice:!!c11.practice, right:[c11.P.ap, c11.P.verbA, c11.cur.inf], q:$("g11msgs").firstChild && $("g11msgs").firstChild.textContent, msg:$("g11msg").textContent, clean:c11.clean });
 </script>
 <script>
 /* =====================================================================
@@ -3145,6 +3543,19 @@ const STEP3_EMBEDS = {
   wordwall1:"https://wordwall.net/embed/ecd1aaf8bb0f4d079015d70fc77e1db5?themeId=65&templateId=5&fontStackId=0",   // STEP 3 – Pick the right word
   wordwall2:"https://wordwall.net/embed/3e6f3ec9ed9c4c42af56d86e0927e7f7?themeId=65&templateId=2&fontStackId=0",   // STEP 3 – Who is it? One or many
   speak:    "https://kniz-speak.lovable.app/?lesson=pronouns&translit=1"
+};
+
+/* STEP 5 (The TO-Words), Just speak track: from the Systeme course "HEBREW HACK without reading" (693801),
+   lesson "STEP 5 - The TO-Words — say what you want to DO", page 45987480 (read only, Nov 15) */
+const STEP5_LIVE = true;   // false = "Coming soon" on the map; set true when Eli approves
+const STEP5_EMBEDS = {
+  video1:   "https://player.vimeo.com/video/1239992750",   // Eilai: Sentence Builder TO-Words (5:14)
+  genially: "https://view.genially.com/6ada5d9f5e0e2679b57b1c0b",
+  video2:   "https://player.vimeo.com/video/1243567467",   // Infinitives dialogue (2:55, no captions track)
+  wordwall1:"https://wordwall.net/embed/457cc734ff694c5d8c68d27d5db21081?themeId=53&templateId=3&fontStackId=0",   // STEP 5 – THE TO WORDS
+  wordwall2:"https://wordwall.net/embed/4b0d07f5d3f74ccf940625071b398476?themeId=53&templateId=2&fontStackId=0",   // WHAT GOES WITH IT?
+  wordwall3:"https://wordwall.net/embed/f2d85b03db444e00b3a99bb0e5b83fdf?themeId=53&templateId=5&fontStackId=0",   // SAY IT IN HEBREW
+  speak:    "https://kniz-speak.lovable.app/?lesson=to-words&translit=1"
 };
 
 /* TODO (access control, not active in the pilot).
@@ -3198,7 +3609,7 @@ const STEPS = [
   { id:"step2",   n:"STEP 2",   t:"Niqud",             he:"בָּ בִּ בּוּ", reading:true },
   { id:"step3",   n:"STEP 3",   t:"Pronouns",          he:"אֲנִי" },
   { id:"step4",   n:"STEP 4",   t:"The Magic Four",    he:"רוֹצֶה", live:true },
-  { id:"step5",   n:"STEP 5",   t:"Infinitives",       he:"לֶאֱכֹל" },
+  { id:"step5",   n:"STEP 5",   t:"The TO-Words",      he:"לֶאֱכוֹל" },
   { id:"step6",   n:"STEP 6",   t:"Yesh li / Ein li",  he:"יֵשׁ לִי" }
 ];
 const ZIG = [0, -56, -78, -40, 30, 70, 36];
@@ -3283,13 +3694,32 @@ const LESSON_STEP3 = [
   { type:"embed", sec:"Speak",    icon:"🎙", name:"Say them out loud", url:STEP3_EMBEDS.speak, xp:10, mic:true,
     how:"Say each pronoun into your phone and hear how close you are. Allow the microphone when asked." }
 ];
+/* STEP 5 (The TO-Words), Just speak track: Systeme course "HEBREW HACK without reading", page 45987480. Same template as STEP 3:
+   Watch -> Learn -> Watch (dialogue) -> Play (CHAT BACK pilot; type "soon" = an empty games slot) -> Practice (Wordwall, unchanged) -> Speak */
+const LESSON_STEP5 = [
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Eilai explains", url:STEP5_EMBEDS.video1, xp:5,
+    how:"To eat, to drink, to sleep: build a sentence with what you want to do." },
+  { type:"embed", sec:"Learn",    icon:"📖", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP5_EMBEDS.genially, xp:5, wide:true, slides:true,
+    how:"Tap Open full screen to see the slides bigger." },
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Infinitives dialogue", url:STEP5_EMBEDS.video2, xp:5, cc:false,   // no captions track on this video
+    how:"Dana and Yoni say what they want to do. Say the TO-word in the pause before the answer shows." },
+  { type:"game",  sec:"Play", g:11, icon:"💬", name:"CHAT BACK", sub:"Answer your friends", xp:10,
+    how:"A friend texts you a question. Build your answer: who, the verb, the TO-word, then send it." },
+  { type:"embed", sec:"Practice", icon:"🧩", name:"The TO-Words", sub:"Match them up", url:STEP5_EMBEDS.wordwall1, xp:5, how:"Match each TO-word to its meaning." },
+  { type:"embed", sec:"Practice", icon:"🧩", name:"What goes with it?", sub:"Sort the words", url:STEP5_EMBEDS.wordwall2, xp:5, how:"Which words go with which TO-word?" },
+  { type:"embed", sec:"Practice", icon:"🧩", name:"Say it in Hebrew", sub:"Pick the right one", url:STEP5_EMBEDS.wordwall3, xp:5, how:"Pick the Hebrew that says the English." },
+  { type:"embed", sec:"Speak",    icon:"🎙", name:"Say them out loud", url:STEP5_EMBEDS.speak, xp:10, mic:true,
+    how:"Say each TO-word into your phone and hear how close you are. Allow the microphone when asked." }
+];
 const LESSONS = {
   step3:{ n:"STEP 3", title:"Pronouns", intro:"I, you, he, she: who is who in Hebrew. Watch, learn, play, say it.", parts:LESSON_STEP3, speakOnly:true },
+  step5:{ n:"STEP 5", title:"The TO-Words", intro:"To eat, to drink, to sleep: say what you want to DO. Watch, learn, practise, say it.", parts:LESSON_STEP5, speakOnly:true },
   step4:{ n:"STEP 4", title:"The Magic Four", intro:"Tap a verb to see it with every person. Watch, learn, play, practise.", parts:LESSON_STEP4 }
 };
 let CUR = "step4";
 const blankState = () => ({ pos:0, done:[], completed:0, parts:[], v:LESSON_VERSION });
 if (!A.step3) A.step3 = blankState();
+if (!A.step5) A.step5 = blankState();
 /* STEP 3 part list v2 (Nov 15): SNAP! added after Explore. Saved progress moves over by part name; the place moves back to the first part not done. */
 /* v3 (Nov 15): ROOFTOP PARTY added after SNAP! */
 const STEP3_VERSION = 3, STEP3_OLD = { 1: ["Watch & learn","Explore on your own","Who is it?","Pick the right word","Say them out loud"],
@@ -3304,10 +3734,10 @@ if (A.step3.sv !== STEP3_VERSION){
 }
 const ST = () => A[CUR];
 function useLesson(id){ if (!LESSONS[id]) return; CUR = id; LESSON = LESSONS[id].parts; A[id] = Object.assign(blankState(), A[id] || {}); }
-const lessonOpen = id => !!LESSONS[id] && (id !== "step3" || STEP3_LIVE) && (!LESSONS[id].speakOnly || A.read === false);   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
+const lessonOpen = id => !!LESSONS[id] && (id !== "step3" || STEP3_LIVE) && (id !== "step5" || STEP5_LIVE) && (!LESSONS[id].speakOnly || A.read === false);   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
 function lessonProgress(id){ const s = A[id] || {}; return s.completed ? 1 : Math.min(1, (s.pos || 0) / LESSONS[id].parts.length); }
 const XP_BONUS = 20;
-const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","words"];
+const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","words"];
 
 const dayStr = d => d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
 function liveStreak(){
@@ -3364,7 +3794,7 @@ function paintHome(){
       }
       b.addEventListener("click", () => openStep(st.id));
     } else {
-      b.addEventListener("click", () => { sfx("soft"); toast(optional ? st.t + " is for reading. You can skip it and go on." : (LESSONS[st.id] && (st.id !== "step3" || STEP3_LIVE)) ? st.t + ": coming soon for Speak + read" : st.t + ": coming soon"); });
+      b.addEventListener("click", () => { sfx("soft"); toast(optional ? st.t + " is for reading. You can skip it and go on." : (LESSONS[st.id] && (st.id !== "step3" || STEP3_LIVE) && (st.id !== "step5" || STEP5_LIVE)) ? st.t + ": coming soon for Speak + read" : st.t + ": coming soon"); });
     }
     const cap = document.createElement("div"); cap.className = "hh-cap";
     const pct = Math.round(prog * 100);
@@ -3428,7 +3858,7 @@ async function openStep(id){
   if (!acc.ok){ toast("This step opens after you join"); return; }
   $("stXp").textContent = "⚡ " + A.xp;
   const LS = LESSONS[CUR]; $("stN").textContent = LS.n; $("stTitle").textContent = LS.title; $("stIntro").textContent = LS.intro;
-  $("cjTabs").hidden = CUR !== "step4"; if (CUR === "step4") paintConj(); else paintPronTable();
+  $("cjTabs").hidden = CUR !== "step4"; if (CUR === "step4") paintConj(); else if (CUR === "step5") paintToTable(); else paintPronTable();
   const ol = $("stParts"); ol.innerHTML = "";
   let lastSec = "";
   LESSON.forEach((p, i) => {
@@ -3440,7 +3870,7 @@ async function openStep(id){
     b.innerHTML = "<i></i><span><b></b><small></small></span><em></em>";
     b.querySelector("i").textContent = done ? "★" : p.icon;
     b.querySelector("b").textContent = p.name;
-    b.querySelector("em").textContent = "+" + p.xp;
+    b.querySelector("em").textContent = p.xp ? "+" + p.xp : "";
     b.querySelector("small").textContent = (p.sub ? p.sub + "\n" : "") + (done ? "Done · tap to open again" : next ? "Up next" : "Tap to open");
     b.querySelector("small").style.whiteSpace = "pre-line";   // subtitle on its own line, then the status
     b.addEventListener("click", () => startAt(i));   // every part is open at any time, in any order
@@ -3498,6 +3928,22 @@ function paintPronTable(){
   });
 }
 
+/* STEP 5 page header: the 15 TO-words of the lesson's slides, Latin letters (kh/ts) + English */
+const TO_WORDS = [
+  ["לִשְׁתּוֹת","lishtot","to drink"], ["לְדַבֵּר","ledaber","to speak"], ["לִלְמוֹד","lilmod","to learn"], ["לִישׁוֹן","lishon","to sleep"], ["לַעֲזוֹר","laazor","to help"],
+  ["לְשַׂחֵק","lesakhek","to play"], ["לְנַסּוֹת","lenasot","to try"], ["לֶאֱכוֹל","le'ekhol","to eat"], ["לְהַזְמִין","lehazmin","to order"], ["לְשַׁלֵּם","leshalem","to pay"],
+  ["לִקְנוֹת","liknot","to buy"], ["לָלֶכֶת","lalekhet","to go"], ["לָבוֹא","lavo","to come"], ["לִרְאוֹת","lirot","to see / watch"], ["לִשְׁמוֹעַ","lishmoa","to hear"]
+];
+function paintToTable(){
+  const tb = $("cjTable"); tb.innerHTML = "";
+  TO_WORDS.forEach(([he, tr, en]) => {
+    const r = document.createElement("tr");
+    r.innerHTML = '<td class="hh-p"><span lang="he"></span><span class="hh-cj-tr"></span></td><td class="hh-en"></td>';
+    r.querySelector('[lang="he"]').textContent = he; r.querySelector(".hh-cj-tr").textContent = tr; r.lastChild.textContent = en;
+    tb.append(r);
+  });
+}
+
 /* ---------- lesson flow ---------- */
 let L = null;   // { mode:"lesson"|"single", pos, t0, said, xp, prev }
 function startLesson(){
@@ -3532,7 +3978,7 @@ function clearEmbed(){ closeConfirm(); closeFull("leaving"); const box = $("eFra
 function renderCard(){
   const p = LESSON[L.pos];
   clearEmbed();
-  if (p.type !== "game") return renderEmbed(p);
+  if (p.type !== "game" && p.type !== "soon") return renderEmbed(p);
   const card = $("lCard");
   paintBar("lBar", "lCount");
   card.innerHTML = "";
@@ -3540,8 +3986,9 @@ function renderCard(){
   const em = document.createElement("div"); em.className = "hh-emoji"; em.textContent = p.icon;
   const h = document.createElement("h2"); h.textContent = p.name;
   card.append(em, h);
+  if (p.type === "soon"){ const s = document.createElement("p"); s.className = "hint hh-soon"; s.textContent = p.sub; card.append(s); }   // a slot for games still being built
   if (L.prev){ toast(L.prev.split("  ·  ").filter(Boolean).slice(-1)[0]); L.prev = ""; }
-  $("lGo").textContent = "Go";
+  $("lGo").textContent = p.type === "soon" ? "Continue" : "Go";
   paintBack();
   pop(card); go("sLesson");
 }
@@ -3575,7 +4022,9 @@ function renderEmbed(p){
   paintBack();
   go("sEmbed");
 }
-$("lGo").addEventListener("click", () => launchGame(LESSON[L.pos].g));
+$("lGo").addEventListener("click", () => { const p = LESSON[L.pos];
+  if (p.type === "soon"){ if (L.mode === "single"){ L = null; return openStep(); } firstTime(); sfx("good"); return advance(""); }   // nothing to play yet: no XP, just on to the next part
+  launchGame(p.g); });
 $("lQuit").addEventListener("click", () => { L = null; openStep(); });
 $("eQuit").addEventListener("click", () => { clearEmbed(); L = null; openStep(); });
 /* Confirm sheet: the pink button only asks; "Yes, continue" is what advances and awards XP. */
@@ -3624,7 +4073,7 @@ function paintPron(){
   const box = $("hhPron"); if (!box) return;
   const v = CONJ[pronVerb], read = A.read !== false;
   box.classList.toggle("speak", !read);
-  const pb = $("gPron"); if (pb) pb.hidden = (!read && A.tr === false) || String(current) === "9" || String(current) === "10";   // SNAP! tests the pronouns: no table there   // Just speak with letters off: nothing to show
+  const pb = $("gPron"); if (pb) pb.hidden = (!read && A.tr === false) || String(current) === "9" || String(current) === "10" || String(current) === "11";   // SNAP! tests the pronouns: no table there   // Just speak with letters off: nothing to show
   // one chip per person: pronoun on top, its verb form under it (אֲנִי shows both: he / she)
   const he = (cls, t) => '<b class="' + cls + '" lang="he">' + t + "</b>";
   const tr = (cls, t) => '<i class="' + cls + ' hh-cj-tr">' + t + "</i>";
@@ -3854,7 +4303,7 @@ show = function(id){
 finish = function(title, big, sub, extra){
   if (!L) return gameFinish(title, big, sub, extra);
   const g = Number(current);
-  const said = g === 6 ? len6 : g === 4 ? cards4.length : g === 5 ? o5.said.length : g === 8 ? (e8.said || 0) : g === 7 ? (r7.served || 0) : g === 9 ? ((s9 && s9.said) || 0) : g === 10 ? ((r10 && r10.said) || 0) : 0;
+  const said = g === 6 ? len6 : g === 4 ? cards4.length : g === 5 ? o5.said.length : g === 8 ? (e8.said || 0) : g === 7 ? (r7.served || 0) : g === 9 ? ((s9 && s9.said) || 0) : g === 10 ? ((r10 && r10.said) || 0) : 0;   // CHAT BACK (11): no speaking yet, so nothing counted as said
   const part = LESSON[L.pos], xp = part.xp || 10;
   L.said += said;
   if (!ST().done.includes(g)) ST().done.push(g);
