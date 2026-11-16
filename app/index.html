@@ -928,6 +928,93 @@ main section > .top > .back{display:none}
 .hh-node .hh-glyph:not(.tr-first) small{font-size:10.5px}
 .hh-node .hh-glyph.tr-first small{font-weight:900;opacity:1;letter-spacing:-.01em}
 .hh-node .hh-glyph.tr-first b{font-size:11px;opacity:.8;font-weight:800}
+/* ---------- v30: one game shell (Claude review) ---------- */
+.hh-cb-key small{font-size:12px;opacity:.9;font-weight:800}
+.hh-end-rank{margin-top:14px;display:inline-block;background:var(--coral);color:#1E4A3A;font-weight:900;font-size:20px;border-radius:99px;padding:6px 18px}
+.hh-sn-end .hint{margin-top:4px}
+.hh-endov{position:fixed;left:0;right:0;top:60px;bottom:0;z-index:60;background:#1E4A3A;display:flex;flex-direction:column;gap:12px;padding:10px 12px calc(12px + env(safe-area-inset-bottom));overflow:auto}
+.hh-endov[hidden]{display:none!important}
+.hh-endov .card{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hh-s4head{width:100%;margin-bottom:4px}
+.hh-s4head .hh-s4tag:empty{visibility:hidden}
+#g8card .hh-demo-lab,#g5card .hh-demo-lab,#g7card .hh-demo-lab{font-size:16px;margin:2px 0 6px;max-width:100%}
+.hh-say-sp{font-weight:800;opacity:.9;margin-top:2px}
+.hh-micscreen{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hh-micscreen[hidden]{display:none!important}
+#g8card,#g5card,#g7card{justify-content:flex-start}
+/* ---------- v31: build-game engine (GIFT DROP v2, INTERROGATION ROOM v2, PICTURE TRUTH) ---------- */
+.hh-bg{gap:8px}
+.hh-bg [hidden]{display:none!important}
+.hh-bg-scene{position:relative;padding:10px 12px 12px;border-radius:18px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.14);overflow:hidden}
+.hh-bg-fast{position:absolute;left:0;right:0;top:0;height:4px;background:rgba(255,255,255,.08)}
+.hh-bg-fast b{display:block;height:100%;width:100%;background:#ffd27a;border-radius:0 4px 4px 0}
+@keyframes hhBgFast{from{width:100%}to{width:0}}
+.hh-bg-in{display:flex;flex-direction:column;gap:8px}
+.hh-bg-build{display:flex;flex-direction:column;gap:8px}
+.hh-bg-draft{align-self:center;font-size:19px;text-align:center;border-radius:16px;max-width:100%}
+.hh-bg-rows{display:flex;flex-direction:column;gap:6px}
+.hh-bg-row small{width:54px}
+.hh-bg .hh-cb-chip{min-height:38px;padding:5px 11px;font-size:15px}
+.hh-glow{border-color:#ffd27a!important;box-shadow:0 0 0 3px rgba(255,210,122,.55);animation:hhPulse 1s ease-in-out infinite}
+.hh-bg-slot{display:inline-block;min-width:34px;color:var(--cream-dim)}
+.hh-bg-slot.on{color:var(--cream)}
+.hh-bg-slot.given{color:var(--cream-dim);opacity:.85;border-bottom:2px solid rgba(255,255,255,.25)}
+.hh-bg-pic{font-size:24px;line-height:1;vertical-align:middle}
+.hh-bg-pic .hh-bg-sugar,.hh-bg-lp .hh-bg-sugar{width:28px;height:28px;vertical-align:middle}
+.hh-bg-say{display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px 0}
+.hh-bg-sent{font-size:24px;font-weight:900;color:var(--cream);text-align:center}
+.hh-bg-say .hint{color:var(--cream-dim);font-size:14px;text-align:center}
+.hh-bg-view{align-self:flex-start;padding:5px 12px;border-radius:99px;background:#f6efe2;color:#1E4A3A;font-weight:800;font-size:14px}
+.hh-bg-view[data-view="to"]{background:#FF6FA5} .hh-bg-view[data-view="about"]{background:#9fe0c8} .hh-bg-view[data-view="us"]{background:#ffd27a}
+.hh-bg-stage{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:84px}
+.hh-bg-who{display:flex;gap:6px}
+.hh-bg-face{display:flex;flex-direction:column;align-items:center;gap:2px}
+.hh-bg-face b{font-size:40px;line-height:1}
+.hh-bg-face small{font-size:12px;font-weight:700;color:var(--cream-dim)}
+.hh-bg-face.me small{color:var(--coral);font-weight:800}
+.hh-bg-face.m small{color:var(--he)} .hh-bg-face.f small{color:var(--she)}
+.hh-bg-face.sil b{filter:brightness(0) opacity(.55)}
+.hh-bg-face.reveal b{filter:none;animation:hhGot .5s}
+.hh-bg-gift{position:relative;font-size:52px;line-height:1;padding:6px 10px;transition:transform .55s cubic-bezier(.5,-0.3,.6,1),opacity .55s}
+.hh-bg-gift .hh-bg-sugar{width:58px;height:58px}
+.hh-bg-x{position:absolute;inset:0;pointer-events:none}
+.hh-bg-x::before,.hh-bg-x::after{content:"";position:absolute;left:4px;right:4px;top:50%;height:7px;margin-top:-3px;border-radius:4px;background:#ff4d6d;box-shadow:0 0 0 2px #1E4A3A}
+.hh-bg-x::before{transform:rotate(45deg)} .hh-bg-x::after{transform:rotate(-45deg)}
+.hh-bg-ban{position:absolute;right:-6px;top:-8px;font-size:20px;font-style:normal}
+.hh-bg-gift.no .hh-bg-thing{opacity:.55;filter:grayscale(.4)}
+.hh-bg-gift.fly{transform:translate(-40px,60px) scale(.3) rotate(-20deg);opacity:0}
+.hh-bg-panel{display:flex;flex-direction:column;align-items:center;gap:10px;padding:6px 0}
+.hh-bg-legend{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%}
+.hh-bg-legend.nine{grid-template-columns:repeat(3,1fr)}
+.hh-bg-lw{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border-radius:14px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);color:var(--cream);font:inherit}
+.hh-bg-lw b{font-size:15px} .hh-bg-lw small{font-size:11px;color:var(--cream-dim)}
+.hh-bg-lp{font-size:30px;line-height:1}
+.hh-bg-intro{font-size:17px;line-height:1.4;text-align:center;max-width:300px}
+.hh-iv2-file{display:flex;flex-direction:column;gap:8px;padding:10px 12px;border-radius:12px;background:#f3ead3;color:#1E4A3A;box-shadow:inset 0 0 0 2px #d9cba6}
+.hh-iv2-file .hh-bg-face small{color:#4b6a5e}
+.hh-iv2-l1{display:flex;gap:10px;justify-content:center}
+.hh-iv2-l2{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:800}
+.hh-iv2-l2 b{font-size:30px;line-height:1} .hh-iv2-l2 em{font-style:normal;font-size:13px;letter-spacing:.08em;color:#8a3b5c}
+.hh-iv2-strip{margin-left:auto;padding:3px 10px;border-radius:99px;background:#fff;font-size:15px}
+.hh-iv2-l3{display:flex;gap:10px;justify-content:center;font-size:30px;line-height:1}
+.hh-iv2-key{font-size:12px;font-weight:700;text-align:center;color:#4b6a5e}
+.hh-pt2-row{display:flex;align-items:center;justify-content:center;gap:14px;min-height:110px}
+.hh-pt2-who{display:flex;align-items:center;gap:4px}
+.hh-pt2-bub{padding:4px 8px;border-radius:12px;background:#f6efe2;font-size:22px;line-height:1}
+.hh-pt2-photo{position:relative;display:flex;align-items:center;justify-content:center;width:130px;height:110px;border-radius:10px;background:#f6efe2;border:5px solid #fff;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.hh-pt2-pic{line-height:1;font-size:48px;letter-spacing:-4px}
+.hh-pt2-pic.big{font-size:72px} .hh-pt2-pic.small{font-size:30px}
+.hh-pt2-badge{position:absolute;left:4px;bottom:2px;font-size:12px;font-weight:800;color:#1E4A3A}
+.hh-pt2-stamp{position:absolute;right:-8px;top:-10px;padding:2px 8px;border:3px solid #1f9e6e;border-radius:8px;color:#1f9e6e;font-style:normal;font-weight:900;font-size:14px;background:#f6efe2;transform:rotate(12deg) scale(.4);opacity:0;transition:transform .3s,opacity .3s}
+.hh-pt2-stamp.on{opacity:1;transform:rotate(12deg) scale(1)}
+/* v31: INTERROGATION fits 390x844 with 4 rows of chips */
+.hh-bg-iv2 .hh-bg-scene{padding:8px}
+.hh-bg-iv2 .hh-iv2-file{gap:4px;padding:8px 10px}
+.hh-bg-iv2 .hh-bg-face b{font-size:32px}
+.hh-bg-iv2 .hh-iv2-l2 b,.hh-bg-iv2 .hh-iv2-l3{font-size:26px}
+.hh-bg-iv2 .hh-cb-chip{min-height:36px;padding:4px 10px}
+.hh-bg-iv2 .hh-bg-rows{gap:4px}
+.hh-bg-iv2 .hh-bg-draft{font-size:17px;padding:6px 10px}
 </style>
 </head>
 <body>
@@ -975,7 +1062,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v29-b6301795b2</p>
+  <p class="hh-ver" id="oVer">Version hh-v31-47dffcdc0c</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -1364,7 +1451,7 @@ main section > .top > .back{display:none}
   <div class="top"><div class="bar"><i id="g9bar"></i></div><div class="count" id="g9count"></div></div>
   <div class="card hh-snap" id="g9card">
     <div class="hh-sn-head"><div class="tag" id="g9tag" aria-live="polite">Listen, then take the photo</div>
-      <div class="hh-hbtns"><button class="pill hh-skip" id="g9skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g9how" type="button" aria-label="How to play">?</button>
+      <div class="hh-hbtns"><span class="hh-gd-streak" id="g9streak" hidden></span><button class="pill hh-skip" id="g9skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g9how" type="button" aria-label="How to play">?</button>
       <button class="hh-sn-hear" id="g9hear" type="button" aria-label="Hear the word again">🔊</button></div></div>
     <div class="hh-demo-lab" id="g9lab" hidden></div>
     <div class="hh-sn-stage" id="g9stage" hidden></div>
@@ -1402,7 +1489,7 @@ main section > .top > .back{display:none}
   <div class="top"><div class="bar"><i id="g10bar"></i></div><div class="count" id="g10count"></div></div>
   <div class="card hh-snap hh-rp" id="g10card">
     <div class="hh-sn-head"><div class="tag" id="g10tag" aria-live="polite">Rooftop party in Tel Aviv</div>
-      <div class="hh-hbtns"><button class="pill hh-skip" id="g10skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g10how" type="button" aria-label="How to play">?</button>
+      <div class="hh-hbtns"><span class="hh-gd-streak" id="g10streak" hidden></span><button class="pill hh-skip" id="g10skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g10how" type="button" aria-label="How to play">?</button>
       <button class="hh-sn-hear" id="g10hear" type="button" aria-label="Hear the word again" hidden>🔊</button></div></div>
     <div class="hh-demo-lab" id="g10lab" hidden></div>
     <div class="hh-sn-stage" id="g10stage" hidden></div>
@@ -1439,7 +1526,7 @@ main section > .top > .back{display:none}
   <div class="top"><div class="bar"><i id="g11bar"></i></div><div class="count" id="g11count"></div></div>
   <div class="card hh-snap hh-cb" id="g11card">
     <div class="hh-sn-head"><div class="tag" id="g11tag" aria-live="polite">Answer your friend</div>
-      <div class="hh-hbtns"><button class="pill hh-skip" id="g11skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g11how" type="button" aria-label="How to play">?</button>
+      <div class="hh-hbtns"><span class="hh-gd-streak" id="g11streak" hidden></span><button class="pill hh-skip" id="g11skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g11how" type="button" aria-label="How to play">?</button>
       <button class="hh-sn-hear" id="g11hear" type="button" aria-label="Hear the message (coming soon)" disabled hidden>🔊</button></div></div>
     <div class="hh-demo-lab" id="g11lab" hidden></div>
     <div class="hh-cb-chat" id="g11chat">
@@ -1463,9 +1550,18 @@ main section > .top > .back{display:none}
 <!-- Say them out loud (STEP 5): the STEP 4 self-compare (By Ear's "Record yourself"): hear it, record yourself, play both, no score. -->
 <section id="g12" hidden>
   <div class="top"><div class="bar"><i id="g12bar"></i></div><div class="count" id="g12count"></div></div>
+  <div class="card hh-micscreen" id="g12mic" hidden>
+    <div class="tag">Before you start</div>
+    <div class="hh-emoji" aria-hidden="true">🎙</div>
+    <div class="en" style="font-size:22px">This part uses your microphone</div>
+    <div class="hint" style="margin-top:8px">You record yourself, then play your voice next to the model. Nothing is sent anywhere. Your browser asks once.</div>
+    <div class="row" style="flex-direction:column;gap:10px;margin-top:16px;width:100%"><button class="btn" id="g12micgo" type="button">🎙 Allow the microphone</button><button class="btn ghost" id="g12micno" type="button">No microphone: I'll say it out loud</button></div>
+    <div class="hint" id="g12micnote" aria-live="polite"></div>
+  </div>
   <div class="card" id="g12card">
     <div class="tag" id="g12tag" aria-live="polite">Now say it yourself</div>
     <div class="hh-emoji" id="g12emo" aria-hidden="true"></div>
+    <div class="hint hh-say-sp" id="g12sp"></div>
     <div id="g12sent" style="margin-top:4px">
       <div class="tr" id="g12tr"></div>
       <div class="hint" id="g12en"></div>
@@ -1473,63 +1569,6 @@ main section > .top > .back{display:none}
     <div class="hh-rep" id="g12rep"><button class="hh-recbtn" id="g12rec" type="button">🎙 Record yourself</button><div class="hh-reprow" id="g12cmp" hidden><button class="pill" id="g12mine" type="button">▶ My voice</button><button class="pill" id="g12orig" type="button">▶ Dana</button><button class="pill" id="g12again" type="button">↻ Try again</button><button class="pill" id="g12said" type="button" hidden>I said it</button></div><div class="hint" id="g12recnote" aria-live="polite"></div></div>
   </div>
   <div class="row" id="g12nextRow"><button class="btn" id="g12next" type="button">Next</button></div>
-</section>
-
-<!-- GIFT DROP (STEP 6): no Hebrew in the scene; build yesh / ein + the form (li, lekha, lakh, lo, la, lanu, lakhem, lahem) from how YOU are talking. -->
-<section id="g13" hidden>
-  <div class="top"><div class="bar"><i id="g13bar"></i></div><div class="count" id="g13count"></div></div>
-  <div class="card hh-snap hh-gd" id="g13card">
-    <div class="hh-sn-head"><div class="tag" id="g13tag" aria-live="polite">Drop the gift</div>
-      <div class="hh-hbtns"><span class="hh-gd-streak" id="g13streak" hidden></span><button class="pill hh-skip" id="g13skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g13how" type="button" aria-label="How to play">?</button></div></div>
-    <div class="hh-demo-lab" id="g13lab" hidden></div>
-    <div class="hh-gd-scene" id="g13scene">
-      <div class="hh-gd-view" id="g13view"><b id="g13vicon"></b><span id="g13vtxt"></span></div>
-      <div class="hh-gd-stage">
-        <div class="hh-gd-who" id="g13who"></div>
-        <div class="hh-gd-gift" id="g13gift"><span id="g13obj"></span><i id="g13x" aria-hidden="true" hidden></i></div>
-      </div>
-      <div class="hh-gd-bag" id="g13bag" aria-hidden="true">🛍️</div>
-    </div>
-    <div class="hh-cb-build" id="g13build">
-      <div class="hh-cb-draft hh-gd-draft" id="g13draft"></div>
-      <div class="hh-cb-row"><small>Has it?</small><div class="hh-cb-chips" id="g13r0"></div></div>
-      <div class="hh-cb-row"><small>Who</small><div class="hh-cb-chips" id="g13r1"></div></div>
-    </div>
-    <div class="msg hh-sn-msg" id="g13msg" aria-live="polite"></div>
-    <div class="hh-sn-end" id="g13end" hidden></div>
-  </div>
-  <div class="row" id="g13dropRow"><button class="btn" id="g13drop" type="button" disabled>Drop the gift 🎁</button></div>
-  <div class="row" id="g13doneRow" hidden><button class="btn" id="g13done" type="button">Continue</button></div>
-</section>
-
-<!-- INTERROGATION ROOM (STEP 7): no Hebrew in the scene; build the question: question word + ata / at (no pronoun for mi) + Magic Four verb + TO-word. -->
-<section id="g14" hidden>
-  <div class="top"><div class="bar"><i id="g14bar"></i></div><div class="count" id="g14count"></div></div>
-  <div class="card hh-snap hh-iv" id="g14card">
-    <div class="hh-sn-head"><div class="tag" id="g14tag" aria-live="polite">Ask the suspect</div>
-      <div class="hh-hbtns"><span class="hh-gd-streak" id="g14streak" hidden></span><button class="pill hh-skip" id="g14skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g14how" type="button" aria-label="How to play">?</button></div></div>
-    <div class="hh-demo-lab" id="g14lab" hidden></div>
-    <div class="hh-iv-file" id="g14scene">
-      <div class="hh-iv-stamp" id="g14stamp" aria-hidden="true">CRACKED</div>
-      <div class="hh-iv-sus"><b id="g14face"></b><span id="g14name"></span></div>
-      <div class="hh-iv-facts">
-        <div class="hh-iv-blank" id="g14blank"><b id="g14bicon"></b><span id="g14btxt"></span><i id="g14ans">?</i></div>
-        <div class="hh-iv-act"><b id="g14verb"></b><b id="g14act"></b></div>
-      </div>
-      <div class="hh-cb-key hh-iv-key" id="g14key" aria-label="Emoji key for the verbs"></div>
-    </div>
-    <div class="hh-cb-build" id="g14build">
-      <div class="hh-cb-draft hh-gd-draft" id="g14draft"></div>
-      <div class="hh-cb-row"><small>Ask</small><div class="hh-cb-chips" id="g14r0"></div></div>
-      <div class="hh-cb-row"><small>You</small><div class="hh-cb-chips" id="g14r1"></div></div>
-      <div class="hh-cb-row"><small>Verb</small><div class="hh-cb-chips" id="g14r2"></div></div>
-      <div class="hh-cb-row"><small>TO-word</small><div class="hh-cb-chips" id="g14r3"></div></div>
-    </div>
-    <div class="msg hh-sn-msg" id="g14msg" aria-live="polite"></div>
-    <div class="hh-sn-end" id="g14end" hidden></div>
-  </div>
-  <div class="row" id="g14askRow"><button class="btn" id="g14ask" type="button" disabled>Ask the question 🔦</button></div>
-  <div class="row" id="g14doneRow" hidden><button class="btn" id="g14done" type="button">Continue</button></div>
 </section>
 
 </main>
@@ -1965,7 +2004,7 @@ function unlockAudio(){
 
 function show(id){
   cancelAnimationFrame(raf); clearTimeout(timer); recStop(true); streak = 0;
-  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","words","setup","stage","done"].forEach(s => $(s).hidden = (s !== id));
+  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","g15","words","setup","stage","done"].forEach(s => { if ($(s)) $(s).hidden = (s !== id); });
   document.querySelectorAll(".card").forEach(c => c.classList.toggle("speak-track", S.track === "speak"));
 }
 function showKeep(id){ show(id); }
@@ -2793,9 +2832,9 @@ const EAR_SETS = {
   she:   [[["hi","ohevet","pitza"],"She loves pizza","👩 ❤️"],[["hi","lo","rotza","pitza"],"She doesn't want pizza","👩 🚫"],
           [["hi","lo","ohevet","pitza"],"She doesn't love pizza","👩 💔"],[["hi","lo","rotza","ledaber","ivrit"],"She doesn't want to speak Hebrew","👩 🚫 🗣"],
           [["hi","lo","rotza","leechol","pitza"],"She doesn't want to eat pizza","👩 🚫 🍽"]],
-  you:   [[["ata","rotze","kafe"],"Do you want coffee? (to a man)","👉👨 ☕",1],[["at","rotza","kafe"],"Do you want coffee? (to a woman)","👉👩 ☕",1],
-          [["ata","tzarich","sukar"],"Do you need sugar? (to a man)","👉👨 🍬",1],[["at","tzricha","sukar"],"Do you need sugar? (to a woman)","👉👩 🍬",1],
-          [["ata","ohev","kafe","chazak"],"Do you love strong coffee? (to a man)","👉👨 💪",1],[["at","ohevet","kafe","chazak"],"Do you love strong coffee? (to a woman)","👉👩 💪",1]]
+  you:   [[["ata","rotze","kafe"],"Do you want coffee? (to a man)","💬👨 ☕",1],[["at","rotza","kafe"],"Do you want coffee? (to a woman)","💬👩 ☕",1],
+          [["ata","tzarich","sukar"],"Do you need sugar? (to a man)","💬👨 🍬",1],[["at","tzricha","sukar"],"Do you need sugar? (to a woman)","💬👩 🍬",1],
+          [["ata","ohev","kafe","chazak"],"Do you love strong coffee? (to a man)","💬👨 💪",1],[["at","ohevet","kafe","chazak"],"Do you love strong coffee? (to a woman)","💬👩 💪",1]]
 };
 const EAR_FORMS = { want:{m:"rotze",f:"rotza"}, need:{m:"tzarich",f:"tzricha"}, love:{m:"ohev",f:"ohevet"}, can:{m:"yachol",f:"yechola"} };
 const EAR_ORDER = ["iwant","he","she","ineed","you","ilove","can","he"];   // one round each: I, he, she, you, all four verbs (spec A3: "can" replaces the 2nd "she")
@@ -2969,8 +3008,46 @@ function demoHide(){ if (DEMO.hand) DEMO.hand.hidden = true; }
 function demoPulse(el){ document.querySelectorAll(".hh-pulse").forEach(e => { if (e !== el) e.classList.remove("hh-pulse"); }); if (el) el.classList.add("hh-pulse"); }
 function demoLab(id, txt){ const l = $(id); l.hidden = !txt; l.textContent = txt || ""; if (txt) pop(l); }
 /* left the game mid-demo (‹, ⌂): no hand or pulse left on screen */
-setInterval(() => { if (DEMO.hand && !DEMO.hand.hidden && ["g9","g10","g11","g13","g14"].every(id => $(id).hidden)){ demoHide(); demoPulse(null); } }, 400);
+setInterval(() => { if (DEMO.hand && !DEMO.hand.hidden && ["g5","g7","g8","g9","g10","g11","g13","g14","g15"].every(id => !$(id) || $(id).hidden)){ demoHide(); demoPulse(null); } }, 400);
 setInterval(() => { if (typeof snapNarr !== "undefined" && !snapNarr.paused && $("g9").hidden) snapNarrStop(); }, 400);
+
+/* ---------- v30: the shared game shell (Claude review, "Game shell") ----------
+   one streak chip ("🔥 N in a row" from 2), one end card (X / N, first try, best streak, fast, said, rank), 3-tier ranks (90% / 65%). */
+const HH_RANKS = {
+  9:["Pro photographer","Good eye","Keep snapping"], 10:["Party star","Good host","Keep partying"], 11:["Chat champ","Good friend","Keep chatting"],
+  8:["Sharp ear","Good ear","Keep listening"], 7:["Star barista","Good barista","Keep serving"], 5:["Café regular","Café regular","Café regular"],
+  13:["Gift master","Great delivery","Keep delivering"], 14:["Chief detective","Sharp detective","Rookie detective"], 15:["Picture perfect","Sharp eye","Keep looking"]
+};
+function hhRank(g, n, total){ const r = HH_RANKS[g] || ["Great","Good","Keep going"], f = total ? n / total : 0; return f >= 0.9 ? r[0] : f >= 0.65 ? r[1] : r[2]; }
+function hhStreak(st, first, chipId){
+  st.streak = first ? (st.streak || 0) + 1 : 0; st.best = Math.max(st.best || 0, st.streak);
+  const c = chipId && $(chipId); if (c){ c.hidden = st.streak < 2; c.textContent = "🔥 " + st.streak + " in a row"; }
+}
+/* o = { n, total, what, best, fast, said, saidNone, extra:[...], rank } -> the end card lines, the same in every game */
+function hhEndCard(el, o){
+  el.innerHTML = ""; el.hidden = false; el.classList.add("hh-end");
+  const line = (cls, t) => { const d = document.createElement("div"); d.className = cls; d.textContent = t; el.append(d); return d; };
+  line("hh-sn-big", o.big || (o.n + " / " + o.total));
+  line("hint", o.what);
+  if (o.best !== undefined) line("hint", "Best streak: " + o.best + " in a row");
+  if (o.fast) line("hh-sn-said", "⚡ " + o.fast + " fast answer" + (o.fast === 1 ? "" : "s"));
+  if (o.said !== undefined) line("hh-sn-said", o.said ? o.said + " said out loud" : "Next time, say each one out loud too.");
+  (o.extra || []).forEach(t => line("hh-sn-said", t));
+  if (o.rank) line("hh-end-rank", "🏅 " + o.rank);
+}
+/* STEP 4 games end inside the game script's own flow: a full-screen end card over the game, then Continue */
+function hhEndOverlay(o, onGo){
+  let ov = $("hhEnd");
+  if (!ov){
+    ov = document.createElement("div"); ov.id = "hhEnd"; ov.className = "hh-endov"; ov.hidden = true;
+    ov.innerHTML = '<div class="card"><div class="tag" id="hhEndTag"></div><div class="hh-sn-end" id="hhEndBody"></div></div><div class="row"><button class="btn" id="hhEndGo" type="button">Continue</button></div>';
+    $("play").append(ov);
+    $("hhEndGo").addEventListener("click", () => { const f = ov.__go; ov.hidden = true; ov.__go = null; if (f) f(); });
+  }
+  $("hhEndTag").textContent = o.tag || "Your result"; hhEndCard($("hhEndBody"), o);
+  ov.__go = onGo; ov.hidden = false; sfx("win"); window.scrollTo(0, 0);
+}
+function hhEndHide(){ const ov = $("hhEnd"); if (ov){ ov.hidden = true; ov.__go = null; } }
 
 /* ---------- Game 9: SNAP! (STEP 3, Pronouns) ----------
    A beach day in Tel Aviv. You hold the phone; the camera mode is the pronoun family, always from your side:
@@ -3020,16 +3097,15 @@ function snapDir(t){
 }
 const snapWho = t => { const [d, n, g] = SNAP_FEAT[t]; return n === 1 ? (g === "m" ? "one boy" : "one girl") : (g === "m" ? "a group with a boy in it" : "girls only"); };
 /* feedback that names the one thing that's off */
-function snapWhy(t, got, mode){
-  if (!got) return "Nobody's in the photo. Tap people on the beach to put them in the frame.";
-  const T = SNAP_FEAT[t], G = SNAP_FEAT[got], tw = snapTr(t), gw = snapTr(got);
-  if (t === "anachnu" && mode !== "selfie") return "Anakhnu includes you: switch to Selfie and add your friends.";
-  if (t === "anachnu") return "Anakhnu = you AND others: tap a friend into your selfie.";
-  if (t === "ani") return mode === "selfie" ? "Ani is just you: take the others out of your selfie." : "Ani is you: switch to Selfie.";
-  if (T[0] !== G[0] && T[1] === G[1] && T[2] === G[2]) return "Right people, wrong direction: " + snapDir(t) + " → " + tw + ", not " + gw + ".";
-  if (T[0] !== G[0]) return "Wrong direction: " + snapDir(t) + " → " + tw + ". Your photo says " + gw + ".";
-  if (T[1] !== G[1]) return "Right direction, wrong number: " + tw + " is " + (T[1] === 1 ? "one person" : "more than one") + ". Your photo says " + gw + ".";
-  return "Right direction, check who: " + tw + " is " + snapWho(t) + ". Your photo says " + gw + (T[1] === 2 ? " (one boy makes it " + snapTr(T[0] === "back" ? "hem" : "atem") + ")" : "") + ".";
+function snapWhy(t, got, mode){   // v30: one hint format, "[icon] [Category]: [reason] → [answer]."
+  if (!got) return "👀 Who: nobody's in the photo → tap people into the frame.";
+  const T = SNAP_FEAT[t], G = SNAP_FEAT[got], tw = snapTr(t), gw = snapTr(got), DI = { selfie:"🤳", back:"📷", call:"📱" };
+  if (t === "anachnu" && mode !== "selfie") return "🤳 Direction: anakhnu includes you → switch to Selfie and add a friend.";
+  if (t === "anachnu") return "👥 Number: anakhnu = you AND others → tap a friend into your selfie.";
+  if (t === "ani") return mode === "selfie" ? "👤 Number: ani is just you → take the others out of your selfie." : "🤳 Direction: ani is you → switch to Selfie.";
+  if (T[0] !== G[0]) return DI[T[0]] + " Direction: " + snapDir(t) + " → " + tw + ", not " + gw + ".";
+  if (T[1] !== G[1]) return (T[1] === 1 ? "👤" : "👥") + " Number: " + (T[1] === 1 ? "one person" : "more than one") + " → " + tw + ", not " + gw + ".";
+  return (T[2] === "m" ? "👦" : "👧") + " Gender: " + tw + " is " + snapWho(t) + (T[1] === 2 && T[2] === "m" ? " (one boy makes it " + tw + ")" : "") + " → " + tw + ", not " + gw + ".";
 }
 function startSnap(){
   const order = SNAP_SHOTS.map((x, i) => Object.assign({ sec:snapSec(i) }, x));
@@ -3099,7 +3175,7 @@ function snapShoot(auto){
   if (got === o.t) return snapDevelop(got);
   s9.tries++; sfx("soft");
   const m = $("g9msg"); m.className = "msg hh-sn-msg bad";
-  m.textContent = (auto ? "Time's up! " : "") + snapWhy(o.t, got, s9.mode);
+  m.textContent = (auto ? "⏱ Time's up. " : "") + snapWhy(o.t, got, s9.mode);
   $("g9card").classList.remove("shake"); void $("g9card").offsetWidth; $("g9card").classList.add("shake");
   if (auto || s9.tries >= 2){   // show the right photo, then let them take it
     const T = SNAP_FEAT[o.t]; s9.mode = T[0];
@@ -3115,6 +3191,7 @@ function snapShoot(auto){
 function snapDevelop(w){
   s9.phase = "photo"; clearInterval(s9.t); $("g9timer").hidden = true;
   if (s9.tries === 0) s9.clean++;
+  if (!s9.demo) hhStreak(s9, s9.tries === 0, "g9streak");
   sfx("good");
   const pic = $("g9pic"); pic.innerHTML = ""; pic.dataset.mode = s9.mode;
   if (s9.mode === "selfie") pic.append(Object.assign(document.createElement("b"), { textContent:"🙂" }));
@@ -3126,7 +3203,7 @@ function snapDevelop(w){
   $("g9rule").textContent = mixed ? "Girls + one boy or more → " + snapTr(s9.mode === "back" ? "hem" : "atem") + ", not " + snapTr(s9.mode === "back" ? "hen" : "aten") : "";
   $("g9rule").hidden = !mixed;
   $("g9frame").hidden = true; const ph = $("g9photo"); ph.hidden = false; ph.classList.remove("dev"); void ph.offsetWidth; ph.classList.add("dev");
-  const m = $("g9msg"); m.className = "msg hh-sn-msg good"; m.textContent = s9.tries === 0 ? "Snap! That's " + snapTr(w) + "." : "That's it: " + snapTr(w) + ".";
+  const m = $("g9msg"); m.className = "msg hh-sn-msg good"; m.textContent = "Yes! That's " + snapTr(w) + ".";
   $("g9beach").hidden = true; $("g9modes").hidden = true; $("g9shotRow").hidden = true; $("g9nextRow").hidden = false;
   snapSayReset(); $("g9say").hidden = !!s9.demo; if (s9.noMic && !s9.demo) snapNoMic();
   setTimeout(() => speak([w]), 350);
@@ -3214,13 +3291,11 @@ function snapEnd(){
   ["g9vf","g9modes","g9beach","g9say","g9stage"].forEach(id => $(id).hidden = true);
   $("g9tip").textContent = ""; $("g9msg").textContent = ""; $("g9tag").textContent = "Beach album"; $("g9hear").hidden = true;
   const e = $("g9end"); e.hidden = false;
-  e.innerHTML = '<div class="hh-sn-big"></div><div class="hint"></div><div class="hh-sn-said"></div>';
-  e.children[0].textContent = s9.clean + " / " + s9.order.length;
-  e.children[1].textContent = "photos right on the first try";
-  e.children[2].textContent = s9.said ? s9.said + " said out loud" : "Next time, say each one out loud too.";
+  hhEndCard(e, { n:s9.clean, total:s9.order.length, what:"photos right on the first try", best:s9.best || 0, said:s9.said, rank:hhRank(9, s9.clean, s9.order.length) });
+  $("g9streak").hidden = true;
   $("g9shotRow").hidden = true; $("g9nextRow").hidden = true; $("g9doneRow").hidden = false; sfx("win");
 }
-$("g9done").addEventListener("click", () => { if (s9 && s9.phase === "end") finish("Nice shots!", s9.clean + " / " + s9.order.length, "photos right on the first try.", ""); });
+$("g9done").addEventListener("click", () => { if (s9 && s9.phase === "end") finish(hhRank(9, s9.clean, s9.order.length) + "!", s9.clean + " / " + s9.order.length, "photos right on the first try.", ""); });
 
 /* say it: record yourself (or "I said it" without a microphone). Counts once per photo. */
 let snapMic = null, snapRec = null, snapUrl = null, snapAsk = false;
@@ -3309,17 +3384,17 @@ const rpNames = ids => ids.map(id => snapPerson(id).name).join(" + ");
 function rpWhy(t, got, ids){
   const T = SNAP_FEAT[t], G = SNAP_FEAT[got], tw = snapTr(t), gw = snapTr(got);
   if (T[0] !== G[0]){
-    if (T[0] === "selfie") return "Includes me: you're in the photo → " + tw + ", not " + gw + ".";
-    if (G[0] === "selfie") return "Includes me: you're not in it, " + (T[0] === "call" ? "you're talking TO " : "you're whispering ABOUT ") + rpNames(ids) + " → " + tw + ".";
-    return "Direction: " + (T[0] === "call" ? "👋 you're talking TO " : "🤫 you're whispering ABOUT ") + rpNames(ids) + " → " + tw + ", not " + gw + ".";
+    if (T[0] === "selfie") return "📸 Direction: you're in the photo → " + tw + ", not " + gw + ".";
+    if (G[0] === "selfie") return (T[0] === "call" ? "👋" : "🤫") + " Direction: you're not in it, " + (T[0] === "call" ? "you're talking TO " : "you're whispering ABOUT ") + rpNames(ids) + " → " + tw + ".";
+    return (T[0] === "call" ? "👋 Direction: you're talking TO " : "🤫 Direction: you're whispering ABOUT ") + rpNames(ids) + " → " + tw + ", not " + gw + ".";
   }
   if (T[1] !== G[1]){
-    if (T[0] === "selfie") return "Number: " + (T[1] === 1 ? "just you in the selfie → " : "you + " + rpNames(ids) + " → ") + tw + ", not " + gw + ".";
-    return "Number: " + (ids.length === 1 ? "one guest, " + rpNames(ids) : ids.length + " guests") + " → " + tw + ", not " + gw + ".";
+    if (T[0] === "selfie") return (T[1] === 1 ? "👤" : "👥") + " Number: " + (T[1] === 1 ? "just you in the selfie → " : "you + " + rpNames(ids) + " → ") + tw + ", not " + gw + ".";
+    return (ids.length === 1 ? "👤" : "👥") + " Number: " + (ids.length === 1 ? "one guest, " + rpNames(ids) : ids.length + " guests") + " → " + tw + ", not " + gw + ".";
   }
-  if (T[1] === 1) return "Gender: " + rpNames(ids) + " is a " + (T[2] === "m" ? "boy" : "girl") + " → " + tw + ", not " + gw + ".";
+  if (T[1] === 1) return (T[2] === "m" ? "👦" : "👧") + " Gender: " + rpNames(ids) + " is a " + (T[2] === "m" ? "boy" : "girl") + " → " + tw + ", not " + gw + ".";
   const boys = ids.filter(id => snapPerson(id).g === "m").map(id => snapPerson(id).name);
-  return "Gender: " + (T[2] === "m" ? (boys.length === 1 && ids.length > 1 ? "one boy (" + boys[0] + ") makes it " : "boys in the group → ") : "girls only → ") + tw + ", not " + gw + ".";
+  return (T[2] === "m" ? "👦" : "👧") + " Gender: " + (T[2] === "m" ? (boys.length === 1 && ids.length > 1 ? "one boy (" + boys[0] + ") makes it " : "boys in the group → ") : "girls only → ") + tw + ", not " + gw + ".";
 }
 function startRooftop(){
   r10 = { i:0, clean:0, said:0, phase:"intro", saidNow:false, noMic:!navigator.mediaDevices || !window.MediaRecorder, t:0, ms:[], ok:true, step:0 };
@@ -3384,8 +3459,8 @@ function rpPick(w){
   if (!right) r10.ok = false;
   document.querySelectorAll("#g10opts .hh-rp-opt").forEach(b => { b.disabled = true; if (b.dataset.w === t) b.classList.add("right"); else if (b.dataset.w === w) b.classList.add("wrong"); });
   const m = $("g10msg");
-  if (right){ sfx("good"); m.className = "msg hh-sn-msg good"; m.textContent = (r10.left >= r10.sec / 2 ? "Fast! " : "Yes! ") + snapTr(t) + ": " + SNAP_EN[t] + "."; }
-  else { sfx("soft"); m.className = "msg hh-sn-msg bad"; m.textContent = (w ? "" : "Time's up! ") + (w ? rpWhy(t, w, r10.ids) : "It's " + snapTr(t) + ": " + SNAP_EN[t] + ".");
+  if (right){ sfx("good"); m.className = "msg hh-sn-msg good"; m.textContent = (r10.left >= r10.sec / 2 ? "⚡ Fast! " : "Yes! ") + snapTr(t) + ": " + SNAP_EN[t] + "."; }
+  else { sfx("soft"); m.className = "msg hh-sn-msg bad"; m.textContent = (w ? rpWhy(t, w, r10.ids) : "⏱ Time's up: " + SNAP_EN[t] + " → " + snapTr(t) + ".");
     $("g10card").classList.remove("shake"); void $("g10card").offsetWidth; $("g10card").classList.add("shake"); }
   speak([t]);
   if (r10.step === 0 && r10.cur.join){   // a guest walks over: the word has to flip
@@ -3394,6 +3469,7 @@ function rpPick(w){
     return;
   }
   if (r10.ok) r10.clean++;
+  if (!r10.demo) hhStreak(r10, r10.ok, "g10streak");
   r10.phase = "done"; $("g10hear").hidden = false;
   rpSayReset(); $("g10say").hidden = !!r10.demo; if (r10.noMic && !r10.demo) rpNoMic();
   $("g10nextRow").hidden = false;
@@ -3450,14 +3526,11 @@ function rpEnd(){
   $("g10msg").textContent = ""; $("g10tag").textContent = "The party's over";
   const avg = r10.ms.length ? r10.ms.reduce((a, b) => a + b, 0) / r10.ms.length / 1000 : 0;
   const e = $("g10end"); e.hidden = false;
-  e.innerHTML = '<div class="hh-sn-big"></div><div class="hint"></div><div class="hh-sn-said"></div><div class="hh-sn-said"></div>';
-  e.children[0].textContent = r10.clean + " / " + RP_ROUNDS.length;
-  e.children[1].textContent = "rounds right on the first try";
-  e.children[2].textContent = "⏱ " + avg.toFixed(1) + "s per answer";
-  e.children[3].textContent = r10.said ? r10.said + " said out loud" : "Next time, say each one out loud too.";
+  hhEndCard(e, { n:r10.clean, total:RP_ROUNDS.length, what:"rounds right on the first try", best:r10.best || 0, said:r10.said, extra:["⏱ " + avg.toFixed(1) + "s per answer"], rank:hhRank(10, r10.clean, RP_ROUNDS.length) });
+  $("g10streak").hidden = true;
   $("g10doneRow").hidden = false; sfx("win");
 }
-$("g10done").addEventListener("click", () => { if (r10 && r10.phase === "end") finish("Great party!", r10.clean + " / " + RP_ROUNDS.length, "rounds right on the first try.", ""); });
+$("g10done").addEventListener("click", () => { if (r10 && r10.phase === "end") finish(hhRank(10, r10.clean, RP_ROUNDS.length) + "!", r10.clean + " / " + RP_ROUNDS.length, "rounds right on the first try.", ""); });
 
 /* say it: record yourself (or "I said it" without a microphone). Counts once per round. */
 let rpMic = null, rpRec = null, rpUrl = null, rpAskMic = false;
@@ -3608,8 +3681,8 @@ function cbBubble(side, txt, ticks){
 }
 function cbKey(){   // the verb key under the chat header, in your own form
   const g = cbG(), k = $("g11key"); if (k.dataset.g === g) return; k.dataset.g = g; k.innerHTML = "";
-  CB_KEY.forEach(([e, v, en]) => { const d = document.createElement("span"); d.innerHTML = "<b></b><i></i><small></small>";
-    d.children[0].textContent = e; d.children[1].textContent = CB_VERB[v][g]; d.children[2].textContent = en; k.append(d); });
+  CB_KEY.forEach(([e, v, en]) => { const d = document.createElement("span"); d.innerHTML = "<b></b><small></small>";   // v30: emoji + English only, never the Hebrew form
+    d.children[0].textContent = e; d.children[1].textContent = en; k.append(d); });
 }
 const cbSay = (o, words) => (o.emoji ? cbCap(words[0] || "___") + " " + words.slice(1).join(" ") : "Ken, " + words.join(" "));
 function cbDraft(){
@@ -3625,19 +3698,21 @@ function cbPick(r, w){
   sfx("tap"); cbDraft();
 }
 /* gentle feedback: the first chip that is off, and why */
-function cbWhy(o, P, p){
+function cbWhy(o, P, p){   // v30: one hint format, "[icon] [Category]: [reason] → [answer]."
+  const gi = P.af === "m" ? "👦" : "👧";
   if (o.emoji){
-    if (p[0] !== "ani") return "It's about you: ani.";
-    if (p[1] !== P.verbA){ const v = Object.keys(CB_VERB).find(x => CB_VERB[x][P.af] === p[1] || Object.values(CB_VERB[x]).includes(p[1]));
-      return v === o.v ? "Ani for a " + (P.af === "m" ? "boy" : "girl") + ": " + P.verbA + "." : CB_VE[o.v] + " means " + CB_VEN[o.v] + ": " + P.verbA + "."; }
-    return "Look at the second emoji: " + CB_ACT[o.inf] + " = " + o.inf + ".";
+    if (p[0] !== "ani") return "🙋 Who: it's about you → ani.";
+    if (p[1] !== P.verbA){ const v = Object.keys(CB_VERB).find(x => Object.values(CB_VERB[x]).includes(p[1]));
+      return v === o.v ? gi + " Form: ani for a " + (P.af === "m" ? "boy" : "girl") + " → " + P.verbA + "." : CB_VE[o.v] + " Verb: " + CB_VE[o.v] + " means " + CB_VEN[o.v] + " → " + P.verbA + "."; }
+    return CB_ACT[o.inf] + " TO-word: " + CB_ACT[o.inf] + " = " + o.inf + ".";
   }
   if (p[0] !== P.ap){
-    if (p[0] === P.qp) return P.qp === "ata" || P.qp === "at" ? "They asked about you: answer with ani." : P.qp === "atem" || P.qp === "aten" ? "They asked about you and your friends: answer with anakhnu." : "Who is it? " + P.ap + ".";
-    return "Who is it? They asked " + P.qp + ", so you answer " + P.ap + ".";
+    if (P.qp === "ata" || P.qp === "at") return "🙋 Who: they asked about you → ani.";
+    if (P.qp === "atem" || P.qp === "aten") return "👫 Who: they asked about you and your friends → anakhnu.";
+    return "👉 Who: they asked about " + P.qp + " → " + P.ap + ".";
   }
-  if (p[1] !== P.verbA) return P.ap === "ani" ? "Ani for a " + (P.af === "m" ? "boy" : "girl") + ": " + P.verbA + "." : P.ap === "anakhnu" ? (P.af === "mp" ? "A group with a boy: " : "Girls only: ") + P.verbA + "." : cbCap(P.ap) + " goes with " + P.verbA + ".";
-  return "Look at the message: " + o.inf + " " + o.emo + ".";
+  if (p[1] !== P.verbA) return P.ap === "ani" ? gi + " Form: ani for a " + (P.af === "m" ? "boy" : "girl") + " → " + P.verbA + "." : P.ap === "anakhnu" ? "👥 Form: " + (P.af === "mp" ? "a group with a boy" : "girls only") + " → " + P.verbA + "." : "🔗 Form: " + P.ap + " goes with " + P.verbA + ".";
+  return "💬 TO-word: look at the message → " + o.inf + ".";
 }
 function cbSend(){
   if (!c11 || c11.phase !== "build") return;
@@ -3645,9 +3720,10 @@ function cbSend(){
   const right = [P.ap, P.verbA, o.inf];
   if (p.every((w, k) => w === right[k])){
     c11.phase = "sent"; if (c11.tries === 0) c11.clean++;
+    if (!c11.demo) hhStreak(c11, c11.tries === 0, "g11streak");
     sfx("good");
     cbBubble("out", cbSay(o, p), true);
-    $("g11msg").className = "msg hh-sn-msg good"; $("g11msg").textContent = c11.tries === 0 ? "Sent!" : "That's it.";
+    $("g11msg").className = "msg hh-sn-msg good"; $("g11msg").textContent = "Yes!";
     $("g11build").hidden = true; $("g11sendRow").hidden = true;
     setTimeout(() => { if (!c11 || c11.cur !== o) return; cbBubble("in", o.back); sfx("pop"); }, 700);
     if (!c11.demo) c11.t = setTimeout(() => { if (!c11 || c11.cur !== o || $("g11").hidden) return; c11.i++; cbRound(); }, 1900);
@@ -3666,12 +3742,11 @@ function cbEnd(){
   ["g11chat","g11build","g11sendRow"].forEach(id => $(id).hidden = true);
   $("g11msg").textContent = ""; $("g11tag").textContent = "Chat done";
   const e = $("g11end"); e.hidden = false;
-  e.innerHTML = '<div class="hh-sn-big"></div><div class="hint"></div>';
-  e.children[0].textContent = c11.clean + " / " + c11.rounds.length;
-  e.children[1].textContent = "replies right on the first try";
+  hhEndCard(e, { n:c11.clean, total:c11.rounds.length, what:"replies right on the first try", best:c11.best || 0, rank:hhRank(11, c11.clean, c11.rounds.length) });
+  $("g11streak").hidden = true;
   $("g11doneRow").hidden = false; sfx("win");
 }
-$("g11done").addEventListener("click", () => { if (c11 && c11.phase === "end") finish("Nice chat!", c11.clean + " / " + c11.rounds.length, "replies right on the first try.", ""); });
+$("g11done").addEventListener("click", () => { if (c11 && c11.phase === "end") finish(hhRank(11, c11.clean, c11.rounds.length) + "!", c11.clean + " / " + c11.rounds.length, "replies right on the first try.", ""); });
 /* how to play: the hand answers one message, then one guided turn, then the real chat. A must on the first visit. */
 const cbChip = (r, w) => document.querySelector('#g11r' + r + ' .hh-cb-chip[data-w="' + CSS.escape(w) + '"]');
 async function cbDemo(){
@@ -3744,13 +3819,13 @@ const SAY_SETS = {
   // STEP 3: the pronoun clips SNAP! / ROOFTOP PARTY already use (from KNIZ Speak)
   step3:[
   { id:"ani", sp:"Eilai", tr:"Ani.", en:"I", emo:"🙋" },
-  { id:"ata", sp:"Eilai", tr:"Ata.", en:"You (to a boy)", emo:"👉👦" },
-  { id:"at", sp:"Eilai", tr:"At.", en:"You (to a girl)", emo:"👉👧" },
+  { id:"ata", sp:"Eilai", tr:"Ata.", en:"You (to a boy)", emo:"💬👦" },
+  { id:"at", sp:"Eilai", tr:"At.", en:"You (to a girl)", emo:"💬👧" },
   { id:"hu", sp:"Eilai", tr:"Hu.", en:"He", emo:"👦" },
   { id:"hi", sp:"Eilai", tr:"Hi.", en:"She", emo:"👧" },
   { id:"anachnu", sp:"Eilai", tr:"Anakhnu.", en:"We", emo:"👫" },
-  { id:"atem", sp:"Eilai", tr:"Atem.", en:"You (to boys / mixed)", emo:"👉👥" },
-  { id:"aten", sp:"Eilai", tr:"Aten.", en:"You (to girls)", emo:"👉👭" },
+  { id:"atem", sp:"Eilai", tr:"Atem.", en:"You (to boys / mixed)", emo:"💬👬" },
+  { id:"aten", sp:"Eilai", tr:"Aten.", en:"You (to girls)", emo:"💬👭" },
   { id:"hem", sp:"Eilai", tr:"Hem.", en:"They (boys / mixed)", emo:"👬" },
   { id:"hen", sp:"Eilai", tr:"Hen.", en:"They (girls)", emo:"👭" } ],
   step5:[
@@ -3769,7 +3844,7 @@ const SAY_SETS = {
   { id:"s6_02", sp:"Eilai", tr:"Yesh lo.", en:"He has.", emo:"👦" },
   { id:"s6_03", sp:"Eilai", tr:"Yesh la.", en:"She has.", emo:"👧" },
   { id:"s6_04", sp:"Eilai", tr:"Yesh lanu.", en:"We have.", emo:"👫" },
-  { id:"s6_05", sp:"Eilai", tr:"Yesh lakhem.", en:"You have (pl, m).", emo:"👥" },
+  { id:"s6_05", sp:"Eilai", tr:"Yesh lakhem.", en:"You have (pl, m).", emo:"💬👬" },
   { id:"s6_07", sp:"Eilai", tr:"Yesh lahem.", en:"They have (m).", emo:"👬" },
   { id:"s6_09", sp:"Eilai", tr:"Ein li.", en:"I don't have.", emo:"🙅" },
   { id:"s6_10", sp:"Eilai", tr:"Ein la.", en:"She doesn't have.", emo:"🤷‍♀️" },
@@ -3778,14 +3853,14 @@ const SAY_SETS = {
   { id:"s7_01", sp:"Eilai", tr:"Ma?", en:"What?", emo:"❓" },
   { id:"s7_02", sp:"Eilai", tr:"Mi?", en:"Who?", emo:"🧑" },
   { id:"s7_03", sp:"Eilai", tr:"Eifo?", en:"Where?", emo:"📍" },
-  { id:"s7_04", sp:"Eilai", tr:"Matai?", en:"When?", emo:"⏰" },
+  { id:"s7_04", sp:"Eilai", tr:"Matai?", en:"When?", emo:"📅" },
   { id:"s7_05", sp:"Eilai", tr:"Lama?", en:"Why?", emo:"🤔" },
   { id:"s7_06", sp:"Eilai", tr:"Eikh?", en:"How?", emo:"🛠️" },
   { id:"s7_07", sp:"Eilai", tr:"Kama?", en:"How many? How much?", emo:"🔢" },
   { id:"s7_08", sp:"Eilai", tr:"Ma ata rotse?", en:"What do you (m) want?", emo:"🛒" },
   { id:"s7_09", sp:"Eilai", tr:"Mi rotse?", en:"Who wants?", emo:"🙋" },
   { id:"s7_10", sp:"Eilai", tr:"Eifo hu?", en:"Where is he?", emo:"🔎" },
-  { id:"s7_11", sp:"Eilai", tr:"Matai ata yakhol?", en:"When can you (m)?", emo:"📅" },
+  { id:"s7_11", sp:"Eilai", tr:"Matai ata yakhol?", en:"When can you (m)?", emo:"📅💪" },
   { id:"s7_12", sp:"Eilai", tr:"Ma yesh la?", en:"What does she have?", emo:"👜" } ],
   step8:[
   { id:"s8_01", sp:"Eilai", tr:"Kafe tov.", en:"Good coffee.", emo:"☕" },
@@ -3801,21 +3876,65 @@ const SAY_SETS = {
   { id:"s8_11", sp:"Eilai", tr:"Bayit khadash.", en:"A new house.", emo:"🏡" },
   { id:"s8_12", sp:"Eilai", tr:"Hi rotsa glida gdola.", en:"She wants a big ice cream.", emo:"🍨" } ]
 };
+/* v30 (Claude review C3): STEP 4, 8 existing STEP 4 clips. [he clip, she clip, he text, she text, English, emoji]; one id = the same line for both */
+const SAY4 = [
+  ["ani-rotze-kafe","ani-rotza-kafe","Ani rotse kafe.","Ani rotsa kafe.","I want coffee.","☕"],
+  ["ani-rotze-te-im-chalav","ani-rotza-te-im-chalav","Ani rotse te im khalav.","Ani rotsa te im khalav.","I want tea with milk.","🍵🥛"],
+  ["ani-tzarich-mayim","ani-tzricha-mayim","Ani tsarikh mayim.","Ani tsrikha mayim.","I need water.","💧"],
+  ["ani-rotze-pitza","ani-rotza-pitza","Ani rotse pitsa.","Ani rotsa pitsa.","I want pizza.","🍕"],
+  ["hu-rotze-mayim","","Hu rotse mayim.","","He wants water.","👦💧"],
+  ["hi-tzricha-chalav","","Hi tsrikha khalav.","","She needs milk.","👧🥛"],
+  ["anachnu-rotzim-pitza","","Anakhnu rotsim pitsa.","","We want pizza.","👫🍕"],
+  ["hen-rotzot-te","","Hen rotsot te.","","They (girls) want tea.","👭🍵"] ];
+SAY_SETS.step4 = () => SAY4.map(([m, f, tm, tf, en, emo]) => { const she = A.gender === "f" && f; return { id:she ? f : m, sp:"Eilai", tr:she ? tf : tm, en, emo }; });
+SAY4.forEach(r => { if (r[0]) AUDIO[r[0]] = AUDIO[r[0]] || r[0] + ".mp3"; if (r[1]) AUDIO[r[1]] = AUDIO[r[1]] || r[1] + ".mp3"; });
+/* v30 (Claude review C7): the speaker is on every card, and the lines in the learner's own gender come first */
+const SAY_SPG = { Dana:"f", Yoni:"m" };
+function saySet(id){
+  let set = SAY_SETS[id] || SAY5; if (typeof set === "function") set = set();
+  const g = A.gender === "m" ? "m" : "f", rank = x => SAY_SPG[x.sp] ? (SAY_SPG[x.sp] === g ? 0 : 1) : 0;
+  return set.map((x, k) => [x, k]).sort((a, b) => rank(a[0]) - rank(b[0]) || a[1] - b[1]).map(a => a[0]);
+}
 const SAY5 = SAY_SETS.step5;
-Object.values(SAY_SETS).forEach(set => set.forEach(x => { AUDIO[x.id] = x.id + ".mp3"; }));
+Object.values(SAY_SETS).forEach(set => { if (Array.isArray(set)) set.forEach(x => { AUDIO[x.id] = x.id + ".mp3"; }); });
 let s12 = null, spAsking = false, spMic = null, spRec = null, spChunks = [], spUrl = null, spTimer = 0, spWatch = 0;
 function startSay5(){
-  s12 = { set:(typeof CUR === "string" && SAY_SETS[CUR]) || SAY5, i:0, said:0, saidNow:false, noMic:!navigator.mediaDevices || !window.MediaRecorder, phase:"say" };
-  show("g12");
+  s12 = { set:saySet(typeof CUR === "string" ? CUR : "step5"), i:0, said:0, saidNow:false, noMic:!navigator.mediaDevices || !window.MediaRecorder, phase:"say" };
+  show("g12"); $("g12mic").hidden = true; $("g12card").hidden = false; $("g12nextRow").hidden = false;
   clearInterval(spWatch); spWatch = setInterval(() => { if ($("g12").hidden){ spRelease(); clearInterval(spWatch); } }, 400);
+  if (!s12.noMic && !spMic && !A.micAsked) return sayMic();
   sayRound();
 }
+/* v30 (Claude review C7): one microphone screen before card 1 (the first time only), instead of "Asking for the microphone…" mid-card */
+function sayMic(){
+  s12.phase = "mic";
+  $("g12card").hidden = true; $("g12nextRow").hidden = true; $("g12mic").hidden = false;
+  $("g12bar").style.width = "0%"; $("g12count").textContent = "";
+  $("g12micgo").disabled = false; $("g12micgo").textContent = "🎙 Allow the microphone"; $("g12micnote").textContent = "";
+}
+function sayMicDone(noMic){
+  A.micAsked = true; saveA();
+  if (noMic) s12.noMic = true;
+  $("g12mic").hidden = true; $("g12card").hidden = false; $("g12nextRow").hidden = false;
+  s12.phase = "say"; sayRound();
+}
+$("g12micgo").addEventListener("click", async () => {
+  if (!s12 || s12.phase !== "mic") return;
+  $("g12micgo").disabled = true; $("g12micgo").textContent = "Waiting for your browser…";
+  try{
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error("unsupported");
+    spMic = await Promise.race([navigator.mediaDevices.getUserMedia({ audio:true }), new Promise((_, no) => setTimeout(() => no(new Error("timeout")), 10000))]);
+    if (!s12 || s12.phase !== "mic"){ spRelease(); return; }
+    sayMicDone(false);
+  }catch(e){ if (s12 && s12.phase === "mic") sayMicDone(true); }
+});
+$("g12micno").addEventListener("click", () => { if (s12 && s12.phase === "mic") sayMicDone(true); });
 function sayRound(){
   if (s12.i >= s12.set.length) return sayEnd();
   const o = s12.set[s12.i]; s12.cur = o; s12.saidNow = false; s12.phase = "say";
   $("g12bar").style.width = (s12.i / s12.set.length * 100) + "%"; $("g12count").textContent = (s12.i + 1) + " / " + s12.set.length;
   $("g12tag").textContent = "Now say it yourself"; $("g12emo").textContent = o.emo;
-  $("g12tr").textContent = o.tr; $("g12en").textContent = o.en;
+  $("g12tr").textContent = o.tr; $("g12en").textContent = o.en; $("g12sp").textContent = o.sp + " says:";
   spRepReset(); if (s12.noMic) spNoMic();
   pop($("g12card"));
   speak([o.id]);
@@ -3887,436 +4006,556 @@ $("g12again").addEventListener("click", () => { if (spUrl){ URL.revokeObjectURL(
 starters[12] = startSay5;
 window.say5State = () => ({ n:s12.set.length, first:s12.set[0].id, i:s12.i, phase:s12.phase, said:s12.said, tr:$("g12tr").textContent, orig:$("g12orig").textContent, note:$("g12recnote").textContent, file:decodeURIComponent((player.src || "").split("/").pop()) });
 
-/* ---------- Game 13: GIFT DROP (STEP 6, I Have / I Don't Have) ----------
-   Design: /workspace/next-lessons/giftdrop_design.md. The scene has no Hebrew: faces, an object emoji (crossed out = doesn't have)
-   and a view icon (🪞 me, 💬 talking TO them, 👉 talking ABOUT them, 🫂 us). The student builds yesh / ein + the form.
-   Forms: STEP 6 only, no lakhen / lahen (their clips are not usable yet). After a right answer the STEP 6 recording plays if one exists. */
-const GD_VIEW = { me:["🪞","About me"], to:["💬","Talking TO"], about:["👉","Talking ABOUT"], us:["🫂","Us: I'm in it"] };
-const GD_FORMS = ["li","lekha","lakh","lo","la","lanu","lakhem","lahem"];
-const GD_EN = { li:"me", lekha:"you (m)", lakh:"you (f)", lo:"him", la:"her", lanu:"us", lakhem:"you (pl)", lahem:"them" };
-/* recordings from /workspace/kniz-have-audio/fixed (s6_*), only where the whole phrase exists */
-const GD_CLIP = { "yesh li":"s6_01", "yesh lo":"s6_02", "yesh la":"s6_03", "yesh lanu":"s6_04", "yesh lakhem":"s6_05", "yesh lahem":"s6_07", "ein li":"s6_09", "ein la":"s6_10", "ein lahem":"s6_11" };
-/* 12 rounds in 3 stages (4 -> 5 -> 6 form chips). who = SNAP_PEOPLE ids; view = me | to | about | us; no = crossed out (ein) */
-const GD_ROUNDS = [
-  { view:"me",    who:[],               obj:"🍕", no:false, n:4 },
-  { view:"about", who:["yonatan"],      obj:"☕", no:false, n:4 },
-  { view:"about", who:["noa"],          obj:"🍞", no:false, n:4 },
-  { view:"me",    who:[],               obj:"💰", no:true,  n:4 },
-  { view:"to",    who:["dani"],         obj:"🥛", no:false, n:5, stage:2 },
-  { view:"to",    who:["maya"],         obj:"☕", no:true,  n:5 },
-  { view:"about", who:["maya"],         obj:"🍞", no:true,  n:5 },
-  { view:"to",    who:["yonatan"],      obj:"🍕", no:true,  n:5 },
-  { view:"us",    who:["noa"],          obj:"🍕", no:false, n:6, stage:3 },
-  { view:"to",    who:["dani","maya"],  obj:"🥛", no:false, n:6 },
-  { view:"about", who:["dani","maya"],  obj:"☕", no:true,  n:6 },
-  { view:"us",    who:["dani","yosi"],  obj:"🍞", no:true,  n:6 }
-];
-const GD_STAGE = { 1:"Stage 1 · About me, about them", 2:"Stage 2 · New: talking TO them 💬", 3:"Stage 3 · New: groups 👥" };
-let g13 = null, gdReal = null, gdTok = 0, gdGuide = 0, gdWatch = 0;
-const gdMe = () => (A.gender === "m" ? "🙋🏻‍♂️" : "🙋🏻‍♀️");
-/* the right form for a scene */
-function gdForm(o){
-  if (o.view === "me") return "li";
-  if (o.view === "us") return "lanu";
-  const ps = o.who.map(snapPerson), pl = ps.length > 1, boy = ps.some(p => p.g === "m");
-  if (o.view === "to") return pl ? "lakhem" : boy ? "lekha" : "lakh";
-  return pl ? "lahem" : boy ? "lo" : "la";
+/* ---------- v31: one engine for the three "build" games (Claude review E1-E3): GIFT DROP v2 (13), INTERROGATION ROOM v2 (14), PICTURE TRUTH (15) ----------
+   Same shell for all three: header (stage · 🔥 streak · 📖 · Skip · ?), scene + thin Fast bar (stages 2-3, never fails), build slot,
+   fixed chip rows, one hint format "[icon] [Category]: [reason] → [answer]." (first wrong row only; 2nd miss: the right chip glows),
+   say it after every right answer (🎙 Record / I said it, ▶ clip only when its words are exactly on screen), standard end card + rank.
+   Demo: a must on the first visit (2 hand rounds + 1 guided turn), Skip from the 2nd visit, "?" replays it. Existing audio only, no synthetic voice. */
+const BG = {};
+const bgCap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+function bgPlay(files){   // one or two existing clips in a row; never speechSynthesis
+  const list = (files || []).filter(Boolean); if (!list.length) return;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  let k = 0, mine = "";
+  const next = () => { if (k > 0 && player.src !== mine){ return; }   // someone else took the player: stop the chain
+    if (k >= list.length){ player.onended = null; return; } player.onended = next; player.src = AUDIO_BASE + list[k++]; mine = player.src; player.playbackRate = 1; const p = player.play(); if (p && p.catch) p.catch(() => {}); };
+  next();
 }
-/* the classic mistakes for each form: other view, other gender, other number */
-const GD_TRAPS = { li:["lo","la","lanu"], lo:["lekha","la","lahem"], la:["lakh","lo","lahem"], lekha:["lo","lakh","lakhem"], lakh:["la","lekha","lakhem"],
-  lanu:["li","lakhem","lahem"], lakhem:["lahem","lekha","lanu"], lahem:["lakhem","lo","lanu"] };
-function gdChips(o, f){
-  const list = [f].concat(GD_TRAPS[f]);
-  shuffle(GD_FORMS.filter(x => !list.includes(x))).forEach(x => { if (list.length < o.n) list.push(x); });
-  return [["yesh","ein"], shuffle(list.slice(0, o.n))];
+function bgMount(cfg){
+  const g = cfg.g, id = "g" + g, sec = document.createElement("section"); sec.id = id; sec.hidden = true;
+  sec.innerHTML = '<div class="top"><div class="bar"><i id="' + id + 'bar"></i></div><div class="count" id="' + id + 'count"></div></div>' +
+    '<div class="card hh-snap hh-bg hh-bg-' + cfg.key + '" id="' + id + 'card">' +
+      '<div class="hh-sn-head"><div class="tag" id="' + id + 'tag" aria-live="polite"></div><div class="hh-hbtns"><span class="hh-gd-streak" id="' + id + 'streak" hidden></span>' +
+        '<button class="hh-howbtn" id="' + id + 'book" type="button" aria-label="Your words" hidden>📖</button><button class="pill hh-skip" id="' + id + 'skip" type="button" hidden>Skip demo ⏭</button>' +
+        '<button class="hh-howbtn" id="' + id + 'how" type="button" aria-label="How to play">?</button></div></div>' +
+      '<div class="hh-demo-lab" id="' + id + 'lab" hidden></div>' +
+      '<div class="hh-bg-scene" id="' + id + 'scene"><i class="hh-bg-fast" id="' + id + 'fast" hidden><b></b></i><div class="hh-bg-in" id="' + id + 'in"></div></div>' +
+      '<div class="hh-bg-build" id="' + id + 'build"><div class="hh-cb-draft hh-bg-draft" id="' + id + 'draft"></div><div class="hh-bg-rows" id="' + id + 'rows"></div></div>' +
+      '<div class="msg hh-sn-msg" id="' + id + 'msg" aria-live="polite"></div>' +
+      '<div class="hh-bg-say" id="' + id + 'say" hidden><div class="hh-bg-sent" id="' + id + 'sent"></div><div class="hint" id="' + id + 'sen"></div>' +
+        '<div class="hh-reprow"><button class="hh-recbtn" id="' + id + 'rec" type="button">🎙 Record</button><button class="pill" id="' + id + 'mine" type="button" hidden>▶ My voice</button>' +
+        '<button class="pill" id="' + id + 'said" type="button" hidden>I said it</button><button class="pill" id="' + id + 'clip" type="button" hidden></button></div></div>' +
+      '<div class="hh-bg-panel" id="' + id + 'panel" hidden></div>' +
+      '<div class="hh-sn-end" id="' + id + 'end" hidden></div>' +
+    '</div>' +
+    '<div class="row" id="' + id + 'goRow"><button class="btn" id="' + id + 'go" type="button" disabled></button></div>' +
+    '<div class="row" id="' + id + 'nextRow" hidden><button class="btn" id="' + id + 'next" type="button">Next</button></div>' +
+    '<div class="row" id="' + id + 'panelRow" hidden><button class="btn" id="' + id + 'panelGo" type="button">Start</button></div>' +
+    '<div class="row" id="' + id + 'doneRow" hidden><button class="btn" id="' + id + 'done" type="button">Continue</button></div>';
+  $("play").append(sec);
+  const G = BG[g] = { cfg, id, st:null, tok:0, mic:null, rec:null, url:null };
+  const E = k => $(id + k);
+  E("go").textContent = cfg.btn;
+  E("go").addEventListener("click", () => bgCheck(G));
+  E("next").addEventListener("click", () => bgNext(G));
+  E("done").addEventListener("click", () => bgFinish(G));
+  E("panelGo").addEventListener("click", () => bgPanelGo(G));
+  E("how").addEventListener("click", () => { if (!G.st || G.st.phase === "end" || G.demo) return; bgPause(G); bgDemo(G, true); });
+  E("skip").addEventListener("click", () => { if (!G.demo) return; bgDemoDone(G); });
+  E("book").addEventListener("click", () => { if (!cfg.legend || G.demo || !G.st || G.st.phase !== "build" || G.panel) return; bgPause(G); bgLegend(G, true); });
+  E("rec").addEventListener("click", () => bgRecord(G));
+  E("said").addEventListener("click", () => { bgCount(G); E("said").disabled = true; E("said").textContent = "Counted"; sfx("pop"); });
+  E("mine").addEventListener("click", () => { if (!G.url) return; player.onended = null; player.src = G.url; const p = player.play(); if (p && p.catch) p.catch(() => {}); });
+  E("clip").addEventListener("click", () => { if (G.r && G.r.clips) bgPlay(G.r.clips); });
+  starters[g] = () => bgStart(G);
+  setInterval(() => { if (sec.hidden && (G.watch || G.rec)){ G.watch = false; G.tok++; demoHide(); demoPulse(null); bgStopRec(G, true); bgRelease(G); clearTimeout(G.t); } }, 400);
+  return G;
 }
-const gdState = rounds => ({ rounds, i:0, clean:0, tries:0, streak:0, best:0, pick:[null,null], phase:"idle", t:0 });
-function startGift(){
-  gdReal = null;
-  g13 = gdState(GD_ROUNDS.map(x => Object.assign({}, x)));
-  show("g13");
-  clearInterval(gdWatch); gdWatch = setInterval(() => { if ($("g13").hidden){ clearInterval(gdWatch); clearInterval(gdGuide); gdTok++; demoHide(); demoPulse(null); } }, 400);
-  gdDemo();
+const bgE = (G, k) => $(G.id + k);
+const bgStage = i => i < 4 ? 1 : i < 8 ? 2 : 3;
+function bgStart(G){
+  G.tok++; G.demo = false; G.panel = null; G.started = false; G.watch = true;
+  G.st = { i:0, clean:0, streak:0, best:0, fast:0, said:0, phase:"idle", noMic:!navigator.mediaDevices || !window.MediaRecorder };
+  show(G.id);
+  bgE(G, "streak").hidden = true; bgE(G, "end").hidden = true; bgE(G, "doneRow").hidden = true;
+  if (!A[G.cfg.seen]) bgDemo(G, false); else { G.started = true; bgRound(G); }
 }
-function gdRound(){
-  clearTimeout(g13.t);
-  if (g13.i >= g13.rounds.length) return gdEnd();
-  const o = g13.rounds[g13.i], f = gdForm(o);
-  g13.cur = o; g13.right = [o.no ? "ein" : "yesh", f]; g13.tries = 0; g13.pick = [null,null]; g13.phase = "build";
-  $("g13bar").style.width = g13.demo ? "0%" : (g13.i / g13.rounds.length * 100) + "%";
-  $("g13count").textContent = g13.demo ? (g13.practice ? "Your turn" : "Demo") : (g13.i + 1) + " / " + g13.rounds.length;
-  const st = g13.demo ? 0 : (o.stage || 0);
-  $("g13tag").textContent = g13.demo ? "How to play" : st ? GD_STAGE[st] : g13.i === 0 ? GD_STAGE[1] : "Drop the gift";
-  if (st) pop($("g13tag"));
-  // the scene: view, who, the gift
-  const [vi, vt] = GD_VIEW[o.view], ps = o.who.map(snapPerson);
-  $("g13vicon").textContent = vi;
-  $("g13vtxt").textContent = o.view === "to" || o.view === "about" ? vt + " " + (ps.length > 1 ? "them" : ps[0].g === "m" ? "him" : "her") : vt;
-  $("g13view").dataset.view = o.view;
-  const w = $("g13who"); w.innerHTML = "";
-  const face = (e, n, me) => { const d = document.createElement("span"); d.className = "hh-gd-face" + (me ? " me" : ""); d.innerHTML = "<b></b><small></small>"; d.children[0].textContent = e; d.children[1].textContent = n; w.append(d); };
-  if (o.view === "me" || o.view === "us") face(gdMe(), "you", true);
-  ps.forEach(p => face(p.face, p.name));
-  $("g13obj").textContent = o.obj; $("g13x").hidden = !o.no; $("g13gift").classList.toggle("no", o.no);
-  $("g13gift").classList.remove("fly"); $("g13bag").classList.remove("got", "bounce");
-  ["g13scene","g13build","g13dropRow"].forEach(id => $(id).hidden = false); $("g13end").hidden = true; $("g13doneRow").hidden = true;
-  $("g13msg").textContent = ""; $("g13msg").className = "msg hh-sn-msg";
-  gdChips(o, f).forEach((list, r) => {
-    const box = $("g13r" + r); box.innerHTML = "";
-    list.forEach(x => { const b = document.createElement("button"); b.type = "button"; b.className = "hh-cb-chip"; b.dataset.w = x; b.dataset.r = r; b.textContent = x;
-      b.addEventListener("click", () => gdPick(r, x)); box.append(b); });
+/* ---------- a round on screen ---------- */
+function bgShow(G, r, label, count){
+  G.r = r; G.pick = r.rows.map(() => null); G.tries = 0; G.missRow = -1; G.saidNow = false;
+  bgE(G, "tag").textContent = label; bgE(G, "count").textContent = count;
+  ["scene","build","goRow"].forEach(k => bgE(G, k).hidden = false);
+  ["say","nextRow","panel","panelRow","end","doneRow"].forEach(k => bgE(G, k).hidden = true);
+  bgE(G, "book").hidden = !G.cfg.legend || G.demo; bgE(G, "how").hidden = !!G.demo; bgE(G, "skip").hidden = !G.demo || !G.canSkip;
+  const sc = bgE(G, "in"); sc.innerHTML = ""; G.cfg.scene(r, sc, G);
+  const box = bgE(G, "rows"); box.innerHTML = "";
+  r.rows.forEach((row, k) => {
+    const d = document.createElement("div"); d.className = "hh-cb-row hh-bg-row"; d.innerHTML = "<small></small><div class=\"hh-cb-chips\"></div>";
+    d.firstChild.textContent = row.label; d.id = G.id + "r" + k;
+    row.chips.forEach(w => { const b = document.createElement("button"); b.type = "button"; b.className = "hh-cb-chip"; b.dataset.w = w; b.dataset.r = k; b.textContent = w;
+      b.addEventListener("click", () => bgPick(G, k, w)); d.lastChild.append(b); });
+    box.append(d);
   });
-  gdStreak(); gdDraft(); pop($("g13card"));
+  bgE(G, "msg").textContent = ""; bgE(G, "msg").className = "msg hh-sn-msg";
+  G.st.phase = "build"; bgDraft(G); pop(bgE(G, "card"));
 }
-const gdCap = s => s.charAt(0).toUpperCase() + s.slice(1);
-function gdDraft(){
-  const p = g13.pick;
-  $("g13draft").textContent = gdCap(p[0] || "___") + " " + (p[1] || "___") + " " + g13.cur.obj;
-  $("g13drop").disabled = !(p[0] && p[1]) || g13.phase !== "build";
-  document.querySelectorAll("#g13build .hh-cb-chip").forEach(b => b.classList.toggle("on", p[+b.dataset.r] === b.dataset.w));
+function bgRound(G){
+  const st = G.st; clearTimeout(G.t);
+  if (st.i >= G.cfg.rounds.length) return bgEnd(G);
+  const s = bgStage(st.i), r = G.cfg.make(G.cfg.rounds[st.i], s, st.i);
+  const first = st.i === 0 || bgStage(st.i - 1) !== s;
+  bgShow(G, r, G.cfg.stages[s - 1], (st.i + 1) + " / " + G.cfg.rounds.length);
+  if (first) pop(bgE(G, "tag"));
+  bgE(G, "bar").style.width = (st.i / G.cfg.rounds.length * 100) + "%";
+  bgFastStart(G, G.cfg.fast[s - 1]);
 }
-function gdPick(r, x){
-  if (!g13 || g13.phase !== "build") return;
-  g13.pick[r] = g13.pick[r] === x ? null : x;
-  document.querySelectorAll("#g13r" + r + " .hh-cb-chip").forEach(b => b.classList.remove("bad"));
-  sfx("tap"); gdDraft();
+function bgDraft(G){
+  const r = G.r; bgE(G, "draft").innerHTML = r.draft(G.pick);
+  bgE(G, "go").disabled = !G.pick.every(Boolean) || G.st.phase !== "build";
+  document.querySelectorAll("#" + G.id + "rows .hh-cb-chip").forEach(b => b.classList.toggle("on", G.pick[+b.dataset.r] === b.dataset.w));
 }
-function gdStreak(){ const s = $("g13streak"); s.hidden = g13.demo || g13.streak < 2; s.textContent = "🔥 " + g13.streak + " in a row"; }
-/* the hint names the feature that is off */
-function gdWhy(o, p){
-  const [yn, f] = g13.right, ps = o.who.map(snapPerson), pl = ps.length > 1;
-  if (p[0] !== yn) return o.no ? "The gift is crossed out: ein (doesn't have)." : "Nothing is crossed out: yesh (has).";
-  const x = p[1], viewOf = { li:"me", lanu:"us", lekha:"to", lakh:"to", lakhem:"to", lo:"about", la:"about", lahem:"about" };
-  if (viewOf[x] !== o.view){
-    if (o.view === "me") return "🪞 It's you: li.";
-    if (o.view === "us") return "🫂 You're in the group: lanu.";
-    if (o.view === "to") return "💬 You're talking TO " + (pl ? "them" : ps[0].g === "m" ? "him" : "her") + ": " + f + ".";
-    return "👉 You're talking ABOUT " + (pl ? "them" : ps[0].g === "m" ? "him" : "her") + ": " + f + ".";
+function bgPick(G, k, w){
+  if (!G.st || G.st.phase !== "build") return;
+  G.pick[k] = G.pick[k] === w ? null : w;
+  document.querySelectorAll("#" + G.id + "r" + k + " .hh-cb-chip").forEach(b => b.classList.remove("bad"));
+  sfx("tap"); bgDraft(G);
+}
+const bgChip = (G, k, w) => document.querySelector("#" + G.id + "r" + k + ' .hh-cb-chip[data-w="' + CSS.escape(w) + '"]');
+/* ---------- Fast bar: stages 2-3 only, pauses on ? and 📖, never fails ---------- */
+function bgFastStart(G, sec){
+  const f = bgE(G, "fast"); G.fastSec = sec || 0; G.fastOn = !!sec && !G.demo; G.fastUsed = 0; G.fastT0 = performance.now();
+  f.hidden = !G.fastOn; const b = f.firstChild;
+  if (!G.fastOn) return;
+  b.style.animation = "none"; void b.offsetWidth; b.style.animation = "hhBgFast " + sec + "s linear forwards"; b.style.animationPlayState = "running";
+}
+function bgFastLeft(G){ return G.fastOn ? G.fastSec * 1000 - (G.fastUsed + (G.fastPaused ? 0 : performance.now() - G.fastT0)) : 0; }
+function bgPause(G){ if (G.fastOn && !G.fastPaused){ G.fastUsed += performance.now() - G.fastT0; G.fastPaused = true; bgE(G, "fast").firstChild.style.animationPlayState = "paused"; } }
+function bgResume(G){ if (G.fastOn && G.fastPaused){ G.fastPaused = false; G.fastT0 = performance.now(); bgE(G, "fast").firstChild.style.animationPlayState = "running"; } }
+/* ---------- check ---------- */
+function bgCheck(G){
+  if (!G.st || G.st.phase !== "build" || !G.pick.every(Boolean)) return;
+  const r = G.r, wrong = r.right.findIndex((w, k) => w !== G.pick[k]);
+  document.querySelectorAll("#" + G.id + "rows .hh-cb-chip").forEach(b => b.classList.remove("bad", "hh-glow"));
+  if (wrong < 0) return bgRight(G);
+  G.tries++; sfx("soft");
+  const why = G.cfg.why(r, G.pick, G) || { row:wrong, text:"" }, k = why.row;
+  const b = bgChip(G, k, G.pick[k]); if (b) b.classList.add("bad");
+  const second = G.missRow === k || G.tries >= 2; G.missRow = k;
+  G.pick[k] = null;
+  if (second){ const rb = bgChip(G, k, r.right[k]); if (rb) rb.classList.add("hh-glow"); }
+  const m = bgE(G, "msg"); m.className = "msg hh-sn-msg bad"; m.textContent = why.text + (second ? " Tap the glowing word." : "");
+  if (!G.demo){ G.st.streak = 0; hhStreak(G.st, false, G.id + "streak"); }
+  bgDraft(G);
+  const c = bgE(G, "card"); c.classList.remove("shake"); void c.offsetWidth; c.classList.add("shake");
+}
+function bgRight(G){
+  const st = G.st, r = G.r, first = G.tries === 0;
+  st.phase = "say"; bgPause(G);
+  const fast = first && G.fastOn && bgFastLeft(G) > 0;
+  if (!G.demo){ if (first) st.clean++; if (fast) st.fast++; hhStreak(st, first, G.id + "streak"); }
+  sfx("good");
+  const m = bgE(G, "msg"); m.className = "msg hh-sn-msg good"; m.textContent = (fast ? "⚡ Fast!" : "Yes!") + (r.after ? " " + r.after : "");
+  if (G.cfg.onRight) G.cfg.onRight(r, bgE(G, "in"), G);
+  ["build","goRow"].forEach(k => bgE(G, k).hidden = true);
+  bgE(G, "say").hidden = false; bgE(G, "sent").textContent = r.say; if (r.sayPic){ const sp = document.createElement("span"); sp.className = "hh-bg-pic"; sp.innerHTML = " " + r.sayPic; bgE(G, "sent").append(sp); } bgE(G, "sen").textContent = r.en;
+  const cl = bgE(G, "clip"); cl.hidden = !r.clips || !r.clips.length; cl.textContent = "▶ " + (r.clipText || "");
+  bgRepReset(G);
+  if (r.clips) bgPlay(r.clips);
+  if (G.demo){ bgE(G, "nextRow").hidden = !G.practice; if (!G.practice) bgE(G, "rec").hidden = true; }
+  else bgE(G, "nextRow").hidden = false;
+}
+function bgNext(G){
+  if (!G.st || G.st.phase !== "say") return;
+  bgStopRec(G, true);
+  if (G.demo){ if (G.practice) bgDemoDone(G); return; }
+  G.st.i++; bgRound(G);
+}
+/* ---------- say it: record yourself (or "I said it"), counted once per round ---------- */
+function bgRepReset(G){
+  bgStopRec(G, true); if (G.url){ URL.revokeObjectURL(G.url); G.url = null; }
+  const noMic = G.st.noMic;
+  bgE(G, "rec").hidden = noMic; bgE(G, "rec").textContent = "🎙 Record"; bgE(G, "rec").classList.remove("on"); bgE(G, "rec").disabled = false;
+  bgE(G, "mine").hidden = true; bgE(G, "said").hidden = !noMic; bgE(G, "said").disabled = false; bgE(G, "said").textContent = "I said it";
+}
+function bgCount(G){ if (!G.saidNow && !G.demo){ G.saidNow = true; G.st.said++; } }
+function bgStopRec(G, drop){ clearTimeout(G.recT); try{ if (G.rec && G.rec.state === "recording"){ G.rec.__drop = !!drop; G.rec.stop(); } }catch(e){} }
+function bgRelease(G){ if (G.mic){ G.mic.getTracks().forEach(t => t.stop()); G.mic = null; } }
+async function bgRecord(G){
+  if (G.rec && G.rec.state === "recording") return bgStopRec(G, false);
+  const btn = bgE(G, "rec");
+  try{
+    if (!G.mic){ btn.disabled = true; btn.textContent = "🎙 …";
+      G.mic = await Promise.race([navigator.mediaDevices.getUserMedia({ audio:true }), new Promise((_, no) => setTimeout(() => no(new Error("timeout")), 10000))]);
+      btn.disabled = false; if (!G.st || G.st.phase !== "say"){ bgRelease(G); return; } }
+  }catch(e){ G.st.noMic = true; bgRepReset(G); return; }
+  try{ player.pause(); }catch(e){}
+  const chunks = [], r = G.rec = new MediaRecorder(G.mic);
+  r.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+  r.onstop = () => { btn.classList.remove("on"); btn.textContent = "🎙 Record again"; if (r.__drop || !chunks.length) return;
+    if (G.url) URL.revokeObjectURL(G.url); G.url = URL.createObjectURL(new Blob(chunks, { type:r.mimeType || "audio/webm" }));
+    bgE(G, "mine").hidden = false; bgCount(G); sfx("pop"); };
+  r.start(); sfx("tap"); btn.textContent = "■ Stop"; btn.classList.add("on");
+  G.recT = setTimeout(() => bgStopRec(G, false), 7000);
+}
+/* ---------- legend / intro card ---------- */
+function bgLegend(G, mid){
+  G.panel = mid ? "book" : "legend";
+  ["scene","build","goRow","say","nextRow","end","doneRow"].forEach(k => bgE(G, k).hidden = true);
+  const p = bgE(G, "panel"); p.hidden = false; p.innerHTML = ""; G.cfg.legend(p, G);
+  bgE(G, "panelGo").textContent = mid ? "Back to the game" : "Start"; bgE(G, "panelRow").hidden = false;
+  bgE(G, "tag").textContent = G.cfg.legendTitle || "Your words"; bgE(G, "msg").textContent = "";
+  bgE(G, "how").hidden = true; bgE(G, "book").hidden = true; bgE(G, "skip").hidden = true;
+}
+function bgIntro(G){
+  G.panel = "intro";
+  ["scene","build","goRow","say","nextRow","end","doneRow"].forEach(k => bgE(G, k).hidden = true);
+  const p = bgE(G, "panel"); p.hidden = false; p.innerHTML = '<div class="hh-emoji" aria-hidden="true">' + G.cfg.introIcon + '</div><div class="en hh-bg-intro"></div>';
+  p.lastChild.textContent = G.cfg.intro; bgE(G, "panelGo").textContent = "Start"; bgE(G, "panelRow").hidden = false;
+  bgE(G, "tag").textContent = G.cfg.title; bgE(G, "msg").textContent = ""; bgE(G, "how").hidden = true; bgE(G, "skip").hidden = true;
+}
+function bgPanelGo(G){
+  const was = G.panel; G.panel = null; bgE(G, "panel").hidden = true; bgE(G, "panelRow").hidden = true;
+  if (was === "book"){ ["scene","build","goRow"].forEach(k => bgE(G, k).hidden = false); bgE(G, "tag").textContent = G.cfg.stages[bgStage(G.st.i) - 1]; bgE(G, "how").hidden = false; bgE(G, "book").hidden = !G.cfg.legend; bgResume(G); return; }
+  G.started = true; bgRound(G);
+}
+/* ---------- demo: 2 rounds by the hand, then 1 guided turn. A must on the first visit. ---------- */
+const bgLive = (G, t) => () => t === G.tok && G.demo && !$(G.id).hidden;
+async function bgDemo(G, replay){
+  const t = ++G.tok, ok = bgLive(G, t), cfg = G.cfg; G.demo = true; G.practice = false; G.canSkip = !!A[cfg.seen]; G.replay = replay; G.panel = null;
+  const L = txt => demoLab(G.id + "lab", txt);
+  bgE(G, "fast").hidden = true; bgE(G, "bar").style.width = "0%"; bgE(G, "streak").hidden = true;
+  for (const d of cfg.demo){
+    const r = cfg.make(d.round, d.stage, -1);
+    bgShow(G, r, "How to play", "Demo"); await demoWait(500); if (!ok()) return;
+    for (const s of d.steps){
+      L(s.lab);
+      if (s.tap){ await demoWait(700); if (!await demoTap(bgChip(G, s.tap[0], s.tap[1]), ok)) return; }
+      else if (s.go){ await demoWait(600); if (!await demoTap(bgE(G, "go"), ok)) return; }
+      else { await demoWait(s.wait || 2000); if (!ok()) return; }
+    }
+    await demoWait(2200); if (!ok()) return;
   }
-  if ((x === "lahem" || x === "lakhem" || x === "lanu") !== pl || o.view === "me" || o.view === "us") return pl || o.view === "us" ? "More than one person: " + f + "." : "Just one person: " + f + ".";
-  return ps[0].name + (ps[0].g === "m" ? " is a boy: " : " is a girl: ") + f + ".";
-}
-function gdDrop(){
-  if (!g13 || g13.phase !== "build") return;
-  const o = g13.cur, p = g13.pick, right = g13.right;
-  if (p[0] === right[0] && p[1] === right[1]){
-    g13.phase = "dropped";
-    if (g13.tries === 0){ g13.clean++; g13.streak++; g13.best = Math.max(g13.best, g13.streak); } else g13.streak = 0;
-    sfx("good"); $("g13gift").classList.add("fly"); setTimeout(() => $("g13bag").classList.add("got"), 450);
-    const say = right.join(" "), clip = GD_CLIP[say];
-    $("g13msg").className = "msg hh-sn-msg good"; $("g13msg").textContent = gdCap(say) + "! " + (g13.tries === 0 ? "Delivered." : "Delivered on the second try.");
-    if (clip) setTimeout(() => { if (g13 && g13.cur === o) speak([clip]); }, 350);
-    $("g13build").hidden = true; $("g13dropRow").hidden = true; gdStreak();
-    const wait = clip ? 2100 : 1600;
-    if (!g13.demo) g13.t = setTimeout(() => { if (!g13 || g13.cur !== o || $("g13").hidden) return; g13.i++; gdRound(); }, wait);
-    else if (g13.practice) g13.t = setTimeout(() => { if (g13 && g13.practice) gdDemoEnd(); }, wait);
-    return;
+  demoHide(); G.practice = true;
+  const gd = cfg.guided, r = cfg.make(gd.round, gd.stage, -1);
+  bgShow(G, r, "Your turn", "Your turn");
+  const labs = gd.labs;
+  let idle = 0, last = "";
+  while (ok() && G.st.phase === "build"){
+    const k = G.pick.findIndex(x => !x), key = k < 0 ? "go" : String(k);
+    if (key !== last){ last = key; idle = 0; L(k < 0 ? labs[labs.length - 1] : labs[k]); demoPulse(k < 0 ? bgE(G, "go") : null); }
+    if (k >= 0 && ++idle === 16) demoPulse(bgChip(G, k, r.right[k]));   // 4 s idle: the right chip glows
+    await demoWait(250);
   }
-  g13.tries++; g13.streak = 0; sfx("soft"); gdStreak();
-  const k = p[0] !== right[0] ? 0 : 1;
-  const b = document.querySelector('#g13r' + k + ' .hh-cb-chip[data-w="' + CSS.escape(p[k]) + '"]'); if (b) b.classList.add("bad");
-  const bag = $("g13bag"); bag.classList.remove("bounce"); void bag.offsetWidth; bag.classList.add("bounce");
-  $("g13msg").className = "msg hh-sn-msg bad"; $("g13msg").textContent = "Wrong address! " + gdWhy(o, p);
+  demoPulse(null); if (!ok()) return;
+  L("Say it out loud, then tap Next"); demoPulse(bgE(G, "next"));
 }
-$("g13drop").addEventListener("click", gdDrop);
-function gdRank(n){ return n >= 11 ? "Gift master" : n >= 8 ? "Great delivery" : "Keep delivering"; }
-function gdEnd(){
-  g13.phase = "end"; clearTimeout(g13.t);
-  $("g13bar").style.width = "100%"; $("g13count").textContent = g13.rounds.length + " / " + g13.rounds.length;
-  ["g13scene","g13build","g13dropRow"].forEach(id => $(id).hidden = true); $("g13streak").hidden = true;
-  $("g13msg").textContent = ""; $("g13tag").textContent = gdRank(g13.clean);
-  const e = $("g13end"); e.hidden = false;
-  e.innerHTML = '<div class="hh-sn-big"></div><div class="hint"></div><div class="hint"></div>';
-  e.children[0].textContent = g13.clean + " / " + g13.rounds.length;
-  e.children[1].textContent = "gifts delivered on the first try";
-  e.children[2].textContent = "Best streak: " + g13.best + " in a row";
-  $("g13doneRow").hidden = false; sfx("win");
+function bgDemoDone(G){
+  G.tok++; G.demo = false; G.practice = false; demoHide(); demoPulse(null); demoLab(G.id + "lab", "");
+  A[G.cfg.seen] = true; saveA();
+  bgE(G, "how").hidden = false;
+  if (G.replay && G.started){ G.replay = false; bgRound(G); return; }   // back to the same round, build cleared
+  if (G.cfg.legend) bgLegend(G, false); else if (G.cfg.intro) bgIntro(G); else { G.started = true; bgRound(G); }
 }
-$("g13done").addEventListener("click", () => { if (g13 && g13.phase === "end") finish(gdRank(g13.clean) + "!", g13.clean + " / " + g13.rounds.length, "gifts delivered on the first try.", ""); });
-/* how to play: the hand plays two rounds by itself, then one guided turn. A must on the first visit (A.giftDemoSeen). */
-const gdChip = (r, w) => document.querySelector('#g13r' + r + ' .hh-cb-chip[data-w="' + CSS.escape(w) + '"]');
-async function gdDemo(){
-  clearTimeout(g13 && g13.t); clearInterval(gdGuide); demoPulse(null);
-  if (!gdReal) gdReal = g13;
-  const tok = ++gdTok, ok = () => tok === gdTok && !$("g13").hidden;
-  g13 = gdState([{ view:"about", who:["yonatan"], obj:"🍕", no:false, n:4 }, { view:"to", who:["noa"], obj:"☕", no:true, n:4 }]); g13.demo = true;
-  $("g13skip").hidden = !A.giftDemoSeen; $("g13how").hidden = true;
-  gdRound(); demoLab("g13lab", "Look at the scene");
-  await demoWait(1400); if (!ok()) return;
-  demoLab("g13lab", "👉 You talk ABOUT Yonatan");
-  await demoWait(1600); if (!ok()) return;
-  demoLab("g13lab", "1 · Not crossed out: yesh");
-  if (!await demoTap(gdChip(0, "yesh"), ok)) return;
-  demoLab("g13lab", "2 · About him: lo");
-  if (!await demoTap(gdChip(1, "lo"), ok)) return;
-  demoLab("g13lab", "Drop the gift 🎁");
-  if (!await demoTap($("g13drop"), ok)) return;
-  await demoWait(2200); if (!ok()) return;
-  g13.i++; gdRound();
-  demoLab("g13lab", "💬 Now you talk TO Noa");
-  await demoWait(1700); if (!ok()) return;
-  demoLab("g13lab", "Crossed out: ein");
-  if (!await demoTap(gdChip(0, "ein"), ok)) return;
-  demoLab("g13lab", "To her: lakh");
-  if (!await demoTap(gdChip(1, "lakh"), ok)) return;
-  if (!await demoTap($("g13drop"), ok)) return;
-  await demoWait(1900); if (!ok()) return;
-  demoHide(); gdPractice();
+/* ---------- end ---------- */
+function bgEnd(G){
+  const st = G.st, n = G.cfg.rounds.length; st.phase = "end"; bgStopRec(G, true); bgRelease(G);
+  bgE(G, "bar").style.width = "100%"; bgE(G, "count").textContent = n + " / " + n;
+  ["scene","build","goRow","say","nextRow"].forEach(k => bgE(G, k).hidden = true);
+  bgE(G, "msg").textContent = ""; bgE(G, "streak").hidden = true; bgE(G, "book").hidden = true;
+  st.rank = hhRank(G.cfg.g, st.clean, n); bgE(G, "tag").textContent = G.cfg.title;
+  hhEndCard(bgE(G, "end"), { n:st.clean, total:n, what:G.cfg.what, best:st.best, fast:st.fast, said:st.said, rank:st.rank });
+  bgE(G, "doneRow").hidden = false; sfx("win");
 }
-function gdPractice(){
-  clearInterval(gdGuide);
-  g13 = gdState([{ view:"us", who:["dani"], obj:"🥛", no:false, n:4 }]); g13.demo = true; g13.practice = true;
-  $("g13skip").hidden = !A.giftDemoSeen; $("g13how").hidden = true;
-  gdRound(); demoLab("g13lab", "Your turn: 🫂 you and Dani");
-  gdGuide = setInterval(() => {
-    if (!g13 || !g13.practice || $("g13").hidden){ clearInterval(gdGuide); demoPulse(null); return; }
-    if (g13.phase !== "build") return demoPulse(null);
-    const k = g13.pick.findIndex((w, j) => w !== g13.right[j]);
-    demoPulse(k < 0 ? $("g13drop") : gdChip(k, g13.right[k]));
-  }, 250);
+function bgFinish(G){
+  if (!G.st || G.st.phase !== "end") return;
+  player.onended = null; try{ player.pause(); }catch(e){}
+  window.hhBonus = Math.min(8, G.st.fast);   // +1 XP per Fast answer, max +8 (paid with the part XP)
+  finish(G.st.rank + "!", G.st.clean + " / " + G.cfg.rounds.length, G.cfg.what + ".", "");
 }
-function gdDemoEnd(){
-  const fromPractice = g13 && g13.practice;
-  gdTok++; clearInterval(gdGuide); demoPulse(null); demoHide(); clearTimeout(g13 && g13.t);
-  if (fromPractice && !A.giftDemoSeen){ A.giftDemoSeen = 1; saveA(); }
-  demoLab("g13lab", ""); $("g13skip").hidden = true; $("g13how").hidden = false;
-  if (!gdReal) return;
-  g13 = gdReal; gdReal = null;
-  if (g13.phase === "end") return gdEnd();
-  if (g13.phase === "dropped") g13.i++;
-  gdRound();
-}
-$("g13skip").addEventListener("click", gdDemoEnd);
-$("g13how").addEventListener("click", () => { if (!g13 || g13.demo || g13.phase === "end") return; gdDemo(); });
-starters[13] = startGift;
-/* for the tests */
-window.gdState13 = () => ({ phase:g13.phase, i:g13.i, demo:!!g13.demo, practice:!!g13.practice, right:g13.right.slice(), view:g13.cur && g13.cur.view, no:!!(g13.cur && g13.cur.no),
-  who:g13.cur ? g13.cur.who.slice() : [], chips:[...document.querySelectorAll('#g13r1 .hh-cb-chip')].map(b => b.dataset.w), tag:$("g13tag").textContent, vtxt:$("g13vtxt").textContent,
-  msg:$("g13msg").textContent, clean:g13.clean, best:g13.best, skip:!$("g13skip").hidden, how:!$("g13how").hidden, scene:$("g13scene").innerText.replace(/\s+/g, " ") });
+window.bgState = g => { const G = BG[g]; return G && G.st ? { i:G.st.i, phase:G.st.phase, demo:!!G.demo, practice:!!G.practice, panel:G.panel, clean:G.st.clean, fast:G.st.fast, best:G.st.best, said:G.st.said,
+  right:G.r ? G.r.right.slice() : [], rows:G.r ? G.r.rows.map(x => x.chips.slice()) : [], labels:G.r ? G.r.rows.map(x => x.label) : [], tag:bgE(G, "tag").textContent, msg:bgE(G, "msg").textContent,
+  draft:bgE(G, "draft").textContent, scene:bgE(G, "in").innerText, say:bgE(G, "sent").textContent, clip:bgE(G, "clip").hidden ? "" : bgE(G, "clip").textContent, clips:G.r && G.r.clips ? G.r.clips.slice() : [],
+  fastOn:!!G.fastOn, skip:!bgE(G, "skip").hidden, how:!bgE(G, "how").hidden, book:!bgE(G, "book").hidden, lab:bgE(G, "lab").hidden ? "" : bgE(G, "lab").textContent } : null; };
 
-/* ---------- Game 14: INTERROGATION ROOM (STEP 7, Question Words) ----------
-   Design: /workspace/next-lessons/interrogation_design.md. The scene has no Hebrew: the suspect's face + name, a blank field
-   (👤 who, 🍽️ what, 📍 where, 📅 when, 🤔 why, 🛠️ how), a verb icon (the STEP 5 key) and an action icon (the STEP 5 TO-word pictures).
-   The student builds the question: question word + ata / at (no pronoun for mi) + Magic Four form + TO-word.
-   Audio: only the STEP 7 clip of the question word (s7_01..s7_06), no clips for whole built questions. */
-const IV_Q = { mi:["👤","WHO"], ma:["🍽️","WHAT"], eifo:["📍","WHERE"], matai:["📅","WHEN"], lama:["🤔","WHY"], eikh:["🛠️","HOW"] };
-const IV_CLIP = { ma:"s7_01", mi:"s7_02", eifo:"s7_03", matai:"s7_04", lama:"s7_05", eikh:"s7_06" };
-const IV_QTRAPS = { ma:["mi","matai","eikh"], mi:["ma","eifo","eikh"], eifo:["eikh","ma","mi"], matai:["ma","mi","eifo"], lama:["ma","eikh","matai"], eikh:["eifo","lama","ma"] };
-const IV_NONE = "no pronoun";
-/* 12 rounds, 3 stages. who = SNAP_PEOPLE id (null = 👤 WHO file, the answer is the person in "reveal") */
-const IV_ROUNDS = [
-  { who:"yonatan", q:"eifo",  v:"rotse",   inf:"lishon",   ans:"🏨", stage:1 },
-  { who:"noa",     q:"ma",    v:"rotse",   inf:"le'ekhol", ans:"🥗" },
-  { who:"dani",    q:"matai", v:"rotse",   inf:"lalekhet", ans:"🌙" },
-  { who:"maya",    q:"lama",  v:"rotse",   inf:"lilmod",   ans:"🇮🇱" },
-  { who:"noa",     q:"eikh",  v:"ohev",    inf:"lishtot",  ans:"🥛", stage:2 },
-  { who:"yonatan", q:"matai", v:"tsarikh", inf:"liknot",   ans:"🌅" },
-  { who:"maya",    q:"eifo",  v:"yakhol",  inf:"lishon",   ans:"🛋️" },
-  { who:"dani",    q:"lama",  v:"tsarikh", inf:"lishon",   ans:"🥱" },
-  { who:null,      q:"mi",    v:"rotse",   inf:"lishtot",  reveal:"maya", stage:3 },
-  { who:"yosi",    q:"eikh",  v:"yakhol",  inf:"lalekhet", ans:"🚌" },
-  { who:"noa",     q:"ma",    v:"ohev",    inf:"le'ekhol", ans:"🍕" },
-  { who:null,      q:"mi",    v:"tsarikh", inf:"lalekhet", reveal:"yosi" }
+/* ---------- v31: the three build games, exactly per Claude's specs E1-E3 (claude-review/claude_response.md) ---------- */
+const BG_PEOPLE = { yonatan:["Yonatan","m","👨🏽"], noa:["Noa","f","👩🏻"], dani:["Dani","m","👦🏼"], maya:["Maya","f","👧🏽"], yosi:["Yosi","m","👴🏻"] };
+const bgP = id => ({ id, name:BG_PEOPLE[id][0], g:BG_PEOPLE[id][1], face:BG_PEOPLE[id][2] });
+const bgMe = () => (A.gender === "m" ? "🙋🏻‍♂️" : "🙋🏻‍♀️");
+const bgEsc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const bgFace = (face, name, cls) => '<span class="hh-bg-face ' + (cls || "") + '"><b>' + face + "</b><small>" + bgEsc(name) + "</small></span>";
+const BG_SUGAR = '<svg class="hh-bg-sugar" viewBox="0 0 64 64" aria-label="sugar"><g stroke="#c9c2b4" stroke-width="2"><path d="M8 30l14-7 14 7-14 7z" fill="#fff"/><path d="M8 30v16l14 7V37z" fill="#eee9df"/><path d="M36 30v16l-14 7V37z" fill="#ddd6c8"/>' +
+  '<path d="M30 20l14-7 14 7-14 7z" fill="#fff"/><path d="M30 20v16l14 7V27z" fill="#eee9df"/><path d="M58 20v16l-14 7V27z" fill="#ddd6c8"/></g></svg>';
+const bgSlot = (w, cls) => '<span class="hh-bg-slot' + (w ? " on" : "") + (cls ? " " + cls : "") + '">' + (w ? bgEsc(w) : "___") + "</span>";
+
+/* ===================== E1. GIFT DROP v2 (STEP 6) ===================== */
+const GD2_FORMS = ["li","lekha","lakh","lo","la","lanu","lakhem","lahem"];
+const GD2_VIEWOF = { li:"me", lanu:"us", lekha:"to", lakh:"to", lakhem:"to", lo:"about", la:"about", lahem:"about" };
+const GD2_PLURAL = { lanu:1, lakhem:1, lahem:1 };
+const GD2_THING = { kafe:["☕","coffee"], te:["🍵","tea"], mayim:["💧","water"], khalav:["🥛","milk"], lekhem:["🍞","bread"], pitsa:["🍕","pizza"], uga:["🍰","cake"], sukar:[BG_SUGAR,"sugar"] };
+const GD2_NOUNCLIP = { te:"te.mp3", khalav:"chalav.mp3", uga:"uga.mp3", sukar:"sukar.mp3" };
+const GD2_CLIP = { "yesh li":"s6_01", "yesh lo":"s6_02", "yesh la":"s6_03", "yesh lanu":"s6_04", "yesh lakhem":"s6_05", "yesh lahem":"s6_07", "ein li":"s6_09", "ein la":"s6_10", "ein lahem":"s6_11" };
+const GD2_EN = { li:"I", lekha:"you (m)", lakh:"you (f)", lo:"he", la:"she", lanu:"we", lakhem:"you (pl)", lahem:"they" };
+/* [view, who, thing, crossed, THING chips (stages 2-3), clip pair played after a right answer] */
+const GD2_ROUNDS = [
+  { view:"me", who:[], t:"pitsa", no:false, clip:["s6_01"] },
+  { view:"about", who:["yonatan"], t:"kafe", no:false, clip:["s6_02"] },
+  { view:"about", who:["noa"], t:"uga", no:true, clip:["s6_10"] },
+  { view:"me", who:[], t:"khalav", no:true, clip:["s6_09"] },
+  { view:"to", who:["dani"], t:"khalav", no:false, chips:["khalav","lekhem","pitsa","uga"] },
+  { view:"to", who:["maya"], t:"kafe", no:true, chips:["kafe","uga","lekhem","sukar"] },
+  { view:"about", who:["noa"], t:"uga", no:false, chips:["uga","khalav","pitsa","te"], clip:["s6_03","uga"] },
+  { view:"to", who:["yonatan"], t:"pitsa", no:true, chips:["pitsa","kafe","te","lekhem"] },
+  { view:"us", who:["noa"], t:"te", no:false, chips:["te","kafe","khalav","mayim"], clip:["s6_04","te"] },
+  { view:"to", who:["dani","maya"], t:"khalav", no:false, chips:["khalav","mayim","te","kafe"], clip:["s6_05","khalav"] },
+  { view:"about", who:["dani","yosi"], t:"sukar", no:true, chips:["sukar","uga","lekhem","pitsa"], clip:["s6_11","sukar"] },
+  { view:"us", who:["yonatan"], t:"mayim", no:true, chips:["mayim","khalav","te","kafe"] }
 ];
-const IV_STAGE = { 1:"Stage 1 · Ask what they want 💭", 2:"Stage 2 · All four verbs", 3:"Stage 3 · New: 👤 WHO files" };
-let g14 = null, ivReal = null, ivTok = 0, ivGuide = 0, ivWatch = 0;
-const ivStageOf = (rs, i) => { let s = 1; for (let k = 0; k <= i; k++) if (rs[k].stage) s = rs[k].stage; return s; };
-/* the right question for a round: [question word, pronoun, verb form, TO-word] */
-function ivRight(o){
-  if (!o.who) return [o.q, IV_NONE, CB_VERB[o.v].m, o.inf];
-  const g = snapPerson(o.who).g;
-  return [o.q, g === "m" ? "ata" : "at", CB_VERB[o.v][g], o.inf];
+function gd2Form(o){
+  if (o.view === "me") return "li"; if (o.view === "us") return "lanu";
+  const ps = o.who.map(bgP), pl = ps.length > 1, boy = ps.some(p => p.g === "m");
+  return o.view === "to" ? (pl ? "lakhem" : boy ? "lekha" : "lakh") : (pl ? "lahem" : boy ? "lo" : "la");
 }
-function ivChips(o, r, st){
-  const [q, p, f, inf] = r, g = o.who ? snapPerson(o.who).g : "m", og = g === "m" ? "f" : "m";
-  const ql = [q].concat(IV_QTRAPS[q]); shuffle(Object.keys(IV_Q).filter(x => !ql.includes(x))).forEach(x => ql.push(x));
-  const qs = ql.slice(0, st + 3);
-  const ps = st === 1 ? ["ata","at"] : st === 2 ? ["ata","at","hu","hi"] : ["ata","at","hu","hi",IV_NONE];
-  const others = shuffle(Object.keys(CB_VERB).filter(v => v !== o.v)).map(v => CB_VERB[v][g]);
-  const vs = [f, CB_VERB[o.v][og]].concat(st === 3 ? [CB_VERB[o.v].mp] : []).concat(others.slice(0, st === 1 ? 1 : 2));
-  const is = st === 1 ? [inf] : [inf].concat(shuffle(Object.keys(CB_ACT).filter(x => x !== inf)).slice(0, st === 2 ? 2 : 3));
-  return [shuffle(qs), ps, shuffle(vs), shuffle(is)];
+const gd2Pron = o => o.who.length > 1 ? "them" : bgP(o.who[0]).g === "m" ? "him" : "her";
+const gd2Names = o => o.who.map(id => bgP(id).name).join(" + ");
+const GD2 = {
+  g:13, key:"gd2", title:"GIFT DROP", btn:"Drop the gift 🎁", seen:"gd2DemoSeen", what:"gifts delivered on the first try",
+  stages:["Stage 1 · About me, about one person", "Stage 2 · New: talking TO them 💬", "Stage 3 · New: groups 👫"], fast:[0, 15, 12],
+  rounds:GD2_ROUNDS, legendTitle:"Your 8 things",
+  make(o, stage){
+    const f = gd2Form(o), yn = o.no ? "ein" : "yesh", thingRow = stage >= 2;
+    const rows = [{ label:"Has it?", chips:["yesh","ein"] }, { label:"Who", chips:GD2_FORMS.slice() }];
+    const right = [yn, f];
+    if (thingRow){ rows.push({ label:"Thing", chips:o.chips.slice() }); right.push(o.t); }
+    const pic = GD2_THING[o.t][0], en = GD2_THING[o.t][1];
+    const vEn = { li:"I", lanu:"We", lekha:"You", lakh:"You", lakhem:"You", lo:"He", la:"She", lahem:"They" }[f];
+    const has = o.no ? (["lo","la"].includes(f) ? " doesn't have " : " don't have ") : (["lo","la"].includes(f) ? " has " : " have ");
+    const say = thingRow ? bgCap(yn) + " " + f + " " + o.t + "." : bgCap(yn) + " " + f;
+    const clips = (o.clip || []).map(c => GD2_NOUNCLIP[c] || c + ".mp3");
+    const clipText = o.clip ? bgCap(yn) + " " + f + (o.clip[1] ? " " + o.t : "") : "";
+    return { o, stage, rows, right, say:thingRow ? say : say, sayPic:thingRow ? "" : pic, en:vEn + has + en + ".", clips:o.clip ? clips : null, clipText,
+      draft:p => bgSlot(p[0] && bgCap(p[0])) + " " + bgSlot(p[1]) + " " + (thingRow ? bgSlot(p[2]) : '<span class="hh-bg-pic">' + pic + "</span>") };
+  },
+  scene(r, el){
+    const o = r.o, ps = o.who.map(bgP);
+    const tag = o.view === "me" ? "🙋 About me" : o.view === "us" ? "👫 Us: me and my friends" : (o.view === "to" ? "💬 Talking TO " : "👉 Talking ABOUT ") + gd2Pron(o);
+    const faces = (o.view === "me" || o.view === "us" ? bgFace(bgMe(), "You", "me") : "") + ps.map(p => bgFace(p.face, p.name, p.g)).join("");
+    el.innerHTML = '<div class="hh-bg-view" data-view="' + o.view + '">' + tag + '</div><div class="hh-bg-stage"><div class="hh-bg-who">' + faces + '</div>' +
+      '<div class="hh-bg-gift' + (o.no ? " no" : "") + '"><span class="hh-bg-thing">' + GD2_THING[o.t][0] + "</span>" + (o.no ? '<i class="hh-bg-x"></i><em class="hh-bg-ban">🚫</em>' : "") + "</div></div>";
+  },
+  why(r, p){
+    const o = r.o, [yn, f] = r.right, x = p[1];
+    if (p[0] !== yn) return { row:0, text:o.no ? "🚫 Has it: the gift is crossed out → ein." : "✅ Has it: nothing is crossed out → yesh." };
+    if (x !== f){
+      if (GD2_VIEWOF[x] !== o.view){
+        if (o.view === "me") return { row:1, text:"🙋 Who: it's you → li." };
+        if (o.view === "us") return { row:1, text:"👫 Who: you're in the group → lanu." };
+        const nm = o.who.length > 1 ? "them" : gd2Names(o);
+        return { row:1, text:(o.view === "to" ? "💬 Direction: you're talking TO " : "👉 Direction: you're talking ABOUT ") + nm + " → " + f + "." };
+      }
+      if (!!GD2_PLURAL[x] !== (o.who.length > 1)) return { row:1, text:o.who.length > 1 ? "👥 Number: " + gd2Names(o) + ", more than one → " + f + "." : "👤 Number: just " + gd2Names(o) + ", one person → " + f + "." };
+      const pp = bgP(o.who[0]);
+      return { row:1, text:(pp.g === "m" ? "👦 Gender: " + pp.name + " is a boy → " : "👧 Gender: " + pp.name + " is a girl → ") + f + "." };
+    }
+    if (r.right[2] && p[2] !== r.right[2]){ const pic = GD2_THING[o.t][0]; return { row:2, text:(o.t === "sukar" ? "🧊" : pic) + " Thing: " + (o.t === "sukar" ? "the cubes" : pic) + " = " + o.t + "." }; }
+    return null;
+  },
+  onRight(r, el){ const g = el.querySelector(".hh-bg-gift"); if (g) g.classList.add("fly"); },
+  legend(p){
+    p.innerHTML = '<div class="hh-bg-legend"></div>'; const box = p.firstChild;
+    Object.keys(GD2_THING).forEach(k => {
+      const b = document.createElement(GD2_NOUNCLIP[k] ? "button" : "div"); b.className = "hh-bg-lw"; if (GD2_NOUNCLIP[k]) b.type = "button";
+      b.innerHTML = '<span class="hh-bg-lp">' + GD2_THING[k][0] + "</span><b>" + k + "</b><small>" + GD2_THING[k][1] + (GD2_NOUNCLIP[k] ? " 🔊" : "") + "</small>";
+      if (GD2_NOUNCLIP[k]) b.addEventListener("click", () => bgPlay([GD2_NOUNCLIP[k]]));
+      box.append(b);
+    });
+  },
+  demo:[
+    { stage:1, round:{ view:"me", who:[], t:"pitsa", no:false, clip:["s6_01"] }, steps:[
+      { lab:"👀 Look: it's you, nothing is crossed out", wait:2200 }, { lab:"Tap yesh", tap:[0, "yesh"] }, { lab:"It's you: tap li", tap:[1, "li"] }, { lab:"Tap Drop the gift", go:true } ] },
+    { stage:2, round:{ view:"about", who:["noa"], t:"uga", no:true, chips:["uga","khalav","pitsa","te"], clip:["s6_10","uga"] }, steps:[
+      { lab:"👀 Crossed out, and you're talking ABOUT Noa", wait:2400 }, { lab:"Tap ein", tap:[0, "ein"] }, { lab:"About her: tap la", tap:[1, "la"] },
+      { lab:"🍰 is uga: tap uga", tap:[2, "uga"] }, { lab:"Tap Drop the gift", go:true } ] }
+  ],
+  guided:{ stage:2, round:{ view:"about", who:["yonatan"], t:"te", no:false, chips:["te","kafe","khalav","mayim"], clip:["s6_02","te"] },
+    labs:["Your turn: yesh or ein?", "Who? You're talking ABOUT Yonatan", "🍵 is…?", "Drop the gift!"] }
+};
+
+/* ===================== E2. INTERROGATION ROOM v2 (STEP 7) ===================== */
+const IV2_V = { rotse:["rotse","rotsa","rotsim","rotsot"], yakhol:["yakhol","yekhola","yekholim","yekholot"], tsarikh:["tsarikh","tsrikha","tsrikhim","tsrikhot"], ohev:["ohev","ohevet","ohavim","ohavot"] };
+const IV2_VI = { rotse:["💭","want"], yakhol:["💪","can"], tsarikh:["⏰","need"], ohev:["❤️","love"] };
+const IV2_VORDER = ["rotse","yakhol","tsarikh","ohev"];
+const IV2_TO = ["lishon","le'ekhol","lishtot","lilmod","liknot","ledaber","lalekhet"];
+const IV2_ACT = { lishon:["😴","sleep"], "le'ekhol":["🍽️","eat"], lishtot:["🥤","drink"], lilmod:["📚","study"], liknot:["🛍️","buy"], ledaber:["🗣️","talk"], lalekhet:["🚶","go"] };
+const IV2_Q = { mi:["👤","WHO","a person"], ma:["🍽️","WHAT","a thing"], eifo:["📍","WHERE","a place"], matai:["📅","WHEN","a time"], lama:["🤔","WHY","a reason"], eikh:["🛠️","HOW","a way"] };
+const IV2_QEN = { mi:"Who", ma:"What", eifo:"Where", matai:"When", lama:"Why", eikh:"How" };
+const IV2_CLIP = { ma:"s7_01", mi:"s7_02", eifo:"s7_03", matai:"s7_04", lama:"s7_05", eikh:"s7_06" };
+const IV2_ASK = ["mi","ma","eifo","matai","lama","eikh"];
+const IV2_NONE = "no pronoun";
+const IV2_YOU = [["ata","at","atem","aten"], ["ata","at","atem","aten","hu","hi"], ["ata","at","atem","aten","hu","hi",IV2_NONE]];
+/* who: suspects (WHO files: the two faces it could be, the first is the answer); opts = the answer strip; v2 = the second verb on the VERB row */
+const IV2_ROUNDS = [
+  { who:["yonatan"], q:"eifo", opts:"🏨 / 🏠", v:"rotse", inf:"lishon", en:"Where do you (m) want to sleep?" },
+  { who:["noa"], q:"ma", opts:"🥗 / 🍔", v:"rotse", inf:"le'ekhol", en:"What do you (f) want to eat?" },
+  { who:["dani"], q:"matai", opts:"🌅 / 🌙", v:"rotse", inf:"lalekhet", en:"When do you (m) want to go?" },
+  { who:["maya"], q:"lama", opts:"because 🇮🇱 / 💼", v:"rotse", inf:"lilmod", en:"Why do you (f) want to study?" },
+  { who:["noa"], q:"eikh", opts:"☕🥛 / ☕⬛", v:"ohev", v2:"rotse", inf:"lishtot", kafe:true, to:["le'ekhol","lishtot","lilmod"], en:"How do you (f) like to drink coffee?" },
+  { who:["yonatan","dani"], q:"matai", opts:"🌅 / 🌙", v:"tsarikh", v2:"yakhol", inf:"liknot", to:["lishon","liknot","lalekhet"], en:"When do you (pl) need to buy?" },
+  { who:["maya"], q:"eifo", opts:"🛋️ / 🏨", v:"yakhol", v2:"ohev", inf:"lishon", to:["lishon","lishtot","ledaber"], en:"Where can you (f) sleep?" },
+  { who:["dani","yosi"], q:"lama", opts:"because 🌙 / 🌧️", v:"tsarikh", v2:"rotse", inf:"lalekhet", to:["lishon","liknot","lalekhet"], en:"Why do you (pl) need to go?" },
+  { who:["maya","dani"], whoFile:true, q:"mi", v:"rotse", v2:"ohev", inf:"lishtot", to:["le'ekhol","lishtot","ledaber"], en:"Who wants to drink?" },
+  { who:["noa","maya"], q:"ma", opts:"🍕 / 🍰", v:"ohev", v2:"rotse", inf:"le'ekhol", to:["le'ekhol","lishtot","liknot"], en:"What do you (f pl) like to eat?" },
+  { who:["yosi"], q:"eikh", opts:"👟 / 🚌", v:"yakhol", v2:"tsarikh", inf:"lalekhet", to:["lilmod","ledaber","lalekhet"], en:"How can you (m) go?" },
+  { who:["yosi","noa"], whoFile:true, q:"mi", v:"tsarikh", v2:"yakhol", inf:"ledaber", to:["ledaber","lalekhet","lishon"], en:"Who needs to talk?" }
+];
+function iv2Who(o){   // the right "you" and its form index (he, she, they m, they f)
+  if (o.whoFile) return [IV2_NONE, 0];
+  const ps = o.who.map(bgP);
+  if (ps.length > 1) return ps.every(p => p.g === "f") ? ["aten", 3] : ["atem", 2];
+  return ps[0].g === "m" ? ["ata", 0] : ["at", 1];
 }
-const ivState = (rounds, st) => ({ rounds, st:st || 0, i:0, clean:0, tries:0, streak:0, best:0, pick:[null,null,null,null], phase:"idle", t:0 });
-function startInterrogation(){
-  ivReal = null;
-  g14 = ivState(IV_ROUNDS.map(x => Object.assign({}, x)));
-  show("g14");
-  clearInterval(ivWatch); ivWatch = setInterval(() => { if ($("g14").hidden){ clearInterval(ivWatch); clearInterval(ivGuide); ivTok++; demoHide(); demoPulse(null); } }, 400);
-  ivKey(); ivDemo();
-}
-function ivKey(){
-  const k = $("g14key"); k.innerHTML = "";
-  CB_KEY.forEach(([e, , en]) => { const d = document.createElement("span"); d.innerHTML = "<b></b><small></small>"; d.children[0].textContent = e; d.children[1].textContent = en; k.append(d); });
-}
-function ivRound(){
-  clearTimeout(g14.t);
-  if (g14.i >= g14.rounds.length) return ivEnd();
-  const o = g14.rounds[g14.i], st = g14.demo ? (o.st || 2) : ivStageOf(g14.rounds, g14.i);
-  g14.cur = o; g14.stNow = st; g14.right = ivRight(o); g14.tries = 0; g14.pick = [null,null,null,null]; g14.phase = "build";
-  if (st === 1) g14.pick[3] = o.inf;   // stage 1: the TO-word is given
-  $("g14bar").style.width = g14.demo ? "0%" : (g14.i / g14.rounds.length * 100) + "%";
-  $("g14count").textContent = g14.demo ? (g14.practice ? "Your turn" : "Demo") : (g14.i + 1) + " / " + g14.rounds.length;
-  const ns = g14.demo ? 0 : (o.stage || 0);
-  $("g14tag").textContent = g14.demo ? "How to play" : ns ? IV_STAGE[ns] : "Ask the suspect";
-  if (ns) pop($("g14tag"));
-  // the file
-  const p = o.who ? snapPerson(o.who) : null;
-  $("g14face").textContent = p ? p.face : "👤"; $("g14name").textContent = p ? p.name : "???";
-  $("g14scene").classList.toggle("unknown", !p); $("g14scene").classList.remove("cracked");
-  const [qi, qt] = IV_Q[o.q];
-  $("g14bicon").textContent = qi; $("g14btxt").textContent = qt; $("g14ans").textContent = "?";
-  $("g14verb").textContent = CB_VE[o.v]; $("g14act").textContent = CB_ACT[o.inf];
-  ["g14scene","g14build","g14askRow"].forEach(id => $(id).hidden = false); $("g14end").hidden = true; $("g14doneRow").hidden = true;
-  $("g14msg").textContent = ""; $("g14msg").className = "msg hh-sn-msg";
-  ivChips(o, g14.right, st).forEach((list, r) => {
-    const box = $("g14r" + r); box.innerHTML = "";
-    list.forEach(x => { const b = document.createElement("button"); b.type = "button"; b.className = "hh-cb-chip"; b.dataset.w = x; b.dataset.r = r; b.textContent = x;
-      if (r === 3 && st === 1) b.disabled = true;
-      b.addEventListener("click", () => ivPick(r, x)); box.append(b); });
-  });
-  ivStreak(); ivDraft(); pop($("g14card"));
-}
-const ivCap = s => s.charAt(0).toUpperCase() + s.slice(1);
-const ivSay = p => ivCap([p[0] || "___", p[1] === IV_NONE ? "" : (p[1] || "___"), p[2] || "___", p[3] || "___"].filter(Boolean).join(" ")) + "?";
-function ivDraft(){
-  const p = g14.pick;
-  $("g14draft").textContent = ivSay(p);
-  $("g14ask").disabled = p.some(x => !x) || g14.phase !== "build";
-  document.querySelectorAll("#g14build .hh-cb-chip").forEach(b => b.classList.toggle("on", p[+b.dataset.r] === b.dataset.w));
-}
-function ivPick(r, x){
-  if (!g14 || g14.phase !== "build") return;
-  if (r === 3 && g14.stNow === 1) return;
-  g14.pick[r] = g14.pick[r] === x ? null : x;
-  document.querySelectorAll("#g14r" + r + " .hh-cb-chip").forEach(b => b.classList.remove("bad"));
-  sfx("tap"); ivDraft();
-}
-function ivStreak(){ const s = $("g14streak"); s.hidden = g14.demo || g14.streak < 2; s.textContent = "🔥 " + g14.streak + " in a row"; }
-/* the hint names the part that is off: question word -> who -> verb -> TO-word */
-function ivWhy(o, p){
-  const r = g14.right, ps = o.who ? snapPerson(o.who) : null;
-  if (p[0] !== r[0]){ const [i, t] = IV_Q[o.q]; return i + " " + t + " is missing: " + r[0] + "."; }
-  if (p[1] !== r[1]){
-    if (!ps) return "👤 WHO is the blank, so there is no 'you' yet: no pronoun.";
-    if (p[1] === "hu" || p[1] === "hi") return "You ask " + ps.name + " directly, TO " + (ps.g === "m" ? "him" : "her") + ": " + r[1] + ".";
-    if (p[1] === IV_NONE) return "You know who it is, so ask " + (ps.g === "m" ? "him" : "her") + ": " + r[1] + ".";
-    return (ps.g === "m" ? "To a man: " : "To a woman: ") + r[1] + ".";
-  }
-  if (p[2] !== r[2]){
-    const ok = Object.values(CB_VERB[o.v]).includes(p[2]);
-    if (!ok) return CB_VE[o.v] + " means " + CB_VEN[o.v] + ": " + r[2] + ".";
-    if (!ps) return "Mi takes the he form: " + r[2] + ".";
-    return ivCap(r[1]) + " goes with " + r[2] + ".";
-  }
-  return CB_ACT[o.inf] + " = " + r[3] + ".";
-}
-function ivAsk(){
-  if (!g14 || g14.phase !== "build") return;
-  const o = g14.cur, p = g14.pick, right = g14.right;
-  const k = p.findIndex((x, j) => x !== right[j]);
-  if (k < 0){
-    g14.phase = "asked";
-    if (g14.tries === 0){ g14.clean++; g14.streak++; g14.best = Math.max(g14.best, g14.streak); } else g14.streak = 0;
-    sfx("good");
-    const rv = o.reveal ? snapPerson(o.reveal) : null;
-    $("g14ans").textContent = rv ? rv.face : o.ans;
-    if (rv){ $("g14face").textContent = rv.face; $("g14name").textContent = rv.name; $("g14scene").classList.remove("unknown"); }
-    $("g14scene").classList.add("cracked");
-    $("g14msg").className = "msg hh-sn-msg good";
-    $("g14msg").textContent = ivSay(p) + " " + (g14.tries === 0 ? "Cracked!" : "Cracked on the second try.") + " 🔊 " + ivCap(o.q);
-    const clip = IV_CLIP[o.q];
-    setTimeout(() => { if (g14 && g14.cur === o) speak([clip]); }, 350);
-    $("g14build").hidden = true; $("g14askRow").hidden = true; ivStreak();
-    const wait = 2300;
-    if (!g14.demo) g14.t = setTimeout(() => { if (!g14 || g14.cur !== o || $("g14").hidden) return; g14.i++; ivRound(); }, wait);
-    else if (g14.practice) g14.t = setTimeout(() => { if (g14 && g14.practice) ivDemoEnd(); }, wait);
-    return;
-  }
-  g14.tries++; g14.streak = 0; sfx("soft"); ivStreak();
-  const b = document.querySelector('#g14r' + k + ' .hh-cb-chip[data-w="' + CSS.escape(p[k]) + '"]'); if (b) b.classList.add("bad");
-  const f = $("g14scene"); f.classList.remove("shake"); void f.offsetWidth; f.classList.add("shake");
-  $("g14msg").className = "msg hh-sn-msg bad"; $("g14msg").textContent = "Nice try, detective! " + ivWhy(o, p);
-}
-$("g14ask").addEventListener("click", ivAsk);
-function ivRank(n){ return n >= 11 ? "Chief detective" : n >= 8 ? "Sharp detective" : "Rookie detective"; }
-function ivEnd(){
-  g14.phase = "end"; clearTimeout(g14.t);
-  $("g14bar").style.width = "100%"; $("g14count").textContent = g14.rounds.length + " / " + g14.rounds.length;
-  ["g14scene","g14build","g14askRow"].forEach(id => $(id).hidden = true); $("g14streak").hidden = true;
-  $("g14msg").textContent = ""; $("g14tag").textContent = ivRank(g14.clean);
-  const e = $("g14end"); e.hidden = false;
-  e.innerHTML = '<div class="hh-sn-big"></div><div class="hint"></div><div class="hint"></div>';
-  e.children[0].textContent = g14.clean + " / " + g14.rounds.length;
-  e.children[1].textContent = "questions cracked on the first try";
-  e.children[2].textContent = "Best streak: " + g14.best + " in a row";
-  $("g14doneRow").hidden = false; sfx("win");
-}
-$("g14done").addEventListener("click", () => { if (g14 && g14.phase === "end") finish(ivRank(g14.clean) + "!", g14.clean + " / " + g14.rounds.length, "questions cracked on the first try.", ""); });
-/* how to play: the hand plays two rounds by itself, then one guided turn. A must on the first visit (A.ivDemoSeen). */
-const ivChip = (r, w) => document.querySelector('#g14r' + r + ' .hh-cb-chip[data-w="' + CSS.escape(w) + '"]');
-async function ivDemo(){
-  clearTimeout(g14 && g14.t); clearInterval(ivGuide); demoPulse(null);
-  if (!ivReal) ivReal = g14;
-  const tok = ++ivTok, ok = () => tok === ivTok && !$("g14").hidden;
-  g14 = ivState([{ who:"yonatan", q:"ma", v:"rotse", inf:"lishtot", ans:"☕", st:1 }, { who:"noa", q:"eifo", v:"ohev", inf:"le'ekhol", ans:"🏖️", st:2 }]); g14.demo = true;
-  $("g14skip").hidden = !A.ivDemoSeen; $("g14how").hidden = true;
-  ivRound(); demoLab("g14lab", "Read the suspect's file");
-  await demoWait(1400); if (!ok()) return;
-  demoLab("g14lab", "🍽️ WHAT is missing: ask with ma");
-  if (!await demoTap(ivChip(0, "ma"), ok)) return;
-  demoLab("g14lab", "You ask Yonatan: ata");
-  if (!await demoTap(ivChip(1, "ata"), ok)) return;
-  demoLab("g14lab", "💭 want, to a man: rotse");
-  if (!await demoTap(ivChip(2, "rotse"), ok)) return;
-  demoLab("g14lab", "Ask the question 🔦");
-  if (!await demoTap($("g14ask"), ok)) return;
-  await demoWait(2300); if (!ok()) return;
-  g14.i++; ivRound();
-  demoLab("g14lab", "📍 WHERE, Noa, ❤️ love, 🍕 eat");
-  await demoWait(1700); if (!ok()) return;
-  demoLab("g14lab", "Where: eifo");
-  if (!await demoTap(ivChip(0, "eifo"), ok)) return;
-  demoLab("g14lab", "To a woman: at");
-  if (!await demoTap(ivChip(1, "at"), ok)) return;
-  demoLab("g14lab", "❤️ love, at: ohevet");
-  if (!await demoTap(ivChip(2, "ohevet"), ok)) return;
-  demoLab("g14lab", "🍕 = le'ekhol");
-  if (!await demoTap(ivChip(3, "le'ekhol"), ok)) return;
-  if (!await demoTap($("g14ask"), ok)) return;
-  await demoWait(2100); if (!ok()) return;
-  demoHide(); ivPractice();
-}
-function ivPractice(){
-  clearInterval(ivGuide);
-  g14 = ivState([{ who:"dani", q:"lama", v:"rotse", inf:"lishon", ans:"🥱", st:2 }]); g14.demo = true; g14.practice = true;
-  $("g14skip").hidden = !A.ivDemoSeen; $("g14how").hidden = true;
-  ivRound(); demoLab("g14lab", "Your turn: ask Dani");
-  ivGuide = setInterval(() => {
-    if (!g14 || !g14.practice || $("g14").hidden){ clearInterval(ivGuide); demoPulse(null); return; }
-    if (g14.phase !== "build") return demoPulse(null);
-    const k = g14.pick.findIndex((w, j) => w !== g14.right[j]);
-    demoPulse(k < 0 ? $("g14ask") : ivChip(k, g14.right[k]));
-  }, 250);
-}
-function ivDemoEnd(){
-  const fromPractice = g14 && g14.practice;
-  ivTok++; clearInterval(ivGuide); demoPulse(null); demoHide(); clearTimeout(g14 && g14.t);
-  if (fromPractice && !A.ivDemoSeen){ A.ivDemoSeen = 1; saveA(); }
-  demoLab("g14lab", ""); $("g14skip").hidden = true; $("g14how").hidden = false;
-  if (!ivReal) return;
-  g14 = ivReal; ivReal = null;
-  if (g14.phase === "end") return ivEnd();
-  if (g14.phase === "asked") g14.i++;
-  ivRound();
-}
-$("g14skip").addEventListener("click", ivDemoEnd);
-$("g14how").addEventListener("click", () => { if (!g14 || g14.demo || g14.phase === "end") return; ivDemo(); });
-starters[14] = startInterrogation;
-/* for the tests */
-window.ivState14 = () => ({ phase:g14.phase, i:g14.i, st:g14.stNow, demo:!!g14.demo, practice:!!g14.practice, right:g14.right.slice(), q:g14.cur && g14.cur.q, who:g14.cur && g14.cur.who,
-  chips:[0,1,2,3].map(r => [...document.querySelectorAll('#g14r' + r + ' .hh-cb-chip')].map(b => b.dataset.w)), tag:$("g14tag").textContent,
-  msg:$("g14msg").textContent, clean:g14.clean, best:g14.best, skip:!$("g14skip").hidden, how:!$("g14how").hidden, scene:$("g14scene").innerText.replace(/\s+/g, " ") });
+const iv2Lemma = w => IV2_VORDER.find(v => IV2_V[v].includes(w));
+const IV2 = {
+  g:14, key:"iv2", title:"INTERROGATION ROOM", btn:"Ask the question 🔦", seen:"iv2DemoSeen", what:"questions cracked on the first try",
+  stages:["Stage 1 · Ask what they want 💭", "Stage 2 · All four verbs, pairs too", "Stage 3 · New: 👤 WHO files"], fast:[0, 19, 15],
+  rounds:IV2_ROUNDS, intro:"Every file is missing one thing. Ask the suspect for it.", introIcon:"🔦",
+  make(o, stage){
+    const [you, fi] = iv2Who(o), verb = IV2_V[o.v][fi];
+    const verbs = stage === 1 ? IV2_V.rotse.slice() : IV2_VORDER.filter(v => v === o.v || v === o.v2).flatMap(v => IV2_V[v]);
+    const rows = [{ label:"Ask", chips:IV2_ASK.slice() }, { label:"You", chips:IV2_YOU[stage - 1].slice() }, { label:"Verb", chips:verbs }];
+    const right = [o.q, you, verb];
+    if (stage >= 2){ rows.push({ label:"TO-word", chips:IV2_TO.filter(x => o.to.includes(x)) }); right.push(o.inf); }
+    const words = [bgCap(o.q)].concat(you === IV2_NONE ? [] : [you]).concat([verb, o.inf]).concat(o.kafe ? ["kafe"] : []);
+    const after = o.whoFile ? "It was " + bgP(o.who[0]).name + "!" : "";
+    return { o, stage, rows, right, say:words.join(" ") + "?", en:o.en, clips:[IV2_CLIP[o.q] + ".mp3"], clipText:bgCap(o.q) + "?", after,
+      draft:p => bgSlot(p[0] && bgCap(p[0])) + " " + (p[1] === IV2_NONE ? "" : bgSlot(p[1]) + " ") + bgSlot(p[2]) + " " + (stage === 1 ? bgSlot(o.inf, "given") : bgSlot(p[3])) + (o.kafe ? " " + bgSlot("kafe", "given") : "") + "?" };
+  },
+  scene(r, el){
+    const o = r.o, [qi, qen] = IV2_Q[o.q];
+    const faces = o.whoFile ? '<span class="hh-bg-face sil"><b>👤</b><small>?</small></span>' : o.who.map(id => { const p = bgP(id); return bgFace(p.face, p.name, p.g); }).join("");
+    const strip = o.whoFile ? o.who.map(id => bgP(id).name).join(" / ") : o.opts;
+    el.innerHTML = '<div class="hh-iv2-file"><div class="hh-iv2-l1">' + faces + '</div>' +
+      '<div class="hh-iv2-l2"><b>' + qi + "</b>" + (r.stage === 1 ? '<em>' + qen + "</em>" : "") + '<span class="hh-iv2-strip">' + bgEsc(strip) + ' ?</span></div>' +
+      '<div class="hh-iv2-l3"><span>' + IV2_VI[o.v][0] + '</span><span>' + IV2_ACT[o.inf][0] + "</span>" + (o.kafe ? "<span>☕</span>" : "") + '</div>' +
+      '<div class="hh-iv2-key">💭 want · 💪 can · ⏰ need · ❤️ love</div></div>';
+  },
+  onRight(r, el){
+    if (!r.o.whoFile) return; const f = el.querySelector(".hh-bg-face.sil"); const p = bgP(r.o.who[0]);
+    if (f) f.outerHTML = bgFace(p.face, p.name, p.g + " reveal");
+  },
+  why(r, p){
+    const o = r.o, [q, you, verb] = r.right, ps = o.who.map(bgP), pl = ps.length > 1, nm = pl ? ps.map(x => x.name).join(" + ") : ps[0].name;
+    if (p[0] !== q){ const [i, , what] = IV2_Q[q]; return { row:0, text:i + " Question: the file is missing " + what + " → " + q + "." }; }
+    if (p[1] !== you){
+      if (o.whoFile) return { row:1, text:"👤 Person: mi has no 'you' → no pronoun." };
+      const them = pl ? "them" : ps[0].g === "m" ? "him" : "her";
+      if (p[1] === "hu" || p[1] === "hi") return { row:1, text:"💬 Person: you ask " + nm + " directly, TO " + them + " → " + you + "." };
+      if (p[1] === IV2_NONE) return { row:1, text:"💬 Person: you know who it is, so ask " + them + " → " + you + "." };
+      const pPl = p[1] === "atem" || p[1] === "aten";
+      if (pPl !== pl) return { row:1, text:pl ? "👥 Person: two people → " + you + "." : "👤 Person: one person → " + you + "." };
+      if (pl) return { row:1, text:you === "aten" ? "👥 Person: two women → aten." : "👥 Person: two people → atem." };
+      return { row:1, text:ps[0].g === "m" ? "👦 Person: to a man → ata." : "👧 Person: to a woman → at." };
+    }
+    if (p[2] !== verb){
+      const [vi, ven] = IV2_VI[o.v];
+      if (iv2Lemma(p[2]) !== o.v) return { row:2, text:vi + " Verb: " + vi + " means " + ven + " → " + verb + "." };
+      return { row:2, text:o.whoFile ? "🔗 Form: mi takes the he form → " + verb + "." : "🔗 Form: " + you + " goes with " + verb + "." };
+    }
+    if (r.right[3] && p[3] !== r.right[3]){ const a = IV2_ACT[o.inf][0]; return { row:3, text:a + " TO-word: " + a + " = " + o.inf + "." }; }
+    return null;
+  },
+  demo:[
+    { stage:1, round:{ who:["noa"], q:"eifo", opts:"🏨 / 🏠", v:"rotse", inf:"lishon", en:"Where do you (f) want to sleep?" }, steps:[
+      { lab:"👀 The file is missing WHERE", wait:2200 }, { lab:"Tap eifo", tap:[0, "eifo"] }, { lab:"You ask Noa: tap at", tap:[1, "at"] },
+      { lab:"💭 want, for a woman: tap rotsa", tap:[2, "rotsa"] }, { lab:"Tap Ask the question", go:true } ] },
+    { stage:2, round:{ who:["yosi"], q:"ma", opts:"🥗 / 🍔", v:"ohev", v2:"rotse", inf:"le'ekhol", to:["le'ekhol","lishtot","lilmod"], en:"What do you (m) like to eat?" }, steps:[
+      { lab:"👀 Missing: a thing", wait:2200 }, { lab:"Tap ma", tap:[0, "ma"] }, { lab:"Yosi is a man: tap ata", tap:[1, "ata"] },
+      { lab:"❤️ love, for a man: tap ohev", tap:[2, "ohev"] }, { lab:"🍽️ eat: tap le'ekhol", tap:[3, "le'ekhol"] }, { lab:"Tap Ask the question", go:true } ] }
+  ],
+  guided:{ stage:2, round:{ who:["maya"], q:"matai", opts:"🌅 / 🌙", v:"yakhol", v2:"tsarikh", inf:"lilmod", to:["lishon","lilmod","ledaber"], en:"When can you (f) study?" },
+    labs:["Your turn: what's missing?", "Who do you ask?", "💪 for a woman?", "📚 = ?", "Ask it!"] }
+};
+
+/* ===================== E3. PICTURE TRUTH (STEP 8) ===================== */
+const PT2_NOUN = { bayit:["🏠","m","house"], kafe:["☕","m","coffee"], khatul:["🐱","m","cat"], lekhem:["🍞","m","bread"], yeled:["👦","m","boy"],
+  glida:["🍦","f","ice cream"], monit:["🚕","f","taxi"], pitsa:["🍕","f","pizza"], yalda:["👧","f","girl"] };
+const PT2_ADJ = { big:["gadol","gdola","🔼","BIG"], small:["katan","ktana","🔽","SMALL"], good:["tov","tova","👍","GOOD"], pretty:["yafe","yafa","✨","PRETTY"], new:["khadash","khadasha","🆕","NEW"] };
+const PT2_ORDER = ["big","small","good","pretty","new"];
+const PT2_CLIP = { "Kafe tov.":"s8_01", "Glida tova.":"s8_02", "Bayit gadol.":"s8_03", "Pitsa gdola.":"s8_04", "Khatul katan.":"s8_05", "Monit ktana.":"s8_06",
+  "Yeled tov.":"s8_07", "Yalda tova.":"s8_08", "Bayit khadash.":"s8_11", "Hi rotsa glida gdola.":"s8_12" };
+const PT2_EN = { big:"big", small:"small", good:"good", pretty:"pretty", new:"new" };
+/* n = noun, a = meaning, m = the 3 meanings on the WORD row, things = THING chips (stages 2-3), who / v = stage 3 speaker + verb */
+const PT2_ROUNDS = [
+  { n:"kafe", a:"good", m:["big","good","pretty"] }, { n:"glida", a:"good", m:["small","good","new"] },
+  { n:"bayit", a:"big", m:["big","small","good"] }, { n:"monit", a:"small", m:["big","small","pretty"] },
+  { n:"pitsa", a:"big", m:["big","small","good"], things:["glida","kafe","lekhem","pitsa"] },
+  { n:"khatul", a:"small", m:["big","small","pretty"], things:["bayit","khatul","monit","yeled"] },
+  { n:"bayit", a:"new", m:["big","good","new"], things:["bayit","khatul","lekhem","monit"] },
+  { n:"lekhem", a:"good", m:["good","pretty","new"], things:["bayit","kafe","lekhem","pitsa"] },
+  { who:"noa", v:"rotse", n:"glida", a:"big", m:["big","small","good"], things:["glida","kafe","pitsa","yalda"] },
+  { who:"maya", v:"ohev", n:"kafe", a:"good", m:["big","good","pretty"], things:["glida","kafe","lekhem","pitsa"] },
+  { who:"yonatan", v:"rotse", n:"glida", a:"big", m:["big","small","new"], things:["glida","kafe","monit","pitsa"] },
+  { who:"dani", v:"ohev", n:"bayit", a:"big", m:["big","small","new"], things:["bayit","khatul","monit","yeled"] }
+];
+const PT2_VERB = { rotse:["rotse","rotsa","💭","want"], ohev:["ohev","ohevet","❤️","love"] };
+const pt2Adj = (a, g) => PT2_ADJ[a][g === "m" ? 0 : 1];
+const PT2 = {
+  g:15, key:"pt2", title:"PICTURE TRUTH", btn:"Make it true ✅", seen:"pt2DemoSeen", what:"photos made true on the first try",
+  stages:["Stage 1 · Make the word match", "Stage 2 · New: name the thing", "Stage 3 · New: who says it?"], fast:[0, 11, 15],
+  rounds:PT2_ROUNDS, legendTitle:"Your 9 words",
+  make(o, stage){
+    const [pic, ng, en] = PT2_NOUN[o.n], adj = pt2Adj(o.a, ng);
+    const words = PT2_ORDER.filter(x => o.m.includes(x)).flatMap(x => [PT2_ADJ[x][0], PT2_ADJ[x][1]]);
+    const rows = [], right = [];
+    let ps = null, verb = "";
+    if (stage === 3){ ps = bgP(o.who); verb = PT2_VERB[o.v][ps.g === "m" ? 0 : 1];
+      rows.push({ label:"Who", chips:["hu","hi"] }, { label:"Verb", chips:["rotse","rotsa","ohev","ohevet"] }); right.push(ps.g === "m" ? "hu" : "hi", verb); }
+    if (stage >= 2){ rows.push({ label:"Thing", chips:o.things.slice() }); right.push(o.n); }
+    rows.push({ label:"Word", chips:words }); right.push(adj);
+    const say = stage === 3 ? bgCap(right[0]) + " " + verb + " " + o.n + " " + adj + "." : bgCap(o.n) + " " + adj + ".";
+    const enS = stage === 3 ? (ps.g === "m" ? "He " : "She ") + (o.v === "rotse" ? "wants" : "loves") + " " + (o.n === "kafe" || o.n === "lekhem" ? "" : "a ") + PT2_EN[o.a] + " " + en + "."
+      : (o.n === "kafe" || o.n === "lekhem" ? bgCap(PT2_EN[o.a]) + " " + en + "." : "A " + PT2_EN[o.a] + " " + en + ".");
+    const clip = PT2_CLIP[say];
+    return { o, stage, ps, rows, right, say, en:enS, clips:clip ? [clip + ".mp3"] : null, clipText:say.replace(/\.$/, ""),
+      draft:p => { const k0 = rows.length - (stage >= 2 ? 2 : 1);
+        if (stage === 1) return bgSlot(bgCap(o.n), "given") + " " + bgSlot(p[0]) + ".";
+        if (stage === 2) return bgSlot(p[0] && bgCap(p[0])) + " " + bgSlot(p[1]) + ".";
+        return bgSlot(p[0] && bgCap(p[0])) + " " + bgSlot(p[1]) + " " + bgSlot(p[2]) + " " + bgSlot(p[3]) + "."; } };
+  },
+  scene(r, el){
+    const o = r.o, [pic] = PT2_NOUN[o.n], A2 = PT2_ADJ[o.a], size = o.a === "big" ? "big" : o.a === "small" ? "small" : "";
+    const badge = A2[2] + (r.stage === 1 ? " " + A2[3] : "");
+    const who = r.ps ? '<div class="hh-pt2-who">' + bgFace(r.ps.face, r.ps.name, r.ps.g) + '<span class="hh-pt2-bub">' + PT2_VERB[o.v][2] + "</span></div>" : "";
+    el.innerHTML = '<div class="hh-pt2-row">' + who + '<div class="hh-pt2-photo"><span class="hh-pt2-pic ' + size + '">' + pic + '</span><span class="hh-pt2-badge">' + badge + '</span><i class="hh-pt2-stamp">TRUE</i></div></div>';
+  },
+  onRight(r, el){ const s = el.querySelector(".hh-pt2-stamp"); if (s) s.classList.add("on"); },
+  why(r, p){
+    const o = r.o, st = r.stage, [, ng] = PT2_NOUN[o.n], R = r.right, k = R.length - 1, pick = p[k];
+    let i = 0;
+    if (st === 3){
+      const ps = r.ps;
+      if (p[0] !== R[0]) return { row:0, text:(ps.g === "m" ? "👦 Who: " + ps.name + " is a man → hu." : "👧 Who: " + ps.name + " is a woman → hi.") };
+      if (p[1] !== R[1]){ const [, , vi, ven] = PT2_VERB[o.v];
+        if (!PT2_VERB[o.v].slice(0, 2).includes(p[1])) return { row:1, text:vi + " Verb: " + vi + " means " + ven + " → " + R[1] + "." };
+        return { row:1, text:"🔗 Verb: " + R[0] + " goes with " + R[1] + "." }; }
+      i = 2;
+    }
+    if (st >= 2 && p[i] !== R[i]){ const pic = PT2_NOUN[o.n][0]; return { row:i, text:pic + " Thing: " + pic + " = " + o.n + "." }; }
+    if (pick !== R[k]){
+      const A2 = PT2_ADJ[o.a];
+      if (!A2.slice(0, 2).includes(pick)) return { row:k, text:A2[2] + " Meaning: it's " + PT2_EN[o.a] + " → " + A2[0] + " / " + A2[1] + "." };
+      if (st === 3 && r.ps.g !== ng) return { row:k, text:"🏷️ Form: the word follows " + o.n + ", not " + r.ps.name + " → " + R[k] + "." };
+      if (o.n === "kafe") return { row:k, text:"🏷️ Form: kafe ends in -e, but it's a he-word → " + R[k] + "." };
+      if (o.n === "bayit") return { row:k, text:"🏷️ Form: bayit ends in -it, but it's a he-word → " + R[k] + "." };
+      if (o.n === "monit") return { row:k, text:"🏷️ Form: monit ends in -it, and it's a she-word → " + R[k] + "." };
+      return { row:k, text:"🏷️ Form: " + o.n + " is a " + (ng === "m" ? "he" : "she") + "-word → " + R[k] + "." };
+    }
+    return null;
+  },
+  legend(p){
+    p.innerHTML = '<div class="hh-bg-legend nine"></div>'; const box = p.firstChild;
+    Object.keys(PT2_NOUN).sort().forEach(k => { const d = document.createElement("div"); d.className = "hh-bg-lw";
+      d.innerHTML = '<span class="hh-bg-lp">' + PT2_NOUN[k][0] + "</span><b>" + k + "</b><small>" + PT2_NOUN[k][2] + "</small>"; box.append(d); });
+  },
+  demo:[
+    { stage:1, round:{ n:"yalda", a:"good", m:["big","good","pretty"] }, steps:[
+      { lab:"👀 A girl, and she's good", wait:2200 }, { lab:"yalda is a she-word: tap tova", tap:[0, "tova"] }, { lab:"Tap Make it true", go:true } ] },
+    { stage:2, round:{ n:"pitsa", a:"big", m:["big","small","good"], things:["glida","kafe","pitsa","yalda"] }, steps:[
+      { lab:"👀 What is it? A pizza", wait:2000 }, { lab:"Tap pitsa", tap:[0, "pitsa"] }, { lab:"Big, and pitsa is a she-word: tap gdola", tap:[1, "gdola"] }, { lab:"Tap Make it true", go:true } ] }
+  ],
+  guided:{ stage:2, round:{ n:"yeled", a:"good", m:["big","good","pretty"], things:["bayit","khatul","yalda","yeled"] },
+    labs:["Your turn: what is it?", "👍 good, for a he-word?", "Make it true!"] }
+};
+[GD2, IV2, PT2].forEach(bgMount);
 </script>
 <script>
 /* =====================================================================
@@ -4462,13 +4701,16 @@ const LESSON_STEP4 = [
   { type:"video", sec:"Watch",    icon:"🎬", name:"At the Café", url:STEP4_EMBEDS.video2, xp:5, cc:false,   // captions burned into the video; the CC track (Latin letters) is optional, off at start
     how:"The Magic Four at a café counter. Watch, then it's your turn to order." },
   // STEP 4 plays three games: listen, guided, then against the clock (spec A4, Nov 15; was By Ear, Rush Hour, Café Order). Echo and Swap It are kept in HIDDEN_GAMES below.
-  { type:"game", sec:"Play", g:8, icon:"👂", name:"By Ear",     xp:10, how:"Listen to I, he, she and you with want, can, need and love. Tap the sentence you heard." },
-  { type:"game", sec:"Play", g:5, icon:"☕", name:"Café Order", xp:10, how:"The barista asks what you want. Pick it, say it in Hebrew, and build your order." },
-  { type:"game", sec:"Play", g:7, icon:"⏱", name:"Rush Hour",  xp:10, how:"The café opens at 8:00. Customers walk in; answer each one in Hebrew before the clock runs out." },
+  { type:"game", sec:"Play", g:8, icon:"👂", key:"By Ear", name:"BY EAR", sub:"Tap what you hear", xp:10, how:"Listen to I, he, she and you with want, can, need and love. Tap the sentence you heard." },
+  { type:"game", sec:"Play", g:5, icon:"☕", key:"Café Order", name:"CAFÉ ORDER", sub:"Order in Hebrew", xp:10, how:"The barista asks what you want. Pick it, say it in Hebrew, and build your order." },
+  { type:"game", sec:"Play", g:7, icon:"⏱", key:"Rush Hour", name:"RUSH HOUR", sub:"Serve them fast", xp:10, how:"The café opens at 8:00. Customers walk in; answer each one in Hebrew before the clock runs out." },
   // "Speak" (KNIZ Speak iframe) left STEP 4 on Nov 15 (Eli: it repeats By Ear). It is kept in HIDDEN_PARTS below.
   { type:"embed", sec:"Practice", icon:"🧩", key:"Practice 1", name:"Find the pairs", sub:"Food and drinks", url:STEP4_EMBEDS.wordwall1, xp:5, how:"Match each food and drink word to its meaning." },
   { type:"embed", sec:"Practice", icon:"🧩", key:"Practice 2", name:"HU, HI or HEM", sub:"Sort the verbs", url:STEP4_EMBEDS.wordwall2, xp:5, how:"Sort want, need, love and can into he, she and they." },
-  { type:"embed", sec:"Practice", icon:"🧩", key:"Practice 3", name:"Pair or no pair?", sub:"True or false", url:STEP4_EMBEDS.wordwall3, xp:5, how:"Does the sentence match the English? Last round, then the lesson is done." }
+  { type:"embed", sec:"Practice", icon:"🧩", key:"Practice 3", name:"Pair or no pair?", sub:"True or false", url:STEP4_EMBEDS.wordwall3, xp:5, how:"Does the sentence match the English?" },
+  // v30 (Claude review C3): the same Speak part as every other STEP, from existing STEP 4 clips in the learner's gender (SAY_SETS.step4)
+  { type:"game", sec:"Speak", g:12, icon:"🎙", name:"Say them out loud", sub:"Record yourself and compare", xp:10,
+    how:"Hear the sentence, record yourself, then play both and compare." }
 ];
 /* out of the STEP 4 flow for now; move an entry back into LESSON (and bump LESSON_VERSION + add the old names list) to restore it.
    Game code, audio and the STEP4_EMBEDS.speak URL are untouched. */
@@ -4481,12 +4723,13 @@ const HIDDEN_GAMES = [
   { type:"game", sec:"Play", g:6, icon:"⚡", name:"Echo",       xp:10, how:"A sentence flashes and disappears. Rebuild it from memory, then say it out loud." },
   { type:"game", sec:"Play", g:4, icon:"🔁", name:"Swap It",    xp:10, how:"Tap the word that has to change and pick the new one. Then say the new sentence." }
 ];
-const LESSON_VERSION = 5;   // bump when LESSON changes shape; saved progress from older lessons is carried over by part name below
+const LESSON_VERSION = 6;   // bump when LESSON changes shape; saved progress from older lessons is carried over by part name below
 // part names of every older lesson (index = saved position / saved done-part index)
 const OLD_NAMES = {
   2: ["Sentence Builder","The Magic Four","At the Café","Echo","Swap It","Café Order","By Ear","Rush Hour","Speak","Practice 1","Practice 2","Practice 3"],
   3: ["Sentence Builder","The Magic Four","At the Café","By Ear","Rush Hour","Café Order","Speak","Practice 1","Practice 2","Practice 3"],   // v3 -> v4: Speak removed
-  4: ["Sentence Builder","The Magic Four","At the Café","By Ear","Rush Hour","Café Order","Practice 1","Practice 2","Practice 3"]   // v4 -> v5: Café Order before Rush Hour
+  4: ["Sentence Builder","The Magic Four","At the Café","By Ear","Rush Hour","Café Order","Practice 1","Practice 2","Practice 3"],   // v4 -> v5: Café Order before Rush Hour
+  5: ["Sentence Builder","The Magic Four","At the Café","By Ear","Café Order","Rush Hour","Practice 1","Practice 2","Practice 3"]   // v5 -> v6: Say them out loud added at the end
 };
 const partKey = p => p.key || p.name;
 if (OLD_NAMES[A.step4.v]){
@@ -4497,7 +4740,7 @@ if (OLD_NAMES[A.step4.v]){
   A.step4.parts = [...new Set(A.step4.parts.concat(old.slice(0, A.step4.pos || 0).map(n => keys.indexOf(n)).filter(k => k >= 0)))].sort((a, b) => a - b);
   // the saved place: the same part in the new lesson; a removed part -> the next part that still exists
   let pos = 0;
-  if ((A.step4.v === 3 || A.step4.v === 4) && A.step4.pos > 0){
+  if ((A.step4.v === 3 || A.step4.v === 4 || A.step4.v === 5) && A.step4.pos > 0){
     let i = Math.min(A.step4.pos, old.length);
     while (i < old.length && keys.indexOf(old[i]) < 0) i++;
     pos = i >= old.length ? LESSON.length : keys.indexOf(old[i]);
@@ -4558,7 +4801,7 @@ const LESSON_STEP6 = [
   { type:"video", sec:"Watch",    icon:"🎬", name:"Have / don't have dialogue", url:STEP6_EMBEDS.video2, xp:5, cc:false,   // text is on screen; no captions track
     how:"Noa and Yonatan check what they have in the kitchen. Say each line with them." },
   { type:"game",  sec:"Play", g:13, icon:"🎁", name:"GIFT DROP", sub:"Say who has it, your way", xp:10,
-    how:"Look at the scene: who has the gift, is it crossed out, and are you talking about yourself, TO them or ABOUT them? Build it and drop the gift." },
+    how:"Look at the scene: who has the gift, and is it crossed out? Build the sentence, drop the gift, then say it." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Who has it?", sub:"Pick the right one", url:STEP6_EMBEDS.wordwall1, xp:5, how:"Who has it? Pick the right answer." },
   SPEAK_PART("Hear it, record yourself, then play both and compare.")
 ];
@@ -4570,7 +4813,7 @@ const LESSON_STEP7 = [
   { type:"video", sec:"Watch",    icon:"🎬", name:"Question words dialogue", url:STEP7_EMBEDS.video2, xp:5, cc:false,
     how:"Noa and Yonatan meet and ask each other questions. Say each line with them." },
   { type:"game",  sec:"Play", g:14, icon:"🔦", name:"INTERROGATION ROOM", sub:"Ask the suspect the right question", xp:10,
-    how:"Read the suspect's file: what is missing (who, what, where, when, why, how), is it a man or a woman, what do they want, can, need or love to do? Build the question and ask it." },
+    how:"Every file is missing one thing. Build the question for it, ask the suspect, then say it." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Ask & answer", sub:"Sort the words", url:STEP7_EMBEDS.wordwall1, xp:5, how:"Is it a question or an answer? Sort them." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Question words", sub:"Match them up", url:STEP7_EMBEDS.wordwall2, xp:5, how:"Match each question word to its meaning." },
   SPEAK_PART("Hear it, record yourself, then play both and compare.")
@@ -4584,17 +4827,18 @@ const LESSON_STEP8 = [
     how:"Tap Open full screen to see the slides bigger." },
   { type:"video", sec:"Watch",    icon:"🎬", name:"Gender dialogue", url:STEP8_EMBEDS.video2, xp:5, cc:false,
     how:"Noa and Yonatan order ice cream and pizza: big or small? Say each line with them." },
-  PLAY_SOON,
+  { type:"game",  sec:"Play", g:15, icon:"📸", name:"PICTURE TRUTH", sub:"Make the photo caption true", xp:10,
+    how:"Look at the photo: is it a he word or a she word, one or more, big or small? Build the caption so it is true, then say it." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Gender game", sub:"Sort the words", url:STEP8_EMBEDS.wordwall1, xp:5, how:"Is it a he word or a she word? Sort them." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Matching pairs", sub:"Match them up", url:STEP8_EMBEDS.wordwall2, xp:5, how:"Find the pairs." },
   SPEAK_PART("Hear it, record yourself, then play both and compare.")
 ];
 const LESSONS = {
-  step3:{ n:"STEP 3", title:"Pronouns", intro:"I, you, he, she: who is who in Hebrew. Watch, learn, play, say it.", parts:LESSON_STEP3, speakOnly:true },
-  step5:{ n:"STEP 5", title:"The TO-Words", intro:"To eat, to drink, to sleep: say what you want to DO. Watch, learn, practise, say it.", parts:LESSON_STEP5, speakOnly:true },
-  step6:{ n:"STEP 6", title:"I Have / I Don't Have", intro:"Yesh li, ein li: say what you have and what you don't. Watch, learn, practise, say it.", parts:LESSON_STEP6, speakOnly:true },
-  step7:{ n:"STEP 7", title:"Question Words", intro:"What, who, where, when, why: now you ask. Watch, learn, practise, say it.", parts:LESSON_STEP7, speakOnly:true },
-  step8:{ n:"STEP 8", title:"Gender", intro:"Is it a he or a she? Make the words match. Watch, learn, practise, say it.", parts:LESSON_STEP8, speakOnly:true },
+  step3:{ n:"STEP 3", title:"Pronouns", intro:"I, you, he, she: who is who in Hebrew. Watch, learn, play, say it.", parts:LESSON_STEP3 },
+  step5:{ n:"STEP 5", title:"The TO-Words", intro:"To eat, to drink, to sleep: say what you want to DO. Watch, learn, practise, say it.", parts:LESSON_STEP5 },
+  step6:{ n:"STEP 6", title:"I Have / I Don't Have", intro:"Yesh li, ein li: say what you have and what you don't. Watch, learn, practise, say it.", parts:LESSON_STEP6 },
+  step7:{ n:"STEP 7", title:"Question Words", intro:"What, who, where, when, why: now you ask. Watch, learn, practise, say it.", parts:LESSON_STEP7 },
+  step8:{ n:"STEP 8", title:"Gender", intro:"Is it a he or a she? Make the words match. Watch, learn, practise, say it.", parts:LESSON_STEP8 },
   step4:{ n:"STEP 4", title:"The Magic Four", intro:"Tap a verb to see it with every person. Watch, learn, play, practise.", parts:LESSON_STEP4 }
 };
 let CUR = "step4";
@@ -4622,7 +4866,7 @@ const stepLive = id => STEP_LIVE[id] !== false;
 const lessonOpen = id => !!LESSONS[id] && stepLive(id) && (!LESSONS[id].speakOnly || A.read === false);   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
 function lessonProgress(id){ const s = A[id] || {}; return s.completed ? 1 : Math.min(1, (s.pos || 0) / LESSONS[id].parts.length); }
 const XP_BONUS = 20;
-const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","words"];
+const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","g15","words"];
 
 const dayStr = d => d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
 function liveStreak(){
@@ -4658,6 +4902,7 @@ function paintHome(){
   // one START/CONTINUE bubble only: on the step to do next (the others stay tappable)
   const nextStep = STEPS.find(st => lessonOpen(st.id) && !(A[st.id] || {}).completed);
   STEPS.forEach((st, i) => {
+    if (st.id === "welcome" && !LESSONS.welcome) return;   // v30: the Welcome node stays hidden until it is built
     const li = document.createElement("li");
     li.style.transform = "translateX(" + ZIG[i % ZIG.length] + "px)";
     const live = lessonOpen(st.id), sst = A[st.id] || {}, done = live && sst.completed > 0, prog = live ? lessonProgress(st.id) : 0;
@@ -4983,7 +5228,7 @@ function paintPron(){
   const box = $("hhPron"); if (!box) return;
   const v = CONJ[pronVerb], read = A.read !== false;
   box.classList.toggle("speak", !read);
-  const pb = $("gPron"); if (pb) pb.hidden = (!read && A.tr === false) || String(current) === "9" || String(current) === "10" || String(current) === "11" || String(current) === "12" || String(current) === "13" || String(current) === "14";   // SNAP! tests the pronouns: no table there   // Just speak with letters off: nothing to show
+  const pb = $("gPron"); if (pb) pb.hidden = (!read && A.tr === false) || String(current) === "9" || String(current) === "10" || String(current) === "11" || String(current) === "12" || String(current) === "13" || String(current) === "14" || String(current) === "15";   // SNAP! tests the pronouns: no table there   // Just speak with letters off: nothing to show
   // one chip per person: pronoun on top, its verb form under it (אֲנִי shows both: he / she)
   const he = (cls, t) => '<b class="' + cls + '" lang="he">' + t + "</b>";
   const tr = (cls, t) => '<i class="' + cls + ' hh-cj-tr">' + t + "</i>";
@@ -5202,6 +5447,7 @@ function applyTr(){
 const gameShow = show, gameFinish = finish;
 show = function(id){
   if (id !== "g8" && window.earRelease) window.earRelease();   // mic off when By Ear is left
+  if (typeof hhEndHide === "function") hhEndHide();   // v30: the STEP 4 end card never stays over another screen
   if (!GAME_SECTIONS.includes(id)) closePron();
   gameShow(id);
   if (!booted) return;
@@ -5213,11 +5459,12 @@ show = function(id){
 finish = function(title, big, sub, extra){
   if (!L) return gameFinish(title, big, sub, extra);
   const g = Number(current);
-  const said = g === 6 ? len6 : g === 4 ? cards4.length : g === 5 ? o5.said.length : g === 8 ? (e8.said || 0) : g === 7 ? (r7.served || 0) : g === 9 ? ((s9 && s9.said) || 0) : g === 10 ? ((r10 && r10.said) || 0) : g === 12 ? ((s12 && s12.said) || 0) : 0;   // CHAT BACK (11): no speaking yet, so nothing counted as said
+  const said = g === 6 ? len6 : g === 4 ? cards4.length : g === 5 ? o5.said.length : g === 8 ? (e8.said || 0) : g === 7 ? (r7.served || 0) : g === 9 ? ((s9 && s9.said) || 0) : g === 10 ? ((r10 && r10.said) || 0) : g === 12 ? ((s12 && s12.said) || 0) : (g >= 13 && g <= 15 && typeof BG !== "undefined" && BG[g]) ? ((BG[g].st && BG[g].st.said) || 0) : 0;   // CHAT BACK (11): no speaking yet, so nothing counted as said
   const part = LESSON[L.pos], xp = part.xp || 10;
   L.said += said;
   if (!ST().done.includes(g)) ST().done.push(g);
-  const first = firstTime(); if (first) earn(xp);
+  const bonus = (g >= 13 && g <= 15 && window.hhBonus) || 0; window.hhBonus = 0;   // v31: +1 XP per Fast answer (max +8), paid with the first-time XP
+  const first = firstTime(); if (first) earn(xp + bonus);
   if (window.earRelease) window.earRelease();
   path = null; gameShow("home"); stopGame();     // the game's own cleanup (timers, mic), without its menu
   sfx("good");
@@ -5247,6 +5494,219 @@ if ("serviceWorker" in navigator){
     if (idle()) reload(); else { const iv = setInterval(() => { if (idle()){ clearInterval(iv); reload(); } }, 2000); }
   });
 }
+
+/* ---------- v30: STEP 4 games join the shared game shell (Claude review C1, C2, C8) ----------
+   BY EAR (8), CAFÉ ORDER (5), RUSH HOUR (7): a must-watch hand demo on the first visit (2 rounds by the hand + 1 guided turn),
+   "Skip demo ⏭" from the 2nd visit, "?" replays it, hints that name the error, a streak chip, the standard end card + rank. */
+const S4 = { tok:0, on:0, force:false };
+A.s4Demo = A.s4Demo || {};
+const s4Seen = g => !!A.s4Demo[g];
+/* header row (streak · Skip · ?) + the demo label pill, at the top of each STEP 4 game card */
+[[8, "g8card"], [5, "g5card"], [7, "g7card"]].forEach(([g, card]) => {
+  const c = $(card), h = document.createElement("div"); h.className = "hh-sn-head hh-s4head";
+  h.innerHTML = '<div class="tag hh-s4tag" id="g' + g + 'stage"></div><div class="hh-hbtns"><span class="hh-gd-streak" id="g' + g + 'streak" hidden></span>' +
+    '<button class="pill hh-skip" id="g' + g + 'skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g' + g + 'how" type="button" aria-label="How to play">?</button></div>';
+  const lab = document.createElement("div"); lab.className = "hh-demo-lab"; lab.id = "g" + g + "lab"; lab.hidden = true;
+  c.prepend(h, lab);
+});
+function s4Head(g, demo){
+  $("g" + g + "stage").textContent = demo ? (S4.practice ? "Your turn" : "How to play") : "";
+  $("g" + g + "skip").hidden = !demo || !S4.canSkip;
+  $("g" + g + "how").hidden = !!demo;
+  if (!demo) demoLab("g" + g + "lab", "");
+}
+const s4Live = t => () => t === S4.tok && S4.on;
+function s4Stop(){ S4.tok++; S4.on = 0; S4.practice = false; demoHide(); demoPulse(null); }
+function s4Done(g){ A.s4Demo[g] = 1; saveA(); s4Stop(); }
+const s4WaitFor = (ok, fn, ms = 60000) => new Promise(r => { const t0 = Date.now(); (function w(){ if (!ok()) return r(false); if (fn()) return r(true); if (Date.now() - t0 > ms) return r(false); setTimeout(w, 150); })(); });
+setInterval(() => { if (S4.on && ["g5","g7","g8"].every(id => $(id).hidden)){ s4Stop(); } }, 400);   // left mid-demo: no hand left on screen
+
+/* ===== BY EAR ===== */
+const EAR_PRON = { ani:["I","🙋"], hu:["he","👦"], hi:["she","👧"], ata:["you, to a man","💬👦"], at:["you, to a woman","💬👧"] };
+const EAR_VK = id => /^rotz/.test(id) ? "want" : /^(tzar|tzri)/.test(id) ? "need" : /^ohev/.test(id) ? "love" : /^(yach|yech)/.test(id) ? "can" : "";
+const EAR_VI = { want:"💭", can:"💪", need:"⏰", love:"❤️" };
+const EAR_EN = { leechol:"to eat", ledaber:"to speak", ivrit:"Hebrew", chazak:"strong", chalash:"weak" };
+const earTr = id => (LEX[id] ? LEX[id].tr : id);
+const earEn = id => RUSH_ITEMS[id] ? RUSH_ITEMS[id][0] : EAR_EN[id] || "";
+function earWhy(c, cur){   // "[icon] [Category]: you heard X (meaning), not Y."
+  const a = cur.ids, b = c.ids, pa = a.find(w => EAR_PRON[w]), pb = b.find(w => EAR_PRON[w]);
+  if (pa !== pb) return EAR_PRON[pa][1] + " Who: you heard " + earTr(pa) + " (" + EAR_PRON[pa][0] + "), not " + earTr(pb) + ".";
+  if (a.includes("lo") !== b.includes("lo")) return "🚫 Not: " + (a.includes("lo") ? "you heard lo (not) → it's a no." : "there was no lo → it's a yes.");
+  const va = a.find(EAR_VK), vb = b.find(EAR_VK);
+  if (EAR_VK(va) !== EAR_VK(vb)) return EAR_VI[EAR_VK(va)] + " Verb: you heard " + earTr(va) + " (" + EAR_VK(va) + "), not " + earTr(vb) + ".";
+  const x = a.find(w => !b.includes(w)) || a[a.length - 1], y = b.find(w => !a.includes(w));
+  return "👀 Thing: you heard " + earTr(x) + (earEn(x) ? " (" + earEn(x) + ")" : "") + (y ? ", not " + earTr(y) : "") + ".";
+}
+const _startEar = startEar, _nextEar = nextEar, _checkEar = checkEar;
+startEar = function(opts){
+  s4Stop(); hhEndHide(); _startEar(); e8.best = 0; e8.streak = 0; $("g8streak").hidden = true;
+  if (!(opts && opts.real) && (!s4Seen(8) || S4.force)) { S4.canSkip = s4Seen(8); S4.force = false; earDemo(); } else s4Head(8, false);
+};
+starters[8] = startEar;
+nextEar = function(){
+  if (e8.demo){ _nextEar(); $("g8count").textContent = S4.practice ? "Your turn" : "Demo"; $("g8bar").style.width = "0%"; return; }
+  if (e8.i >= EAR_ROUNDS && !e8.endShown){
+    e8.endShown = true; earRelease();
+    ["g8opts","g8sent","g8rep","g8nextRow","g8play","g8slow","g8how"].forEach(id => $(id).hidden = true);
+    return hhEndOverlay({ tag:"BY EAR", n:e8.clean, total:EAR_ROUNDS, what:"sentences understood on the first try", best:e8.best || 0, said:e8.said, rank:hhRank(8, e8.clean, EAR_ROUNDS) }, () => _nextEar());
+  }
+  _nextEar();
+};
+checkEar = function(c, btn){
+  if (e8.phase !== "listen") return;
+  const ok = c.k === e8.cur.k;
+  _checkEar(c, btn);
+  if (!e8.demo) hhStreak(e8, ok, "g8streak");
+  const m = $("g8msg"); m.className = "msg hh-sn-msg " + (ok ? "good" : "bad");
+  m.textContent = ok ? "Yes!" : earWhy(c, e8.cur);
+  $("g8tag").textContent = "Now say it yourself";
+};
+async function earDemo(){
+  const t = ++S4.tok; S4.on = 8; S4.practice = false; const ok = s4Live(t), L = txt => demoLab("g8lab", txt);
+  e8.demo = true; s4Head(8, true); $("g8count").textContent = "Demo"; $("g8bar").style.width = "0%";
+  for (let k = 0; k < 2; k++){
+    L("👂 Listen: a sentence plays"); await demoWait(2400); if (!ok()) return;
+    L("Tap the sentence you heard"); await demoWait(500);
+    if (!await demoTap(document.querySelector('#g8opts .opt[data-k="' + CSS.escape(e8.cur.k) + '"]'), ok)) return;
+    L("🎙 Now say it out loud: Record yourself, or just say it"); demoPulse($("g8rec")); await demoWait(2600); demoPulse(null); if (!ok()) return;
+    L("Tap Next"); if (!await demoTap($("g8next"), ok)) return;
+  }
+  demoHide(); S4.practice = true; s4Head(8, true); $("g8count").textContent = "Your turn";
+  L("Your turn: listen, then tap what you heard");
+  const right = () => document.querySelector('#g8opts .opt[data-k="' + CSS.escape(e8.cur.k) + '"]');
+  demoPulse(right());
+  if (!await s4WaitFor(ok, () => e8.phase === "said")) return;
+  demoPulse($("g8next")); L("Say it out loud, then tap Next");
+  const i0 = e8.i; if (!await s4WaitFor(ok, () => e8.i !== i0)) return;
+  s4Done(8); L(""); toast("Now for real!"); startEar({ real:true });
+}
+$("g8skip").addEventListener("click", () => { if (!S4.on) return; s4Done(8); startEar({ real:true }); });
+$("g8how").addEventListener("click", () => { if (S4.on) return; S4.force = true; startEar(); });
+
+/* ===== CAFÉ ORDER ===== */
+const _beginOrder = beginOrder, _startOrder = startOrder;
+startOrder = function(){ s4Stop(); hhEndHide(); _startOrder(); s4Head(5, false); $("g5how").hidden = true; };
+starters[5] = startOrder;
+beginOrder = function(){
+  if (o5.phase !== "intro") return;
+  _beginOrder(); s4Head(5, false);
+  if (!s4Seen(5) || S4.force){ S4.canSkip = s4Seen(5); S4.force = false; cafeDemo(); }
+};
+function cafeRestart(){   // the real order starts clean after the demo
+  s4Stop(); s4Head(5, false);
+  o5.lines = []; o5.said = []; o5.t0 = performance.now(); $("g5final").hidden = true; $("g5ask").hidden = false;
+  drawTicket(); askStep(ORDER.start); toast("Now for real!");
+}
+async function cafeDemo(){
+  const t = ++S4.tok; S4.on = 5; S4.practice = false; const ok = s4Live(t), L = txt => demoLab("g5lab", txt);
+  s4Head(5, true);
+  for (let k = 0; k < 2; k++){
+    L("👀 The barista asks you something"); await demoWait(2000); if (!ok()) return;
+    L("Pick what you want"); if (!await demoTap($("g5opts").querySelector(".opt"), ok)) return;
+    L("🗣 Say it in Hebrew, out loud"); await demoWait(2200); if (!ok()) return;
+    L("Tap I said it, show me"); if (o5.phase === "say" && !await demoTap($("g5show"), ok)) return;
+    L("👂 Check it: this is how it sounds"); await demoWait(2000); if (!ok()) return;
+    L("Tap Next"); if (!await demoTap($("g5next"), ok)) return;
+  }
+  demoHide(); S4.practice = true; s4Head(5, true);
+  L("Your turn: pick what you want"); demoPulse($("g5opts"));
+  if (!await s4WaitFor(ok, () => o5.phase !== "choose")) return;
+  L("Say it out loud, then tap I said it"); demoPulse($("g5show"));
+  if (!await s4WaitFor(ok, () => o5.phase === "shown" || o5.phase === "final")) return;
+  L("Tap Next"); demoPulse($("g5next"));
+  const st = o5.step; if (!await s4WaitFor(ok, () => o5.step !== st || o5.phase === "final")) return;
+  A.s4Demo[5] = 1; saveA(); cafeRestart();
+}
+$("g5skip").addEventListener("click", () => { if (!S4.on) return; A.s4Demo[5] = 1; saveA(); cafeRestart(); });
+$("g5how").addEventListener("click", () => { if (S4.on || o5.phase === "intro" || o5.phase === "final") return; S4.force = true; o5.phase = "intro"; o5.page = 2; beginOrder(); });
+/* the end card before the lesson moves on (no right / wrong in the café: the rank is for finishing the order) */
+$("g5done").addEventListener("click", e => {
+  if (o5.phase !== "final" || o5.__end) { o5.__end = false; return; }
+  e.stopImmediatePropagation();
+  let best = 0; try{ best = Number(localStorage.getItem(KEY + "_order")) || 0; }catch(x){}
+  const ms = o5.ms, fmt = v => { const s = Math.floor(v / 1000); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+  hhEndOverlay({ tag:"CAFÉ ORDER", big:String(o5.said.length), what:"sentences said to order what you wanted",
+    extra:["⏱ Your time: " + fmt(ms) + (best && best < ms ? " · Fastest: " + fmt(best) : "")], rank:hhRank(5, 1, 1) }, () => { o5.__end = true; $("g5done").click(); });
+}, true);
+
+/* ===== RUSH HOUR ===== */
+const RUSH_PRON_EN = { ani:"the customer (I)", hu:"him (he)", hi:"her (she)", anachnu:"us (we)", hem:"them, men (they)", hen:"them, women only (they)" };
+function rushWhy(exp, got){
+  const vk = EAR_VK(exp);
+  if (RUSH_PRON_EN[exp]) return "👤 Who: the order is for " + RUSH_PRON_EN[exp] + " → " + earTr(exp) + ".";
+  if (vk && EAR_VK(got) === vk){
+    const p = r7.cur.ids[0];
+    if (p === "ani") return (r7.cur.g === "m" ? "👦 Form: a man says " : "👧 Form: a woman says ") + earTr(exp) + ".";
+    if (p === "hen") return "👭 Form: hen = girls only → " + earTr(exp) + ".";
+    return "🔗 Form: " + earTr(p) + " goes with " + earTr(exp) + ".";
+  }
+  if (vk) return EAR_VI[vk] + " Verb: the order says " + vk + " → " + earTr(exp) + ".";
+  if (exp === "lo") return "🚫 Not: the order says no → lo.";
+  return "👀 Thing: next comes " + earTr(exp) + (earEn(exp) ? " (" + earEn(exp) + ")" : "") + ".";
+}
+const _startRush = startRush, _openRush = openRush, _nextCustomer = nextCustomer, _after7 = after7, _endRush = endRush;
+startRush = function(){ s4Stop(); hhEndHide(); _startRush(); r7.clean = 0; r7.best = 0; r7.streak = 0; $("g7streak").hidden = true; s4Head(7, false); $("g7how").hidden = true; };
+starters[7] = startRush;
+openRush = function(){
+  if (r7.phase !== "intro") return;
+  if (!s4Seen(7) || S4.force){ S4.canSkip = s4Seen(7); S4.force = false; r7.demo = true; _openRush(); rushDemo(); return; }
+  s4Head(7, false); _openRush();
+};
+$("g7open").addEventListener("click", e => { e.stopImmediatePropagation(); openRush(); }, true);   // the game bound the original openRush
+nextCustomer = function(){ _nextCustomer(); if (r7.demo){ r7.total = r7.end = 1e15; $("g7score").textContent = S4.practice ? "Your turn" : "Demo"; $("g7count").textContent = ""; } };
+after7 = function(fn){
+  if (!r7.demo && !r7.reviewing){ const ok = r7.idx >= r7.cur.ids.length && !r7.cur._bad; if (ok) r7.clean++; hhStreak(r7, ok, "g7streak"); }
+  if (r7.idx >= r7.cur.ids.length) { $("g7msg").className = "msg hh-sn-msg good"; $("g7msg").textContent = "Yes! Served. Listen, then say it out loud."; }
+  _after7(fn);
+};
+endRush = function(){
+  if (r7.demo) return;
+  if (!r7.reviewing && r7.review.length) return _endRush();
+  if (r7.__end) return _endRush();
+  r7.phase = "end"; cancelAnimationFrame(raf);
+  const n = Math.max(r7.seen, 1);
+  hhEndOverlay({ tag:"RUSH HOUR", n:r7.clean, total:n, what:"customers served on the first try", best:r7.best || 0,
+    extra:[r7.served + " served in all" + (r7.fixed ? " · " + r7.fixed + " mistakes fixed" : "")], rank:hhRank(7, r7.clean, n) }, () => { r7.__end = true; _endRush(); });
+};
+/* a wrong tile: name the error (capture phase runs before the game's own handler) */
+$("g7bank").addEventListener("click", e => {
+  const tile = e.target.closest(".tile"); if (!tile || r7.phase !== "play" || tile.disabled) return;
+  const exp = r7.cur.ids[r7.idx], got = tile.dataset.id;
+  if (got === exp) return;
+  r7.cur._bad = true;
+  setTimeout(() => { const m = $("g7msg"); m.className = "msg hh-sn-msg bad"; m.textContent = rushWhy(exp, got); }, 0);
+}, true);
+async function rushDemo(){
+  const t = ++S4.tok; S4.on = 7; S4.practice = false; const ok = s4Live(t), L = txt => demoLab("g7lab", txt);
+  s4Head(7, true); $("g7score").textContent = "Demo"; r7.total = r7.end = 1e15;
+  for (let k = 0; k < 2; k++){
+    L("👀 Read the order: say it the way " + (r7.cur.third ? "it's said" : r7.cur.g === "m" ? "he" : "she") + " would"); await demoWait(2200); if (!ok()) return;
+    for (const id of r7.cur.ids.slice()){
+      L("Tap " + earTr(id));
+      const tile = [...document.querySelectorAll("#g7bank .tile")].find(x => x.dataset.id === id && !x.disabled);
+      if (!await demoTap(tile, ok)) return;
+    }
+    L("✅ Served! Say it out loud"); await demoWait(2200); if (!ok()) return;
+    L("Tap Next customer"); if (!await demoTap($("g7nextBtn"), ok)) return;
+  }
+  demoHide(); S4.practice = true; s4Head(7, true); $("g7score").textContent = "Your turn";
+  L("Your turn: tap the words in order (no clock yet)");
+  const cur = r7.cur;
+  const pulseNext = () => { const id = cur.ids[r7.idx]; demoPulse([...document.querySelectorAll("#g7bank .tile")].find(x => x.dataset.id === id && !x.disabled) || null); };
+  pulseNext();
+  const iv = setInterval(() => { if (!ok() || r7.phase !== "play") return; pulseNext(); }, 500);
+  const done = await s4WaitFor(ok, () => r7.phase === "pause");
+  clearInterval(iv); if (!done) return;
+  L("Say it out loud, then tap Next customer"); demoPulse($("g7nextBtn"));
+  const seen = r7.seen; if (!await s4WaitFor(ok, () => r7.seen !== seen || r7.phase === "end")) return;
+  s4Done(7); rushRestart();
+}
+function rushRestart(){
+  cancelAnimationFrame(raf); r7.demo = false; _startRush(); r7.clean = 0; r7.best = 0; r7.streak = 0; s4Head(7, false);
+  toast("Now for real: the clock is on!"); _openRush();
+}
+$("g7skip").addEventListener("click", () => { if (!S4.on) return; s4Done(7); rushRestart(); });
+$("g7how").addEventListener("click", () => { if (S4.on || r7.phase === "intro" || r7.phase === "end") return; cancelAnimationFrame(raf); S4.force = true; _startRush(); r7.clean = 0; r7.best = 0; openRush(); });
 
 </script>
 </body>
