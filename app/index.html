@@ -866,6 +866,34 @@ main section > .top > .back{display:none}
   #hhStrip .hh-xp,#hhStrip [class*="xp"]{padding-left:7px!important;padding-right:7px!important;font-size:12.5px!important}
 }
 @media (max-width:400px){ #hhStrip{gap:5px!important} #hhStrip .bar{min-width:22px} }
+/* ---------- v27: GIFT DROP (STEP 6) ---------- */
+.hh-gd-scene{position:relative;display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:18px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.14)}
+.hh-gd-scene[hidden]{display:none}
+.hh-gd-view{align-self:flex-start;display:flex;align-items:center;gap:8px;padding:5px 12px 5px 8px;border-radius:99px;background:#f6efe2;color:#1E4A3A;font-weight:800;font-size:14px}
+.hh-gd-view b{font-size:22px;line-height:1}
+.hh-gd-view[data-view="to"]{background:#FF6FA5;color:#1E4A3A}
+.hh-gd-view[data-view="about"]{background:#9fe0c8}
+.hh-gd-view[data-view="us"]{background:#ffd27a}
+.hh-gd-stage{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:96px}
+.hh-gd-who{display:flex;flex-wrap:nowrap;gap:6px}
+.hh-gd-face{display:flex;flex-direction:column;align-items:center;gap:2px}
+.hh-gd-face b{font-size:44px;line-height:1}
+.hh-gd-face small{font-size:12px;font-weight:700;color:var(--cream-dim)}
+.hh-gd-face.me small{color:var(--coral);font-weight:800}
+.hh-gd-gift{position:relative;font-size:56px;line-height:1;padding:6px 10px;transition:transform .55s cubic-bezier(.5,-0.3,.6,1),opacity .55s}
+.hh-gd-gift i{position:absolute;inset:0;pointer-events:none}
+.hh-gd-gift i::before,.hh-gd-gift i::after{content:"";position:absolute;left:4px;right:4px;top:50%;height:7px;margin-top:-3px;border-radius:4px;background:#ff4d6d;box-shadow:0 0 0 2px #1E4A3A}
+.hh-gd-gift i::before{transform:rotate(45deg)} .hh-gd-gift i::after{transform:rotate(-45deg)}
+.hh-gd-gift.no span{opacity:.55;filter:grayscale(.4)}
+.hh-gd-gift.fly{transform:translate(-40px,70px) scale(.25) rotate(-20deg);opacity:0}
+.hh-gd-bag{position:absolute;right:12px;bottom:-6px;font-size:30px;transition:transform .3s}
+.hh-gd-bag.got{animation:hhGot .5s}
+.hh-gd-bag.bounce{animation:hhBounce .5s}
+@keyframes hhGot{0%{transform:scale(1)}50%{transform:scale(1.45)}100%{transform:scale(1)}}
+@keyframes hhBounce{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px) rotate(-12deg)}40%{transform:translateX(10px) rotate(10deg)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.hh-gd-draft{align-self:center;font-size:20px}
+.hh-gd-streak{font-size:12px;font-weight:800;color:#ffd27a;white-space:nowrap}
+.hh-gd .hh-cb-row small{width:64px}
 </style>
 </head>
 <body>
@@ -913,7 +941,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v26-d7c6716646</p>
+  <p class="hh-ver" id="oVer">Version hh-v27-994bb2b96f</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -1413,6 +1441,33 @@ main section > .top > .back{display:none}
   <div class="row" id="g12nextRow"><button class="btn" id="g12next" type="button">Next</button></div>
 </section>
 
+<!-- GIFT DROP (STEP 6): no Hebrew in the scene; build yesh / ein + the form (li, lekha, lakh, lo, la, lanu, lakhem, lahem) from how YOU are talking. -->
+<section id="g13" hidden>
+  <div class="top"><div class="bar"><i id="g13bar"></i></div><div class="count" id="g13count"></div></div>
+  <div class="card hh-snap hh-gd" id="g13card">
+    <div class="hh-sn-head"><div class="tag" id="g13tag" aria-live="polite">Drop the gift</div>
+      <div class="hh-hbtns"><span class="hh-gd-streak" id="g13streak" hidden></span><button class="pill hh-skip" id="g13skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g13how" type="button" aria-label="How to play">?</button></div></div>
+    <div class="hh-demo-lab" id="g13lab" hidden></div>
+    <div class="hh-gd-scene" id="g13scene">
+      <div class="hh-gd-view" id="g13view"><b id="g13vicon"></b><span id="g13vtxt"></span></div>
+      <div class="hh-gd-stage">
+        <div class="hh-gd-who" id="g13who"></div>
+        <div class="hh-gd-gift" id="g13gift"><span id="g13obj"></span><i id="g13x" aria-hidden="true" hidden></i></div>
+      </div>
+      <div class="hh-gd-bag" id="g13bag" aria-hidden="true">🛍️</div>
+    </div>
+    <div class="hh-cb-build" id="g13build">
+      <div class="hh-cb-draft hh-gd-draft" id="g13draft"></div>
+      <div class="hh-cb-row"><small>Has it?</small><div class="hh-cb-chips" id="g13r0"></div></div>
+      <div class="hh-cb-row"><small>Who</small><div class="hh-cb-chips" id="g13r1"></div></div>
+    </div>
+    <div class="msg hh-sn-msg" id="g13msg" aria-live="polite"></div>
+    <div class="hh-sn-end" id="g13end" hidden></div>
+  </div>
+  <div class="row" id="g13dropRow"><button class="btn" id="g13drop" type="button" disabled>Drop the gift 🎁</button></div>
+  <div class="row" id="g13doneRow" hidden><button class="btn" id="g13done" type="button">Continue</button></div>
+</section>
+
 </main>
 <script>
 /* =====================================================================
@@ -1846,7 +1901,7 @@ function unlockAudio(){
 
 function show(id){
   cancelAnimationFrame(raf); clearTimeout(timer); recStop(true); streak = 0;
-  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","words","setup","stage","done"].forEach(s => $(s).hidden = (s !== id));
+  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","words","setup","stage","done"].forEach(s => $(s).hidden = (s !== id));
   document.querySelectorAll(".card").forEach(c => c.classList.toggle("speak-track", S.track === "speak"));
 }
 function showKeep(id){ show(id); }
@@ -2850,7 +2905,7 @@ function demoHide(){ if (DEMO.hand) DEMO.hand.hidden = true; }
 function demoPulse(el){ document.querySelectorAll(".hh-pulse").forEach(e => { if (e !== el) e.classList.remove("hh-pulse"); }); if (el) el.classList.add("hh-pulse"); }
 function demoLab(id, txt){ const l = $(id); l.hidden = !txt; l.textContent = txt || ""; if (txt) pop(l); }
 /* left the game mid-demo (‹, ⌂): no hand or pulse left on screen */
-setInterval(() => { if (DEMO.hand && !DEMO.hand.hidden && $("g9").hidden && $("g10").hidden){ demoHide(); demoPulse(null); } }, 400);
+setInterval(() => { if (DEMO.hand && !DEMO.hand.hidden && ["g9","g10","g11","g13"].every(id => $(id).hidden)){ demoHide(); demoPulse(null); } }, 400);
 setInterval(() => { if (typeof snapNarr !== "undefined" && !snapNarr.paused && $("g9").hidden) snapNarrStop(); }, 400);
 
 /* ---------- Game 9: SNAP! (STEP 3, Pronouns) ----------
@@ -3754,6 +3809,213 @@ $("g12orig").addEventListener("click", () => { if (s12 && s12.cur) speak([s12.cu
 $("g12again").addEventListener("click", () => { if (spUrl){ URL.revokeObjectURL(spUrl); spUrl = null; } $("g12cmp").hidden = true; $("g12rec").hidden = false; spRecord(); });
 starters[12] = startSay5;
 window.say5State = () => ({ n:s12.set.length, first:s12.set[0].id, i:s12.i, phase:s12.phase, said:s12.said, tr:$("g12tr").textContent, orig:$("g12orig").textContent, note:$("g12recnote").textContent, file:decodeURIComponent((player.src || "").split("/").pop()) });
+
+/* ---------- Game 13: GIFT DROP (STEP 6, I Have / I Don't Have) ----------
+   Design: /workspace/next-lessons/giftdrop_design.md. The scene has no Hebrew: faces, an object emoji (crossed out = doesn't have)
+   and a view icon (🪞 me, 💬 talking TO them, 👉 talking ABOUT them, 🫂 us). The student builds yesh / ein + the form.
+   Forms: STEP 6 only, no lakhen / lahen (their clips are not usable yet). After a right answer the STEP 6 recording plays if one exists. */
+const GD_VIEW = { me:["🪞","About me"], to:["💬","Talking TO"], about:["👉","Talking ABOUT"], us:["🫂","Us: I'm in it"] };
+const GD_FORMS = ["li","lekha","lakh","lo","la","lanu","lakhem","lahem"];
+const GD_EN = { li:"me", lekha:"you (m)", lakh:"you (f)", lo:"him", la:"her", lanu:"us", lakhem:"you (pl)", lahem:"them" };
+/* recordings from /workspace/kniz-have-audio/fixed (s6_*), only where the whole phrase exists */
+const GD_CLIP = { "yesh li":"s6_01", "yesh lo":"s6_02", "yesh la":"s6_03", "yesh lanu":"s6_04", "yesh lakhem":"s6_05", "yesh lahem":"s6_07", "ein li":"s6_09", "ein la":"s6_10", "ein lahem":"s6_11" };
+/* 12 rounds in 3 stages (4 -> 5 -> 6 form chips). who = SNAP_PEOPLE ids; view = me | to | about | us; no = crossed out (ein) */
+const GD_ROUNDS = [
+  { view:"me",    who:[],               obj:"🍕", no:false, n:4 },
+  { view:"about", who:["yonatan"],      obj:"☕", no:false, n:4 },
+  { view:"about", who:["noa"],          obj:"🍞", no:false, n:4 },
+  { view:"me",    who:[],               obj:"💰", no:true,  n:4 },
+  { view:"to",    who:["dani"],         obj:"🥛", no:false, n:5, stage:2 },
+  { view:"to",    who:["maya"],         obj:"☕", no:true,  n:5 },
+  { view:"about", who:["maya"],         obj:"🍞", no:true,  n:5 },
+  { view:"to",    who:["yonatan"],      obj:"🍕", no:true,  n:5 },
+  { view:"us",    who:["noa"],          obj:"🍕", no:false, n:6, stage:3 },
+  { view:"to",    who:["dani","maya"],  obj:"🥛", no:false, n:6 },
+  { view:"about", who:["dani","maya"],  obj:"☕", no:true,  n:6 },
+  { view:"us",    who:["dani","yosi"],  obj:"🍞", no:true,  n:6 }
+];
+const GD_STAGE = { 1:"Stage 1 · About me, about them", 2:"Stage 2 · New: talking TO them 💬", 3:"Stage 3 · New: groups 👥" };
+let g13 = null, gdReal = null, gdTok = 0, gdGuide = 0, gdWatch = 0;
+const gdMe = () => (A.gender === "m" ? "🙋🏻‍♂️" : "🙋🏻‍♀️");
+/* the right form for a scene */
+function gdForm(o){
+  if (o.view === "me") return "li";
+  if (o.view === "us") return "lanu";
+  const ps = o.who.map(snapPerson), pl = ps.length > 1, boy = ps.some(p => p.g === "m");
+  if (o.view === "to") return pl ? "lakhem" : boy ? "lekha" : "lakh";
+  return pl ? "lahem" : boy ? "lo" : "la";
+}
+/* the classic mistakes for each form: other view, other gender, other number */
+const GD_TRAPS = { li:["lo","la","lanu"], lo:["lekha","la","lahem"], la:["lakh","lo","lahem"], lekha:["lo","lakh","lakhem"], lakh:["la","lekha","lakhem"],
+  lanu:["li","lakhem","lahem"], lakhem:["lahem","lekha","lanu"], lahem:["lakhem","lo","lanu"] };
+function gdChips(o, f){
+  const list = [f].concat(GD_TRAPS[f]);
+  shuffle(GD_FORMS.filter(x => !list.includes(x))).forEach(x => { if (list.length < o.n) list.push(x); });
+  return [["yesh","ein"], shuffle(list.slice(0, o.n))];
+}
+const gdState = rounds => ({ rounds, i:0, clean:0, tries:0, streak:0, best:0, pick:[null,null], phase:"idle", t:0 });
+function startGift(){
+  gdReal = null;
+  g13 = gdState(GD_ROUNDS.map(x => Object.assign({}, x)));
+  show("g13");
+  clearInterval(gdWatch); gdWatch = setInterval(() => { if ($("g13").hidden){ clearInterval(gdWatch); clearInterval(gdGuide); gdTok++; demoHide(); demoPulse(null); } }, 400);
+  gdDemo();
+}
+function gdRound(){
+  clearTimeout(g13.t);
+  if (g13.i >= g13.rounds.length) return gdEnd();
+  const o = g13.rounds[g13.i], f = gdForm(o);
+  g13.cur = o; g13.right = [o.no ? "ein" : "yesh", f]; g13.tries = 0; g13.pick = [null,null]; g13.phase = "build";
+  $("g13bar").style.width = g13.demo ? "0%" : (g13.i / g13.rounds.length * 100) + "%";
+  $("g13count").textContent = g13.demo ? (g13.practice ? "Your turn" : "Demo") : (g13.i + 1) + " / " + g13.rounds.length;
+  const st = g13.demo ? 0 : (o.stage || 0);
+  $("g13tag").textContent = g13.demo ? "How to play" : st ? GD_STAGE[st] : g13.i === 0 ? GD_STAGE[1] : "Drop the gift";
+  if (st) pop($("g13tag"));
+  // the scene: view, who, the gift
+  const [vi, vt] = GD_VIEW[o.view], ps = o.who.map(snapPerson);
+  $("g13vicon").textContent = vi;
+  $("g13vtxt").textContent = o.view === "to" || o.view === "about" ? vt + " " + (ps.length > 1 ? "them" : ps[0].g === "m" ? "him" : "her") : vt;
+  $("g13view").dataset.view = o.view;
+  const w = $("g13who"); w.innerHTML = "";
+  const face = (e, n, me) => { const d = document.createElement("span"); d.className = "hh-gd-face" + (me ? " me" : ""); d.innerHTML = "<b></b><small></small>"; d.children[0].textContent = e; d.children[1].textContent = n; w.append(d); };
+  if (o.view === "me" || o.view === "us") face(gdMe(), "you", true);
+  ps.forEach(p => face(p.face, p.name));
+  $("g13obj").textContent = o.obj; $("g13x").hidden = !o.no; $("g13gift").classList.toggle("no", o.no);
+  $("g13gift").classList.remove("fly"); $("g13bag").classList.remove("got", "bounce");
+  ["g13scene","g13build","g13dropRow"].forEach(id => $(id).hidden = false); $("g13end").hidden = true; $("g13doneRow").hidden = true;
+  $("g13msg").textContent = ""; $("g13msg").className = "msg hh-sn-msg";
+  gdChips(o, f).forEach((list, r) => {
+    const box = $("g13r" + r); box.innerHTML = "";
+    list.forEach(x => { const b = document.createElement("button"); b.type = "button"; b.className = "hh-cb-chip"; b.dataset.w = x; b.dataset.r = r; b.textContent = x;
+      b.addEventListener("click", () => gdPick(r, x)); box.append(b); });
+  });
+  gdStreak(); gdDraft(); pop($("g13card"));
+}
+const gdCap = s => s.charAt(0).toUpperCase() + s.slice(1);
+function gdDraft(){
+  const p = g13.pick;
+  $("g13draft").textContent = gdCap(p[0] || "___") + " " + (p[1] || "___") + " " + g13.cur.obj;
+  $("g13drop").disabled = !(p[0] && p[1]) || g13.phase !== "build";
+  document.querySelectorAll("#g13build .hh-cb-chip").forEach(b => b.classList.toggle("on", p[+b.dataset.r] === b.dataset.w));
+}
+function gdPick(r, x){
+  if (!g13 || g13.phase !== "build") return;
+  g13.pick[r] = g13.pick[r] === x ? null : x;
+  document.querySelectorAll("#g13r" + r + " .hh-cb-chip").forEach(b => b.classList.remove("bad"));
+  sfx("tap"); gdDraft();
+}
+function gdStreak(){ const s = $("g13streak"); s.hidden = g13.demo || g13.streak < 2; s.textContent = "🔥 " + g13.streak + " in a row"; }
+/* the hint names the feature that is off */
+function gdWhy(o, p){
+  const [yn, f] = g13.right, ps = o.who.map(snapPerson), pl = ps.length > 1;
+  if (p[0] !== yn) return o.no ? "The gift is crossed out: ein (doesn't have)." : "Nothing is crossed out: yesh (has).";
+  const x = p[1], viewOf = { li:"me", lanu:"us", lekha:"to", lakh:"to", lakhem:"to", lo:"about", la:"about", lahem:"about" };
+  if (viewOf[x] !== o.view){
+    if (o.view === "me") return "🪞 It's you: li.";
+    if (o.view === "us") return "🫂 You're in the group: lanu.";
+    if (o.view === "to") return "💬 You're talking TO " + (pl ? "them" : ps[0].g === "m" ? "him" : "her") + ": " + f + ".";
+    return "👉 You're talking ABOUT " + (pl ? "them" : ps[0].g === "m" ? "him" : "her") + ": " + f + ".";
+  }
+  if ((x === "lahem" || x === "lakhem" || x === "lanu") !== pl || o.view === "me" || o.view === "us") return pl || o.view === "us" ? "More than one person: " + f + "." : "Just one person: " + f + ".";
+  return ps[0].name + (ps[0].g === "m" ? " is a boy: " : " is a girl: ") + f + ".";
+}
+function gdDrop(){
+  if (!g13 || g13.phase !== "build") return;
+  const o = g13.cur, p = g13.pick, right = g13.right;
+  if (p[0] === right[0] && p[1] === right[1]){
+    g13.phase = "dropped";
+    if (g13.tries === 0){ g13.clean++; g13.streak++; g13.best = Math.max(g13.best, g13.streak); } else g13.streak = 0;
+    sfx("good"); $("g13gift").classList.add("fly"); setTimeout(() => $("g13bag").classList.add("got"), 450);
+    const say = right.join(" "), clip = GD_CLIP[say];
+    $("g13msg").className = "msg hh-sn-msg good"; $("g13msg").textContent = gdCap(say) + "! " + (g13.tries === 0 ? "Delivered." : "Delivered on the second try.");
+    if (clip) setTimeout(() => { if (g13 && g13.cur === o) speak([clip]); }, 350);
+    $("g13build").hidden = true; $("g13dropRow").hidden = true; gdStreak();
+    const wait = clip ? 2100 : 1600;
+    if (!g13.demo) g13.t = setTimeout(() => { if (!g13 || g13.cur !== o || $("g13").hidden) return; g13.i++; gdRound(); }, wait);
+    else if (g13.practice) g13.t = setTimeout(() => { if (g13 && g13.practice) gdDemoEnd(); }, wait);
+    return;
+  }
+  g13.tries++; g13.streak = 0; sfx("soft"); gdStreak();
+  const k = p[0] !== right[0] ? 0 : 1;
+  const b = document.querySelector('#g13r' + k + ' .hh-cb-chip[data-w="' + CSS.escape(p[k]) + '"]'); if (b) b.classList.add("bad");
+  const bag = $("g13bag"); bag.classList.remove("bounce"); void bag.offsetWidth; bag.classList.add("bounce");
+  $("g13msg").className = "msg hh-sn-msg bad"; $("g13msg").textContent = "Wrong address! " + gdWhy(o, p);
+}
+$("g13drop").addEventListener("click", gdDrop);
+function gdRank(n){ return n >= 11 ? "Gift master" : n >= 8 ? "Great delivery" : "Keep delivering"; }
+function gdEnd(){
+  g13.phase = "end"; clearTimeout(g13.t);
+  $("g13bar").style.width = "100%"; $("g13count").textContent = g13.rounds.length + " / " + g13.rounds.length;
+  ["g13scene","g13build","g13dropRow"].forEach(id => $(id).hidden = true); $("g13streak").hidden = true;
+  $("g13msg").textContent = ""; $("g13tag").textContent = gdRank(g13.clean);
+  const e = $("g13end"); e.hidden = false;
+  e.innerHTML = '<div class="hh-sn-big"></div><div class="hint"></div><div class="hint"></div>';
+  e.children[0].textContent = g13.clean + " / " + g13.rounds.length;
+  e.children[1].textContent = "gifts delivered on the first try";
+  e.children[2].textContent = "Best streak: " + g13.best + " in a row";
+  $("g13doneRow").hidden = false; sfx("win");
+}
+$("g13done").addEventListener("click", () => { if (g13 && g13.phase === "end") finish(gdRank(g13.clean) + "!", g13.clean + " / " + g13.rounds.length, "gifts delivered on the first try.", ""); });
+/* how to play: the hand plays two rounds by itself, then one guided turn. A must on the first visit (A.giftDemoSeen). */
+const gdChip = (r, w) => document.querySelector('#g13r' + r + ' .hh-cb-chip[data-w="' + CSS.escape(w) + '"]');
+async function gdDemo(){
+  clearTimeout(g13 && g13.t); clearInterval(gdGuide); demoPulse(null);
+  if (!gdReal) gdReal = g13;
+  const tok = ++gdTok, ok = () => tok === gdTok && !$("g13").hidden;
+  g13 = gdState([{ view:"about", who:["yonatan"], obj:"🍕", no:false, n:4 }, { view:"to", who:["noa"], obj:"☕", no:true, n:4 }]); g13.demo = true;
+  $("g13skip").hidden = !A.giftDemoSeen; $("g13how").hidden = true;
+  gdRound(); demoLab("g13lab", "Look at the scene");
+  await demoWait(1400); if (!ok()) return;
+  demoLab("g13lab", "👉 You talk ABOUT Yonatan");
+  await demoWait(1600); if (!ok()) return;
+  demoLab("g13lab", "1 · Not crossed out: yesh");
+  if (!await demoTap(gdChip(0, "yesh"), ok)) return;
+  demoLab("g13lab", "2 · About him: lo");
+  if (!await demoTap(gdChip(1, "lo"), ok)) return;
+  demoLab("g13lab", "Drop the gift 🎁");
+  if (!await demoTap($("g13drop"), ok)) return;
+  await demoWait(2200); if (!ok()) return;
+  g13.i++; gdRound();
+  demoLab("g13lab", "💬 Now you talk TO Noa");
+  await demoWait(1700); if (!ok()) return;
+  demoLab("g13lab", "Crossed out: ein");
+  if (!await demoTap(gdChip(0, "ein"), ok)) return;
+  demoLab("g13lab", "To her: lakh");
+  if (!await demoTap(gdChip(1, "lakh"), ok)) return;
+  if (!await demoTap($("g13drop"), ok)) return;
+  await demoWait(1900); if (!ok()) return;
+  demoHide(); gdPractice();
+}
+function gdPractice(){
+  clearInterval(gdGuide);
+  g13 = gdState([{ view:"us", who:["dani"], obj:"🥛", no:false, n:4 }]); g13.demo = true; g13.practice = true;
+  $("g13skip").hidden = !A.giftDemoSeen; $("g13how").hidden = true;
+  gdRound(); demoLab("g13lab", "Your turn: 🫂 you and Dani");
+  gdGuide = setInterval(() => {
+    if (!g13 || !g13.practice || $("g13").hidden){ clearInterval(gdGuide); demoPulse(null); return; }
+    if (g13.phase !== "build") return demoPulse(null);
+    const k = g13.pick.findIndex((w, j) => w !== g13.right[j]);
+    demoPulse(k < 0 ? $("g13drop") : gdChip(k, g13.right[k]));
+  }, 250);
+}
+function gdDemoEnd(){
+  const fromPractice = g13 && g13.practice;
+  gdTok++; clearInterval(gdGuide); demoPulse(null); demoHide(); clearTimeout(g13 && g13.t);
+  if (fromPractice && !A.giftDemoSeen){ A.giftDemoSeen = 1; saveA(); }
+  demoLab("g13lab", ""); $("g13skip").hidden = true; $("g13how").hidden = false;
+  if (!gdReal) return;
+  g13 = gdReal; gdReal = null;
+  if (g13.phase === "end") return gdEnd();
+  if (g13.phase === "dropped") g13.i++;
+  gdRound();
+}
+$("g13skip").addEventListener("click", gdDemoEnd);
+$("g13how").addEventListener("click", () => { if (!g13 || g13.demo || g13.phase === "end") return; gdDemo(); });
+starters[13] = startGift;
+/* for the tests */
+window.gdState13 = () => ({ phase:g13.phase, i:g13.i, demo:!!g13.demo, practice:!!g13.practice, right:g13.right.slice(), view:g13.cur && g13.cur.view, no:!!(g13.cur && g13.cur.no),
+  who:g13.cur ? g13.cur.who.slice() : [], chips:[...document.querySelectorAll('#g13r1 .hh-cb-chip')].map(b => b.dataset.w), tag:$("g13tag").textContent, vtxt:$("g13vtxt").textContent,
+  msg:$("g13msg").textContent, clean:g13.clean, best:g13.best, skip:!$("g13skip").hidden, how:!$("g13how").hidden, scene:$("g13scene").innerText.replace(/\s+/g, " ") });
 </script>
 <script>
 /* =====================================================================
@@ -3993,7 +4255,8 @@ const LESSON_STEP6 = [
     how:"Tap Open full screen to see the slides bigger." },
   { type:"video", sec:"Watch",    icon:"🎬", name:"Have / don't have dialogue", url:STEP6_EMBEDS.video2, xp:5, cc:false,   // text is on screen; no captions track
     how:"Noa and Yonatan check what they have in the kitchen. Say each line with them." },
-  PLAY_SOON,
+  { type:"game",  sec:"Play", g:13, icon:"🎁", name:"GIFT DROP", sub:"Say who has it, your way", xp:10,
+    how:"Look at the scene: who has the gift, is it crossed out, and are you talking about yourself, TO them or ABOUT them? Build it and drop the gift." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Who has it?", sub:"Pick the right one", url:STEP6_EMBEDS.wordwall1, xp:5, how:"Who has it? Pick the right answer." },
   SPEAK_PART("Hear it, record yourself, then play both and compare.")
 ];
@@ -4056,7 +4319,7 @@ const stepLive = id => STEP_LIVE[id] !== false;
 const lessonOpen = id => !!LESSONS[id] && stepLive(id) && (!LESSONS[id].speakOnly || A.read === false);   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
 function lessonProgress(id){ const s = A[id] || {}; return s.completed ? 1 : Math.min(1, (s.pos || 0) / LESSONS[id].parts.length); }
 const XP_BONUS = 20;
-const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","words"];
+const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","words"];
 
 const dayStr = d => d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
 function liveStreak(){
@@ -4412,7 +4675,7 @@ function paintPron(){
   const box = $("hhPron"); if (!box) return;
   const v = CONJ[pronVerb], read = A.read !== false;
   box.classList.toggle("speak", !read);
-  const pb = $("gPron"); if (pb) pb.hidden = (!read && A.tr === false) || String(current) === "9" || String(current) === "10" || String(current) === "11" || String(current) === "12";   // SNAP! tests the pronouns: no table there   // Just speak with letters off: nothing to show
+  const pb = $("gPron"); if (pb) pb.hidden = (!read && A.tr === false) || String(current) === "9" || String(current) === "10" || String(current) === "11" || String(current) === "12" || String(current) === "13";   // SNAP! tests the pronouns: no table there   // Just speak with letters off: nothing to show
   // one chip per person: pronoun on top, its verb form under it (אֲנִי shows both: he / she)
   const he = (cls, t) => '<b class="' + cls + '" lang="he">' + t + "</b>";
   const tr = (cls, t) => '<i class="' + cls + ' hh-cj-tr">' + t + "</i>";
