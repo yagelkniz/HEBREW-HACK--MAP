@@ -920,6 +920,14 @@ main section > .top > .back{display:none}
 .hh-iv-draft{font-size:19px}
 .hh-iv .hh-cb-row small{width:64px}
 .hh-iv .hh-cb-chip:disabled{opacity:1}
+
+/* v30 map bubbles: two lines (big word + small word); Just speak puts the Latin word first */
+.hh-node .hh-glyph{display:flex;flex-direction:column;align-items:center;gap:2px;direction:ltr;max-width:68px}
+.hh-node .hh-glyph b{font-family:"Noto Sans Hebrew",sans-serif;font-weight:900;line-height:1;white-space:nowrap}
+.hh-node .hh-glyph small{font-weight:800;line-height:1;white-space:nowrap;opacity:.8}
+.hh-node .hh-glyph:not(.tr-first) small{font-size:10.5px}
+.hh-node .hh-glyph.tr-first small{font-weight:900;opacity:1;letter-spacing:-.01em}
+.hh-node .hh-glyph.tr-first b{font-size:11px;opacity:.8;font-weight:800}
 </style>
 </head>
 <body>
@@ -967,7 +975,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v29-b5ed93173a</p>
+  <p class="hh-ver" id="oVer">Version hh-v29-b6301795b2</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -4426,15 +4434,15 @@ function saveA(){ try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){
 
 /* the course map; only STEP 4 is open in the pilot */
 const STEPS = [
-  { id:"welcome", n:"WELCOME",  t:"Welcome",           he:"שָׁלוֹם" },
-  { id:"step1",   n:"STEP 1",   t:"The Alphabet",      he:"א ב ג", reading:true },   // reading track only
-  { id:"step2",   n:"STEP 2",   t:"Niqud",             he:"בָּ בִּ בּוּ", reading:true },
-  { id:"step3",   n:"STEP 3",   t:"Pronouns",          he:"אֲנִי" },
-  { id:"step4",   n:"STEP 4",   t:"The Magic Four",    he:"רוֹצֶה", live:true },
-  { id:"step5",   n:"STEP 5",   t:"The TO-Words",      he:"לֶאֱכוֹל" },
-  { id:"step6",   n:"STEP 6",   t:"I Have / I Don't Have", he:"יֵשׁ לִי" },
-  { id:"step7",   n:"STEP 7",   t:"Question Words",    he:"מָה?" },
-  { id:"step8",   n:"STEP 8",   t:"Gender",            he:"טוֹבָה" }
+  { id:"welcome", n:"WELCOME",  t:"Welcome",           he:"שָׁלוֹם", tr:"shalom" },
+  { id:"step1",   n:"STEP 1",   t:"The Alphabet",      he:"א ב ג", tr:"alef bet", reading:true },   // reading track only
+  { id:"step2",   n:"STEP 2",   t:"Niqud",             he:"בָּ בִּ בּוּ", tr:"ba bi bu", reading:true },
+  { id:"step3",   n:"STEP 3",   t:"Pronouns",          he:"אֲנִי", tr:"ani" },
+  { id:"step4",   n:"STEP 4",   t:"The Magic Four",    he:"רוֹצֶה", tr:"rotse", live:true },
+  { id:"step5",   n:"STEP 5",   t:"The TO-Words",      he:"לֶאֱכוֹל", tr:"le'ekhol" },
+  { id:"step6",   n:"STEP 6",   t:"I Have / I Don't Have", he:"יֵשׁ לִי", tr:"yesh li" },
+  { id:"step7",   n:"STEP 7",   t:"Question Words",    he:"מָה?", tr:"ma?" },
+  { id:"step8",   n:"STEP 8",   t:"Gender",            he:"טוֹבָה", tr:"tova" }
 ];
 const ZIG = [0, -56, -78, -40, 30, 70, 36, -20, -66];
 /* Reading-track steps (alphabet, niqud) are optional for "Just speak": they never block the steps after them.
@@ -4661,8 +4669,13 @@ function paintHome(){
     b.setAttribute("aria-label", st.n + " " + st.t + (st.reading ? ", reading track" : "") + (optional ? ", optional" : "") + (live ? "" : ", coming soon"));
     b.innerHTML = (live ? '<svg class="hh-ring" viewBox="0 0 104 104" aria-hidden="true"><circle class="bg" cx="52" cy="52" r="' + R + '"/>' +
         '<circle class="fg" cx="52" cy="52" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="' + (C * (1 - prog)) + '"/></svg>' : "") +
-      '<span class="hh-glyph" lang="he" dir="rtl"></span>' + (live ? "" : '<span class="hh-lock" aria-hidden="true">🔒</span>');
-    b.querySelector(".hh-glyph").textContent = st.he;
+      '<span class="hh-glyph"></span>' + (live ? "" : '<span class="hh-lock" aria-hidden="true">🔒</span>');
+    /* v30: Just speak = the Latin word big + the Hebrew small under it; Speak + read = Hebrew big + Latin small (auto size for long words) */
+    { const g = b.querySelector(".hh-glyph"), speakOnly = A.read === false, he = document.createElement("b"), tr = document.createElement("small");
+      he.lang = "he"; he.dir = "rtl"; he.className = "hh-gl-he"; he.textContent = st.he; tr.className = "hh-gl-tr"; tr.textContent = st.tr || "";
+      if (speakOnly){ g.classList.add("tr-first"); g.append(tr, he); } else g.append(he, tr);
+      const big = speakOnly ? tr : he, n = (big.textContent || "").replace(/[\u0591-\u05C7]/g, "").length;
+      big.style.fontSize = (n <= 3 ? 23 : n <= 5 ? 20 : n <= 7 ? 16 : n <= 9 ? 14 : 12) + "px"; }
     if (live){
       if (nextStep ? nextStep === st : true){
         const bub = document.createElement("div"); bub.className = "hh-bubble";
