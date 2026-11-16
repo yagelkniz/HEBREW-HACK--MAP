@@ -898,6 +898,28 @@ main section > .top > .back{display:none}
 .hh-gd-draft{align-self:center;font-size:20px}
 .hh-gd-streak{font-size:12px;font-weight:800;color:#ffd27a;white-space:nowrap}
 .hh-gd .hh-cb-row small{width:64px}
+/* v29 INTERROGATION ROOM (game 14): the suspect file */
+.hh-iv-file{position:relative;display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:18px;background:#f6efe2;color:#1E4A3A;border:2px solid #d9c9a8;box-shadow:inset 0 0 0 4px rgba(30,74,58,.06)}
+.hh-iv-file[hidden]{display:none}
+.hh-iv-file.shake{animation:hhBounce .5s}
+.hh-iv-sus{display:flex;align-items:center;gap:10px}
+.hh-iv-sus b{font-size:46px;line-height:1;width:58px;height:58px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:rgba(30,74,58,.1)}
+.hh-iv-sus span{font-weight:900;font-size:18px;letter-spacing:.02em}
+.hh-iv-file.unknown .hh-iv-sus b{filter:grayscale(1) brightness(.6)}
+.hh-iv-facts{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.hh-iv-blank{display:flex;align-items:center;gap:6px;padding:6px 10px;border:2.5px dashed #FF6FA5;border-radius:12px;font-weight:900;font-size:14px}
+.hh-iv-blank b{font-size:24px;line-height:1}
+.hh-iv-blank i{font-style:normal;font-size:24px;min-width:28px;text-align:center;color:#FF6FA5}
+.hh-iv-file.cracked .hh-iv-blank{border-style:solid;border-color:#3aa57a;background:rgba(58,165,122,.12)}
+.hh-iv-act{display:flex;gap:6px;font-size:34px;line-height:1}
+.hh-iv-key{border-radius:10px;background:rgba(30,74,58,.12);border:0}
+.hh-iv-key span{color:#1E4A3A}
+.hh-iv-key small{font-size:11px;opacity:.85;font-weight:800}
+.hh-iv-stamp{position:absolute;right:10px;top:10px;padding:2px 8px;border:3px solid #d6334f;border-radius:6px;color:#d6334f;font-weight:900;font-size:14px;letter-spacing:.12em;transform:rotate(-12deg) scale(1.6);opacity:0;transition:none;pointer-events:none}
+.hh-iv-file.cracked .hh-iv-stamp{opacity:1;transform:rotate(-12deg) scale(1);transition:transform .3s,opacity .3s}
+.hh-iv-draft{font-size:19px}
+.hh-iv .hh-cb-row small{width:64px}
+.hh-iv .hh-cb-chip:disabled{opacity:1}
 </style>
 </head>
 <body>
@@ -945,7 +967,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v27-994bb2b96f</p>
+  <p class="hh-ver" id="oVer">Version hh-v29-b5ed93173a</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -1472,6 +1494,36 @@ main section > .top > .back{display:none}
   <div class="row" id="g13doneRow" hidden><button class="btn" id="g13done" type="button">Continue</button></div>
 </section>
 
+<!-- INTERROGATION ROOM (STEP 7): no Hebrew in the scene; build the question: question word + ata / at (no pronoun for mi) + Magic Four verb + TO-word. -->
+<section id="g14" hidden>
+  <div class="top"><div class="bar"><i id="g14bar"></i></div><div class="count" id="g14count"></div></div>
+  <div class="card hh-snap hh-iv" id="g14card">
+    <div class="hh-sn-head"><div class="tag" id="g14tag" aria-live="polite">Ask the suspect</div>
+      <div class="hh-hbtns"><span class="hh-gd-streak" id="g14streak" hidden></span><button class="pill hh-skip" id="g14skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g14how" type="button" aria-label="How to play">?</button></div></div>
+    <div class="hh-demo-lab" id="g14lab" hidden></div>
+    <div class="hh-iv-file" id="g14scene">
+      <div class="hh-iv-stamp" id="g14stamp" aria-hidden="true">CRACKED</div>
+      <div class="hh-iv-sus"><b id="g14face"></b><span id="g14name"></span></div>
+      <div class="hh-iv-facts">
+        <div class="hh-iv-blank" id="g14blank"><b id="g14bicon"></b><span id="g14btxt"></span><i id="g14ans">?</i></div>
+        <div class="hh-iv-act"><b id="g14verb"></b><b id="g14act"></b></div>
+      </div>
+      <div class="hh-cb-key hh-iv-key" id="g14key" aria-label="Emoji key for the verbs"></div>
+    </div>
+    <div class="hh-cb-build" id="g14build">
+      <div class="hh-cb-draft hh-gd-draft" id="g14draft"></div>
+      <div class="hh-cb-row"><small>Ask</small><div class="hh-cb-chips" id="g14r0"></div></div>
+      <div class="hh-cb-row"><small>You</small><div class="hh-cb-chips" id="g14r1"></div></div>
+      <div class="hh-cb-row"><small>Verb</small><div class="hh-cb-chips" id="g14r2"></div></div>
+      <div class="hh-cb-row"><small>TO-word</small><div class="hh-cb-chips" id="g14r3"></div></div>
+    </div>
+    <div class="msg hh-sn-msg" id="g14msg" aria-live="polite"></div>
+    <div class="hh-sn-end" id="g14end" hidden></div>
+  </div>
+  <div class="row" id="g14askRow"><button class="btn" id="g14ask" type="button" disabled>Ask the question 🔦</button></div>
+  <div class="row" id="g14doneRow" hidden><button class="btn" id="g14done" type="button">Continue</button></div>
+</section>
+
 </main>
 <script>
 /* =====================================================================
@@ -1905,7 +1957,7 @@ function unlockAudio(){
 
 function show(id){
   cancelAnimationFrame(raf); clearTimeout(timer); recStop(true); streak = 0;
-  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","words","setup","stage","done"].forEach(s => $(s).hidden = (s !== id));
+  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","words","setup","stage","done"].forEach(s => $(s).hidden = (s !== id));
   document.querySelectorAll(".card").forEach(c => c.classList.toggle("speak-track", S.track === "speak"));
 }
 function showKeep(id){ show(id); }
@@ -2909,7 +2961,7 @@ function demoHide(){ if (DEMO.hand) DEMO.hand.hidden = true; }
 function demoPulse(el){ document.querySelectorAll(".hh-pulse").forEach(e => { if (e !== el) e.classList.remove("hh-pulse"); }); if (el) el.classList.add("hh-pulse"); }
 function demoLab(id, txt){ const l = $(id); l.hidden = !txt; l.textContent = txt || ""; if (txt) pop(l); }
 /* left the game mid-demo (‹, ⌂): no hand or pulse left on screen */
-setInterval(() => { if (DEMO.hand && !DEMO.hand.hidden && ["g9","g10","g11","g13"].every(id => $(id).hidden)){ demoHide(); demoPulse(null); } }, 400);
+setInterval(() => { if (DEMO.hand && !DEMO.hand.hidden && ["g9","g10","g11","g13","g14"].every(id => $(id).hidden)){ demoHide(); demoPulse(null); } }, 400);
 setInterval(() => { if (typeof snapNarr !== "undefined" && !snapNarr.paused && $("g9").hidden) snapNarrStop(); }, 400);
 
 /* ---------- Game 9: SNAP! (STEP 3, Pronouns) ----------
@@ -3349,7 +3401,7 @@ async function rpDemo(){
   if (!rpReal) rpReal = r10;
   const tok = ++rpTok, ok = () => tok === rpTok && !$("g10").hidden;
   r10 = rpDemoS([{ cue:"to", g:["noa","maya"] }, { cue:"about", g:["noa","maya"] }, { cue:"photo", g:["noa"] }]);
-  ["g10intro","g10startRow","g10end","g10doneRow","g10how"].forEach(id => $(id).hidden = true); $("g10skip").hidden = false; $("g10opts").hidden = false;
+  ["g10intro","g10startRow","g10end","g10doneRow","g10how"].forEach(id => $(id).hidden = true); $("g10skip").hidden = !A.roofDemoSeen; $("g10opts").hidden = false;   // v29: first time the demo + guided turn are a must (no Skip)
   const labs = { to:"👋 Talking TO them", about:"🤫 Whispering ABOUT them", photo:"📸 You're in it" };
   for (let k = 0; k < 3; k++){
     if (k) { if (!await demoTap($("g10next"), ok)) return; }
@@ -3372,6 +3424,7 @@ function rpPractice(){
   }, 250);
 }
 function rpDemoEnd(){
+  if (r10 && r10.practice && !A.roofDemoSeen){ A.roofDemoSeen = 1; saveA(); }
   rpTok++; clearInterval(rpGuide); demoPulse(null); demoHide(); rpStop();
   demoLab("g10lab", ""); $("g10skip").hidden = true; $("g10how").hidden = false;
   if (!rpReal) return;
@@ -3680,6 +3733,18 @@ window.cbState11 = () => ({ emoji:!!(c11.cur && c11.cur.emoji), key:$("g11key").
    "I said it" without a microphone). Audio = Dana / Yoni lines from the STEP 5 dialogue video (existing recordings). */
 /* one sentence set per STEP; the part is the same game (12) in every lesson. Only clips that exist and passed the Whisper check. */
 const SAY_SETS = {
+  // STEP 3: the pronoun clips SNAP! / ROOFTOP PARTY already use (from KNIZ Speak)
+  step3:[
+  { id:"ani", sp:"Eilai", tr:"Ani.", en:"I", emo:"🙋" },
+  { id:"ata", sp:"Eilai", tr:"Ata.", en:"You (to a boy)", emo:"👉👦" },
+  { id:"at", sp:"Eilai", tr:"At.", en:"You (to a girl)", emo:"👉👧" },
+  { id:"hu", sp:"Eilai", tr:"Hu.", en:"He", emo:"👦" },
+  { id:"hi", sp:"Eilai", tr:"Hi.", en:"She", emo:"👧" },
+  { id:"anachnu", sp:"Eilai", tr:"Anakhnu.", en:"We", emo:"👫" },
+  { id:"atem", sp:"Eilai", tr:"Atem.", en:"You (to boys / mixed)", emo:"👉👥" },
+  { id:"aten", sp:"Eilai", tr:"Aten.", en:"You (to girls)", emo:"👉👭" },
+  { id:"hem", sp:"Eilai", tr:"Hem.", en:"They (boys / mixed)", emo:"👬" },
+  { id:"hen", sp:"Eilai", tr:"Hen.", en:"They (girls)", emo:"👭" } ],
   step5:[
   { id:"s5_01", sp:"Dana", tr:"Ani ohevet le'ekhol pitsa.", en:"I (f) love to eat pizza.", emo:"🍕" },
   { id:"s5_02", sp:"Yoni", tr:"Ani rotse lishtot kafe.", en:"I (m) want to drink coffee.", emo:"☕" },
@@ -4020,6 +4085,230 @@ starters[13] = startGift;
 window.gdState13 = () => ({ phase:g13.phase, i:g13.i, demo:!!g13.demo, practice:!!g13.practice, right:g13.right.slice(), view:g13.cur && g13.cur.view, no:!!(g13.cur && g13.cur.no),
   who:g13.cur ? g13.cur.who.slice() : [], chips:[...document.querySelectorAll('#g13r1 .hh-cb-chip')].map(b => b.dataset.w), tag:$("g13tag").textContent, vtxt:$("g13vtxt").textContent,
   msg:$("g13msg").textContent, clean:g13.clean, best:g13.best, skip:!$("g13skip").hidden, how:!$("g13how").hidden, scene:$("g13scene").innerText.replace(/\s+/g, " ") });
+
+/* ---------- Game 14: INTERROGATION ROOM (STEP 7, Question Words) ----------
+   Design: /workspace/next-lessons/interrogation_design.md. The scene has no Hebrew: the suspect's face + name, a blank field
+   (👤 who, 🍽️ what, 📍 where, 📅 when, 🤔 why, 🛠️ how), a verb icon (the STEP 5 key) and an action icon (the STEP 5 TO-word pictures).
+   The student builds the question: question word + ata / at (no pronoun for mi) + Magic Four form + TO-word.
+   Audio: only the STEP 7 clip of the question word (s7_01..s7_06), no clips for whole built questions. */
+const IV_Q = { mi:["👤","WHO"], ma:["🍽️","WHAT"], eifo:["📍","WHERE"], matai:["📅","WHEN"], lama:["🤔","WHY"], eikh:["🛠️","HOW"] };
+const IV_CLIP = { ma:"s7_01", mi:"s7_02", eifo:"s7_03", matai:"s7_04", lama:"s7_05", eikh:"s7_06" };
+const IV_QTRAPS = { ma:["mi","matai","eikh"], mi:["ma","eifo","eikh"], eifo:["eikh","ma","mi"], matai:["ma","mi","eifo"], lama:["ma","eikh","matai"], eikh:["eifo","lama","ma"] };
+const IV_NONE = "no pronoun";
+/* 12 rounds, 3 stages. who = SNAP_PEOPLE id (null = 👤 WHO file, the answer is the person in "reveal") */
+const IV_ROUNDS = [
+  { who:"yonatan", q:"eifo",  v:"rotse",   inf:"lishon",   ans:"🏨", stage:1 },
+  { who:"noa",     q:"ma",    v:"rotse",   inf:"le'ekhol", ans:"🥗" },
+  { who:"dani",    q:"matai", v:"rotse",   inf:"lalekhet", ans:"🌙" },
+  { who:"maya",    q:"lama",  v:"rotse",   inf:"lilmod",   ans:"🇮🇱" },
+  { who:"noa",     q:"eikh",  v:"ohev",    inf:"lishtot",  ans:"🥛", stage:2 },
+  { who:"yonatan", q:"matai", v:"tsarikh", inf:"liknot",   ans:"🌅" },
+  { who:"maya",    q:"eifo",  v:"yakhol",  inf:"lishon",   ans:"🛋️" },
+  { who:"dani",    q:"lama",  v:"tsarikh", inf:"lishon",   ans:"🥱" },
+  { who:null,      q:"mi",    v:"rotse",   inf:"lishtot",  reveal:"maya", stage:3 },
+  { who:"yosi",    q:"eikh",  v:"yakhol",  inf:"lalekhet", ans:"🚌" },
+  { who:"noa",     q:"ma",    v:"ohev",    inf:"le'ekhol", ans:"🍕" },
+  { who:null,      q:"mi",    v:"tsarikh", inf:"lalekhet", reveal:"yosi" }
+];
+const IV_STAGE = { 1:"Stage 1 · Ask what they want 💭", 2:"Stage 2 · All four verbs", 3:"Stage 3 · New: 👤 WHO files" };
+let g14 = null, ivReal = null, ivTok = 0, ivGuide = 0, ivWatch = 0;
+const ivStageOf = (rs, i) => { let s = 1; for (let k = 0; k <= i; k++) if (rs[k].stage) s = rs[k].stage; return s; };
+/* the right question for a round: [question word, pronoun, verb form, TO-word] */
+function ivRight(o){
+  if (!o.who) return [o.q, IV_NONE, CB_VERB[o.v].m, o.inf];
+  const g = snapPerson(o.who).g;
+  return [o.q, g === "m" ? "ata" : "at", CB_VERB[o.v][g], o.inf];
+}
+function ivChips(o, r, st){
+  const [q, p, f, inf] = r, g = o.who ? snapPerson(o.who).g : "m", og = g === "m" ? "f" : "m";
+  const ql = [q].concat(IV_QTRAPS[q]); shuffle(Object.keys(IV_Q).filter(x => !ql.includes(x))).forEach(x => ql.push(x));
+  const qs = ql.slice(0, st + 3);
+  const ps = st === 1 ? ["ata","at"] : st === 2 ? ["ata","at","hu","hi"] : ["ata","at","hu","hi",IV_NONE];
+  const others = shuffle(Object.keys(CB_VERB).filter(v => v !== o.v)).map(v => CB_VERB[v][g]);
+  const vs = [f, CB_VERB[o.v][og]].concat(st === 3 ? [CB_VERB[o.v].mp] : []).concat(others.slice(0, st === 1 ? 1 : 2));
+  const is = st === 1 ? [inf] : [inf].concat(shuffle(Object.keys(CB_ACT).filter(x => x !== inf)).slice(0, st === 2 ? 2 : 3));
+  return [shuffle(qs), ps, shuffle(vs), shuffle(is)];
+}
+const ivState = (rounds, st) => ({ rounds, st:st || 0, i:0, clean:0, tries:0, streak:0, best:0, pick:[null,null,null,null], phase:"idle", t:0 });
+function startInterrogation(){
+  ivReal = null;
+  g14 = ivState(IV_ROUNDS.map(x => Object.assign({}, x)));
+  show("g14");
+  clearInterval(ivWatch); ivWatch = setInterval(() => { if ($("g14").hidden){ clearInterval(ivWatch); clearInterval(ivGuide); ivTok++; demoHide(); demoPulse(null); } }, 400);
+  ivKey(); ivDemo();
+}
+function ivKey(){
+  const k = $("g14key"); k.innerHTML = "";
+  CB_KEY.forEach(([e, , en]) => { const d = document.createElement("span"); d.innerHTML = "<b></b><small></small>"; d.children[0].textContent = e; d.children[1].textContent = en; k.append(d); });
+}
+function ivRound(){
+  clearTimeout(g14.t);
+  if (g14.i >= g14.rounds.length) return ivEnd();
+  const o = g14.rounds[g14.i], st = g14.demo ? (o.st || 2) : ivStageOf(g14.rounds, g14.i);
+  g14.cur = o; g14.stNow = st; g14.right = ivRight(o); g14.tries = 0; g14.pick = [null,null,null,null]; g14.phase = "build";
+  if (st === 1) g14.pick[3] = o.inf;   // stage 1: the TO-word is given
+  $("g14bar").style.width = g14.demo ? "0%" : (g14.i / g14.rounds.length * 100) + "%";
+  $("g14count").textContent = g14.demo ? (g14.practice ? "Your turn" : "Demo") : (g14.i + 1) + " / " + g14.rounds.length;
+  const ns = g14.demo ? 0 : (o.stage || 0);
+  $("g14tag").textContent = g14.demo ? "How to play" : ns ? IV_STAGE[ns] : "Ask the suspect";
+  if (ns) pop($("g14tag"));
+  // the file
+  const p = o.who ? snapPerson(o.who) : null;
+  $("g14face").textContent = p ? p.face : "👤"; $("g14name").textContent = p ? p.name : "???";
+  $("g14scene").classList.toggle("unknown", !p); $("g14scene").classList.remove("cracked");
+  const [qi, qt] = IV_Q[o.q];
+  $("g14bicon").textContent = qi; $("g14btxt").textContent = qt; $("g14ans").textContent = "?";
+  $("g14verb").textContent = CB_VE[o.v]; $("g14act").textContent = CB_ACT[o.inf];
+  ["g14scene","g14build","g14askRow"].forEach(id => $(id).hidden = false); $("g14end").hidden = true; $("g14doneRow").hidden = true;
+  $("g14msg").textContent = ""; $("g14msg").className = "msg hh-sn-msg";
+  ivChips(o, g14.right, st).forEach((list, r) => {
+    const box = $("g14r" + r); box.innerHTML = "";
+    list.forEach(x => { const b = document.createElement("button"); b.type = "button"; b.className = "hh-cb-chip"; b.dataset.w = x; b.dataset.r = r; b.textContent = x;
+      if (r === 3 && st === 1) b.disabled = true;
+      b.addEventListener("click", () => ivPick(r, x)); box.append(b); });
+  });
+  ivStreak(); ivDraft(); pop($("g14card"));
+}
+const ivCap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const ivSay = p => ivCap([p[0] || "___", p[1] === IV_NONE ? "" : (p[1] || "___"), p[2] || "___", p[3] || "___"].filter(Boolean).join(" ")) + "?";
+function ivDraft(){
+  const p = g14.pick;
+  $("g14draft").textContent = ivSay(p);
+  $("g14ask").disabled = p.some(x => !x) || g14.phase !== "build";
+  document.querySelectorAll("#g14build .hh-cb-chip").forEach(b => b.classList.toggle("on", p[+b.dataset.r] === b.dataset.w));
+}
+function ivPick(r, x){
+  if (!g14 || g14.phase !== "build") return;
+  if (r === 3 && g14.stNow === 1) return;
+  g14.pick[r] = g14.pick[r] === x ? null : x;
+  document.querySelectorAll("#g14r" + r + " .hh-cb-chip").forEach(b => b.classList.remove("bad"));
+  sfx("tap"); ivDraft();
+}
+function ivStreak(){ const s = $("g14streak"); s.hidden = g14.demo || g14.streak < 2; s.textContent = "🔥 " + g14.streak + " in a row"; }
+/* the hint names the part that is off: question word -> who -> verb -> TO-word */
+function ivWhy(o, p){
+  const r = g14.right, ps = o.who ? snapPerson(o.who) : null;
+  if (p[0] !== r[0]){ const [i, t] = IV_Q[o.q]; return i + " " + t + " is missing: " + r[0] + "."; }
+  if (p[1] !== r[1]){
+    if (!ps) return "👤 WHO is the blank, so there is no 'you' yet: no pronoun.";
+    if (p[1] === "hu" || p[1] === "hi") return "You ask " + ps.name + " directly, TO " + (ps.g === "m" ? "him" : "her") + ": " + r[1] + ".";
+    if (p[1] === IV_NONE) return "You know who it is, so ask " + (ps.g === "m" ? "him" : "her") + ": " + r[1] + ".";
+    return (ps.g === "m" ? "To a man: " : "To a woman: ") + r[1] + ".";
+  }
+  if (p[2] !== r[2]){
+    const ok = Object.values(CB_VERB[o.v]).includes(p[2]);
+    if (!ok) return CB_VE[o.v] + " means " + CB_VEN[o.v] + ": " + r[2] + ".";
+    if (!ps) return "Mi takes the he form: " + r[2] + ".";
+    return ivCap(r[1]) + " goes with " + r[2] + ".";
+  }
+  return CB_ACT[o.inf] + " = " + r[3] + ".";
+}
+function ivAsk(){
+  if (!g14 || g14.phase !== "build") return;
+  const o = g14.cur, p = g14.pick, right = g14.right;
+  const k = p.findIndex((x, j) => x !== right[j]);
+  if (k < 0){
+    g14.phase = "asked";
+    if (g14.tries === 0){ g14.clean++; g14.streak++; g14.best = Math.max(g14.best, g14.streak); } else g14.streak = 0;
+    sfx("good");
+    const rv = o.reveal ? snapPerson(o.reveal) : null;
+    $("g14ans").textContent = rv ? rv.face : o.ans;
+    if (rv){ $("g14face").textContent = rv.face; $("g14name").textContent = rv.name; $("g14scene").classList.remove("unknown"); }
+    $("g14scene").classList.add("cracked");
+    $("g14msg").className = "msg hh-sn-msg good";
+    $("g14msg").textContent = ivSay(p) + " " + (g14.tries === 0 ? "Cracked!" : "Cracked on the second try.") + " 🔊 " + ivCap(o.q);
+    const clip = IV_CLIP[o.q];
+    setTimeout(() => { if (g14 && g14.cur === o) speak([clip]); }, 350);
+    $("g14build").hidden = true; $("g14askRow").hidden = true; ivStreak();
+    const wait = 2300;
+    if (!g14.demo) g14.t = setTimeout(() => { if (!g14 || g14.cur !== o || $("g14").hidden) return; g14.i++; ivRound(); }, wait);
+    else if (g14.practice) g14.t = setTimeout(() => { if (g14 && g14.practice) ivDemoEnd(); }, wait);
+    return;
+  }
+  g14.tries++; g14.streak = 0; sfx("soft"); ivStreak();
+  const b = document.querySelector('#g14r' + k + ' .hh-cb-chip[data-w="' + CSS.escape(p[k]) + '"]'); if (b) b.classList.add("bad");
+  const f = $("g14scene"); f.classList.remove("shake"); void f.offsetWidth; f.classList.add("shake");
+  $("g14msg").className = "msg hh-sn-msg bad"; $("g14msg").textContent = "Nice try, detective! " + ivWhy(o, p);
+}
+$("g14ask").addEventListener("click", ivAsk);
+function ivRank(n){ return n >= 11 ? "Chief detective" : n >= 8 ? "Sharp detective" : "Rookie detective"; }
+function ivEnd(){
+  g14.phase = "end"; clearTimeout(g14.t);
+  $("g14bar").style.width = "100%"; $("g14count").textContent = g14.rounds.length + " / " + g14.rounds.length;
+  ["g14scene","g14build","g14askRow"].forEach(id => $(id).hidden = true); $("g14streak").hidden = true;
+  $("g14msg").textContent = ""; $("g14tag").textContent = ivRank(g14.clean);
+  const e = $("g14end"); e.hidden = false;
+  e.innerHTML = '<div class="hh-sn-big"></div><div class="hint"></div><div class="hint"></div>';
+  e.children[0].textContent = g14.clean + " / " + g14.rounds.length;
+  e.children[1].textContent = "questions cracked on the first try";
+  e.children[2].textContent = "Best streak: " + g14.best + " in a row";
+  $("g14doneRow").hidden = false; sfx("win");
+}
+$("g14done").addEventListener("click", () => { if (g14 && g14.phase === "end") finish(ivRank(g14.clean) + "!", g14.clean + " / " + g14.rounds.length, "questions cracked on the first try.", ""); });
+/* how to play: the hand plays two rounds by itself, then one guided turn. A must on the first visit (A.ivDemoSeen). */
+const ivChip = (r, w) => document.querySelector('#g14r' + r + ' .hh-cb-chip[data-w="' + CSS.escape(w) + '"]');
+async function ivDemo(){
+  clearTimeout(g14 && g14.t); clearInterval(ivGuide); demoPulse(null);
+  if (!ivReal) ivReal = g14;
+  const tok = ++ivTok, ok = () => tok === ivTok && !$("g14").hidden;
+  g14 = ivState([{ who:"yonatan", q:"ma", v:"rotse", inf:"lishtot", ans:"☕", st:1 }, { who:"noa", q:"eifo", v:"ohev", inf:"le'ekhol", ans:"🏖️", st:2 }]); g14.demo = true;
+  $("g14skip").hidden = !A.ivDemoSeen; $("g14how").hidden = true;
+  ivRound(); demoLab("g14lab", "Read the suspect's file");
+  await demoWait(1400); if (!ok()) return;
+  demoLab("g14lab", "🍽️ WHAT is missing: ask with ma");
+  if (!await demoTap(ivChip(0, "ma"), ok)) return;
+  demoLab("g14lab", "You ask Yonatan: ata");
+  if (!await demoTap(ivChip(1, "ata"), ok)) return;
+  demoLab("g14lab", "💭 want, to a man: rotse");
+  if (!await demoTap(ivChip(2, "rotse"), ok)) return;
+  demoLab("g14lab", "Ask the question 🔦");
+  if (!await demoTap($("g14ask"), ok)) return;
+  await demoWait(2300); if (!ok()) return;
+  g14.i++; ivRound();
+  demoLab("g14lab", "📍 WHERE, Noa, ❤️ love, 🍕 eat");
+  await demoWait(1700); if (!ok()) return;
+  demoLab("g14lab", "Where: eifo");
+  if (!await demoTap(ivChip(0, "eifo"), ok)) return;
+  demoLab("g14lab", "To a woman: at");
+  if (!await demoTap(ivChip(1, "at"), ok)) return;
+  demoLab("g14lab", "❤️ love, at: ohevet");
+  if (!await demoTap(ivChip(2, "ohevet"), ok)) return;
+  demoLab("g14lab", "🍕 = le'ekhol");
+  if (!await demoTap(ivChip(3, "le'ekhol"), ok)) return;
+  if (!await demoTap($("g14ask"), ok)) return;
+  await demoWait(2100); if (!ok()) return;
+  demoHide(); ivPractice();
+}
+function ivPractice(){
+  clearInterval(ivGuide);
+  g14 = ivState([{ who:"dani", q:"lama", v:"rotse", inf:"lishon", ans:"🥱", st:2 }]); g14.demo = true; g14.practice = true;
+  $("g14skip").hidden = !A.ivDemoSeen; $("g14how").hidden = true;
+  ivRound(); demoLab("g14lab", "Your turn: ask Dani");
+  ivGuide = setInterval(() => {
+    if (!g14 || !g14.practice || $("g14").hidden){ clearInterval(ivGuide); demoPulse(null); return; }
+    if (g14.phase !== "build") return demoPulse(null);
+    const k = g14.pick.findIndex((w, j) => w !== g14.right[j]);
+    demoPulse(k < 0 ? $("g14ask") : ivChip(k, g14.right[k]));
+  }, 250);
+}
+function ivDemoEnd(){
+  const fromPractice = g14 && g14.practice;
+  ivTok++; clearInterval(ivGuide); demoPulse(null); demoHide(); clearTimeout(g14 && g14.t);
+  if (fromPractice && !A.ivDemoSeen){ A.ivDemoSeen = 1; saveA(); }
+  demoLab("g14lab", ""); $("g14skip").hidden = true; $("g14how").hidden = false;
+  if (!ivReal) return;
+  g14 = ivReal; ivReal = null;
+  if (g14.phase === "end") return ivEnd();
+  if (g14.phase === "asked") g14.i++;
+  ivRound();
+}
+$("g14skip").addEventListener("click", ivDemoEnd);
+$("g14how").addEventListener("click", () => { if (!g14 || g14.demo || g14.phase === "end") return; ivDemo(); });
+starters[14] = startInterrogation;
+/* for the tests */
+window.ivState14 = () => ({ phase:g14.phase, i:g14.i, st:g14.stNow, demo:!!g14.demo, practice:!!g14.practice, right:g14.right.slice(), q:g14.cur && g14.cur.q, who:g14.cur && g14.cur.who,
+  chips:[0,1,2,3].map(r => [...document.querySelectorAll('#g14r' + r + ' .hh-cb-chip')].map(b => b.dataset.w)), tag:$("g14tag").textContent,
+  msg:$("g14msg").textContent, clean:g14.clean, best:g14.best, skip:!$("g14skip").hidden, how:!$("g14how").hidden, scene:$("g14scene").innerText.replace(/\s+/g, " ") });
 </script>
 <script>
 /* =====================================================================
@@ -4066,14 +4355,14 @@ const STEP5_EMBEDS = {
 
 /* STEP 6-8, Just speak track: from the Systeme course "HEBREW HACK without reading" (693801), read only, Nov 15
    (/workspace/next-lessons/systeme_content.md). The KNIZ Speak iframes are not used: Speak is the in-app self-compare. */
-const STEP6_LIVE = false;   // "I Have / I Don't Have", page 45987481. false = "Coming soon" on the map; true when Eli approves
+const STEP6_LIVE = true;    // "I Have / I Don't Have", page 45987481. false = "Coming soon" on the map; true when Eli approves
 const STEP6_EMBEDS = {
   video1:   "https://player.vimeo.com/video/1239998754",   // Eilai: lesson video (speak) 3 (3:06)
   genially: "https://view.genially.com/6ada7ca8da3da94ef90430b0",   // iframe title "Copy - I HAVE"; its preview says "SENTENCE BUILDER: I WANT / I NEED" (check with Eli)
   video2:   "https://player.vimeo.com/video/1239342786",   // L6 I have / I don't have - Speak (1:13), Noa + Yonatan dialogue
   wordwall1:"https://wordwall.net/embed/8d1eec2276944a42ae4c0b14707969b9?themeId=49&templateId=5&fontStackId=0"   // STEP 6 - WHO HAS IT? (quiz)
 };
-const STEP7_LIVE = false;   // "Question Words", page 45987482
+const STEP7_LIVE = true;    // "Question Words", page 45987482
 const STEP7_EMBEDS = {
   video1:   "https://player.vimeo.com/video/1240968533",   // Eilai: Question Words (speak) (5:26)
   genially: "https://view.genially.com/6ada9310f332b6326b7b5501",   // iframe title "Copy - SENTENCE BUILDER: I WANT / I NEED" (check with Eli)
@@ -4081,7 +4370,7 @@ const STEP7_EMBEDS = {
   wordwall1:"https://wordwall.net/embed/2b904232a4d84580b732c3ff013551ba?themeId=68&templateId=2&fontStackId=0",   // ASK & ANSWER (group sort)
   wordwall2:"https://wordwall.net/embed/03112851ec9ad72f47837fcb33a86819?themeId=68&templateId=3&fontStackId=0"    // QUESTION WORDS (match up)
 };
-const STEP8_LIVE = false;   // "Gender", page 45987483
+const STEP8_LIVE = true;    // "Gender", page 45987483
 const STEP8_EMBEDS = {
   video1:   "https://player.vimeo.com/video/1240968535",   // Eilai: Noun Gender (speak) (5:22)
   video1b:  "https://player.vimeo.com/video/1237390446",   // second teacher video (5:09, no title shown) right after it on Systeme
@@ -4226,8 +4515,9 @@ const LESSON_STEP3 = [
     how:"You host a rooftop party. 👋 talking to guests, 🤫 whispering about them, 📸 a photo with you: pick the pronoun before the time runs out." },
   { type:"embed", sec:"Practice", icon:"👥", name:"Who is it?", sub:"One or many", url:STEP3_EMBEDS.wordwall2, xp:5, how:"One person or more than one? Pick who it is." },
   { type:"embed", sec:"Practice", icon:"🎯", name:"Pick the right word", url:STEP3_EMBEDS.wordwall1, xp:5, how:"Pick the pronoun that fits." },
-  { type:"embed", sec:"Speak",    icon:"🎙", name:"Say them out loud", url:STEP3_EMBEDS.speak, xp:10, mic:true,
-    how:"Say each pronoun into your phone and hear how close you are. Allow the microphone when asked." }
+  // v29 (Eli): the STEP 4 self-compare (game 12, SAY_SETS.step3 = the SNAP! pronoun clips), not the KNIZ Speak "We heard" card
+  { type:"game", sec:"Speak", g:12, icon:"🎙", name:"Say them out loud", sub:"Record yourself and compare", xp:10,
+    how:"Hear the word, record yourself, then play both and compare." }
 ];
 /* STEP 5 (The TO-Words), Just speak track: Systeme course "HEBREW HACK without reading", page 45987480. Same template as STEP 3:
    Watch -> Learn -> Watch (dialogue) -> Play (CHAT BACK pilot; type "soon" = an empty games slot) -> Practice (Wordwall, unchanged) -> Speak */
@@ -4271,7 +4561,8 @@ const LESSON_STEP7 = [
     how:"Tap Open full screen to see the slides bigger." },
   { type:"video", sec:"Watch",    icon:"🎬", name:"Question words dialogue", url:STEP7_EMBEDS.video2, xp:5, cc:false,
     how:"Noa and Yonatan meet and ask each other questions. Say each line with them." },
-  PLAY_SOON,
+  { type:"game",  sec:"Play", g:14, icon:"🔦", name:"INTERROGATION ROOM", sub:"Ask the suspect the right question", xp:10,
+    how:"Read the suspect's file: what is missing (who, what, where, when, why, how), is it a man or a woman, what do they want, can, need or love to do? Build the question and ask it." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Ask & answer", sub:"Sort the words", url:STEP7_EMBEDS.wordwall1, xp:5, how:"Is it a question or an answer? Sort them." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Question words", sub:"Match them up", url:STEP7_EMBEDS.wordwall2, xp:5, how:"Match each question word to its meaning." },
   SPEAK_PART("Hear it, record yourself, then play both and compare.")
@@ -4323,7 +4614,7 @@ const stepLive = id => STEP_LIVE[id] !== false;
 const lessonOpen = id => !!LESSONS[id] && stepLive(id) && (!LESSONS[id].speakOnly || A.read === false);   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
 function lessonProgress(id){ const s = A[id] || {}; return s.completed ? 1 : Math.min(1, (s.pos || 0) / LESSONS[id].parts.length); }
 const XP_BONUS = 20;
-const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","words"];
+const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","words"];
 
 const dayStr = d => d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
 function liveStreak(){
@@ -4679,7 +4970,7 @@ function paintPron(){
   const box = $("hhPron"); if (!box) return;
   const v = CONJ[pronVerb], read = A.read !== false;
   box.classList.toggle("speak", !read);
-  const pb = $("gPron"); if (pb) pb.hidden = (!read && A.tr === false) || String(current) === "9" || String(current) === "10" || String(current) === "11" || String(current) === "12" || String(current) === "13";   // SNAP! tests the pronouns: no table there   // Just speak with letters off: nothing to show
+  const pb = $("gPron"); if (pb) pb.hidden = (!read && A.tr === false) || String(current) === "9" || String(current) === "10" || String(current) === "11" || String(current) === "12" || String(current) === "13" || String(current) === "14";   // SNAP! tests the pronouns: no table there   // Just speak with letters off: nothing to show
   // one chip per person: pronoun on top, its verb form under it (אֲנִי shows both: he / she)
   const he = (cls, t) => '<b class="' + cls + '" lang="he">' + t + "</b>";
   const tr = (cls, t) => '<i class="' + cls + ' hh-cj-tr">' + t + "</i>";
