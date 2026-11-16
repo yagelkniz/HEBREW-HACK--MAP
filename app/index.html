@@ -825,6 +825,47 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 .hh-cb-chip.on{background:#f6efe2;border-color:#f6efe2;color:#1E4A3A}
 .hh-cb-chip.bad{background:#ffb4c0;border-color:#ffb4c0;color:#1E4A3A;animation:shake .35s}
 #g11card.shake{animation:shake .35s}
+/* v25: CHAT BACK emoji key + emoji messages */
+.hh-cb-key{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:5px 6px;background:rgba(0,0,0,.25);border-bottom:1px solid rgba(255,255,255,.08)}
+.hh-cb-key span{display:flex;flex-direction:column;align-items:center;line-height:1.1;color:#f6efe2;border-radius:8px;padding:2px 0}
+.hh-cb-key b{font-size:18px}
+.hh-cb-key i{font-style:normal;font-weight:800;font-size:12.5px}
+.hh-cb-key small{font-size:10px;opacity:.7}
+.hh-cb-key.hh-pulse{background:rgba(255,124,150,.25)}
+.hh-cb-b.in.big{font-size:38px;line-height:1;padding:8px 14px;letter-spacing:4px}
+.hh-cb-b.sys{align-self:center;background:rgba(255,124,150,.18);color:#ffd8e0;border:1px solid rgba(255,124,150,.5);font-size:13px;border-radius:99px;padding:5px 12px}
+/* ---------- v25: labeled top-bar buttons (Eli): "‹ Lesson" = the lesson parts, "⌂ Menu" = the map ---------- */
+.hh-toparts,.hh-tohome,#hhStrip .hh-home,#hhStrip .hh-squit,.hh-lbar .back,.hh-lbar .hh-home,#stBack,#oHome,.hh-topright .hh-home{
+  width:auto!important;min-width:0!important;height:44px!important;min-height:44px!important;padding:0 10px!important;
+  font-size:14px!important;font-weight:800!important;letter-spacing:0!important;white-space:nowrap;line-height:1;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;gap:3px}
+.hh-lbar .bar,#hhStrip .bar{min-width:36px}
+.hh-trbtn{font-size:12.5px;padding:4px 10px;white-space:nowrap}
+@media (max-width:400px){
+  .hh-toparts,.hh-tohome,#hhStrip .hh-home,#hhStrip .hh-squit,.hh-lbar .back,.hh-lbar .hh-home,#stBack{padding:0 8px!important;font-size:13px!important}
+  .hh-lbar,#hhStrip{gap:6px!important}
+  .hh-pronbtn .hh-pront{display:none}
+  .hh-pronbtn::after{content:"Pronouns"}
+  #hhStrip .hh-lxp,.hh-lbar .hh-lxp,.hh-lbar [data-xp]{padding-left:8px;padding-right:8px}
+}
+/* ---------- v25: one clear "turn your phone sideways" tip under every video (all lessons) ---------- */
+@media (orientation:portrait), (max-width:700px){
+  p.hh-vtip:not([hidden]){display:flex!important;flex-direction:row;align-items:center;justify-content:flex-start;gap:12px;margin:12px 0 0;padding:12px 14px;border-radius:16px;background:#26543F;border:2px solid #FF6FA5;text-align:left}
+}
+p.hh-vtip svg{display:none}
+.hh-vphone{flex:none;font-style:normal;font-size:30px;line-height:1;display:inline-block;animation:hhTurn 2.4s ease-in-out infinite}
+@keyframes hhTurn{0%,30%{transform:rotate(0)}55%,85%{transform:rotate(90deg)}100%{transform:rotate(0)}}
+p.hh-vtip span{display:flex;flex-direction:column;gap:2px}
+p.hh-vtip b{font-weight:800;font-size:16px;line-height:1.25;color:#F4F1E8}
+p.hh-vtip small{font-size:13px;font-weight:600;color:var(--cream-dim)}
+@media (orientation:landscape) and (max-height:500px){ p.hh-vtip{display:none!important} }
+/* the game's own "←" duplicated the labeled "‹ Lesson" above it: one clear way back */
+main section > .top > .back{display:none}
+@media (max-width:400px){
+  .hh-pronbtn{padding:0 9px!important;gap:0!important;font-size:12px!important}
+  .hh-pronbtn .hh-pronico{display:none}
+  #hhStrip .hh-xp,#hhStrip [class*="xp"]{padding-left:7px!important;padding-right:7px!important;font-size:12.5px!important}
+}
+@media (max-width:400px){ #hhStrip{gap:5px!important} #hhStrip .bar{min-width:22px} }
 </style>
 </head>
 <body>
@@ -849,7 +890,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 
 <!-- ONBOARDING (once) / SETTINGS -->
 <div class="screen hh-onb" id="sOnb" hidden>
-  <div class="hh-top"><div class="hh-brand">HEBREW <span>HACK</span></div><button class="hh-home" type="button" data-home id="oHome" hidden aria-label="Home: back to the map">⌂</button></div>
+  <div class="hh-top"><div class="hh-brand">HEBREW <span>HACK</span></div><button class="hh-home hh-tohome" type="button" data-home id="oHome" hidden aria-label="Menu: back to the map">⌂ Menu</button></div>
   <h1 id="oTitle" style="margin-top:18px">Welcome!</h1>
   <p class="sub" id="oSub">Two quick things and you're in.</p>
   <label class="label" for="oName" style="display:block">Your name</label>
@@ -872,13 +913,13 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v24-12c9e9590a</p>
+  <p class="hh-ver" id="oVer">Version hh-v26-d7c6716646</p>
 </div>
 
 <!-- STEP OVERVIEW -->
 <div class="screen" id="sStep" hidden>
-  <div class="hh-top"><button class="hh-home" id="stBack" type="button" data-home aria-label="Home: back to the map">⌂</button>
-    <div class="brand" id="stN">STEP 4</div><span class="hh-stats"><button class="hh-trbtn" type="button" data-trtoggle aria-pressed="true">abc</button><span class="hh-chip" id="stXp">⚡ 0</span></span></div>
+  <div class="hh-top"><button class="hh-home hh-tohome" id="stBack" type="button" data-home aria-label="Menu: back to the map">⌂ Menu</button>
+    <div class="brand" id="stN">STEP 4</div><span class="hh-stats"><button class="hh-trbtn" type="button" data-trtoggle aria-pressed="true">Latin letters</button><span class="hh-chip" id="stXp">⚡ 0</span></span></div>
   <h1 style="margin-top:12px" id="stTitle">The Magic Four</h1>
   <div class="hh-hero hh-conj">
     <div class="hh-vtabs" id="cjTabs" role="tablist"></div>
@@ -890,7 +931,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 
 <!-- EMBED CARD (videos, slides, Speak, practice games): the iframe takes all the height that's left -->
 <div class="screen hh-embed" id="sEmbed" hidden>
-  <div class="hh-lbar"><button class="back hh-toparts" id="eQuit" type="button" aria-label="Back to the lesson parts">‹</button><button class="hh-home hh-tohome" type="button" data-home aria-label="Home: the lessons map">⌂</button>
+  <div class="hh-lbar"><button class="back hh-toparts" id="eQuit" type="button" aria-label="Back to the lesson parts">‹ Lesson</button><button class="hh-home hh-tohome" type="button" data-home aria-label="Menu: the lessons map">⌂ Menu</button>
     <div class="bar"><i id="eBar"></i></div><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
   <div class="hh-ehead">
     <div><div class="brand" id="eSec"></div><b id="eName"></b></div>
@@ -899,7 +940,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   <div class="hh-frame" id="eFrame"></div>
   <div class="hh-under">
   <button class="hh-fullbig" id="eFull" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="eFullTxt">Watch full screen</span></button>
-  <p class="hh-vtip" id="eTip" hidden role="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Turn sideways, then pinch to zoom</p>
+  <p class="hh-vtip" id="eTip" hidden role="note"><i class="hh-vphone" aria-hidden="true">📱</i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Turn your phone sideways</b><small>The video fills the screen. Pinch to zoom.</small></span></p>
   </div>
   <button class="hh-fbtn hh-fclose" id="eClose" type="button" aria-label="Close full screen" hidden><span aria-hidden="true">✕</span> Close</button>
   <button class="hh-fbtn hh-fhome" id="eHome" type="button" data-home aria-label="Home: back to the map" hidden>⌂</button>
@@ -921,7 +962,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 
 <!-- LESSON CARD (the card before each game) -->
 <div class="screen" id="sLesson" hidden>
-  <div class="hh-lbar"><button class="back hh-toparts" id="lQuit" type="button" aria-label="Back to the lesson parts">‹</button><button class="hh-home hh-tohome" type="button" data-home aria-label="Home: the lessons map">⌂</button>
+  <div class="hh-lbar"><button class="back hh-toparts" id="lQuit" type="button" aria-label="Back to the lesson parts">‹ Lesson</button><button class="hh-home hh-tohome" type="button" data-home aria-label="Menu: the lessons map">⌂ Menu</button>
     <div class="bar"><i id="lBar"></i></div><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
   <div class="hh-lcard pop" id="lCard"></div>
   <div class="push hh-ego"><button class="hh-back" id="lBack" type="button" aria-label="Back to the previous part">‹ Back</button><button class="btn" id="lGo" type="button">Continue</button></div>
@@ -929,7 +970,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 
 <!-- COMPLETE -->
 <div class="screen hh-done" id="sDone" hidden>
-  <div class="hh-topright"><button class="hh-home" type="button" data-home aria-label="Home: back to the map">⌂</button></div>
+  <div class="hh-topright"><button class="hh-home hh-tohome" type="button" data-home aria-label="Menu: back to the map">⌂ Menu</button></div>
   <img src="icons/avatar.webp" alt="" id="cAvatar">
   <div class="brand" style="margin-top:14px" id="cStepDone">STEP 4 COMPLETE</div>
   <h1 id="cTitle">Kol hakavod!</h1>
@@ -946,7 +987,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 </div>
 
 <main id="play" hidden>
-<div id="hhStrip"><button class="hh-home hh-squit hh-toparts" id="gQuit" type="button" aria-label="Back to the lesson parts">‹</button><button class="hh-home hh-tohome" type="button" data-home aria-label="Home: the lessons map">⌂</button><span id="hhStripTxt" hidden>STEP 4</span><div class="bar"><i id="hhStripBar"></i></div><button class="hh-pronbtn" id="gPron" type="button" aria-haspopup="dialog" aria-controls="pronSheet" aria-label="Open the pronoun table"><span class="hh-pronico" aria-hidden="true">▦</span>Pronoun table</button><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
+<div id="hhStrip"><button class="hh-home hh-squit hh-toparts" id="gQuit" type="button" aria-label="Back to the lesson parts">‹ Lesson</button><button class="hh-home hh-tohome" type="button" data-home aria-label="Menu: the lessons map">⌂ Menu</button><span id="hhStripTxt" hidden>STEP 4</span><div class="bar"><i id="hhStripBar"></i></div><button class="hh-pronbtn" id="gPron" type="button" aria-haspopup="dialog" aria-controls="pronSheet" aria-label="Open the pronoun table"><span class="hh-pronico" aria-hidden="true">▦</span><span class="hh-pront">Pronoun table</span></button><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
 <div class="hh-cf hh-psheet" id="pronSheet" hidden><div class="hh-cf-card" role="dialog" aria-modal="true" aria-label="Pronouns">
 <div class="hh-cf-grip" aria-hidden="true"></div><div id="hhPron" class="hh-pron" aria-label="The Magic Four with every person"></div>
 <button class="hh-cf-no" id="pronClose" type="button">Close</button></div></div>
@@ -1341,6 +1382,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
     <div class="hh-demo-lab" id="g11lab" hidden></div>
     <div class="hh-cb-chat" id="g11chat">
       <div class="hh-cb-who"><b id="g11face"></b><span id="g11name"></span></div>
+      <div class="hh-cb-key" id="g11key" aria-label="Emoji key for the verbs"></div>
       <div class="hh-cb-msgs" id="g11msgs" aria-live="polite"></div>
     </div>
     <div class="hh-cb-build" id="g11build">
@@ -1354,6 +1396,21 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
   </div>
   <div class="row" id="g11sendRow"><button class="btn" id="g11send" type="button" disabled>Send ➤</button></div>
   <div class="row" id="g11doneRow" hidden><button class="btn" id="g11done" type="button">Continue</button></div>
+</section>
+
+<!-- Say them out loud (STEP 5): the STEP 4 self-compare (By Ear's "Record yourself"): hear it, record yourself, play both, no score. -->
+<section id="g12" hidden>
+  <div class="top"><div class="bar"><i id="g12bar"></i></div><div class="count" id="g12count"></div></div>
+  <div class="card" id="g12card">
+    <div class="tag" id="g12tag" aria-live="polite">Now say it yourself</div>
+    <div class="hh-emoji" id="g12emo" aria-hidden="true"></div>
+    <div id="g12sent" style="margin-top:4px">
+      <div class="tr" id="g12tr"></div>
+      <div class="hint" id="g12en"></div>
+    </div>
+    <div class="hh-rep" id="g12rep"><button class="hh-recbtn" id="g12rec" type="button">🎙 Record yourself</button><div class="hh-reprow" id="g12cmp" hidden><button class="pill" id="g12mine" type="button">▶ My voice</button><button class="pill" id="g12orig" type="button">▶ Dana</button><button class="pill" id="g12again" type="button">↻ Try again</button><button class="pill" id="g12said" type="button" hidden>I said it</button></div><div class="hint" id="g12recnote" aria-live="polite"></div></div>
+  </div>
+  <div class="row" id="g12nextRow"><button class="btn" id="g12next" type="button">Next</button></div>
 </section>
 
 </main>
@@ -1789,7 +1846,7 @@ function unlockAudio(){
 
 function show(id){
   cancelAnimationFrame(raf); clearTimeout(timer); recStop(true); streak = 0;
-  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","words","setup","stage","done"].forEach(s => $(s).hidden = (s !== id));
+  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","words","setup","stage","done"].forEach(s => $(s).hidden = (s !== id));
   document.querySelectorAll(".card").forEach(c => c.classList.toggle("speak-track", S.track === "speak"));
 }
 function showKeep(id){ show(id); }
@@ -3344,18 +3401,24 @@ const CB_VERB = {
 };
 const CB_INF = ["le'ekhol","lishtot","lishon","lalekhet","lilmod","ledaber","liknot","lesakhek","lavo","lenasot","laazor","leshalem"];
 const CB_FORM = { ata:"m", at:"f", atem:"mp", aten:"fp", hu:"m", hi:"f", ani:"", anakhnu:"" };
-/* q: you (one, your gender) | youMix (you + a boy: atem) | youGirls (you + girls: aten; atem for a boy) | hu | hi */
+/* v25 (Eli): rounds 1-3 warm-up = the friend asks the full question, you switch the pronoun ("Ken, ani rotsa lishon").
+   Rounds 4-10 = emoji messages: verb emoji + action emoji, you answer about yourself ("Ani tsrikha lilmod"). The key is always on screen. */
+const CB_KEY = [ ["💭","rotse","want"], ["💪","yakhol","can"], ["⏰","tsarikh","need"], ["❤️","ohev","love"] ];
+const CB_VE = { rotse:"💭", yakhol:"💪", tsarikh:"⏰", ohev:"❤️" }, CB_VEN = { rotse:"want", yakhol:"can", tsarikh:"need", ohev:"love" };
+/* action emoji -> TO-word: only STEP 5 words, one clear picture each */
+const CB_ACT = { lishon:"😴", "le'ekhol":"🍕", lishtot:"☕", lilmod:"📚", lesakhek:"⚽", liknot:"🛒", ledaber:"🗣️", lalekhet:"🚶" };
+/* q: you (one, your gender) | youMix (you + a boy: atem) | youGirls (you + girls: aten; atem for a boy) | hu | hi ; emoji:true = the emoji stage (about you) */
 const CB_ROUNDS = [
   { who:"noa", q:"you", v:"rotse", inf:"lishon", emo:"😴", back:"😴💤" },
-  { who:"yonatan", q:"you", v:"ohev", inf:"lesakhek", emo:"⚽", back:"⚽🙌" },
-  { who:"maya", q:"youMix", v:"rotse", inf:"le'ekhol", emo:"🍕", back:"🍕😋" },
   { who:"dani", q:"hu", v:"yakhol", inf:"lalekhet", emo:"👦🚶", back:"👍" },
-  { who:"noa", q:"you", v:"tsarikh", inf:"liknot", emo:"🛒", back:"🛒👌" },
   { who:"yosi", q:"youGirls", v:"tsarikh", inf:"lilmod", emo:"📚", back:"📚💪" },
-  { who:"maya", q:"hi", v:"ohev", inf:"ledaber", emo:"👧🗣️", back:"😄" },
-  { who:"dani", q:"you", v:"yakhol", inf:"lishtot", emo:"☕", back:"☕😊" },
-  { who:"noa", q:"youMix", v:"yakhol", inf:"lavo", emo:"🏃", back:"🎉" },
-  { who:"yonatan", q:"you", v:"rotse", inf:"lenasot", emo:"🍝", back:"🍝👏" }
+  { who:"maya", emoji:true, v:"ohev", inf:"le'ekhol", back:"🍕😋" },
+  { who:"noa", emoji:true, v:"tsarikh", inf:"lilmod", back:"📚👍" },
+  { who:"yonatan", emoji:true, v:"rotse", inf:"lishon", back:"😴💤" },
+  { who:"dani", emoji:true, v:"yakhol", inf:"lesakhek", back:"⚽🙌" },
+  { who:"maya", emoji:true, v:"tsarikh", inf:"liknot", back:"🛒👌" },
+  { who:"yosi", emoji:true, v:"ohev", inf:"lishtot", back:"☕😊" },
+  { who:"noa", emoji:true, v:"yakhol", inf:"ledaber", back:"🗣️👏" }
 ];
 let c11 = null, cbReal = null, cbTok = 0, cbGuide = 0, cbWatch = 0;
 const cbG = () => (A.gender === "m" ? "m" : "f");
@@ -3363,12 +3426,19 @@ const cbCap = s => s.charAt(0).toUpperCase() + s.slice(1);
 /* the question's pronoun, and the reply (pronoun + verb form) */
 function cbParts(o){
   const g = cbG();
+  if (o.emoji) return { qp:"", qf:"", ap:"ani", af:g, verbQ:"", verbA:CB_VERB[o.v][g], emoji:true };
   const qp = o.q === "you" ? (g === "m" ? "ata" : "at") : o.q === "youMix" ? "atem" : o.q === "youGirls" ? (g === "m" ? "atem" : "aten") : o.q;
   const ap = qp === "ata" || qp === "at" ? "ani" : qp === "atem" || qp === "aten" ? "anakhnu" : qp;
   const af = ap === "ani" ? g : ap === "anakhnu" ? CB_FORM[qp] : CB_FORM[qp];
   return { qp, qf:CB_FORM[qp], ap, af, verbQ:CB_VERB[o.v][CB_FORM[qp]], verbA:CB_VERB[o.v][af] };
 }
 function cbChips(o, P){
+  if (o.emoji){   // all four verbs in your form + the other-gender form of the right one; the right TO-word + 3 other STEP 5 words
+    const g = P.af, og = g === "m" ? "f" : "m";
+    const verbs = Object.keys(CB_VERB).map(v => CB_VERB[v][g]).concat(CB_VERB[o.v][og]);
+    const infs = [o.inf].concat(shuffle(Object.keys(CB_ACT).filter(x => x !== o.inf)).slice(0, 3));
+    return [shuffle(["ani","anakhnu", g === "m" ? "ata" : "at", g === "m" ? "hu" : "hi"]), shuffle(verbs), shuffle(infs)];
+  }
   const prons = [P.ap, P.qp].concat(P.ap === "ani" ? ["anakhnu", P.qp === "at" ? "hi" : "hu"] : P.ap === "anakhnu" ? ["ani", P.qp === "aten" ? "hen" : "hem"] : [P.ap === "hu" ? "hi" : "hu", "ani"]);
   const forms = ["m","f","mp","fp"].map(f => CB_VERB[o.v][f]);
   const infs = [o.inf].concat(shuffle(CB_INF.filter(x => x !== o.inf)).slice(0, 2));
@@ -3393,7 +3463,13 @@ function cbRound(){
   $("g11tag").textContent = c11.demo ? "How to play" : "Answer your friend";
   $("g11face").textContent = friend.face; $("g11name").textContent = friend.name;
   const ms = $("g11msgs"); ms.innerHTML = "";
-  cbBubble("in", cbCap(P.qp) + " " + P.verbQ + " " + o.inf + "? " + o.emo);
+  cbKey();
+  if (o.emoji && !c11.keyShown){   // first emoji message: point at the key
+    c11.keyShown = true; cbBubble("sys", "New: emoji messages! Use the key above.");
+    const k = $("g11key"); k.classList.add("hh-pulse"); setTimeout(() => k.classList.remove("hh-pulse"), 2600);
+  }
+  if (o.emoji) cbBubble("in big", CB_VE[o.v] + CB_ACT[o.inf]);
+  else cbBubble("in", cbCap(P.qp) + " " + P.verbQ + " " + o.inf + "? " + o.emo);
   ["g11chat","g11build","g11sendRow"].forEach(id => $(id).hidden = false); $("g11end").hidden = true; $("g11doneRow").hidden = true;
   $("g11msg").textContent = ""; $("g11msg").className = "msg hh-sn-msg";
   const rows = cbChips(o, P);
@@ -3410,9 +3486,15 @@ function cbBubble(side, txt, ticks){
   if (ticks){ const k = document.createElement("i"); k.className = "hh-cb-ticks"; k.setAttribute("aria-label", "sent and read"); d.append(k); }
   $("g11msgs").append(d); d.scrollIntoView({ block:"nearest" }); return d;
 }
+function cbKey(){   // the verb key under the chat header, in your own form
+  const g = cbG(), k = $("g11key"); if (k.dataset.g === g) return; k.dataset.g = g; k.innerHTML = "";
+  CB_KEY.forEach(([e, v, en]) => { const d = document.createElement("span"); d.innerHTML = "<b></b><i></i><small></small>";
+    d.children[0].textContent = e; d.children[1].textContent = CB_VERB[v][g]; d.children[2].textContent = en; k.append(d); });
+}
+const cbSay = (o, words) => (o.emoji ? cbCap(words[0] || "___") + " " + words.slice(1).join(" ") : "Ken, " + words.join(" "));
 function cbDraft(){
   const p = c11.pick, w = k => p[k] || "___";
-  $("g11draft").textContent = "Ken, " + w(0) + " " + w(1) + " " + w(2);
+  $("g11draft").textContent = cbSay(c11.cur, [w(0), w(1), w(2)]);
   $("g11send").disabled = !(p[0] && p[1] && p[2]) || c11.phase !== "build";
   document.querySelectorAll("#g11build .hh-cb-chip").forEach(b => b.classList.toggle("on", p[+b.dataset.r] === b.dataset.w));
 }
@@ -3424,6 +3506,12 @@ function cbPick(r, w){
 }
 /* gentle feedback: the first chip that is off, and why */
 function cbWhy(o, P, p){
+  if (o.emoji){
+    if (p[0] !== "ani") return "It's about you: ani.";
+    if (p[1] !== P.verbA){ const v = Object.keys(CB_VERB).find(x => CB_VERB[x][P.af] === p[1] || Object.values(CB_VERB[x]).includes(p[1]));
+      return v === o.v ? "Ani for a " + (P.af === "m" ? "boy" : "girl") + ": " + P.verbA + "." : CB_VE[o.v] + " means " + CB_VEN[o.v] + ": " + P.verbA + "."; }
+    return "Look at the second emoji: " + CB_ACT[o.inf] + " = " + o.inf + ".";
+  }
   if (p[0] !== P.ap){
     if (p[0] === P.qp) return P.qp === "ata" || P.qp === "at" ? "They asked about you: answer with ani." : P.qp === "atem" || P.qp === "aten" ? "They asked about you and your friends: answer with anakhnu." : "Who is it? " + P.ap + ".";
     return "Who is it? They asked " + P.qp + ", so you answer " + P.ap + ".";
@@ -3438,7 +3526,7 @@ function cbSend(){
   if (p.every((w, k) => w === right[k])){
     c11.phase = "sent"; if (c11.tries === 0) c11.clean++;
     sfx("good");
-    cbBubble("out", "Ken, " + p.join(" "), true);
+    cbBubble("out", cbSay(o, p), true);
     $("g11msg").className = "msg hh-sn-msg good"; $("g11msg").textContent = c11.tries === 0 ? "Sent!" : "That's it.";
     $("g11build").hidden = true; $("g11sendRow").hidden = true;
     setTimeout(() => { if (!c11 || c11.cur !== o) return; cbBubble("in", o.back); sfx("pop"); }, 700);
@@ -3484,11 +3572,23 @@ async function cbDemo(){
   demoLab("g11lab", "Send ➤");
   if (!await demoTap($("g11send"), ok)) return;
   await demoWait(1900); if (!ok()) return;
+  // an emoji message: the key says which verb
+  c11.rounds.push({ who:"maya", emoji:true, v:"yakhol", inf:"lishtot", back:"☕😊" }); c11.i++; cbRound();
+  demoLab("g11lab", "Emoji message: use the key");
+  await demoWait(1500); if (!ok()) return;
+  const Q = c11.P;
+  if (!await demoTap(cbChip(0, "ani"), ok)) return;
+  demoLab("g11lab", "💪 = " + Q.verbA);
+  if (!await demoTap(cbChip(1, Q.verbA), ok)) return;
+  demoLab("g11lab", "☕ = lishtot");
+  if (!await demoTap(cbChip(2, "lishtot"), ok)) return;
+  if (!await demoTap($("g11send"), ok)) return;
+  await demoWait(1900); if (!ok()) return;
   demoHide(); cbPractice();
 }
 function cbPractice(){
   clearInterval(cbGuide);
-  c11 = cbState([{ who:"dani", q:"youMix", v:"ohev", inf:"lishtot", emo:"🥤", back:"🥤🙌" }]); c11.demo = true; c11.practice = true;
+  c11 = cbState([{ who:"dani", emoji:true, v:"ohev", inf:"lesakhek", back:"⚽🙌" }]); c11.demo = true; c11.practice = true; c11.keyShown = true;
   $("g11skip").hidden = !A.chatDemoSeen; $("g11how").hidden = true;
   cbRound(); demoLab("g11lab", "Your turn");
   cbGuide = setInterval(() => {
@@ -3513,7 +3613,147 @@ $("g11skip").addEventListener("click", cbDemoEnd);
 $("g11how").addEventListener("click", () => { if (!c11 || c11.demo || c11.phase === "end") return; cbDemo(); });
 starters[11] = startChat;
 /* for the tests */
-window.cbState11 = () => ({ phase:c11.phase, i:c11.i, demo:!!c11.demo, practice:!!c11.practice, right:[c11.P.ap, c11.P.verbA, c11.cur.inf], q:$("g11msgs").firstChild && $("g11msgs").firstChild.textContent, msg:$("g11msg").textContent, clean:c11.clean });
+window.cbState11 = () => ({ emoji:!!(c11.cur && c11.cur.emoji), key:$("g11key").innerText.replace(/\s+/g, " "), sys:!!document.querySelector("#g11msgs .hh-cb-b.sys"), phase:c11.phase, i:c11.i, demo:!!c11.demo, practice:!!c11.practice, right:[c11.P.ap, c11.P.verbA, c11.cur.inf], q:(document.querySelector("#g11msgs .hh-cb-b.in") || {}).textContent, msg:$("g11msg").textContent, clean:c11.clean });
+
+/* ---------- Game 12: Say them out loud (STEP 5) ----------
+   The same self-compare as STEP 4 (By Ear "Record yourself"): the sentence plays, you record yourself, then play your
+   recording and the model as often as you like. No score, no judging. Counts only what was really said (recorded, or
+   "I said it" without a microphone). Audio = Dana / Yoni lines from the STEP 5 dialogue video (existing recordings). */
+/* one sentence set per STEP; the part is the same game (12) in every lesson. Only clips that exist and passed the Whisper check. */
+const SAY_SETS = {
+  step5:[
+  { id:"s5_01", sp:"Dana", tr:"Ani ohevet le'ekhol pitsa.", en:"I (f) love to eat pizza.", emo:"🍕" },
+  { id:"s5_02", sp:"Yoni", tr:"Ani rotse lishtot kafe.", en:"I (m) want to drink coffee.", emo:"☕" },
+  { id:"s5_03", sp:"Dana", tr:"Ani yekhola lehazmin glida.", en:"I (f) can order ice cream.", emo:"🍦" },
+  { id:"s5_04", sp:"Yoni", tr:"Ani tsarikh leshalem.", en:"I (m) need to pay.", emo:"💳" },
+  { id:"s5_06", sp:"Yoni", tr:"Ani ohev lesakhek kaduregel.", en:"I (m) love to play soccer.", emo:"⚽" },
+  { id:"s5_08", sp:"Yoni", tr:"Ani rotse lenasot levashel pasta.", en:"I (m) want to try to cook pasta.", emo:"🍝" },
+  { id:"s5_10", sp:"Yoni", tr:"Ani yakhol ledaber ivrit.", en:"I (m) can speak Hebrew.", emo:"🗣️" },
+  { id:"s5_13", sp:"Yoni", tr:"Ani tsarikh lishon.", en:"I (m) need to sleep.", emo:"😴" } ],
+  // s6_06 "yesh lakhen" / s6_08 "yesh lahen" left out: Whisper hears "lakhem" / "lahem" (Eli to listen first)
+  // STEP 6-8: the existing KNIZ Speak clips (/workspace/kniz-have-audio/fixed, kniz-questions-audio, kniz-gender-audio), one voice
+  step6:[
+  { id:"s6_01", sp:"Eilai", tr:"Yesh li.", en:"I have.", emo:"🙋" },
+  { id:"s6_02", sp:"Eilai", tr:"Yesh lo.", en:"He has.", emo:"👦" },
+  { id:"s6_03", sp:"Eilai", tr:"Yesh la.", en:"She has.", emo:"👧" },
+  { id:"s6_04", sp:"Eilai", tr:"Yesh lanu.", en:"We have.", emo:"👫" },
+  { id:"s6_05", sp:"Eilai", tr:"Yesh lakhem.", en:"You have (pl, m).", emo:"👥" },
+  { id:"s6_07", sp:"Eilai", tr:"Yesh lahem.", en:"They have (m).", emo:"👬" },
+  { id:"s6_09", sp:"Eilai", tr:"Ein li.", en:"I don't have.", emo:"🙅" },
+  { id:"s6_10", sp:"Eilai", tr:"Ein la.", en:"She doesn't have.", emo:"🤷‍♀️" },
+  { id:"s6_11", sp:"Eilai", tr:"Ein lahem.", en:"They don't have.", emo:"🚫" } ],
+  step7:[
+  { id:"s7_01", sp:"Eilai", tr:"Ma?", en:"What?", emo:"❓" },
+  { id:"s7_02", sp:"Eilai", tr:"Mi?", en:"Who?", emo:"🧑" },
+  { id:"s7_03", sp:"Eilai", tr:"Eifo?", en:"Where?", emo:"📍" },
+  { id:"s7_04", sp:"Eilai", tr:"Matai?", en:"When?", emo:"⏰" },
+  { id:"s7_05", sp:"Eilai", tr:"Lama?", en:"Why?", emo:"🤔" },
+  { id:"s7_06", sp:"Eilai", tr:"Eikh?", en:"How?", emo:"🛠️" },
+  { id:"s7_07", sp:"Eilai", tr:"Kama?", en:"How many? How much?", emo:"🔢" },
+  { id:"s7_08", sp:"Eilai", tr:"Ma ata rotse?", en:"What do you (m) want?", emo:"🛒" },
+  { id:"s7_09", sp:"Eilai", tr:"Mi rotse?", en:"Who wants?", emo:"🙋" },
+  { id:"s7_10", sp:"Eilai", tr:"Eifo hu?", en:"Where is he?", emo:"🔎" },
+  { id:"s7_11", sp:"Eilai", tr:"Matai ata yakhol?", en:"When can you (m)?", emo:"📅" },
+  { id:"s7_12", sp:"Eilai", tr:"Ma yesh la?", en:"What does she have?", emo:"👜" } ],
+  step8:[
+  { id:"s8_01", sp:"Eilai", tr:"Kafe tov.", en:"Good coffee.", emo:"☕" },
+  { id:"s8_02", sp:"Eilai", tr:"Glida tova.", en:"Good ice cream.", emo:"🍦" },
+  { id:"s8_03", sp:"Eilai", tr:"Bayit gadol.", en:"A big house.", emo:"🏠" },
+  { id:"s8_04", sp:"Eilai", tr:"Pitsa gdola.", en:"A big pizza.", emo:"🍕" },
+  { id:"s8_05", sp:"Eilai", tr:"Khatul katan.", en:"A small cat.", emo:"🐱" },
+  { id:"s8_06", sp:"Eilai", tr:"Monit ktana.", en:"A small taxi.", emo:"🚕" },
+  { id:"s8_07", sp:"Eilai", tr:"Yeled tov.", en:"A good boy.", emo:"👦" },
+  { id:"s8_08", sp:"Eilai", tr:"Yalda tova.", en:"A good girl.", emo:"👧" },
+  { id:"s8_09", sp:"Eilai", tr:"Yeladim tovim.", en:"Good kids.", emo:"🧒" },
+  { id:"s8_10", sp:"Eilai", tr:"Yeladot tovot.", en:"Good girls.", emo:"👭" },
+  { id:"s8_11", sp:"Eilai", tr:"Bayit khadash.", en:"A new house.", emo:"🏡" },
+  { id:"s8_12", sp:"Eilai", tr:"Hi rotsa glida gdola.", en:"She wants a big ice cream.", emo:"🍨" } ]
+};
+const SAY5 = SAY_SETS.step5;
+Object.values(SAY_SETS).forEach(set => set.forEach(x => { AUDIO[x.id] = x.id + ".mp3"; }));
+let s12 = null, spAsking = false, spMic = null, spRec = null, spChunks = [], spUrl = null, spTimer = 0, spWatch = 0;
+function startSay5(){
+  s12 = { set:(typeof CUR === "string" && SAY_SETS[CUR]) || SAY5, i:0, said:0, saidNow:false, noMic:!navigator.mediaDevices || !window.MediaRecorder, phase:"say" };
+  show("g12");
+  clearInterval(spWatch); spWatch = setInterval(() => { if ($("g12").hidden){ spRelease(); clearInterval(spWatch); } }, 400);
+  sayRound();
+}
+function sayRound(){
+  if (s12.i >= s12.set.length) return sayEnd();
+  const o = s12.set[s12.i]; s12.cur = o; s12.saidNow = false; s12.phase = "say";
+  $("g12bar").style.width = (s12.i / s12.set.length * 100) + "%"; $("g12count").textContent = (s12.i + 1) + " / " + s12.set.length;
+  $("g12tag").textContent = "Now say it yourself"; $("g12emo").textContent = o.emo;
+  $("g12tr").textContent = o.tr; $("g12en").textContent = o.en;
+  spRepReset(); if (s12.noMic) spNoMic();
+  pop($("g12card"));
+  speak([o.id]);
+}
+function sayEnd(){
+  s12.phase = "end"; spRelease();
+  finish("Well said!", s12.said + " / " + s12.set.length, "sentences said out loud.", "");
+}
+$("g12next").addEventListener("click", () => { if (!s12 || s12.phase !== "say") return; spStopRec(true); s12.i++; sayRound(); });
+/* ---------- listen & repeat: the STEP 4 self-compare (same buttons and words) ---------- */
+function spRepReset(){
+  spStopRec(true);
+  if (spUrl){ URL.revokeObjectURL(spUrl); spUrl = null; }
+  $("g12cmp").hidden = true; $("g12rec").hidden = false;
+  $("g12rec").textContent = spAsking ? "🎙 Asking for the microphone…" : "🎙 Record yourself"; $("g12rec").disabled = spAsking; $("g12rec").classList.remove("on"); $("g12recnote").textContent = "";
+  $("g12orig").textContent = "▶ " + s12.cur.sp; $("g12said").hidden = true; $("g12said").disabled = false; $("g12said").textContent = "I said it";
+}
+function spCount(){ if (s12.cur && !s12.saidNow){ s12.saidNow = true; s12.said++; } }
+function spNoMic(why){
+  $("g12recnote").textContent = (why === "blocked" ? "The microphone is blocked in this browser." : why === "timeout" ? "The microphone didn't answer." : "No microphone here.") + " Say it out loud, tap I said it, then Next.";
+  $("g12rec").hidden = true; $("g12cmp").hidden = false; $("g12mine").hidden = true; $("g12again").hidden = true;
+  $("g12said").hidden = false; $("g12said").disabled = s12.saidNow; $("g12said").textContent = s12.saidNow ? "Counted" : "I said it";
+}
+function spRelease(){ spStopRec(true); if (spMic){ spMic.getTracks().forEach(t => t.stop()); spMic = null; } }
+function spStopRec(discard){
+  clearTimeout(spTimer);
+  try{ if (spRec && spRec.state === "recording"){ spRec.__drop = !!discard; spRec.stop(); } }catch(e){}
+}
+async function spRecord(){
+  if (spRec && spRec.state === "recording"){ spStopRec(false); return; }
+  if (spAsking) return;
+  try{
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) throw new Error("unsupported");
+    if (!spMic){
+      spAsking = true; $("g12rec").disabled = true; $("g12rec").textContent = "🎙 Asking for the microphone…";
+      $("g12recnote").textContent = "Allow the microphone when your browser asks.";
+      try{ const devs = await navigator.mediaDevices.enumerateDevices(); if (devs.length && !devs.some(d => d.kind === "audioinput")) throw new Error("NotFoundError"); }catch(e){ if (e.message === "NotFoundError") throw e; }
+      spMic = await Promise.race([navigator.mediaDevices.getUserMedia({ audio:true }), new Promise((_, no) => setTimeout(() => no(new Error("timeout")), 10000))]);
+      spAsking = false; $("g12rec").disabled = false;
+      if (!s12 || s12.phase !== "say"){ spRelease(); return; }
+    }
+  }catch(e){
+    spAsking = false; $("g12rec").disabled = false; s12.noMic = true;
+    spNoMic(e && (e.name === "NotAllowedError" || e.name === "SecurityError") ? "blocked" : e && e.message === "timeout" ? "timeout" : "missing"); return;
+  }
+  try{ player.pause(); }catch(e){}
+  spChunks = [];
+  const r = spRec = new MediaRecorder(spMic);
+  r.ondataavailable = e => { if (e.data && e.data.size) spChunks.push(e.data); };
+  r.onstop = () => {
+    $("g12rec").classList.remove("on");
+    if (r.__drop || !spChunks.length){ $("g12rec").textContent = "🎙 Record yourself"; return; }
+    if (spUrl) URL.revokeObjectURL(spUrl);
+    spUrl = URL.createObjectURL(new Blob(spChunks, { type: r.mimeType || "audio/webm" }));
+    $("g12rec").hidden = true; $("g12cmp").hidden = false; $("g12mine").hidden = false; $("g12again").hidden = false; $("g12said").hidden = true;
+    spCount();
+    $("g12recnote").textContent = "Compare yourself: play your recording, then " + s12.cur.sp + "'s. Sound close? Tap Next.";
+    sfx("pop");
+  };
+  r.start(); sfx("tap");
+  $("g12rec").textContent = "■ Stop"; $("g12rec").classList.add("on"); $("g12recnote").textContent = "Say it now…";
+  spTimer = setTimeout(() => spStopRec(false), 7000);
+}
+$("g12rec").addEventListener("click", spRecord);
+$("g12said").addEventListener("click", () => { spCount(); $("g12said").disabled = true; $("g12said").textContent = "Counted"; sfx("pop"); });
+$("g12mine").addEventListener("click", () => { if (!spUrl) return; player.playbackRate = 1; player.src = spUrl; const p = player.play(); if (p && p.catch) p.catch(()=>{}); });
+$("g12orig").addEventListener("click", () => { if (s12 && s12.cur) speak([s12.cur.id]); });
+$("g12again").addEventListener("click", () => { if (spUrl){ URL.revokeObjectURL(spUrl); spUrl = null; } $("g12cmp").hidden = true; $("g12rec").hidden = false; spRecord(); });
+starters[12] = startSay5;
+window.say5State = () => ({ n:s12.set.length, first:s12.set[0].id, i:s12.i, phase:s12.phase, said:s12.said, tr:$("g12tr").textContent, orig:$("g12orig").textContent, note:$("g12recnote").textContent, file:decodeURIComponent((player.src || "").split("/").pop()) });
 </script>
 <script>
 /* =====================================================================
@@ -3556,6 +3796,33 @@ const STEP5_EMBEDS = {
   wordwall2:"https://wordwall.net/embed/4b0d07f5d3f74ccf940625071b398476?themeId=53&templateId=2&fontStackId=0",   // WHAT GOES WITH IT?
   wordwall3:"https://wordwall.net/embed/f2d85b03db444e00b3a99bb0e5b83fdf?themeId=53&templateId=5&fontStackId=0",   // SAY IT IN HEBREW
   speak:    "https://kniz-speak.lovable.app/?lesson=to-words&translit=1"
+};
+
+/* STEP 6-8, Just speak track: from the Systeme course "HEBREW HACK without reading" (693801), read only, Nov 15
+   (/workspace/next-lessons/systeme_content.md). The KNIZ Speak iframes are not used: Speak is the in-app self-compare. */
+const STEP6_LIVE = false;   // "I Have / I Don't Have", page 45987481. false = "Coming soon" on the map; true when Eli approves
+const STEP6_EMBEDS = {
+  video1:   "https://player.vimeo.com/video/1239998754",   // Eilai: lesson video (speak) 3 (3:06)
+  genially: "https://view.genially.com/6ada7ca8da3da94ef90430b0",   // iframe title "Copy - I HAVE"; its preview says "SENTENCE BUILDER: I WANT / I NEED" (check with Eli)
+  video2:   "https://player.vimeo.com/video/1239342786",   // L6 I have / I don't have - Speak (1:13), Noa + Yonatan dialogue
+  wordwall1:"https://wordwall.net/embed/8d1eec2276944a42ae4c0b14707969b9?themeId=49&templateId=5&fontStackId=0"   // STEP 6 - WHO HAS IT? (quiz)
+};
+const STEP7_LIVE = false;   // "Question Words", page 45987482
+const STEP7_EMBEDS = {
+  video1:   "https://player.vimeo.com/video/1240968533",   // Eilai: Question Words (speak) (5:26)
+  genially: "https://view.genially.com/6ada9310f332b6326b7b5501",   // iframe title "Copy - SENTENCE BUILDER: I WANT / I NEED" (check with Eli)
+  video2:   "https://player.vimeo.com/video/1239342784",   // L7 Question Words - Speak (1:11)
+  wordwall1:"https://wordwall.net/embed/2b904232a4d84580b732c3ff013551ba?themeId=68&templateId=2&fontStackId=0",   // ASK & ANSWER (group sort)
+  wordwall2:"https://wordwall.net/embed/03112851ec9ad72f47837fcb33a86819?themeId=68&templateId=3&fontStackId=0"    // QUESTION WORDS (match up)
+};
+const STEP8_LIVE = false;   // "Gender", page 45987483
+const STEP8_EMBEDS = {
+  video1:   "https://player.vimeo.com/video/1240968535",   // Eilai: Noun Gender (speak) (5:22)
+  video1b:  "https://player.vimeo.com/video/1237390446",   // second teacher video (5:09, no title shown) right after it on Systeme
+  genially: "https://view.genially.com/6a865955ddc044d03ce06267",   // iframe title "שמות עצם מגדר"; preview says "SENTENCE BUILDER: I WANT / I NEED" (check with Eli)
+  video2:   "https://player.vimeo.com/video/1239342799",   // L8 Gender - Speak (1:01)
+  wordwall1:"https://wordwall.net/embed/40dc4e02bcaf4976b6b0f0144a7b1968?themeId=51&templateId=2&fontStackId=0",   // GENDER GAME 1 (group sort)
+  wordwall2:"https://wordwall.net/embed/9111640840c8456798b876c95276d98c?themeId=51&templateId=3&fontStackId=0"    // Matching pairs (match up)
 };
 
 /* TODO (access control, not active in the pilot).
@@ -3610,9 +3877,11 @@ const STEPS = [
   { id:"step3",   n:"STEP 3",   t:"Pronouns",          he:"אֲנִי" },
   { id:"step4",   n:"STEP 4",   t:"The Magic Four",    he:"רוֹצֶה", live:true },
   { id:"step5",   n:"STEP 5",   t:"The TO-Words",      he:"לֶאֱכוֹל" },
-  { id:"step6",   n:"STEP 6",   t:"Yesh li / Ein li",  he:"יֵשׁ לִי" }
+  { id:"step6",   n:"STEP 6",   t:"I Have / I Don't Have", he:"יֵשׁ לִי" },
+  { id:"step7",   n:"STEP 7",   t:"Question Words",    he:"מָה?" },
+  { id:"step8",   n:"STEP 8",   t:"Gender",            he:"טוֹבָה" }
 ];
-const ZIG = [0, -56, -78, -40, 30, 70, 36];
+const ZIG = [0, -56, -78, -40, 30, 70, 36, -20, -66];
 /* Reading-track steps (alphabet, niqud) are optional for "Just speak": they never block the steps after them.
    Unlocking a step only looks at the earlier steps that are required for this learner. */
 const stepRequired = st => !(st.reading && A.read === false);
@@ -3708,18 +3977,65 @@ const LESSON_STEP5 = [
   { type:"embed", sec:"Practice", icon:"🧩", name:"The TO-Words", sub:"Match them up", url:STEP5_EMBEDS.wordwall1, xp:5, how:"Match each TO-word to its meaning." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"What goes with it?", sub:"Sort the words", url:STEP5_EMBEDS.wordwall2, xp:5, how:"Which words go with which TO-word?" },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Say it in Hebrew", sub:"Pick the right one", url:STEP5_EMBEDS.wordwall3, xp:5, how:"Pick the Hebrew that says the English." },
-  { type:"embed", sec:"Speak",    icon:"🎙", name:"Say them out loud", url:STEP5_EMBEDS.speak, xp:10, mic:true,
-    how:"Say each TO-word into your phone and hear how close you are. Allow the microphone when asked." }
+  // Speak: the STEP 4 self-compare (record yourself, play both, no judging), not the KNIZ Speak recognition card (Eli, Nov 15)
+  { type:"game", sec:"Speak", g:12, icon:"🎙", name:"Say them out loud", sub:"Record yourself and compare", xp:10,
+    how:"Hear the sentence, record yourself, then play both and compare." }
+];
+/* STEP 6-8 (Just speak track), same template as STEP 5: teacher video(s) -> Genially -> dialogue video -> Play slot ("soon" until
+   the games are built) -> Wordwall (Systeme order) -> Speak = the STEP 4/5 self-compare (game 12, sentence set per STEP in say5.js) */
+const PLAY_SOON = { type:"soon", sec:"Play", icon:"🎮", name:"Mini-games", sub:"New games for this step are on the way", xp:0,
+  how:"New games for this step are on the way. Tap Continue." };
+const SPEAK_PART = how => ({ type:"game", sec:"Speak", g:12, icon:"🎙", name:"Say them out loud", sub:"Record yourself and compare", xp:10, how });
+const LESSON_STEP6 = [
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Eilai explains", url:STEP6_EMBEDS.video1, xp:5,
+    how:"Yesh li, ein li: how to say what you have and what you don't." },
+  { type:"embed", sec:"Learn",    icon:"📖", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP6_EMBEDS.genially, xp:5, wide:true, slides:true,
+    how:"Tap Open full screen to see the slides bigger." },
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Have / don't have dialogue", url:STEP6_EMBEDS.video2, xp:5, cc:false,   // text is on screen; no captions track
+    how:"Noa and Yonatan check what they have in the kitchen. Say each line with them." },
+  PLAY_SOON,
+  { type:"embed", sec:"Practice", icon:"🧩", name:"Who has it?", sub:"Pick the right one", url:STEP6_EMBEDS.wordwall1, xp:5, how:"Who has it? Pick the right answer." },
+  SPEAK_PART("Hear it, record yourself, then play both and compare.")
+];
+const LESSON_STEP7 = [
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Eilai explains", url:STEP7_EMBEDS.video1, xp:5,
+    how:"What, who, where, when, why: now you ask the questions." },
+  { type:"embed", sec:"Learn",    icon:"📖", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP7_EMBEDS.genially, xp:5, wide:true, slides:true,
+    how:"Tap Open full screen to see the slides bigger." },
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Question words dialogue", url:STEP7_EMBEDS.video2, xp:5, cc:false,
+    how:"Noa and Yonatan meet and ask each other questions. Say each line with them." },
+  PLAY_SOON,
+  { type:"embed", sec:"Practice", icon:"🧩", name:"Ask & answer", sub:"Sort the words", url:STEP7_EMBEDS.wordwall1, xp:5, how:"Is it a question or an answer? Sort them." },
+  { type:"embed", sec:"Practice", icon:"🧩", name:"Question words", sub:"Match them up", url:STEP7_EMBEDS.wordwall2, xp:5, how:"Match each question word to its meaning." },
+  SPEAK_PART("Hear it, record yourself, then play both and compare.")
+];
+const LESSON_STEP8 = [
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Eilai explains", url:STEP8_EMBEDS.video1, xp:5,
+    how:"Is it a he or a she? How Hebrew words get a gender." },
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn, part 2", sub:"More with Eilai", url:STEP8_EMBEDS.video1b, xp:5,
+    how:"More words, more practice: make the describing word match." },
+  { type:"embed", sec:"Learn",    icon:"📖", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP8_EMBEDS.genially, xp:5, wide:true, slides:true,
+    how:"Tap Open full screen to see the slides bigger." },
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Gender dialogue", url:STEP8_EMBEDS.video2, xp:5, cc:false,
+    how:"Noa and Yonatan order ice cream and pizza: big or small? Say each line with them." },
+  PLAY_SOON,
+  { type:"embed", sec:"Practice", icon:"🧩", name:"Gender game", sub:"Sort the words", url:STEP8_EMBEDS.wordwall1, xp:5, how:"Is it a he word or a she word? Sort them." },
+  { type:"embed", sec:"Practice", icon:"🧩", name:"Matching pairs", sub:"Match them up", url:STEP8_EMBEDS.wordwall2, xp:5, how:"Find the pairs." },
+  SPEAK_PART("Hear it, record yourself, then play both and compare.")
 ];
 const LESSONS = {
   step3:{ n:"STEP 3", title:"Pronouns", intro:"I, you, he, she: who is who in Hebrew. Watch, learn, play, say it.", parts:LESSON_STEP3, speakOnly:true },
   step5:{ n:"STEP 5", title:"The TO-Words", intro:"To eat, to drink, to sleep: say what you want to DO. Watch, learn, practise, say it.", parts:LESSON_STEP5, speakOnly:true },
+  step6:{ n:"STEP 6", title:"I Have / I Don't Have", intro:"Yesh li, ein li: say what you have and what you don't. Watch, learn, practise, say it.", parts:LESSON_STEP6, speakOnly:true },
+  step7:{ n:"STEP 7", title:"Question Words", intro:"What, who, where, when, why: now you ask. Watch, learn, practise, say it.", parts:LESSON_STEP7, speakOnly:true },
+  step8:{ n:"STEP 8", title:"Gender", intro:"Is it a he or a she? Make the words match. Watch, learn, practise, say it.", parts:LESSON_STEP8, speakOnly:true },
   step4:{ n:"STEP 4", title:"The Magic Four", intro:"Tap a verb to see it with every person. Watch, learn, play, practise.", parts:LESSON_STEP4 }
 };
 let CUR = "step4";
 const blankState = () => ({ pos:0, done:[], completed:0, parts:[], v:LESSON_VERSION });
 if (!A.step3) A.step3 = blankState();
 if (!A.step5) A.step5 = blankState();
+["step6","step7","step8"].forEach(id => { if (!A[id]) A[id] = blankState(); });
 /* STEP 3 part list v2 (Nov 15): SNAP! added after Explore. Saved progress moves over by part name; the place moves back to the first part not done. */
 /* v3 (Nov 15): ROOFTOP PARTY added after SNAP! */
 const STEP3_VERSION = 3, STEP3_OLD = { 1: ["Watch & learn","Explore on your own","Who is it?","Pick the right word","Say them out loud"],
@@ -3734,10 +4050,13 @@ if (A.step3.sv !== STEP3_VERSION){
 }
 const ST = () => A[CUR];
 function useLesson(id){ if (!LESSONS[id]) return; CUR = id; LESSON = LESSONS[id].parts; A[id] = Object.assign(blankState(), A[id] || {}); }
-const lessonOpen = id => !!LESSONS[id] && (id !== "step3" || STEP3_LIVE) && (id !== "step5" || STEP5_LIVE) && (!LESSONS[id].speakOnly || A.read === false);   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
+/* a STEP with a LIVE flag in config.js only opens once the flag is true */
+const STEP_LIVE = { step3:STEP3_LIVE, step5:STEP5_LIVE, step6:STEP6_LIVE, step7:STEP7_LIVE, step8:STEP8_LIVE };
+const stepLive = id => STEP_LIVE[id] !== false;
+const lessonOpen = id => !!LESSONS[id] && stepLive(id) && (!LESSONS[id].speakOnly || A.read === false);   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
 function lessonProgress(id){ const s = A[id] || {}; return s.completed ? 1 : Math.min(1, (s.pos || 0) / LESSONS[id].parts.length); }
 const XP_BONUS = 20;
-const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","words"];
+const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","words"];
 
 const dayStr = d => d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
 function liveStreak(){
@@ -3794,7 +4113,7 @@ function paintHome(){
       }
       b.addEventListener("click", () => openStep(st.id));
     } else {
-      b.addEventListener("click", () => { sfx("soft"); toast(optional ? st.t + " is for reading. You can skip it and go on." : (LESSONS[st.id] && (st.id !== "step3" || STEP3_LIVE) && (st.id !== "step5" || STEP5_LIVE)) ? st.t + ": coming soon for Speak + read" : st.t + ": coming soon"); });
+      b.addEventListener("click", () => { sfx("soft"); toast(optional ? st.t + " is for reading. You can skip it and go on." : (LESSONS[st.id] && stepLive(st.id)) ? st.t + ": coming soon for Speak + read" : st.t + ": coming soon"); });
     }
     const cap = document.createElement("div"); cap.className = "hh-cap";
     const pct = Math.round(prog * 100);
@@ -3858,7 +4177,7 @@ async function openStep(id){
   if (!acc.ok){ toast("This step opens after you join"); return; }
   $("stXp").textContent = "⚡ " + A.xp;
   const LS = LESSONS[CUR]; $("stN").textContent = LS.n; $("stTitle").textContent = LS.title; $("stIntro").textContent = LS.intro;
-  $("cjTabs").hidden = CUR !== "step4"; if (CUR === "step4") paintConj(); else if (CUR === "step5") paintToTable(); else paintPronTable();
+  $("cjTabs").hidden = CUR !== "step4"; if (CUR === "step4") paintConj(); else if (CUR === "step5") paintToTable(); else if (STEP_WORDS[CUR]) paintWords(STEP_WORDS[CUR]); else paintPronTable();
   const ol = $("stParts"); ol.innerHTML = "";
   let lastSec = "";
   LESSON.forEach((p, i) => {
@@ -3937,6 +4256,26 @@ const TO_WORDS = [
 function paintToTable(){
   const tb = $("cjTable"); tb.innerHTML = "";
   TO_WORDS.forEach(([he, tr, en]) => {
+    const r = document.createElement("tr");
+    r.innerHTML = '<td class="hh-p"><span lang="he"></span><span class="hh-cj-tr"></span></td><td class="hh-en"></td>';
+    r.querySelector('[lang="he"]').textContent = he; r.querySelector(".hh-cj-tr").textContent = tr; r.lastChild.textContent = en;
+    tb.append(r);
+  });
+}
+
+/* STEP 6-8 page header: the words of the lesson (same table as STEP 5: Hebrew, Latin letters kh/ts, English) */
+const STEP_WORDS = {
+  step6:[["יֵשׁ לִי","yesh li","I have"], ["יֵשׁ לוֹ","yesh lo","he has"], ["יֵשׁ לָהּ","yesh la","she has"], ["יֵשׁ לָנוּ","yesh lanu","we have"],
+    ["יֵשׁ לָכֶם","yesh lakhem","you have (pl, m)"], ["יֵשׁ לָכֶן","yesh lakhen","you have (pl, f)"], ["יֵשׁ לָהֶם","yesh lahem","they have (m)"], ["יֵשׁ לָהֶן","yesh lahen","they have (f)"],
+    ["אֵין לִי","ein li","I don't have"], ["אֵין לָהּ","ein la","she doesn't have"], ["אֵין לָהֶם","ein lahem","they don't have"]],
+  step7:[["מָה?","ma?","what?"], ["מִי?","mi?","who?"], ["אֵיפֹה?","eifo?","where?"], ["מָתַי?","matai?","when?"], ["לָמָּה?","lama?","why?"], ["אֵיךְ?","eikh?","how?"], ["כַּמָּה?","kama?","how many / how much?"]],
+  step8:[["קָפֶה טוֹב","kafe tov","good coffee"], ["גְּלִידָה טוֹבָה","glida tova","good ice cream"], ["בַּיִת גָּדוֹל","bayit gadol","a big house"], ["פִּיצָה גְּדוֹלָה","pitsa gdola","a big pizza"],
+    ["חָתוּל קָטָן","khatul katan","a small cat"], ["מוֹנִית קְטַנָּה","monit ktana","a small taxi"], ["יֶלֶד טוֹב","yeled tov","a good boy"], ["יַלְדָּה טוֹבָה","yalda tova","a good girl"],
+    ["יְלָדִים טוֹבִים","yeladim tovim","good kids"], ["יְלָדוֹת טוֹבוֹת","yeladot tovot","good girls"], ["בַּיִת חָדָשׁ","bayit khadash","a new house"]]
+};
+function paintWords(list){
+  const tb = $("cjTable"); tb.innerHTML = "";
+  list.forEach(([he, tr, en]) => {
     const r = document.createElement("tr");
     r.innerHTML = '<td class="hh-p"><span lang="he"></span><span class="hh-cj-tr"></span></td><td class="hh-en"></td>';
     r.querySelector('[lang="he"]').textContent = he; r.querySelector(".hh-cj-tr").textContent = tr; r.lastChild.textContent = en;
@@ -4073,7 +4412,7 @@ function paintPron(){
   const box = $("hhPron"); if (!box) return;
   const v = CONJ[pronVerb], read = A.read !== false;
   box.classList.toggle("speak", !read);
-  const pb = $("gPron"); if (pb) pb.hidden = (!read && A.tr === false) || String(current) === "9" || String(current) === "10" || String(current) === "11";   // SNAP! tests the pronouns: no table there   // Just speak with letters off: nothing to show
+  const pb = $("gPron"); if (pb) pb.hidden = (!read && A.tr === false) || String(current) === "9" || String(current) === "10" || String(current) === "11" || String(current) === "12";   // SNAP! tests the pronouns: no table there   // Just speak with letters off: nothing to show
   // one chip per person: pronoun on top, its verb form under it (אֲנִי shows both: he / she)
   const he = (cls, t) => '<b class="' + cls + '" lang="he">' + t + "</b>";
   const tr = (cls, t) => '<i class="' + cls + ' hh-cj-tr">' + t + "</i>";
@@ -4285,7 +4624,7 @@ function applyTr(){
   const on = A.tr !== false; window.HH_TR = on;
   document.body.classList.toggle("hh-notr", !on);
   document.querySelectorAll("[data-trtoggle]").forEach(b => { b.setAttribute("aria-pressed", String(on));
-    b.setAttribute("aria-label", on ? "English letters: on. Tap to hide" : "English letters: off. Tap to show"); b.title = "Show English letters"; });
+    b.setAttribute("aria-label", on ? "Latin letters: on. Tap to hide" : "Latin letters: off. Tap to show"); b.title = "Show Latin letters"; });
 }
 
 /* ---------- hooks into the game script ---------- */
@@ -4303,7 +4642,7 @@ show = function(id){
 finish = function(title, big, sub, extra){
   if (!L) return gameFinish(title, big, sub, extra);
   const g = Number(current);
-  const said = g === 6 ? len6 : g === 4 ? cards4.length : g === 5 ? o5.said.length : g === 8 ? (e8.said || 0) : g === 7 ? (r7.served || 0) : g === 9 ? ((s9 && s9.said) || 0) : g === 10 ? ((r10 && r10.said) || 0) : 0;   // CHAT BACK (11): no speaking yet, so nothing counted as said
+  const said = g === 6 ? len6 : g === 4 ? cards4.length : g === 5 ? o5.said.length : g === 8 ? (e8.said || 0) : g === 7 ? (r7.served || 0) : g === 9 ? ((s9 && s9.said) || 0) : g === 10 ? ((r10 && r10.said) || 0) : g === 12 ? ((s12 && s12.said) || 0) : 0;   // CHAT BACK (11): no speaking yet, so nothing counted as said
   const part = LESSON[L.pos], xp = part.xp || 10;
   L.said += said;
   if (!ST().done.includes(g)) ST().done.push(g);
