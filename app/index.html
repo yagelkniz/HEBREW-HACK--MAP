@@ -1015,6 +1015,22 @@ main section > .top > .back{display:none}
 .hh-bg-iv2 .hh-cb-chip{min-height:36px;padding:4px 10px}
 .hh-bg-iv2 .hh-bg-rows{gap:4px}
 .hh-bg-iv2 .hh-bg-draft{font-size:17px;padding:6px 10px}
+/* v32: SNAP clarity (Claude SNAP review 1-4) */
+.hh-sn-shutter.hh-sn-off{opacity:.45;filter:grayscale(.7)}
+.hh-sn-badge{display:block;font-style:normal;font-size:13px;line-height:1}
+.hh-sn-cnt{padding:1px 8px;border-radius:99px;background:rgba(255,255,255,.18);font-variant-numeric:tabular-nums}
+.hh-sn-legbtn{min-width:28px;min-height:28px;border:0;border-radius:50%;background:rgba(255,255,255,.2);font-size:14px;line-height:1;cursor:pointer}
+.hh-sn-vfhead{gap:6px}
+.hh-sn-vf[data-mode="none"]{outline:2px dashed rgba(255,255,255,.3);outline-offset:-2px}
+.hh-sn-modes button.on{box-shadow:0 0 0 3px #f6efe2}
+.hh-sn-panel{display:flex;flex-direction:column;gap:10px;padding:4px 2px}
+.hh-sn-panel[hidden]{display:none}
+.hh-sn-ptitle{font-size:22px;font-weight:900;text-align:center}
+.hh-sn-steps{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:10px;font-size:16px;line-height:1.35}
+.hh-sn-pnote{margin:0;text-align:center;font-size:14px;color:var(--cream-dim)}
+.hh-sn-lg{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14)}
+.hh-sn-lg b{font-size:15px} .hh-sn-lg span{font-size:14px} .hh-sn-lg em{font-size:13px;color:var(--cream-dim)}
+#g9introRow,#g9legRow{gap:8px}
 </style>
 </head>
 <body>
@@ -1062,7 +1078,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v31-47dffcdc0c</p>
+  <p class="hh-ver" id="oVer">Version hh-v32-af5b2c6470</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -1456,7 +1472,7 @@ main section > .top > .back{display:none}
     <div class="hh-demo-lab" id="g9lab" hidden></div>
     <div class="hh-sn-stage" id="g9stage" hidden></div>
     <div class="hh-sn-vf" id="g9vf" data-mode="back">
-      <div class="hh-sn-vfhead"><span id="g9mlabel"></span><span class="hh-sn-timer" id="g9timer" hidden></span></div>
+      <div class="hh-sn-vfhead"><span id="g9mlabel"></span><span class="hh-sn-cnt" id="g9cnt" hidden></span><span class="hh-sn-timer" id="g9timer" hidden></span><button class="hh-sn-legbtn" id="g9leg" type="button" aria-label="Camera guide">❓</button></div>
       <div class="hh-sn-frame" id="g9frame" aria-live="polite"></div>
       <div class="hh-sn-photo" id="g9photo" hidden>
         <div class="hh-sn-pic" id="g9pic"></div>
@@ -1477,11 +1493,30 @@ main section > .top > .back{display:none}
       <div class="hh-reprow" id="g9cmp" hidden><button class="pill" id="g9mine" type="button">▶ My voice</button><button class="pill" id="g9orig" type="button">▶ Eilai</button><button class="pill" id="g9said" type="button" hidden>I said it</button></div>
       <div class="hint" id="g9recnote" aria-live="polite"></div>
     </div>
+    <div class="hh-sn-panel" id="g9intro" hidden>
+      <div class="hh-sn-ptitle">How to play SNAP</div>
+      <ol class="hh-sn-steps">
+        <li><b>🔊 Listen</b> to the word.</li>
+        <li><b>📸 Pick a camera.</b> Who's in the sentence: me, them, or you?</li>
+        <li><b>👆 Tap the people.</b> Pick the right number, and boys or girls.</li>
+        <li><b>📸 Press Snap!</b></li>
+      </ol>
+      <p class="hh-sn-pnote">You need the right camera AND the right people.</p>
+    </div>
+    <div class="hh-sn-panel" id="g9legend" hidden>
+      <div class="hh-sn-ptitle">Pick your camera 📸</div>
+      <div class="hh-sn-lg"><b>🤳 Selfie = I'm in it</b><span>ani (I) · anakhnu (we)</span><em>e.g. "anakhnu" → Selfie + friends</em></div>
+      <div class="hh-sn-lg"><b>📷 Camera = I talk ABOUT them</b><span>hu (he) · hi (she) · hem (they) · hen (they, all girls)</span><em>e.g. "hi" → Camera + 1 girl</em></div>
+      <div class="hh-sn-lg"><b>📱 Video call = I talk TO them</b><span>ata (you, boy) · at (you, girl) · atem (you all) · aten (you all, all girls)</span><em>e.g. "at" → Video call + 1 girl</em></div>
+      <p class="hh-sn-pnote"><b>👦 + 👧 = boys!</b> If even one boy is in the group, use <b>hem / atem</b>.</p>
+    </div>
     <div class="hh-sn-end" id="g9end" hidden></div>
   </div>
   <div class="row" id="g9shotRow"><button class="btn hh-sn-shutter" id="g9shoot" type="button">📸 Snap</button></div>
   <div class="row" id="g9nextRow" hidden><button class="btn" id="g9next" type="button">Next photo</button></div>
   <div class="row" id="g9doneRow" hidden><button class="btn" id="g9done" type="button">Continue</button></div>
+  <div class="row" id="g9introRow" hidden><button class="btn" id="g9introGo" type="button">▶ Watch the demo</button><button class="pill" id="g9introPlay" type="button" hidden>Start playing</button></div>
+  <div class="row" id="g9legRow" hidden><button class="btn" id="g9legBack" type="button">Back to the game</button></div>
 </section>
 
 <!-- ROOFTOP PARTY (STEP 3): you host a rooftop party. The cue says the direction (to them / about them / with me), the guests say number and gender: pick the pronoun fast. -->
@@ -3073,7 +3108,8 @@ const SNAP_SHOTS = [
   { t:"ani", banner:"Faster now" }, { t:"at" }, { t:"hi" }, { t:"anachnu" }, { t:"hem", pre:["maya","noa"] }, { t:"atem" }, { t:"hen", pre:["noa","yosi","maya"] }
 ];
 const SNAP_TIP = "🤳 with me · 📷 about them · 📱 to them";
-const snapSec = i => Math.round((5 - 2.5 * i / (SNAP_SHOTS.length - 1)) * 2) / 2;
+const SNAP_FREE = 5;   // v32: no timer in rounds 1-5 (singular words only there: ani, hu, at, hi, ata)
+const snapSec = i => i < SNAP_FREE ? 0 : Math.round((5 - 2.5 * i / (SNAP_SHOTS.length - 1)) * 2) / 2;
 let s9 = null;
 const snapPerson = id => SNAP_PEOPLE.find(p => p.id === id);
 /* what does the photo say? mode + who is in it */
@@ -3097,20 +3133,28 @@ function snapDir(t){
 }
 const snapWho = t => { const [d, n, g] = SNAP_FEAT[t]; return n === 1 ? (g === "m" ? "one boy" : "one girl") : (g === "m" ? "a group with a boy in it" : "girls only"); };
 /* feedback that names the one thing that's off */
-function snapWhy(t, got, mode){   // v30: one hint format, "[icon] [Category]: [reason] → [answer]."
-  if (!got) return "👀 Who: nobody's in the photo → tap people into the frame.";
-  const T = SNAP_FEAT[t], G = SNAP_FEAT[got], tw = snapTr(t), gw = snapTr(got), DI = { selfie:"🤳", back:"📷", call:"📱" };
-  if (t === "anachnu" && mode !== "selfie") return "🤳 Direction: anakhnu includes you → switch to Selfie and add a friend.";
-  if (t === "anachnu") return "👥 Number: anakhnu = you AND others → tap a friend into your selfie.";
-  if (t === "ani") return mode === "selfie" ? "👤 Number: ani is just you → take the others out of your selfie." : "🤳 Direction: ani is you → switch to Selfie.";
-  if (T[0] !== G[0]) return DI[T[0]] + " Direction: " + snapDir(t) + " → " + tw + ", not " + gw + ".";
-  if (T[1] !== G[1]) return (T[1] === 1 ? "👤" : "👥") + " Number: " + (T[1] === 1 ? "one person" : "more than one") + " → " + tw + ", not " + gw + ".";
-  return (T[2] === "m" ? "👦" : "👧") + " Gender: " + tw + " is " + snapWho(t) + (T[1] === 2 && T[2] === "m" ? " (one boy makes it " + tw + ")" : "") + " → " + tw + ", not " + gw + ".";
+const SNAP_CAM = { selfie:"Selfie", back:"Camera", call:"Video call" }, SNAP_CI = { selfie:"🤳", back:"📷", call:"📱" };
+function snapCamWhy(t){   // why this camera
+  const [d, n, g] = SNAP_FEAT[t], w = snapTr(t), who = n === 1 ? (g === "m" ? "him" : "her") : "them";
+  if (d === "selfie") return n === 1 ? w + " is you" : w + " includes you";
+  return (d === "back" ? "you talk ABOUT " : "you talk TO ") + who;
+}
+/* v32 (Claude SNAP clarity): hints in 2 parts, the camera first, then the people. Same format "[icon] [Category]: [reason] → [answer]." */
+function snapWhy(t, got, mode){
+  const T = SNAP_FEAT[t], tw = snapTr(t);
+  if (!mode || mode !== T[0]) return SNAP_CI[T[0]] + " Camera: " + snapCamWhy(t) + " → " + SNAP_CAM[T[0]] + (mode ? ", not " + SNAP_CAM[mode] : "") + ".";
+  const ok = "📸 Camera: right! ";
+  if (t === "ani") return ok + "👤 People: ani is just you → take the others out.";
+  if (t === "anachnu") return ok + "👥 People: anakhnu = you AND others → add a friend.";
+  if (!got) return ok + "👀 People: nobody's in the photo → tap people in.";
+  const G = SNAP_FEAT[got], gw = snapTr(got);
+  if (T[1] !== G[1]) return ok + (T[1] === 1 ? "👤 People: one person only" : "👥 People: more than one") + " → " + tw + ", not " + gw + ".";
+  return ok + (T[2] === "m" ? "👦 People: " : "👧 People: ") + tw + " is " + snapWho(t) + (T[1] === 2 && T[2] === "m" ? " (one boy makes it " + tw + ")" : "") + " → " + tw + ", not " + gw + ".";
 }
 function startSnap(){
   const order = SNAP_SHOTS.map((x, i) => Object.assign({ sec:snapSec(i) }, x));
   s9 = { order, i:0, clean:0, said:0, tries:0, mode:"back", inFrame:[], phase:"idle", saidNow:false, noMic:!navigator.mediaDevices || !window.MediaRecorder, t:0, left:0 };
-  snapReal = null; show("g9"); snapWatch(); snapDemo();
+  snapReal = null; show("g9"); snapWatch(); snapIntro();
 }
 function snapWatch(){   // stops the timer and the mic when the game is left any way (‹, ⌂, Back)
   clearInterval(s9.watch);
@@ -3122,23 +3166,30 @@ function nextSnap(){
   if (s9.i >= s9.order.length) return snapEnd();
   const o = s9.order[s9.i];
   s9.cur = o; s9.tries = 0; s9.saidNow = false; s9.phase = "aim";
+  s9.mode = null; s9.touched = false; s9.listening = true;   // v32: Snap stays grey until a camera is picked
   if (o.pre) s9.inFrame = o.pre.slice();   // otherwise the last photo's people stay in the frame: fix it fast
   $("g9bar").style.width = (s9.i / s9.order.length * 100) + "%";
   $("g9count").textContent = (s9.i + 1) + " / " + s9.order.length;
   document.querySelectorAll("#g9modes button").forEach(b => { b.hidden = false; });
   $("g9tip").textContent = SNAP_TIP;
   const sg = $("g9stage"); sg.hidden = !o.banner; sg.textContent = o.banner || "";
-  $("g9tag").textContent = "Listen, then snap before the timer runs out";
+  $("g9tag").textContent = "🔊 Listen… (tap 🔊 to hear it again)";
   $("g9msg").textContent = ""; $("g9msg").className = "msg hh-sn-msg";
   $("g9photo").hidden = true; $("g9frame").hidden = false; $("g9say").hidden = true; $("g9end").hidden = true;
   $("g9shotRow").hidden = false; $("g9nextRow").hidden = true; $("g9doneRow").hidden = true;
   $("g9beach").hidden = false; $("g9modes").hidden = false; $("g9hear").hidden = false; $("g9vf").hidden = false;
   if (s9.demo){ $("g9count").textContent = s9.practice ? "Your turn" : "Demo"; $("g9bar").style.width = "0%"; $("g9stage").hidden = true; $("g9tag").textContent = "How to play"; }
+  ["g9intro","g9introRow","g9legend","g9legRow"].forEach(id => $(id).hidden = true);
   paintSnap(); pop($("g9card"));
-  if (!s9.hush) speak([o.t]);
-  if (o.sec) snapTimer(o.sec);
+  const me = s9, i = s9.i;
+  const heard = () => { if (s9 !== me || s9.i !== i || s9.phase !== "aim") return; s9.listening = false; paintSnap(); if (o.sec && !s9.t) snapTimer(o.sec); };
+  if (!s9.hush){ speak([o.t]); snapAfterAudio(heard); } else heard();   // v32: the timer starts only after the word is heard
 }
-function snapTimer(sec){
+function snapAfterAudio(f){   // when the clip ends (or 2.5 s without an ended event)
+  let done = false; const go = () => { if (done) return; done = true; player.removeEventListener("ended", go); clearTimeout(tt); f(); };
+  const tt = setTimeout(go, 2500); setTimeout(() => player.addEventListener("ended", go), 50);
+}
+function snapTimer(sec){   // also resumes after the camera guide (sec = time left)
   const fmt = x => (Math.max(0, x)).toFixed(Math.max(0, x) % 1 ? 1 : 0);
   s9.left = sec; const tm = $("g9timer"); tm.hidden = false; tm.textContent = "⏱ " + fmt(sec);
   $("g9shoot").textContent = "📸 Snap · " + fmt(sec);
@@ -3149,29 +3200,40 @@ function snapTimer(sec){
   }, 500);
 }
 function paintSnap(){
-  const vf = $("g9vf"); vf.dataset.mode = s9.mode;
-  $("g9mlabel").textContent = SNAP_MODE[s9.mode][0] + " · " + SNAP_MODE[s9.mode][1];
+  const vf = $("g9vf"); vf.dataset.mode = s9.mode || "none";
+  $("g9mlabel").textContent = s9.mode ? SNAP_MODE[s9.mode][0] + " · " + SNAP_MODE[s9.mode][1] : "No camera yet";
+  $("g9shoot").classList.toggle("hh-sn-off", !s9.mode && s9.phase === "aim");
+  const boys = s9.inFrame.filter(id => snapPerson(id).g === "m").length, girls = s9.inFrame.length - boys;
+  $("g9cnt").hidden = false; $("g9cnt").textContent = "👦 " + boys + " · 👧 " + girls;
+  if (s9.phase === "aim" && !(s9.demo && !s9.practice)){   // v32 micro-labels (Claude section 3)
+    const LBL = { selfie:"🤳 Selfie: who's with you?", back:"📷 Camera: who are you talking ABOUT?", call:"📱 Video call: who are you talking TO?" };
+    $("g9tag").textContent = s9.listening && !s9.mode ? "🔊 Listen… (tap 🔊 to hear it again)" : s9.mode ? LBL[s9.mode] : "Me, them, or you? Pick a camera 👇";
+    $("g9tip").textContent = !s9.mode ? SNAP_TIP : s9.touched ? "Ready? 📸 Snap!" : "Tap people to add them · tap again to remove";
+  }
   if (!s9.cur.sec) $("g9timer").hidden = true;
   if (!s9.cur.sec || s9.phase !== "aim") $("g9shoot").textContent = "📸 Snap";
   document.querySelectorAll("#g9modes button").forEach(b => { const on = b.dataset.mode === s9.mode; b.classList.toggle("on", on); b.setAttribute("aria-checked", String(on)); });
   const fr = $("g9frame"); fr.innerHTML = "";
-  const face = (f, name, cls) => { const d = document.createElement("div"); d.className = "hh-sn-face " + (cls || ""); d.innerHTML = "<b></b><span></span>"; d.firstChild.textContent = f; d.lastChild.textContent = name; return d; };
+  const face = (f, name, cls, g) => { const d = document.createElement("div"); d.className = "hh-sn-face " + (cls || ""); d.innerHTML = "<b></b><span></span>"; d.firstChild.textContent = f; d.lastChild.textContent = name;
+    if (g){ const k = document.createElement("i"); k.className = "hh-sn-badge"; k.textContent = g === "m" ? "👦" : "👧"; d.append(k); } return d; };
   if (s9.mode === "selfie") fr.append(face("🙂", "You", "me"));
-  s9.inFrame.forEach(id => { const p = snapPerson(id); fr.append(face(p.face, p.name, p.g)); });
+  s9.inFrame.forEach(id => { const p = snapPerson(id); fr.append(face(p.face, p.name, p.g, p.g)); });
   if (!fr.children.length) { const e = document.createElement("div"); e.className = "hh-sn-empty"; e.textContent = "Tap people on the beach to put them in the frame"; fr.append(e); }
   const beach = $("g9beach"); beach.innerHTML = "";
   SNAP_PEOPLE.forEach(p => {
     const b = document.createElement("button"); b.type = "button"; b.className = "hh-sn-person " + p.g + (s9.inFrame.includes(p.id) ? " in" : "");
     b.dataset.id = p.id; b.setAttribute("aria-pressed", String(s9.inFrame.includes(p.id)));
-    b.innerHTML = "<b></b><span></span>"; b.firstChild.textContent = p.face; b.lastChild.textContent = p.name;
-    b.addEventListener("click", () => { if (s9.phase !== "aim") return; const k = s9.inFrame.indexOf(p.id); if (k < 0) s9.inFrame.push(p.id); else s9.inFrame.splice(k, 1); sfx("tap"); paintSnap(); });
+    b.innerHTML = "<b></b><span></span><i class=\"hh-sn-badge\"></i>"; b.children[0].textContent = p.face; b.children[1].textContent = p.name; b.children[2].textContent = p.g === "m" ? "👦" : "👧";
+    b.addEventListener("click", () => { if (s9.phase !== "aim") return; const k = s9.inFrame.indexOf(p.id); if (k < 0) s9.inFrame.push(p.id); else s9.inFrame.splice(k, 1); s9.touched = true; sfx("tap"); paintSnap(); });
     beach.append(b);
   });
 }
 document.querySelectorAll("#g9modes button").forEach(b => b.addEventListener("click", () => { if (!s9 || s9.phase !== "aim") return; s9.mode = b.dataset.mode; sfx("tap"); paintSnap(); }));
 function snapShoot(auto){
   if (!s9 || s9.phase !== "aim") return;
-  const o = s9.cur, got = snapRead(s9.mode, s9.inFrame);
+  const o = s9.cur;
+  if (!s9.mode && !auto){ const m0 = $("g9msg"); m0.className = "msg hh-sn-msg bad"; m0.textContent = "Pick a camera first 👆"; sfx("soft"); return; }
+  const got = s9.mode ? snapRead(s9.mode, s9.inFrame) : "";
   if (got === o.t) return snapDevelop(got);
   s9.tries++; sfx("soft");
   const m = $("g9msg"); m.className = "msg hh-sn-msg bad";
@@ -3207,6 +3269,7 @@ function snapDevelop(w){
   $("g9beach").hidden = true; $("g9modes").hidden = true; $("g9shotRow").hidden = true; $("g9nextRow").hidden = false;
   snapSayReset(); $("g9say").hidden = !!s9.demo; if (s9.noMic && !s9.demo) snapNoMic();
   setTimeout(() => speak([w]), 350);
+  if (!s9.demo && s9.i === SNAP_FREE - 1){ $("g9stage").hidden = false; $("g9stage").textContent = "⏱ Timer starts next round!"; if (typeof toast === "function") toast("⏱ Timer starts next round!"); }
 }
 $("g9shoot").addEventListener("click", () => snapShoot(false));
 $("g9hear").addEventListener("click", () => { if (s9 && s9.cur) speak([s9.cur.t]); });
@@ -3284,7 +3347,35 @@ function snapDemoEnd(){
   nextSnap();
 }
 $("g9skip").addEventListener("click", snapDemoEnd);
-$("g9how").addEventListener("click", () => { if (!s9 || s9.demo || s9.phase === "end") return; snapDemo(); });
+$("g9how").addEventListener("click", () => { if (!s9 || s9.demo || s9.phase === "end") return; snapIntro(); });
+/* v32: the "How to play SNAP" card, before the demo (first visit and from ?) */
+function snapIntro(){
+  snapStop(); snapTok++; clearInterval(snapGuide); demoPulse(null); demoHide(); snapNarrStop(); demoLab("g9lab", "");
+  if (s9 && s9.phase === "aim") s9.mode = null;
+  ["g9vf","g9modes","g9beach","g9say","g9stage","g9end","g9legend","g9legRow","g9shotRow","g9nextRow","g9doneRow"].forEach(id => $(id).hidden = true);
+  $("g9tip").textContent = ""; $("g9msg").textContent = ""; $("g9tag").textContent = "How to play"; $("g9hear").hidden = true; $("g9how").hidden = true; $("g9skip").hidden = true;
+  $("g9intro").hidden = false; $("g9introRow").hidden = false; $("g9introPlay").hidden = !A.snapDemoSeen;
+  $("g9introPlay").textContent = s9 && s9.i > 0 ? "Back to the game" : "Start playing";
+}
+$("g9introGo").addEventListener("click", () => { $("g9intro").hidden = true; $("g9introRow").hidden = true; snapDemo(); });
+$("g9introPlay").addEventListener("click", () => { $("g9intro").hidden = true; $("g9introRow").hidden = true; $("g9how").hidden = false; if (s9.phase === "photo") s9.i++; nextSnap(); });
+let snapLegPrev = null, snapLegStage = false;
+$("g9leg").addEventListener("click", () => {
+  if (!s9 || (s9.demo && !s9.practice) || !$("g9legend").hidden || (s9.phase !== "aim" && s9.phase !== "photo")) return;
+  clearInterval(s9.t); s9.t = 0; snapLegPrev = { left:s9.left, phase:s9.phase };
+  snapLegRows = ["g9shotRow","g9nextRow"].filter(id => !$(id).hidden);
+  ["g9vf","g9modes","g9beach","g9say","g9shotRow","g9nextRow"].forEach(id => $(id).hidden = true);
+  snapLegStage = !$("g9stage").hidden; $("g9stage").hidden = true; $("g9tip").hidden = true; $("g9msg").hidden = true; $("g9tag").textContent = "Camera guide";
+  $("g9legend").hidden = false; $("g9legRow").hidden = false; sfx("tap");
+});
+let snapLegRows = [];
+$("g9legBack").addEventListener("click", () => {
+  $("g9legend").hidden = true; $("g9legRow").hidden = true; $("g9vf").hidden = false;
+  $("g9stage").hidden = !snapLegStage; $("g9tip").hidden = false; $("g9msg").hidden = false; if (s9.phase === "aim") paintSnap(); else $("g9tag").textContent = "Listen, then take the photo";
+  snapLegRows.forEach(id => $(id).hidden = false);
+  if (s9.phase === "aim"){ $("g9modes").hidden = false; $("g9beach").hidden = false; if (s9.cur.sec && snapLegPrev && snapLegPrev.left > 0 && !s9.listening) snapTimer(snapLegPrev.left); }
+  else if (s9.phase === "photo" && !s9.demo) $("g9say").hidden = false;
+});
 function snapEnd(){
   snapStop(); s9.phase = "end";
   $("g9bar").style.width = "100%"; $("g9count").textContent = s9.order.length + " / " + s9.order.length;
@@ -3881,7 +3972,7 @@ const SAY4 = [
   ["ani-rotze-kafe","ani-rotza-kafe","Ani rotse kafe.","Ani rotsa kafe.","I want coffee.","☕"],
   ["ani-rotze-te-im-chalav","ani-rotza-te-im-chalav","Ani rotse te im khalav.","Ani rotsa te im khalav.","I want tea with milk.","🍵🥛"],
   ["ani-tzarich-mayim","ani-tzricha-mayim","Ani tsarikh mayim.","Ani tsrikha mayim.","I need water.","💧"],
-  ["ani-rotze-pitza","ani-rotza-pitza","Ani rotse pitsa.","Ani rotsa pitsa.","I want pizza.","🍕"],
+  ["ani-lo-rotze-pitza","ani-lo-rotza-pitza","Ani lo rotse pitsa.","Ani lo rotsa pitsa.","I don't want pizza.","🚫🍕"],
   ["hu-rotze-mayim","","Hu rotse mayim.","","He wants water.","👦💧"],
   ["hi-tzricha-chalav","","Hi tsrikha khalav.","","She needs milk.","👧🥛"],
   ["anachnu-rotzim-pitza","","Anakhnu rotsim pitsa.","","We want pizza.","👫🍕"],
