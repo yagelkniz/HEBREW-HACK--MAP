@@ -1056,6 +1056,22 @@ main section > .top > .back{display:none}
 /* in our full-screen layer: the bar sits on top of the black layer (sideways: placed by layoutFull) */
 .hh-vctl.in-full{position:fixed;z-index:62;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);transform:translateX(-50%);width:min(560px, calc(100vw - 16px));margin:0;box-shadow:0 6px 18px rgba(0,0,0,.4)}
 .hh-vctl.in-rot{border-radius:0;box-shadow:none;padding:6px 10px}
+/* ---------- v34: ⟲ 5s, 0.5x, big seek bar ---------- */
+.hh-vctl{flex-wrap:wrap}
+.hh-vback{min-width:64px;padding:0 10px}
+.hh-vseek{order:5;flex:1 1 100%;display:flex;align-items:center;gap:10px;min-height:44px;padding:0 4px;touch-action:none;cursor:pointer;user-select:none;-webkit-user-select:none}
+.hh-vtrack{position:relative;flex:1;height:10px;margin:17px 0;border-radius:99px;background:rgba(244,241,232,.25)}
+.hh-vtrack::before{content:"";position:absolute;left:0;right:0;top:-17px;bottom:-17px}
+.hh-vtrack i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:99px;background:#FF6FA5}
+.hh-vtrack b{position:absolute;top:50%;left:0;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:#F4F1E8;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.hh-vtime{flex:none;min-width:84px;text-align:right;font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;color:#F4F1E8}
+.hh-vsp{order:6}
+.hh-vctl.in-rot{flex-wrap:wrap;align-content:center;row-gap:2px}
+.hh-vctl.in-rot .hh-vseek{order:9}
+@media (max-width:400px){ .hh-vsp button{min-width:0} .hh-vback{min-width:58px} }
+.hh-vctl.in-rot .hh-vsp button{min-width:52px;flex:none}
+.hh-vctl.in-rot .hh-vseek{min-height:46px}
+#oMode[hidden],#oModeL[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -1091,7 +1107,7 @@ main section > .top > .back{display:none}
     <button type="button" data-value="f" aria-pressed="false"><span class="hh-he" lang="he">אֲנִי רוֹצָה</span>She<small>ani rotsa</small></button>
   </div>
   <p class="sub" style="font-size:13px;margin-top:8px">Hebrew verbs change with the speaker, so every sentence you say will match you.</p>
-  <div class="label">How I want to learn</div>
+  <div class="label" id="oModeL">How I want to learn</div>
   <div class="hh-mode" id="oMode">
     <button type="button" data-value="speak" aria-pressed="false">
       <span class="hh-mode-ic" aria-hidden="true">🎧</span><b>Just speak</b>
@@ -1103,7 +1119,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v33-3cab22686e</p>
+  <p class="hh-ver" id="oVer">Version hh-v35-130fdc3d79</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -1130,8 +1146,10 @@ main section > .top > .back{display:none}
   <div class="hh-frame" id="eFrame"></div>
   <div class="hh-vctl" id="eCtl" hidden role="toolbar" aria-label="Video controls">
     <button class="hh-vbtn hh-vplay" id="ePlay" type="button" aria-label="Play">▶ Play</button>
+    <button class="hh-vbtn hh-vback" id="eBack5" type="button" aria-label="Back 5 seconds">⟲ 5s</button>
     <button class="hh-vbtn hh-vcc" id="eCC" type="button" aria-pressed="false" hidden>CC Captions</button>
-    <div class="hh-vsp" id="eSpeed" role="group" aria-label="Speed"><button type="button" data-r="0.75">0.75x</button><button type="button" data-r="1" class="on">1x</button><button type="button" data-r="1.25">1.25x</button></div>
+    <div class="hh-vseek" id="eSeek" role="slider" tabindex="0" aria-label="Video position" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><div class="hh-vtrack" id="eTrack"><i id="eSeekFill"></i><b id="eSeekThumb"></b></div><span class="hh-vtime" id="eTime">0:00 / 0:00</span></div>
+    <div class="hh-vsp" id="eSpeed" role="group" aria-label="Speed"><button type="button" data-r="0.5">0.5x</button><button type="button" data-r="0.75">0.75x</button><button type="button" data-r="1" class="on">1x</button><button type="button" data-r="1.25">1.25x</button></div>
   </div>
   <div class="hh-under">
   <button class="hh-fullbig" id="eFull" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="eFullTxt">Watch full screen</span></button>
@@ -4791,6 +4809,9 @@ const AKEY = "hh_app";
 const A = { name:"", gender:"", read:true, xp:0, streak:0, lastDay:"", step4:{ pos:0, done:[], completed:0 } };
 try{ const s = JSON.parse(localStorage.getItem(AKEY)); if (s){ Object.assign(A, s); A.step4 = Object.assign({ pos:0, done:[], completed:0 }, s.step4); } }catch(e){}
 function saveA(){ try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){} }
+/* v35 (Eli, Nov 17): the first product is SPEAKING ONLY. Everyone is on the Just speak track; saved "Speak + read" learners move over on load. */
+const SPEAK_ONLY = true;
+if (SPEAK_ONLY && (A.read !== false || (A.mode && A.mode !== "speak"))){ if (A.read !== false) A.tr = true; A.read = false; if (A.mode) A.mode = "speak"; saveA(); }   // Latin letters on, like every Just speak learner
 
 /* the course map; only STEP 4 is open in the pilot */
 const STEPS = [
@@ -4804,7 +4825,9 @@ const STEPS = [
   { id:"step7",   n:"STEP 7",   t:"Question Words",    he:"מָה?", tr:"ma?" },
   { id:"step8",   n:"STEP 8",   t:"Gender",            he:"טוֹבָה", tr:"tova" }
 ];
-const ZIG = [0, -56, -78, -40, 30, 70, 36, -20, -66];
+/* v35: STEP 1 (Alphabet) and STEP 2 (Niqud) are reading steps: kept in the code, hidden from the map while the product is speaking only */
+const HIDDEN_STEPS = ["step1", "step2"];
+const ZIG = [0, -56, -78, -40, 30, 70, 36];   // one per map node: Welcome, STEP 3 ... STEP 8
 /* Reading-track steps (alphabet, niqud) are optional for "Just speak": they never block the steps after them.
    Unlocking a step only looks at the earlier steps that are required for this learner. */
 const stepRequired = st => !(st.reading && A.read === false);
@@ -4984,7 +5007,7 @@ function useLesson(id){ if (!LESSONS[id]) return; CUR = id; LESSON = LESSONS[id]
 /* a STEP with a LIVE flag in config.js only opens once the flag is true */
 const STEP_LIVE = { step3:STEP3_LIVE, step5:STEP5_LIVE, step6:STEP6_LIVE, step7:STEP7_LIVE, step8:STEP8_LIVE };
 const stepLive = id => STEP_LIVE[id] !== false;
-const lessonOpen = id => !!LESSONS[id] && stepLive(id) && (!LESSONS[id].speakOnly || A.read === false);   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
+const lessonOpen = id => !!LESSONS[id] && stepLive(id) && (SPEAK_ONLY || !LESSONS[id].speakOnly || A.read === false);   // v35: STEP 3-8 open for everyone (speaking only)   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
 function lessonProgress(id){ const s = A[id] || {}; return s.completed ? 1 : Math.min(1, (s.pos || 0) / LESSONS[id].parts.length); }
 const XP_BONUS = 20;
 const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","g15","words"];
@@ -5022,7 +5045,7 @@ function paintHome(){
   $("hMap").innerHTML = "";
   // one START/CONTINUE bubble only: on the step to do next (the others stay tappable)
   const nextStep = STEPS.find(st => lessonOpen(st.id) && !(A[st.id] || {}).completed);
-  STEPS.forEach((st, i) => {
+  STEPS.filter(st => !HIDDEN_STEPS.includes(st.id)).forEach((st, i) => {
     if (st.id === "welcome" && !LESSONS.welcome) return;   // v30: the Welcome node stays hidden until it is built
     const li = document.createElement("li");
     li.style.transform = "translateX(" + ZIG[i % ZIG.length] + "px)";
@@ -5081,11 +5104,13 @@ function paintOnb(){
 }
 function openOnb(settings){
   onbGender = A.gender; $("oName").value = A.name || "";
-  onbMode = A.mode || "";   // A.mode is set only once the learner has picked it
+  onbMode = SPEAK_ONLY ? "speak" : (A.mode || "");   // v35: no track choice, everyone speaks
   onbSettings = !!settings; onbTr = A.tr !== undefined ? A.tr : onbMode !== "read";
   $("oTitle").textContent = settings ? "Settings" : "Welcome!";
   $("oSub").textContent = settings ? "Change these any time." : "Two quick things and you're in.";
   $("oGo").textContent = settings ? "Save" : "Start learning";
+  $("oMode").hidden = SPEAK_ONLY; $("oModeL").hidden = SPEAK_ONLY;
+  $("oSub").textContent = settings ? "Change these any time." : "One quick thing and you're in.";
   paintOnb(); go("sOnb");
 }
 $("oGender").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; onbGender = b.dataset.value; sfx("tap"); paintOnb(); });
@@ -5100,7 +5125,7 @@ $("oHome").addEventListener("click", e => {
 });
 $("oGo").addEventListener("click", () => {
   if (!onbGender || !onbMode) return;
-  A.name = $("oName").value.trim().slice(0, 20); A.gender = onbGender; A.mode = onbMode; A.read = onbMode === "read"; A.tr = onbTr; saveA(); applyTr();
+  A.name = $("oName").value.trim().slice(0, 20); A.gender = onbGender; A.mode = onbMode; A.read = SPEAK_ONLY ? false : onbMode === "read"; A.tr = onbTr; saveA(); applyTr();
   syncGameSettings(); unlockAudio(); sfx("pop"); paintHome();
 });
 function syncGameSettings(){
@@ -5478,13 +5503,38 @@ let vcc = null;   // { language, kind } of the real (not auto-generated) caption
 function vctlReset(on){
   vcc = null; $("eCtl").hidden = !on; $("eCC").hidden = true; $("eCC").setAttribute("aria-pressed", "false"); $("eCC").classList.remove("on"); $("eCC").textContent = "CC Captions";
   $("eSpeed").hidden = false; document.querySelectorAll("#eSpeed button").forEach(b => b.classList.toggle("on", b.dataset.r === "1"));
-  vctlPlaying(false);
+  vctlPlaying(false); vseek.dur = 0; vseek.drag = false; vctlTime(0, 0);
 }
+/* v34: ⟲ 5s and a big seek bar (current / total time; tap or drag, also when the bar is turned sideways) */
+const vseek = { dur:0, drag:false, frac:0 };
+const vfmt = t => { t = Math.max(0, Math.floor(t || 0)); const h = Math.floor(t / 3600), m = Math.floor(t / 60) % 60, s = t % 60; return (h ? h + ":" + String(m).padStart(2, "0") : m) + ":" + String(s).padStart(2, "0"); };
+function vctlTime(t, d){
+  const f = d > 0 ? Math.min(1, Math.max(0, t / d)) : 0;
+  $("eSeekFill").style.width = (f * 100) + "%"; $("eSeekThumb").style.left = (f * 100) + "%";
+  $("eTime").textContent = vfmt(t) + " / " + vfmt(d);
+  const k = $("eSeek"); k.setAttribute("aria-valuemax", String(Math.round(d || 0))); k.setAttribute("aria-valuenow", String(Math.round(t || 0))); k.setAttribute("aria-valuetext", vfmt(t) + " of " + vfmt(d));
+}
+function vseekFrac(e){   // where on the track: along x, or along y when the bar is turned 90° (our sideways layer)
+  const r = $("eTrack").getBoundingClientRect(), rot = $("eCtl").classList.contains("in-rot");
+  return Math.min(1, Math.max(0, rot ? (e.clientY - r.top) / r.height : (e.clientX - r.left) / r.width));
+}
+function vseekTo(f){ if (!vPlayer || !(vseek.dur > 0)) return; const t = f * vseek.dur; vctlTime(t, vseek.dur); vPlayer.setCurrentTime(Math.min(t, Math.max(0, vseek.dur - 0.25))).catch(() => {}); }
+$("eSeek").addEventListener("pointerdown", e => { if (!vPlayer || !(vseek.dur > 0)) return; e.preventDefault(); vseek.drag = true; try{ $("eSeek").setPointerCapture(e.pointerId); }catch(x){}
+  vseek.frac = vseekFrac(e); vctlTime(vseek.frac * vseek.dur, vseek.dur); });
+$("eSeek").addEventListener("pointermove", e => { if (!vseek.drag) return; vseek.frac = vseekFrac(e); vctlTime(vseek.frac * vseek.dur, vseek.dur); });
+["pointerup", "pointercancel"].forEach(ev => $("eSeek").addEventListener(ev, e => { if (!vseek.drag) return; vseek.drag = false; if (ev === "pointerup") vseek.frac = vseekFrac(e); vseekTo(vseek.frac); sfx("tap"); }));
+$("eSeek").addEventListener("keydown", e => { if (!vPlayer || !(vseek.dur > 0)) return; const d = e.key === "ArrowRight" ? 5 : e.key === "ArrowLeft" ? -5 : 0; if (!d) return; e.preventDefault();
+  vPlayer.getCurrentTime().then(t => vseekTo(Math.min(1, Math.max(0, (t + d) / vseek.dur)))).catch(() => {}); });
+$("eBack5").addEventListener("click", () => { if (!vPlayer) return; sfx("tap");
+  vPlayer.getCurrentTime().then(t => { const n = Math.max(0, t - 5); if (vseek.dur > 0) vctlTime(n, vseek.dur); return vPlayer.setCurrentTime(n); }).catch(() => {}); });
 function vctlPlaying(on){ const b = $("ePlay"); b.textContent = on ? "❚❚ Pause" : "▶ Play"; b.setAttribute("aria-label", on ? "Pause" : "Play"); b.classList.toggle("on", !!on); }
 function vctlCC(on){ const b = $("eCC"); b.classList.toggle("on", !!on); b.setAttribute("aria-pressed", String(!!on)); b.textContent = on ? "CC Captions: On" : "CC Captions: Off"; }
 function vctlWire(pl, f, part){
   const mine = () => vPlayer === pl && f.isConnected;
   pl.on("play", () => { if (mine()) vctlPlaying(true); }); pl.on("pause", () => { if (mine()) vctlPlaying(false); }); pl.on("ended", () => { if (mine()) vctlPlaying(false); });
+  pl.on("timeupdate", d => { if (!mine() || !d) return; if (d.duration > 0) vseek.dur = d.duration; if (!vseek.drag) vctlTime(d.seconds, vseek.dur); });
+  pl.on("seeked", d => { if (mine() && d && !vseek.drag) vctlTime(d.seconds, vseek.dur || d.duration || 0); });
+  pl.getDuration().then(d => { if (mine() && d > 0){ vseek.dur = d; vctlTime(0, d); } }).catch(() => {});
   pl.on("texttrackchange", d => { if (mine() && vcc) vctlCC(!!(d && d.language)); });
   pl.on("playbackratechange", d => { if (mine() && d) document.querySelectorAll("#eSpeed button").forEach(b => b.classList.toggle("on", Math.abs(+b.dataset.r - d.playbackRate) < 0.01)); });
   pl.getTextTracks().then(tr => { if (!mine()) return;
@@ -5547,7 +5597,7 @@ function layoutFull(){
   // Genially draws its round ← → arrows on the iframe's left and right edges and fits the 16:9 slide inside.
   // Keep the iframe short enough that the slide leaves a gutter of SLIDE_GUTTER/2 on each side for those
   // arrows, so they sit beside the slide instead of on top of it.
-  const BAR = withBar ? 64 : 0;   // v33: our control bar runs along the video's bottom edge (the phone's left edge when it is upright)
+  const BAR = withBar ? 118 : 0;   // v34: two rows (buttons, then the seek bar)   // v33: our control bar runs along the video's bottom edge (the phone's left edge when it is upright)
   const short = box.classList.contains("is-slides") ? Math.min(W, Math.floor((long - SLIDE_GUTTER) * 9 / 16)) : W - BAR;
   const set = (k, v) => f.style.setProperty(k, v, "important");
   set("position", "absolute"); set("right", "auto"); set("bottom", "auto");
