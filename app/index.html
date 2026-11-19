@@ -1072,6 +1072,29 @@ main section > .top > .back{display:none}
 .hh-vctl.in-rot .hh-vsp button{min-width:52px;flex:none}
 .hh-vctl.in-rot .hh-vseek{min-height:46px}
 #oMode[hidden],#oModeL[hidden]{display:none!important}
+
+/* ---------- v37: phone full-screen video: video fills the screen, thin see-through bar on its bottom edge ---------- */
+.hh-vtap{position:fixed;inset:0;z-index:61;background:transparent;-webkit-tap-highlight-color:transparent}
+.hh-vtap[hidden]{display:none}
+#eSpd{display:none}
+.hh-vctl.vfs{z-index:62;display:flex;flex-wrap:nowrap!important;align-items:center;gap:6px;margin:0;border-radius:0;box-shadow:none;
+  padding:6px calc(env(safe-area-inset-right,0px) + 10px) 6px calc(env(safe-area-inset-left,0px) + 10px);
+  background:linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.6));transition:opacity .25s}
+.hh-vctl.vfs .hh-vbtn{flex:none;min-height:44px;min-width:44px;padding:0 10px;font-size:14px;background:rgba(0,0,0,.35);border-color:rgba(244,241,232,.45)}
+.hh-vctl.vfs .hh-vplay{order:1;min-width:84px}
+.hh-vctl.vfs .hh-vback{order:2;min-width:56px}
+.hh-vctl.vfs .hh-vseek{order:3;flex:1 1 auto;min-width:120px;min-height:44px}
+.hh-vctl.vfs .hh-vcc{order:4}
+.hh-vctl.vfs .hh-vcc.on{background:#FF6FA5;border-color:#FF6FA5;color:#1E4A3A}
+.hh-vctl.vfs .hh-vccl{display:none}
+.hh-vctl.vfs #eSpeed{display:none}
+.hh-vctl.vfs #eSpd{display:inline-flex;align-items:center;justify-content:center;order:5;min-width:56px}
+.hh-vctl.vfs #eSpeed[hidden] + #eSpd,.hh-vctl.vfs #eSpd:has(+ #eSpeed[hidden]){display:none}
+.hh-vctl.vfs.vhide,.hh-fbtn.hh-fclose.vfs.vhide{opacity:0;pointer-events:none}
+.hh-fbtn.hh-fclose.vfs{z-index:63;padding:0;min-width:0;width:48px;height:48px;justify-content:center;font-size:0;gap:0;border-radius:50%;
+  background:rgba(0,0,0,.5);color:#F4F1E8;border:2px solid rgba(244,241,232,.6);box-shadow:none;transition:opacity .25s}
+.hh-fbtn.hh-fclose.vfs span{font-size:22px}
+.hh-vctl.vfs .hh-vplay.on{background:#FF6FA5;border-color:#FF6FA5;color:#1E4A3A}
 </style>
 </head>
 <body>
@@ -1119,7 +1142,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v36-0bef87d15c</p>
+  <p class="hh-ver" id="oVer">Version hh-v37-4ac61369d6</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -1149,12 +1172,14 @@ main section > .top > .back{display:none}
     <button class="hh-vbtn hh-vback" id="eBack5" type="button" aria-label="Back 5 seconds">⟲ 5s</button>
     <button class="hh-vbtn hh-vcc" id="eCC" type="button" aria-pressed="false" hidden>CC Captions</button>
     <div class="hh-vseek" id="eSeek" role="slider" tabindex="0" aria-label="Video position" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><div class="hh-vtrack" id="eTrack"><i id="eSeekFill"></i><b id="eSeekThumb"></b></div><span class="hh-vtime" id="eTime">0:00 / 0:00</span></div>
+    <button class="hh-vbtn hh-vspd" id="eSpd" type="button" aria-label="Speed: 1x">1x</button>
     <div class="hh-vsp" id="eSpeed" role="group" aria-label="Speed"><button type="button" data-r="0.5">0.5x</button><button type="button" data-r="0.75">0.75x</button><button type="button" data-r="1" class="on">1x</button><button type="button" data-r="1.25">1.25x</button></div>
   </div>
   <div class="hh-under">
   <button class="hh-fullbig" id="eFull" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="eFullTxt">Watch full screen</span></button>
   <p class="hh-vtip" id="eTip" hidden role="note"><i class="hh-vphone" aria-hidden="true">📱</i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Turn your phone sideways</b><small>The video fills the screen. Pinch to zoom.</small></span></p>
   </div>
+  <div class="hh-vtap" id="eTap" hidden></div>
   <button class="hh-fbtn hh-fclose" id="eClose" type="button" aria-label="Close full screen" hidden><span aria-hidden="true">✕</span> Close</button>
   <button class="hh-fbtn hh-fhome" id="eHome" type="button" data-home aria-label="Home: back to the map" hidden>⌂</button>
   <p class="hh-fhint" id="eHint" hidden>Turn your phone sideways for a bigger picture</p>
@@ -5504,7 +5529,7 @@ let vcc = null;   // { language, kind } of the real (not auto-generated) caption
 function vctlReset(on){
   vcc = null; $("eCtl").hidden = !on; $("eCC").hidden = true; $("eCC").setAttribute("aria-pressed", "false"); $("eCC").classList.remove("on"); $("eCC").textContent = "CC Captions";
   $("eSpeed").hidden = false; document.querySelectorAll("#eSpeed button").forEach(b => b.classList.toggle("on", b.dataset.r === "1"));
-  vctlPlaying(false); vseek.dur = 0; vseek.drag = false; vctlTime(0, 0);
+  vspdSync(); vctlPlaying(false); vseek.dur = 0; vseek.drag = false; vctlTime(0, 0);
 }
 /* v34: ⟲ 5s and a big seek bar (current / total time; tap or drag, also when the bar is turned sideways) */
 const vseek = { dur:0, drag:false, frac:0 };
@@ -5528,8 +5553,8 @@ $("eSeek").addEventListener("keydown", e => { if (!vPlayer || !(vseek.dur > 0)) 
   vPlayer.getCurrentTime().then(t => vseekTo(Math.min(1, Math.max(0, (t + d) / vseek.dur)))).catch(() => {}); });
 $("eBack5").addEventListener("click", () => { if (!vPlayer) return; sfx("tap");
   vPlayer.getCurrentTime().then(t => { const n = Math.max(0, t - 5); if (vseek.dur > 0) vctlTime(n, vseek.dur); return vPlayer.setCurrentTime(n); }).catch(() => {}); });
-function vctlPlaying(on){ const b = $("ePlay"); b.textContent = on ? "❚❚ Pause" : "▶ Play"; b.setAttribute("aria-label", on ? "Pause" : "Play"); b.classList.toggle("on", !!on); }
-function vctlCC(on){ const b = $("eCC"); b.classList.toggle("on", !!on); b.setAttribute("aria-pressed", String(!!on)); b.textContent = on ? "CC Captions: On" : "CC Captions: Off"; }
+function vctlPlaying(on){ const b = $("ePlay"); b.textContent = on ? "❚❚ Pause" : "▶ Play"; b.setAttribute("aria-label", on ? "Pause" : "Play"); b.classList.toggle("on", !!on); if (vfsOn()) vctlShow(true); }
+function vctlCC(on){ const b = $("eCC"); b.classList.toggle("on", !!on); b.setAttribute("aria-pressed", String(!!on)); b.innerHTML = 'CC<span class="hh-vccl"> Captions: ' + (on ? "On" : "Off") + "</span>"; b.setAttribute("aria-label", "Captions " + (on ? "on" : "off")); if (vfsOn()) layoutFull(); }
 function vctlWire(pl, f, part){
   const mine = () => vPlayer === pl && f.isConnected;
   pl.on("play", () => { if (!mine()) return; vctlPlaying(true); playToFull(); }); pl.on("pause", () => { if (mine()) vctlPlaying(false); }); pl.on("ended", () => { if (mine()) vctlPlaying(false); });
@@ -5537,7 +5562,7 @@ function vctlWire(pl, f, part){
   pl.on("seeked", d => { if (mine() && d && !vseek.drag) vctlTime(d.seconds, vseek.dur || d.duration || 0); });
   pl.getDuration().then(d => { if (mine() && d > 0){ vseek.dur = d; vctlTime(0, d); } }).catch(() => {});
   pl.on("texttrackchange", d => { if (mine() && vcc) vctlCC(!!(d && d.language)); });
-  pl.on("playbackratechange", d => { if (mine() && d) document.querySelectorAll("#eSpeed button").forEach(b => b.classList.toggle("on", Math.abs(+b.dataset.r - d.playbackRate) < 0.01)); });
+  pl.on("playbackratechange", d => { if (mine() && d){ document.querySelectorAll("#eSpeed button").forEach(b => b.classList.toggle("on", Math.abs(+b.dataset.r - d.playbackRate) < 0.01)); vspdSync(); } });
   pl.getTextTracks().then(tr => { if (!mine()) return;
     const isAuto = x => /autogen|auto-generated|automatic|\(AI\)|\bAI\b/i.test((x.language || "") + " " + (x.label || "") + " " + (x.kind || ""));
     const real = (tr || []).filter(x => !isAuto(x)), t = real.find(x => /^en/i.test(x.language)) || real[0];
@@ -5555,7 +5580,7 @@ $("eCC").addEventListener("click", () => { if (!vPlayer || !vcc) return; sfx("ta
   (on ? vPlayer.enableTextTrack(vcc.language, vcc.kind) : vPlayer.disableTextTrack()).then(() => vctlCC(on)).catch(() => {}); });
 document.querySelectorAll("#eSpeed button").forEach(b => b.addEventListener("click", () => { if (!vPlayer) return; sfx("tap");
   const rate = +b.dataset.r;
-  vPlayer.setPlaybackRate(rate).then(() => document.querySelectorAll("#eSpeed button").forEach(x => x.classList.toggle("on", x === b)))
+  vPlayer.setPlaybackRate(rate).then(() => { document.querySelectorAll("#eSpeed button").forEach(x => x.classList.toggle("on", x === b)); vspdSync(); })
     .catch(() => { $("eSpeed").hidden = true; });   // the Vimeo account/player doesn't allow speed changes: no selector
 }));
 /* v36: on a phone every Play (ours or Vimeo's) opens the video full screen in landscape:
@@ -5565,6 +5590,36 @@ function playToFull(){
   const box = $("eFrame");
   if (!isVimeo(box) || !videoRotate() || box.classList.contains("is-full") || $("sEmbed").hidden) return false;
   openFull(); return true;
+}
+/* ---------- v37: phone full-screen video = the video fills the screen, our bar is a thin layer on its bottom edge ----------
+   The bar (and ✕) hide 3s after the video plays; a see-through tap layer over the Vimeo iframe brings them back.
+   While the bar shows and captions are on, the picture moves up by the bar's height so the captions stay above it. */
+const vfsOn = () => $("eCtl").classList.contains("vfs");
+const VFS_BAR = 60;
+let vhideT = null;
+function vctlShow(on){
+  clearTimeout(vhideT); vhideT = null;
+  const ctl = $("eCtl"), was = !ctl.classList.contains("vhide");
+  ctl.classList.toggle("vhide", !on); $("eClose").classList.toggle("vhide", !on);
+  if (was !== on) layoutFull();
+  if (on && vfsOn() && $("ePlay").classList.contains("on")) vhideT = setTimeout(() => { if (vfsOn() && $("ePlay").classList.contains("on")) vctlShow(false); }, 3000);
+}
+function vspdSync(){ const o = document.querySelector("#eSpeed button.on"), r = o ? o.textContent : "1x"; $("eSpd").textContent = r; $("eSpd").setAttribute("aria-label", "Speed: " + r); }
+$("eSpd").addEventListener("click", () => { const bs = [...document.querySelectorAll("#eSpeed button")], i = bs.findIndex(b => b.classList.contains("on")); bs[(i + 1) % bs.length].click(); });
+$("eTap").addEventListener("click", () => { if (vfsOn()) vctlShow($("eCtl").classList.contains("vhide")); });
+$("eCtl").addEventListener("pointerdown", () => { if (vfsOn()) vctlShow(true); });
+function layoutVfs(box, f, ctl){
+  const vv = window.visualViewport, W = Math.round(vv ? vv.width : innerWidth), H = Math.round(vv ? vv.height : innerHeight);
+  const rot = box.classList.contains("rot"), Lg = rot ? H : W, Sh = rot ? W : H, B = VFS_BAR;
+  const shown = !ctl.classList.contains("vhide"), lift = shown && !ctl.hidden && $("eCC").classList.contains("on") && !$("eCC").hidden ? B : 0;
+  // place an element by its centre in the video's own (landscape) frame; turned 90° on an upright phone
+  const place = (el, cx, cy, w, h, imp) => { const s = (k, v) => el.style.setProperty(k, v, "important");
+    s("position", el === f ? "absolute" : "fixed"); s("right", "auto"); s("bottom", "auto"); s("width", w + "px"); s("height", h + "px");
+    s("left", Math.round(rot ? W / 2 - cy : W / 2 + cx) + "px"); s("top", Math.round(rot ? H / 2 + cx : H / 2 + cy) + "px");
+    s("transform-origin", "center"); s("transform", "translate(-50%,-50%)" + (rot ? " rotate(90deg)" : "")); };
+  place(f, 0, -lift, Lg, Sh);   // the whole screen; Vimeo fits its 16:9 picture inside at the biggest size
+  if (!ctl.hidden){ ctl.classList.add("in-rot"); ctl.classList.toggle("in-rot", rot); place(ctl, 0, Sh / 2 - B / 2, Lg, B); }
+  place($("eClose"), Lg / 2 - 34, -Sh / 2 + 30, 48, 48);
 }
 function fullClick(){
   const box = $("eFrame"), f = box.querySelector("iframe");
@@ -5595,9 +5650,14 @@ function layoutFull(){
   const props = ["position","top","left","width","height","transform","transform-origin","right","bottom"];
   props.forEach(k => f.style.removeProperty(k));
   const ctl = $("eCtl"), full = box.classList.contains("is-full"), withBar = full && isVimeo(box) && !ctl.hidden;
-  ["position","top","left","width","height","transform","transform-origin"].forEach(k => ctl.style.removeProperty(k));
+  props.forEach(k => ctl.style.removeProperty(k));
   ctl.classList.toggle("in-full", withBar); ctl.classList.toggle("in-rot", false);
+  const vfs = full && isVimeo(box) && videoRotate();   // v37
+  ctl.classList.toggle("vfs", vfs); $("eClose").classList.toggle("vfs", vfs); $("eTap").hidden = !vfs;
+  ["position","top","left","width","height","transform","transform-origin","right","bottom"].forEach(k => $("eClose").style.removeProperty(k));
+  if (!vfs){ clearTimeout(vhideT); vhideT = null; ctl.classList.remove("vhide"); $("eClose").classList.remove("vhide"); }
   if (!full) return;
+  if (vfs){ userRot = false; box.classList.toggle("rot", isPortrait()); $("eHint").hidden = true; $("eRot").hidden = true; layoutVfs(box, f, ctl); return; }
   if (canRotate(box) && !userRot) box.classList.toggle("rot", isPortrait());
   $("eHint").hidden = !(isVimeo(box) && isPortrait() && !canRotate(box));
   $("eRot").hidden = !(canRotate(box) && isPortrait());
