@@ -1119,7 +1119,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v35-130fdc3d79</p>
+  <p class="hh-ver" id="oVer">Version hh-v36-0bef87d15c</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -5457,6 +5457,7 @@ function closeFull(keepPlayer){
   try{ if (was && screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); }catch(e){}
   document.body.classList.remove("hh-noscroll");
   $("eClose").hidden = true; $("eHome").hidden = true; $("eRot").hidden = true; $("eHint").hidden = true;
+  if (was && keepPlayer !== "leaving" && vPlayer && vPlayer.__f && vPlayer.__f.isConnected && box.contains(vPlayer.__f)) vPlayer.pause().catch(() => {});   // v36
   if (was && history.state && history.state.hhFull){ try{ history.back(); }catch(e){} }   // drop our Back-button entry
   if (was){ try{ if (document.fullscreenElement) document.exitFullscreen(); else if (document.webkitFullscreenElement) document.webkitExitFullscreen(); }catch(e){} }
 }
@@ -5531,7 +5532,7 @@ function vctlPlaying(on){ const b = $("ePlay"); b.textContent = on ? "❚❚ Pau
 function vctlCC(on){ const b = $("eCC"); b.classList.toggle("on", !!on); b.setAttribute("aria-pressed", String(!!on)); b.textContent = on ? "CC Captions: On" : "CC Captions: Off"; }
 function vctlWire(pl, f, part){
   const mine = () => vPlayer === pl && f.isConnected;
-  pl.on("play", () => { if (mine()) vctlPlaying(true); }); pl.on("pause", () => { if (mine()) vctlPlaying(false); }); pl.on("ended", () => { if (mine()) vctlPlaying(false); });
+  pl.on("play", () => { if (!mine()) return; vctlPlaying(true); playToFull(); }); pl.on("pause", () => { if (mine()) vctlPlaying(false); }); pl.on("ended", () => { if (mine()) vctlPlaying(false); });
   pl.on("timeupdate", d => { if (!mine() || !d) return; if (d.duration > 0) vseek.dur = d.duration; if (!vseek.drag) vctlTime(d.seconds, vseek.dur); });
   pl.on("seeked", d => { if (mine() && d && !vseek.drag) vctlTime(d.seconds, vseek.dur || d.duration || 0); });
   pl.getDuration().then(d => { if (mine() && d > 0){ vseek.dur = d; vctlTime(0, d); } }).catch(() => {});
@@ -5545,7 +5546,9 @@ function vctlWire(pl, f, part){
     vctlCC(!(part && part.cc === false));   // on by default (attachVimeo turns it on); café video: off until tapped
   }).catch(() => { $("eCC").hidden = true; });
 }
-$("ePlay").addEventListener("click", () => { if (!vPlayer) return; sfx("tap");
+$("ePlay").addEventListener("click", () => { if (!vPlayer) return;
+  if (playToFull()){ vPlayer.play().catch(() => {}); return; }   // v36: phone, inline: Play opens the landscape view and starts the video
+  sfx("tap");
   vPlayer.getPaused().then(p => p ? vPlayer.play() : vPlayer.pause()).catch(() => vPlayer.play().catch(() => {})); });
 $("eCC").addEventListener("click", () => { if (!vPlayer || !vcc) return; sfx("tap");
   const on = !$("eCC").classList.contains("on");
@@ -5555,6 +5558,14 @@ document.querySelectorAll("#eSpeed button").forEach(b => b.addEventListener("cli
   vPlayer.setPlaybackRate(rate).then(() => document.querySelectorAll("#eSpeed button").forEach(x => x.classList.toggle("on", x === b)))
     .catch(() => { $("eSpeed").hidden = true; });   // the Vimeo account/player doesn't allow speed changes: no selector
 }));
+/* v36: on a phone every Play (ours or Vimeo's) opens the video full screen in landscape:
+   Fullscreen API + screen.orientation.lock("landscape") where they exist (Android); otherwise (iPhone Safari)
+   our own fixed layer, turned 90° in portrait. Desktop: unchanged (Play just plays). */
+function playToFull(){
+  const box = $("eFrame");
+  if (!isVimeo(box) || !videoRotate() || box.classList.contains("is-full") || $("sEmbed").hidden) return false;
+  openFull(); return true;
+}
 function fullClick(){
   const box = $("eFrame"), f = box.querySelector("iframe");
   if (isVimeo(box) && videoRotate()){ openFull(); if (vPlayer && vPlayer.__f === f) vPlayer.play().catch(() => {}); return; }   // phone: our sideways layer, video starts
