@@ -1095,6 +1095,9 @@ main section > .top > .back{display:none}
   background:rgba(0,0,0,.5);color:#F4F1E8;border:2px solid rgba(244,241,232,.6);box-shadow:none;transition:opacity .25s}
 .hh-fbtn.hh-fclose.vfs span{font-size:22px}
 .hh-vctl.vfs .hh-vplay.on{background:#FF6FA5;border-color:#FF6FA5;color:#1E4A3A}
+
+/* v38: hidden ?testvideo= screen: just the video, its bar and full screen (no lesson buttons) */
+#sEmbed.is-test #eQuit,#sEmbed.is-test .hh-ego,#sEmbed.is-test .hh-lxp,#sEmbed.is-test .hh-lbar .bar{display:none!important}
 </style>
 </head>
 <body>
@@ -1142,7 +1145,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v37-4ac61369d6</p>
+  <p class="hh-ver" id="oVer">Version hh-v38-e6114159d1</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -5333,6 +5336,7 @@ function renderEmbed(p){
   closeFull();
   paintBar("eBar", "eCount");
   $("eSec").textContent = partLabel(); $("eName").textContent = p.name; $("eHow").textContent = p.how;
+  $("sEmbed").classList.toggle("is-test", !!p.test);   // v38: hidden ?testvideo= screen (no lesson buttons)
   const box = $("eFrame"); box.className = "hh-frame" + (p.type === "video" || p.wide ? " is-wide" : "") + (p.slides ? " is-slides" : "");   // is-slides = Genially: side margins for its arrows   // is-wide = 16:9 content (videos, slides)
   const f = document.createElement("iframe");
   f.src = embedUrl(p); f.title = p.name; f.loading = "eager";
@@ -5691,6 +5695,7 @@ window.addEventListener("popstate", () => { if ($("eFrame").classList.contains("
 
 /* ---------- home button on every screen: back to the map, progress kept ---------- */
 function goHome(){
+  $("sEmbed").classList.remove("is-test");
   try{ closeFull(); }catch(e){} closePron();
   clearEmbed(); stopGame();
   if (window.earRelease) window.earRelease();
@@ -5761,7 +5766,18 @@ finish = function(title, big, sub, extra){
 booted = true;
 if (A.tr === undefined && A.mode) A.tr = A.mode === "speak";
 applyTr();
-if (A.gender && A.mode){ syncGameSettings(); paintHome(); } else openOnb(false);
+/* v38: hidden test route, not linked anywhere: ?testvideo=<vimeo id>[&h=<hash>] opens one "Watch & learn" screen with the
+   same lesson video player (inline bar, Watch full screen, phone landscape full screen). No captions, no XP, no lesson. */
+function openTestVideo(id, h){
+  unlockAudio(); syncGameSettings();
+  L = { mode:"single", pos:0, t0:Date.now(), said:0, xp:0, ms:0, prev:"", test:true };
+  renderEmbed({ type:"video", sec:"Watch", icon:"🎬", name:"Watch & learn", how:"", xp:0, cc:false, test:true,
+    url:"https://player.vimeo.com/video/" + id + "?loop=1" + (h ? "&h=" + encodeURIComponent(h) : "") });
+  $("eSec").textContent = "";
+}
+const TEST_VIDEO = (() => { try{ const q = new URLSearchParams(location.search), v = (q.get("testvideo") || "").trim(); return /^\d{5,12}$/.test(v) ? { id:v, h:(q.get("h") || "").replace(/[^0-9a-f]/gi, "") } : null; }catch(e){ return null; } })();
+if (TEST_VIDEO) openTestVideo(TEST_VIDEO.id, TEST_VIDEO.h);
+else if (A.gender && A.mode){ syncGameSettings(); paintHome(); } else openOnb(false);
 
 if ("serviceWorker" in navigator){
   window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").then(reg => {
