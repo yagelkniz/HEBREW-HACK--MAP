@@ -5496,11 +5496,12 @@ function closeFull(keepPlayer){
    If Vimeo says no: start the video and ask again (same tap). Last resort: our in-app full screen, not rotated,
    with a "turn your phone sideways" hint. Genially / Wordwall / Speak: our in-app full screen as before. */
 const isVimeo = box => !!(box && box.querySelector('iframe[src*="player.vimeo.com"]'));
+const isLoom = box => !!(box && box.querySelector('iframe[src*="loom.com/embed/"]'));
 /* phones (and small tablets held by touch): our own full-screen layer for videos too, turned sideways in portrait.
    Desktop / laptop: Vimeo's native full screen. VIDEO_FS in config.js: "rotate" (default) or "native" to go back to v14. */
 const isPhone = () => matchMedia("(pointer: coarse)").matches && Math.min(innerWidth, innerHeight) <= 600;
 const videoRotate = () => (typeof VIDEO_FS === "undefined" || VIDEO_FS !== "native") && isPhone();
-const canRotate = box => box.classList.contains("is-slides") || (isVimeo(box) && videoRotate());
+const canRotate = box => box.classList.contains("is-slides") || ((isVimeo(box) || isLoom(box)) && videoRotate());
 let vimeoApi = null, vPlayer = null;
 function loadVimeoApi(){
   if (window.Vimeo && window.Vimeo.Player) return Promise.resolve(window.Vimeo);
@@ -5657,11 +5658,12 @@ function layoutFull(){
   props.forEach(k => ctl.style.removeProperty(k));
   ctl.classList.toggle("in-full", withBar); ctl.classList.toggle("in-rot", false);
   const vfs = full && isVimeo(box) && videoRotate();   // v37
-  ctl.classList.toggle("vfs", vfs); $("eClose").classList.toggle("vfs", vfs); $("eTap").hidden = !vfs;
+  const loomFs = full && isLoom(box) && videoRotate();   // same landscape fill as a phone video, without the Vimeo bar
+  ctl.classList.toggle("vfs", vfs); $("eClose").classList.toggle("vfs", vfs || loomFs); $("eTap").hidden = !vfs;
   ["position","top","left","width","height","transform","transform-origin","right","bottom"].forEach(k => $("eClose").style.removeProperty(k));
   if (!vfs){ clearTimeout(vhideT); vhideT = null; ctl.classList.remove("vhide"); $("eClose").classList.remove("vhide"); }
   if (!full) return;
-  if (vfs){ userRot = false; box.classList.toggle("rot", isPortrait()); $("eHint").hidden = true; $("eRot").hidden = true; layoutVfs(box, f, ctl); return; }
+  if (vfs || loomFs){ userRot = false; box.classList.toggle("rot", isPortrait()); $("eHint").hidden = true; $("eRot").hidden = true; layoutVfs(box, f, ctl); return; }
   if (canRotate(box) && !userRot) box.classList.toggle("rot", isPortrait());
   $("eHint").hidden = !(isVimeo(box) && isPortrait() && !canRotate(box));
   $("eRot").hidden = !(canRotate(box) && isPortrait());
@@ -5776,7 +5778,17 @@ function openTestVideo(id, h){
   $("eSec").textContent = "";
 }
 const TEST_VIDEO = (() => { try{ const q = new URLSearchParams(location.search), v = (q.get("testvideo") || "").trim(); return /^\d{5,12}$/.test(v) ? { id:v, h:(q.get("h") || "").replace(/[^0-9a-f]/gi, "") } : null; }catch(e){ return null; } })();
+/* hidden, not linked: ?testloom=<32-char hex id> opens that same Watch & learn test screen with a Loom embed. */
+function openTestLoom(id){
+  unlockAudio(); syncGameSettings();
+  L = { mode:"single", pos:0, t0:Date.now(), said:0, xp:0, ms:0, prev:"", test:true };
+  renderEmbed({ type:"video", sec:"Watch", icon:"🎬", name:"Watch & learn", how:"", xp:0, cc:false, test:true,
+    url:"https://www.loom.com/embed/" + id + "?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" });
+  $("eSec").textContent = "";
+}
+const TEST_LOOM = (() => { try{ const v = (new URLSearchParams(location.search).get("testloom") || "").trim(); return /^[0-9a-f]{32}$/i.test(v) ? v : null; }catch(e){ return null; } })();
 if (TEST_VIDEO) openTestVideo(TEST_VIDEO.id, TEST_VIDEO.h);
+else if (TEST_LOOM) openTestLoom(TEST_LOOM);
 else if (A.gender && A.mode){ syncGameSettings(); paintHome(); } else openOnb(false);
 
 if ("serviceWorker" in navigator){
