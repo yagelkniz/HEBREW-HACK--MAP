@@ -5207,7 +5207,7 @@ const ZIG = [0, -56, -78, -40, 30, 70, 36];   // one per map node: Welcome, STEP
    Unlocking a step only looks at the earlier steps that are required for this learner. */
 const stepRequired = st => !(st.reading && A.read === false);
 const PILOT_ALL_OPEN = true;   // pilot: nothing is locked by order yet
-function stepUnlocked(i){ return PILOT_ALL_OPEN || STEPS.slice(0, i).filter(stepRequired).every(st => !!st.done); }
+function stepUnlocked(){ return true; }   // preview: no sequential unlock
 
 /* STEP 4 lesson, one full-screen part at a time.
    type "video" / "embed" = an iframe card (url from STEP4_EMBEDS); type "game" = a Magic Four game (g = game number).
@@ -5394,10 +5394,10 @@ function useLesson(id){ if (!LESSONS[id]) return; CUR = id; LESSON = LESSONS[id]
 const STEP_LIVE = { step3:STEP3_LIVE, step5:STEP5_LIVE, step6:STEP6_LIVE, step7:STEP7_LIVE, step8:STEP8_LIVE };
 const stepLive = id => STEP_LIVE[id] !== false;
 /* v40 (Eli): trial. Lessons 1 & 2 (STEP 3, STEP 4) are open; everything from Lesson 3 on is locked with a link to the full course. */
-const TRIAL_LOCK = true, TRIAL_OPEN = ["step3", "step4"];
-function hh40Unlocked(){ try{ return new URLSearchParams(location.search).get("preview") === "all"; }catch(e){ return false; } }
-function hh40Locked(id){ return TRIAL_LOCK && !!LESSONS[id] && !TRIAL_OPEN.includes(id) && !hh40Unlocked(); }
-const lessonOpen = id => !!LESSONS[id] && !hh40Locked(id) && ((typeof v39Item === "function" && v39Item(id) && !v39Item(id).live) ? v39Open(id) : stepLive(id) && (SPEAK_ONLY || !LESSONS[id].speakOnly || A.read === false));   // v39: Lessons 7-30 + Bosses follow ALL_LEVELS_OPEN / LEVEL_LIVE / LESSON_LIVE (config.js)   // v35: STEP 3-8 open for everyone (speaking only)   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
+const TRIAL_LOCK = false, TRIAL_OPEN = ["step3", "step4"];   // preview: trial lock off
+function hh40Unlocked(){ return true; }
+function hh40Locked(){ return false; }   // preview: every lesson and boss stays unlocked
+const lessonOpen = id => !!LESSONS[id];   // preview: all 3 levels, all 10 lessons, all 3 bosses, no progress or level gate
 function lessonProgress(id){ const s = A[id] || {}; return s.completed ? 1 : Math.min(1, (s.pos || 0) / LESSONS[id].parts.length); }
 const XP_BONUS = 20;
 const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","g15","words"];
@@ -10070,13 +10070,7 @@ const V39_ALL = () => V39_LEVELS.flatMap(lv => lv.items);
 const v39Item = id => V39_ALL().find(x => x.id === id);
 const v39LevelOf = id => { const lv = V39_LEVELS.find(l => l.items.some(x => x.id === id)); return lv ? lv.n : 1; };
 /* open / closed (config.js) */
-function v39Open(id){
-  const it = v39Item(id); if (!it) return false;
-  if (it.live) return lessonOpen(id);
-  if (typeof LESSON_LIVE === "object" && LESSON_LIVE[id] !== undefined) return !!LESSON_LIVE[id];
-  if (typeof ALL_LEVELS_OPEN !== "undefined" && ALL_LEVELS_OPEN) return true;
-  return !!(typeof LEVEL_LIVE === "object" && LEVEL_LIVE[v39LevelOf(id)]);
-}
+function v39Open(id){ return !!v39Item(id); }   // preview: levels 2 and 3 and every boss stay open
 GAME_SECTIONS.push("g16", "g17");
 
 booted = true;
