@@ -1408,7 +1408,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v42-preview</p>
+  <p class="hh-ver" id="oVer">Version hh-v43-preview</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -6239,7 +6239,7 @@ const PLAN39 = {
 },
 {
 "slot": "Boss 1",
-"title": "CAFÉ SHOWDOWN",
+"title": "CAFÉ SHIFT",
 "src": "new",
 "core": "Lessons 1-10",
 "game": "Boss (D)"
@@ -8905,7 +8905,7 @@ const PLAN39 = {
 "bosses": [
 {
 "n": 1,
-"name": "CAFÉ SHOWDOWN",
+"name": "CAFÉ SHIFT",
 "after": "L1.10",
 "arena": "Yoni's café at the Friday rush, Dana at your table. Every right answer serves one order; the queue empties as you win.",
 "ranks": [
@@ -11395,7 +11395,7 @@ async function hh41MaybeDemo(P, id, sec){
 })();
 </script>
 <style>
-/* v42: in-game Easy/Challenge + Boss 1 CAFÉ SHOWDOWN v2 */
+/* v42 Easy/Challenge + v43 Boss 1 CAFÉ SHIFT v6.1 */
 .v39-b1 .v39-hp{flex-wrap:wrap;justify-content:center;row-gap:0;font-size:15px;max-height:44px;overflow:hidden}
 .v39-b1 .v39-track{overflow-x:auto;max-width:100%}
 
@@ -11447,11 +11447,48 @@ async function hh41MaybeDemo(P, id, sec){
 #g15.hh42-noch .hh-bg-face.f small,
 #g15.hh42-noch .m,
 #g15.hh42-noch .f{color:var(--cream)!important}
+/* v43: Café Eilai frame + v6.1 mechanics */
+.v39-b1 .v39-hp, .v39-b1 .v39-track{display:none!important}
+.b1-tips{font-weight:800;color:#F4F1E8;letter-spacing:.02em}
+.b1-menu{position:relative;margin:6px 0 10px;padding:8px 10px 8px;border-radius:14px;background:#183B2F;border:1px solid rgba(244,241,232,.18);text-align:left}
+.b1-menu h4{margin:0 0 6px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,241,232,.55)}
+.b1-menu ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px 8px}
+.b1-menu li{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#F4F1E8}
+.b1-menu li.sold{opacity:.45;text-decoration:none;position:relative}
+.b1-menu li.sold .b1-sold{margin-left:auto;font-size:8px;font-weight:900;letter-spacing:.06em;color:#1E4A3A;background:#FF6FA5;padding:1px 5px;border-radius:999px;transform:rotate(-8deg)}
+.b1-ph{display:flex;align-items:flex-start;gap:8px;margin:6px 0;padding:8px 10px;border-radius:14px;background:#F4F1E8;color:#1E4A3A;text-align:left}
+.b1-ph-ic{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:#26543F;color:#F4F1E8;display:flex;align-items:center;justify-content:center;font-size:12px;margin-top:1px}
+.b1-ph small{display:block;font-weight:800;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#26543F}
+.b1-ph-line{font-weight:800;font-size:16px;line-height:1.25}
+.b1-chip{display:inline-block;margin:6px 0;padding:6px 12px;border-radius:999px;background:rgba(244,241,232,.12);font-size:22px}
+.b1-hook{margin:6px 0 8px;padding:6px 10px;border-radius:12px;background:rgba(244,241,232,.08);font-size:12px;font-weight:700;color:rgba(244,241,232,.85);text-align:left}
+.b1-hook b{color:#FF6FA5}
+.b1-flip{display:flex;justify-content:center;gap:14px;margin:8px 0 12px;min-height:78px}
+.b1-person{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 10px;border-radius:16px;background:rgba(244,241,232,.1);min-width:72px;transition:transform .35s, opacity .35s}
+.b1-person b{font-size:34px;line-height:1;font-style:normal}
+.b1-person small{font-size:11px;font-weight:700;color:var(--cream-dim)}
+.b1-person.in{animation:b1Pop .35s ease}
+@keyframes b1Pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.b1-text{margin:8px auto;max-width:320px;padding:12px 14px;border-radius:16px 16px 16px 6px;background:#F4F1E8;color:#1E4A3A;text-align:left}
+.b1-text small{display:block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#26543F;margin-bottom:4px}
+.b1-text p{margin:0;font-weight:800;font-size:18px}
+.b1-ripple{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:10px 0 8px}
+.b1-rw{border:0;background:rgba(244,241,232,.12);color:#F4F1E8;border-radius:12px;padding:8px 12px;font:inherit;font-weight:800;font-size:20px;cursor:pointer}
+.b1-rw.on{background:rgba(255,111,165,.3);outline:2px solid #FF6FA5}
+.b1-rw.flip{background:#F4F1E8;color:#1E4A3A;animation:b1Pop .4s ease}
+.b1-rw.ok{outline:2px solid #7dcea0}
+.b1-ways{margin-top:10px;padding:10px 12px;border-radius:14px;background:rgba(255,111,165,.12);border:1px dashed #FF6FA5;text-align:center}
+.b1-ways p{margin:0 0 8px;font-weight:800;color:#F4F1E8}
+.b1-after{margin-top:8px;font-size:13px;color:rgba(244,241,232,.8);font-weight:600}
+.b1-jar{display:flex;align-items:center;justify-content:center;gap:6px;font-weight:800;color:#F4F1E8}
+.v39-b1 .v39-bstars{font-size:14px}
+.b1-ask{font-weight:800;color:#F4F1E8;margin:4px 0 8px;font-size:18px;text-align:center}
+
 #hh40Mode{display:none!important}
 
 </style>
 <script>
-/* v42-preview: Boss 1 CAFÉ SHOWDOWN v2 + in-game Easy/Challenge */
+/* v43-preview: Boss 1 CAFÉ SHIFT v6.1 + in-game Easy/Challenge */
 (function hh42(){
   const DIFF_KEY = "hhGameDiff";
   const B1_BEST_KEY = "hhBoss1Best";
@@ -11463,7 +11500,7 @@ async function hh41MaybeDemo(P, id, sec){
     g14:{ key:"g14", ch:"Build the full question, with a timer." },
     g15:{ key:"g15", ch:"Trap rounds, and no color hints." },
     "L1.10":{ key:"L1.10", ch:"Type the order, with a timer." },
-    boss1:{ key:"boss1", ch:"More tiles, one try in Build, a tighter listen stage." }
+    boss1:{ key:"boss1", ch:"Type some answers first. A pizza order in the build, extra tiles at the close." }
   };
   function diffLoad(){ try{ return JSON.parse(localStorage.getItem(DIFF_KEY)) || {}; }catch(e){ return {}; } }
   function diffSave(o){ try{ localStorage.setItem(DIFF_KEY, JSON.stringify(o)); }catch(e){} }
@@ -11764,511 +11801,688 @@ async function hh41MaybeDemo(P, id, sec){
   };
 
   /* ========================================================================
-     Boss 1 — CAFÉ SHOWDOWN v2
+     Boss 1 — CAFÉ SHIFT v6.1
+     12 rounds, tip jar /24, audio placeholders (no TTS, no new clips).
      ======================================================================== */
-  const B1_FACE = { Dana:"👧", Yoni:"👦" };
-  const B1_STAGE = [
-    null,
-    { n:1, name:"Warm-up", tag:"STAGE 1 · WARM-UP", sub:"5 quick picks" },
-    { n:2, name:"Build", tag:"STAGE 2 · BUILD", sub:"5 sentences you build", banner:"🛡️ Shield breaks!" },
-    { n:3, name:"Fix it & match", tag:"STAGE 3 · FIX IT & MATCH", sub:"4 rounds", banner:"✨ New practice!" },
-    { n:4, name:"Listen & respond", tag:"STAGE 4 · LISTEN & RESPOND", sub:"4 timed rounds", banner:"💥 Armor cracks!" }
+  const B1_FACE = { Dana:"👧", Yoni:"👦", Eilai:"👨‍🍳", "Table 2":"👭", "Two women":"👭" };
+  const B1_MENU = [
+    { id:"kafe", ico:"☕" }, { id:"te", ico:"🍵" }, { id:"pitsa", ico:"🍕" },
+    { id:"uga", ico:"🍰" }, { id:"shokolad", ico:"🍫" }, { id:"glida", ico:"🍦" }
   ];
-  const B1_AUDIO = {
-    "Ani rotsa kafe.":"ani-rotza-kafe.mp3",
-    "Ani rotse kafe.":"ani-rotze-kafe.mp3",
-    "Anakhnu tsrikhim mayim.":"anachnu-tzrichim-mayim.mp3",
-    "Ani rotse te.":"ani-rotze-te.mp3",
-    "Ani rotsa te.":"ani-rotza-te.mp3"
-  };
-  function b1Clip(line){ return B1_AUDIO[line] || ""; }
-  function b1Norm(s){ return String(s || "").toLowerCase().replace(/[.,!?;:…'"’]/g, "").replace(/\s+/g, " ").trim(); }
-  function b1Match(got, correct, accept){ const g = b1Norm(got); return [correct].concat(accept || []).some(x => b1Norm(x) === g); }
-  function b1G(){ return (B1.st && B1.st.g) || (A.gender === "f" ? "f" : "m"); }
   function b1Ch(){ return hhDiffOn("boss1"); }
   function ST(){ return B1.st; }
+  function b1Norm(s){ return String(s || "").toLowerCase().replace(/[.,!?;:…'"’]/g, "").replace(/\s+/g, " ").trim(); }
+  function b1Match(got, correct, accept){ const g = b1Norm(got); return [correct].concat(accept || []).some(x => b1Norm(x) === g); }
 
-  function b1Rounds(){
-    const g = b1G();
-    const r16ans = g === "f" ? "Ani rotsa te." : "Ani rotse te.";
-    const r16acc = g === "f" ? ["Ani rotsa lishtot te.", "Te, bevakasha."] : ["Ani rotse lishtot te.", "Te, bevakasha."];
-    const r16wrong = g === "f" ? ["Ani rotsa kafe.", "Hu rotse te.", "Ani tsrikha te."] : ["Ani rotse kafe.", "Hu rotse te.", "Ani tsarikh te."];
-    const r16q = g === "f" ? "Ma at rotsa lishtot?" : "Ma ata rotse lishtot?";
-    const r15q = g === "f" ? "Yesh lakh uga?" : "Yesh lekha uga?";
-    const r18q = g === "f" ? "Ma at rotsa?" : "Ma ata rotse?";
-    return [
-      { n:1, stage:1, type:"pick", prompt:"Dana says she wants coffee. What does she say?",
-        scene:() => b1Pic("Dana", "💭☕", "Dana, hand on her chest, thinking of coffee"),
-        correct:"Ani rotsa kafe.", distractors:["Ani rotse kafe.", "Hi rotsa kafe.", "At rotsa kafe."],
-        say:"Ani rotsa kafe.", skill:"magic" },
-      { n:2, stage:1, type:"pick", prompt:"Talk ABOUT Dana: She doesn't have cake.",
-        scene:() => b1Pic("Dana", "🍰❌", "Dana has no cake.", "Dana next to an empty plate"),
-        correct:"Ein la uga.", distractors:["Ein lo uga.", "Ein li uga.", "Yesh la uga."],
-        say:"Ein la uga.", skill:"yesh" },
-      { n:3, stage:1, type:"sort", prompt:"Tap the 3 feminine words.",
-        scene:() => b1Note("Food words"),
-        fem:["pitsa","glida","uga"], masc:["kafe","lekhem","shokolad"], skill:"adj" },
-      { n:4, stage:1, type:"pick", prompt:"Dana answers: Coffee! Which question did Yoni ask?  ___ at rotsa lishtot",
-        scene:() => b1Pic("Yoni", "☕", "Dana answers: “Kafe!”"),
-        correct:"Ma", distractors:["Mi","Eifo","Matai"], skill:"q" },
-      { n:5, stage:1, type:"pick", prompt:"The answer is: Dana. Which question fits?  ___ rotse glida",
-        scene:() => b1Pic("Yoni", "🍦", "Yoni points at Dana, who holds ice cream"),
-        correct:"Mi", distractors:["Ma","Eifo","Lama"], skill:"q" },
-      { n:6, stage:2, type:"build", prompt:"Dana and Yoni say together: We need water.",
-        scene:() => b1Pic("Dana + Yoni", "💧", "Dana and Yoni together"),
-        correct:"Anakhnu tsrikhim mayim.", tokens:["Anakhnu","tsrikhim","mayim"],
-        distractors:["tsrikhot","tsarikh","lishtot"], extraCh:["hem","anakhnu"],
-        say:"Anakhnu tsrikhim mayim.", skill:"magic" },
-      { n:7, stage:2, type:"build", prompt:"Order politely: a big ice cream, please.",
-        scene:() => b1Pic("", "🍦", "The ice-cream counter"),
-        correct:"Efshar glida gdola bevakasha.", accept:["Efshar bevakasha glida gdola.", "Efshar glida gdola, bevakasha."],
-        tokens:["Efshar","glida","gdola","bevakasha"],
-        distractors:["gadol","ktana"], extraCh:["katan","lishtot"],
-        say:"Efshar glida gdola, bevakasha.", skill:"cafe" },
-      { n:8, stage:2, type:"build", prompt:"Ask Yoni: Do you have bread?",
-        scene:() => b1Pic("Yoni", "🍞❓", "You are facing Yoni"),
-        correct:"Yesh lekha lekhem?", tokens:["Yesh","lekha","lekhem"],
-        distractors:["lakh","lo","ein"], extraCh:["la","li"],
-        say:"Yesh lekha lekhem?", skill:"yesh" },
-      { n:9, stage:2, type:"build", prompt:"Say: The pizza is good.",
-        scene:() => b1Pic("", "🍕👍", ""),
-        correct:"Ha-pitsa tova.", tokens:["Ha-pitsa","tova"],
-        distractors:["tov","ha-kafe"], extraCh:["gdola","ha-glida"],
-        say:"Ha-pitsa tova.", skill:"adj" },
-      { n:10, stage:2, type:"build", prompt:"Talk ABOUT Yoni: He loves to eat chocolate.",
-        scene:() => b1Pic("Yoni", "❤️🍫", "Yoni with chocolate"),
-        correct:"Hu ohev le'ekhol shokolad.", tokens:["Hu","ohev","le'ekhol","shokolad"],
-        distractors:["hi","ohevet","lishtot"], extraCh:["ani","ohev"],
-        say:"Hu ohev le'ekhol shokolad.", skill:"magic" },
-      { n:11, stage:3, type:"fix", prompt:"One word is wrong. Tap it, then choose the fix.",
-        scene:() => b1Note("Sentence card"),
-        sentence:["Dana","ohev","kafe","tov."], wrong:1, fix:"ohevet",
-        options:["ohevet","ohavim","ohavot"],
-        correct:"Dana ohevet kafe tov.",
-        feedback:"Dana is a she, so the verb is ohevet. Kafe is masculine, so tov stays.",
-        say:"Dana ohevet kafe tov.", skill:"magic" },
-      { n:12, stage:3, type:"fix", prompt:"One word is wrong. Tap it, then choose the fix.",
-        scene:() => b1Pic("", "🍦", ""),
-        sentence:["Yoni","rotse","glida","gadol."], wrong:3, fix:"gdola",
-        options:["gdola","ktana","gdolim"],
-        correct:"Yoni rotse glida gdola.",
-        feedback:"Yoni is a he, so rotse is right. Glida is feminine, so the adjective is gdola.",
-        say:"Yoni rotse glida gdola.", skill:"adj" },
-      { n:13, stage:3, type:"match", prompt:"Give each food the right word.",
-        scene:() => b1Note("Match the word to the food"),
-        pairs:[{ pic:"🍰👍", en:"cake", noun:"uga", adj:"tova" }, { pic:"🍞👍", en:"bread", noun:"lekhem", adj:"tov" },
-               { pic:"🍕", en:"pizza", noun:"pitsa", adj:"gdola" }, { pic:"☕", en:"coffee", noun:"kafe", adj:"katan" }],
-        bank:["tov","tova","gadol","gdola","katan","ktana"],
-        correct:"uga tova, lekhem tov, pitsa gdola, kafe katan.", skill:"adj" },
-      { n:14, stage:3, type:"pick", prompt:"Yoni says: This is my coffee.",
-        scene:() => b1Pic("Yoni", "☕", "Yoni holds coffee, pointing at himself"),
-        correct:"Ze ha-kafe sheli.", distractors:["Zot ha-kafe sheli.","Ze ha-kafe shelkha.","Zot ha-glida sheli."],
-        say:"Ze ha-kafe sheli.", skill:"cafe" },
-      { n:15, stage:4, type:"listen", prompt:"You have cake. Answer Dana: Yes, I have cake!",
-        status:"You have: 🍰 cake", who:"Dana", listen:r15q,
-        scene:() => b1Pic("Dana", "🍰", "You have: 🍰 cake"),
-        correct:"Ken, yesh li uga!", accept:["Ken, yesh li!"],
-        distractors:["Ken, yesh lekha uga!","Lo, ein li uga.","Ken, yesh la uga!"],
-        say:"Ken, yesh li uga!", skill:"yesh" },
-      { n:16, stage:4, type:"listen", prompt:"You want tea. Answer Yoni.",
-        status:"You want: 🍵 tea", who:"Yoni", listen:r16q,
-        scene:() => b1Pic("Yoni", "🍵", "You want: 🍵 tea"),
-        correct:r16ans, accept:r16acc, distractors:r16wrong,
-        say:r16ans, skill:"magic" },
-      { n:17, stage:4, type:"listen", prompt:"Answer Dana: No, he doesn't have coffee.",
-        status:"Yoni has no coffee.", who:"Dana", listen:"Yesh lo kafe?",
-        scene:() => b1Pic("Dana", "☕❌", "Yoni has no coffee."),
-        correct:"Lo, ein lo kafe.", distractors:["Lo, ein la kafe.","Lo, ein li kafe.","Ken, yesh lo kafe."],
-        say:"Lo, ein lo kafe.", skill:"yesh" },
-      { n:18, stage:4, type:"listen", prompt:"Order a small coffee, politely.",
-        status:"Order: ☕ small coffee", who:"Yoni", listen:r18q,
-        scene:() => b1Pic("Yoni", "☕", "Yoni is behind the counter. Order: ☕ small coffee"),
-        correct:"Efshar kafe katan, bevakasha.", accept:["Efshar bevakasha kafe katan."],
-        distractors:["Efshar kafe gadol, bevakasha.","Efshar uga ktana, bevakasha.","Kafe katan."],
-        say:"Efshar kafe katan, bevakasha.", skill:"cafe" }
-    ];
+  /* Canonical drop-in filenames (student kh/ts spelling). Not played in this preview. */
+  const B1_FILES = {
+    "At rotsa kafe?": "at-rotsa-kafe_q.mp3",
+    "Lo, ani rotsa te.": "lo-ani-rotsa-te.mp3",
+    "Yesh lakhem glida?": "yesh-lakhem-glida_q.mp3",
+    "Lo, ein lanu glida.": "lo-ein-lanu-glida.mp3",
+    "Ani lo rotse lishon. Ani tsarikh lilmod.": "ani-lo-rotse-lishon-ani-tsarikh-lilmod.mp3",
+    "Ma atem rotsim lishtot?": "ma-atem-rotsim-lishtot_q.mp3",
+    "Ma at rotsa lishtot?": "ma-at-rotsa-lishtot_q.mp3",
+    "Ma aten rotsot lishtot?": "ma-aten-rotsot-lishtot_q.mp3",
+    "Yesh lo kafe. Ein la te.": "yesh-lo-kafe-ein-la-te.mp3",
+    "Atem rotsim le'ekhol?": "atem-rotsim-leekhol_q.mp3",
+    "Lo, anakhnu rotsim lishtot.": "lo-anakhnu-rotsim-lishtot.mp3",
+    "Efshar kafe katan, bevakasha.": "efshar-kafe-katan-bevakasha.mp3",
+    "Efshar pitsa gdola, bevakasha.": "efshar-pitsa-gdola-bevakasha.mp3",
+    "Me-eifo at?": "me-eifo-at_q.mp3",
+    "Ani mi-Kanada.": "ani-mi-kanada.mp3",
+    "Ani mi-Kanada. Ani gara be-Tel Aviv.": "ani-mi-kanada-ani-gara-be-tel-aviv.mp3",
+    "Efshar kheshbon, bevakasha?": "efshar-kheshbon-bevakasha_q.mp3",
+    "Shmone shekel.": "shmone-shekel.mp3",
+    "Anakhnu rotsot le'ekhol pitsa.": "anakhnu-rotsot-leekhol-pitsa.mp3",
+    "Nu?": "nu_q.mp3",
+    "Hen rotsot le'ekhol pitsa.": "hen-rotsot-leekhol-pitsa.mp3",
+    "Ein lanu pitsa. Yesh lanu uga.": "ein-lanu-pitsa-yesh-lanu-uga.mp3",
+    "Ein pitsa. Aten rotsot uga?": "ein-pitsa-aten-rotsot-uga_q.mp3",
+    "Ze kafe katan.": "ze-kafe-katan.mp3",
+    "Zot glida ktana.": "zot-glida-ktana.mp3"
+  };
+  window.B1_FILES = B1_FILES;
+  window.B1_PLACEHOLDER_LINES = [
+    "At rotsa kafe?", "Lo, ani rotsa te.",
+    "Yesh lakhem glida?", "Lo, ein lanu glida.",
+    "Ani lo rotse lishon. Ani tsarikh lilmod.",
+    "Ma at rotsa lishtot?", "Ma atem rotsim lishtot?", "Ma aten rotsot lishtot?",
+    "Yesh lo kafe. Ein la te.",
+    "Atem rotsim le'ekhol?", "Lo, anakhnu rotsim lishtot.",
+    "Efshar kafe katan, bevakasha.", "Efshar pitsa gdola, bevakasha.",
+    "Me-eifo at?", "Ani mi-Kanada.",
+    "Ze kafe katan.", "Zot glida ktana.",
+    "Efshar kheshbon, bevakasha?", "Shmone shekel.",
+    "Anakhnu rotsot le'ekhol pitsa.", "Nu?",
+    "Hen rotsot le'ekhol pitsa.",
+    "Ein lanu pitsa. Yesh lanu uga.",
+    "Ein pitsa. Aten rotsot uga?"
+  ];
+
+  function b1MenuEl(sold){
+    const box = v39El("div", "b1-menu");
+    box.setAttribute("aria-label", "Menu board");
+    const h = document.createElement("h4"); h.textContent = "Café Eilai"; box.append(h);
+    const ul = document.createElement("ul");
+    B1_MENU.forEach(it => {
+      const li = document.createElement("li");
+      if (sold && sold[it.id]) li.className = "sold";
+      li.innerHTML = "<span>" + it.ico + "</span><span>" + it.id + "</span>" + (sold && sold[it.id] ? '<span class="b1-sold">SOLD OUT</span>' : "");
+      ul.append(li);
+    });
+    box.append(ul);
+    return box;
   }
-  function b1Pic(who, emoji, caption, sub){
-    const el = v39El("div", "hh42-scene");
-    const faces = (who || "").split(" + ").filter(Boolean).map(n => '<span class="hh42-face"><b>' + (B1_FACE[n] || "🙂") + "</b><small>" + n + "</small></span>").join("");
-    el.innerHTML = (faces ? '<div class="hh42-faces">' + faces + "</div>" : "") +
-      (emoji ? '<div class="hh42-emo">' + emoji + "</div>" : "") +
-      (caption ? '<div class="hh42-cap">' + caption + "</div>" : "") +
-      (sub ? '<div class="hh42-sub">' + sub + "</div>" : "");
+  function b1SetSold(sold){ ST().sold = Object.assign({}, sold); const host = $("g17intro").parentNode; }
+  function b1PaintMenu(){
+    let slot = $("b1menu");
+    if (!slot){
+      slot = document.createElement("div"); slot.id = "b1menu";
+      const stage = $("g17stage"); if (stage) stage.after(slot);
+    }
+    slot.innerHTML = ""; slot.append(b1MenuEl(ST().sold || { glida:true }));
+  }
+  function b1Ph(who, line){
+    const el = v39El("div", "b1-ph");
+    const ic = v39El("span", "b1-ph-ic", "🔊"); ic.setAttribute("aria-hidden", "true");
+    const body = document.createElement("div");
+    if (who) body.append(v39El("small", "", who));
+    body.append(v39El("div", "b1-ph-line", line));
+    el.append(ic, body);
     return el;
   }
-  function b1Note(t){ const el = v39El("div", "hh42-scene"); el.append(v39El("div", "hh42-sub", t)); return el; }
+  function b1Persons(list){
+    const row = v39El("div", "b1-flip");
+    (list || []).forEach(n => {
+      const c = v39El("div", "b1-person in");
+      c.innerHTML = "<b>" + (B1_FACE[n] || "🙂") + "</b><small>" + n + "</small>";
+      row.append(c);
+    });
+    return row;
+  }
+  function b1Hint(host, cls, text){
+    let h = host.querySelector(".v39-hint"); if (!h){ h = v39El("div", "msg v39-hint"); host.append(h); }
+    h.className = "msg v39-hint" + (cls ? " " + cls : ""); h.textContent = text || "";
+  }
+  function b1Think(fn){
+    const wait = (B1.testFast || (ST() && ST().fast)) ? 40 : 2000;
+    clearTimeout(ST() && ST()._think);
+    if (!wait) return fn();
+    ST()._think = setTimeout(fn, wait);
+  }
+  function b1ClearThink(){ if (ST() && ST()._think){ clearTimeout(ST()._think); ST()._think = null; } }
 
-  const B1 = { st:null };
+  const B1 = { st:null, testFast:false };
   window.B1 = B1;
 
   function b1PaintHud(){
     const s = B1.st; if (!s) return;
-    const hp = $("g17hp"), tr = $("g17track");
-    const n = (s.rounds && s.rounds.length) || 18;
+    const n = (s.rounds && s.rounds.length) || 12;
     const i = s.i || 0;
-    hp.innerHTML = "";
-    for (let k = 0; k < n; k++){ const el = v39El("i", k < (n - i) ? "on" : "off", k < (n - i) ? "❤️" : "🖤"); hp.append(el); }
-    hp.setAttribute("aria-label", "Rounds left " + Math.max(0, n - i) + " of " + n);
-    tr.innerHTML = ""; tr.append(v39El("small", "", "The queue"));
-    const row = v39El("div", "v39-trow");
-    for (let k = 0; k < n; k++) row.append(v39El("span", k < i ? "done" : k === i ? "now" : "", k < i ? "☕" : "🧍"));
-    tr.append(row);
-    $("g17stars").textContent = "⭐ " + (s.stars || 0) + " / 36";
-    $("g17bar").style.width = (i / n * 100) + "%";
+    $("g17stars").textContent = "🪙 " + (s.stars || 0) + " / 24" + (s.bonus ? (" · +" + s.bonus + " bonus") : "");
+    $("g17bar").style.width = (Math.min(i, n) / n * 100) + "%";
     $("g17count").textContent = s.phase === "round" ? (i + 1) + " / " + n : "";
+    if ($("g17hp")) $("g17hp").style.display = "none";
+    if ($("g17track")) $("g17track").style.display = "none";
   }
 
   function b1Start(){
     if (typeof hh41CloseHow === "function") hh41CloseHow();
     show("g17");
     const sec = $("g17"); sec.dataset.boss = "1"; sec.className = "v39-sec v39-boss v39-b1";
-    $("g17name").textContent = "★ BOSS 1 · CAFÉ SHOWDOWN";
-    $("g17stage").textContent = "18 rounds · 4 stages";
+    $("g17name").textContent = "★ BOSS 1 · CAFÉ SHIFT";
+    $("g17stage").textContent = "Your shift at Café Eilai";
     $("g17bar").style.width = "0%"; $("g17count").textContent = "";
     ["g17round","g17end","g17banner"].forEach(id => $(id).hidden = true);
     ["g17doneRow","g17bannerRow"].forEach(id => $(id).hidden = true);
     const prac = $("g17pracRow"); if (prac) prac.hidden = true;
     $("g17startRow").hidden = false;
-    $("g17start").textContent = "Enter the arena";
+    $("g17start").textContent = "Start the shift";
     const box = $("g17intro"); box.hidden = false; box.innerHTML = "";
-    box.append(v39El("div", "v39-gicon", "☕"), v39El("p", "v39-theme", "Yoni's café at the Friday rush, Dana at your table. Every right answer serves one order."));
+    box.append(v39El("div", "v39-gicon", "☕"));
+    box.append(v39El("p", "v39-theme", "Your shift at Café Eilai. Take the orders, pass them to Eilai."));
     if (typeof hh41Card === "function") box.append(hh41Card("boss"));
-    const gender = v39El("div", "hh42-gender");
-    gender.append(v39El("div", "hh42-diff-lab", "Talk to me as"));
-    const row = v39El("div", "hh42-seg"); row.setAttribute("role", "radiogroup"); row.setAttribute("aria-label", "Talk to me as");
-    const pref = A.gender === "f" ? "f" : "m";
-    [["m","ata (he)"],["f","at (she)"]].forEach(([v, lab]) => {
-      const b = document.createElement("button"); b.type = "button"; b.dataset.g = v; b.textContent = lab;
-      b.setAttribute("aria-pressed", String(v === pref));
-      b.addEventListener("click", () => { row.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); sfx("tap"); });
-      row.append(b);
-    });
-    gender.append(row);
-    box.append(gender);
     box.append(hhDiffBar("boss1"));
-    B1.st = { phase:"intro", g:pref, i:0, stars:0, said:0, skillLoss:{}, scores:[], review:false, officialStars:0, officialRank:"", stage:0, rounds:new Array(18) };
+    B1.st = { phase:"intro", i:0, stars:0, bonus:0, said:0, scores:[], review:false, officialStars:0, officialRank:"", sold:{ glida:true }, rounds:new Array(12) };
+    b1PaintMenu();
     if (typeof hh41HowBtn === "function") hh41HowBtn("g17", false);
-    ["g17hp","g17track"].forEach(id => { if ($(id)) $(id).style.display = "none"; });
     b1PaintHud();
+  }
+
+  function b1Rounds(){
+    return [
+      { n:1, type:"listen", prompt:"What does Dana want?",
+        lines:[{ who:"Yoni", text:"At rotsa kafe?" }, { who:"Dana", text:"Lo, ani rotsa te." }],
+        options:["Tea","Coffee","Nothing"], correct:"Tea",
+        fb:{ Coffee:"She said lo, then: te.", Nothing:"Lo… ani rotsa te. She still wants something." } },
+      { n:2, type:"texts", prompt:"Who texted this?",
+        items:[
+          { text:"Ani tsrikha lishon!", correct:"Dana", miss:"tsrikha ends in -a: a she." },
+          { text:"Ani lo yakhol lishtot khalav.", correct:"Yoni", miss:"yakhol, not yekhola: a he." },
+          { text:"Ani ohev le'ekhol pitsa gdola!", correct:"Yoni", miss:"Gdola is about the pizza. Ohev is about Yoni." }
+        ] },
+      { n:3, type:"talk", prompt:"Answer Yoni", speak:true,
+        lines:[{ who:"Yoni", text:"Yesh lakhem glida?" }],
+        correct:"Lo, ein lanu glida.", accept:["Ein lanu glida.","Lo, ein lanu."],
+        distractors:["Lo, ein lakhem glida.","Ken, yesh lanu glida.","Lo, ein li glida."],
+        fb:{ "Lo, ein lakhem glida.":"He asked about you all. You answer for us: lanu.",
+             "Ken, yesh lanu glida.":"Look at the board: glida is sold out.",
+             "Lo, ein li glida.":"You speak for the café: lanu." } },
+      { n:4, type:"listen", prompt:"What does Yoni need to do?",
+        lines:[{ who:"Yoni", text:"Ani lo rotse lishon. Ani tsarikh lilmod." }],
+        options:["Study","Sleep","Eat","Go"], correct:"Study",
+        fb:{ Sleep:"Lo rotse lishon = he doesn't want to sleep.", Eat:"Le'ekhol = to eat. He said lilmod = to study.", Go:"Lalekhet = to go. He said lilmod." },
+        after:"Ani lo rotse lishon. Ani tsarikh lilmod. = I don't want to sleep. I need to study." },
+      { n:5, type:"corners", prompt:"Ask them what they want to drink",
+        flips:[
+          { who:["Dana"], correct:"Ma at rotsa lishtot?",
+            wrong:["Ma ata rotse lishtot?","Ma at rotsa le'ekhol?"],
+            fb:{ "Ma ata rotse lishtot?":"Dana is a she: at rotsa.", "Ma at rotsa le'ekhol?":"To drink: lishtot." } },
+          { who:["Dana","Yoni"], correct:"Ma atem rotsim lishtot?",
+            wrong:["Ma hem rotsim lishtot?","Ma atem rotsim le'ekhol?"],
+            fb:{ "Ma hem rotsim lishtot?":"You're talking to them: atem.", "Ma atem rotsim le'ekhol?":"To drink: lishtot." } },
+          { who:["Two women"], correct:"Ma aten rotsot lishtot?",
+            wrong:["Ma atem rotsim lishtot?","Ma aten rotsot le'ekhol?"],
+            fb:{ "Ma atem rotsim lishtot?":"Two women: aten rotsot.", "Ma aten rotsot le'ekhol?":"To drink: lishtot." } }
+        ] },
+      { n:6, type:"listen", prompt:"Who is still waiting?", hook:true,
+        lines:[{ who:"Eilai", text:"Yesh lo kafe. Ein la te." }],
+        options:["Dana","Yoni","Both"], correct:"Dana",
+        faces:true,
+        fb:{ Yoni:"Lo here is the l-hook: to him. Yesh lo = he has.", Both:"Yesh lo: he has his coffee. Ein la: she doesn't have her tea." },
+        after:"He has coffee. She doesn't have tea." },
+      { n:7, type:"talk", prompt:"Answer Eilai", speak:true, chip:"🥤",
+        lines:[{ who:"Eilai", text:"Atem rotsim le'ekhol?" }],
+        correct:"Lo, anakhnu rotsim lishtot.", accept:["Lo, lishtot.","Anakhnu rotsim lishtot."],
+        distractors:["Ken, anakhnu rotsim le'ekhol.","Lo, atem rotsim lishtot.","Lo, anakhnu rotsim le'ekhol."],
+        fb:{ "Ken, anakhnu rotsim le'ekhol.":"Look at the chip: 🥤 = to drink.",
+             "Lo, atem rotsim lishtot.":"He asked you all. You answer: anakhnu.",
+             "Lo, anakhnu rotsim le'ekhol.":"Lo… then the new action: lishtot." } },
+      { n:8, type:"build", prompt:"Say it in Hebrew",
+        easy:{ line:"A small coffee, please.",
+          tokens:["Efshar","kafe","katan","bevakasha"], extra:["ktana","gadol"],
+          correct:"Efshar kafe katan bevakasha",
+          accept:["Efshar bevakasha kafe katan","Kafe katan bevakasha"],
+          fbTile:{ ktana:"Kafe is a he-word: katan." } },
+        ch:{ line:"A big pizza, please.",
+          tokens:["Efshar","pitsa","gdola","bevakasha"], extra:["gadol","katan"],
+          correct:"Efshar pitsa gdola bevakasha",
+          accept:["Efshar bevakasha pitsa gdola"],
+          fbTile:{ gadol:"Pitsa is a she-word: gdola." } } },
+      { n:9, type:"listen", prompt:"Where is Dana from?",
+        lines:[{ who:"Yoni", text:"Me-eifo at?" }, { who:"Dana", text:"Ani mi-Kanada." }],
+        options:["Canada","Israel","Mexico"], correct:"Canada",
+        fb:{ Israel:"Mi-Kanada = from Canada.", Mexico:"Mi- = from. Then: Kanada." } },
+      { n:10, type:"ripple", prompt:"Fix the sentence",
+        start:"Ze kafe katan.", after:"Ze glida katan.",
+        words:["Ze","glida","katan"], change:["Ze","katan"],
+        forms:{ Ze:["zot","ze"], katan:["ktana","gdola","katan"] },
+        correct:"Zot glida ktana.",
+        fb:{ onlyKatan:"Ze also follows the noun: zot.",
+             glida:"Glida is the new word. Fix the words around it.",
+             gdola:"Same size, just the she-form: ktana." } },
+      { n:11, type:"listen", prompt:"How much does Dana pay?",
+        lines:[{ who:"Dana", text:"Efshar kheshbon, bevakasha?" }, { who:"Eilai", text:"Shmone shekel." }],
+        options:["₪8","₪3","₪7","₪10"], correct:"₪8",
+        fb:{ "₪3":"Shalosh = 3. Shmone = 8.", "₪7":"Sheva = 7. Shmone = 8.", "₪10":"Eser = 10. Shmone = 8." } },
+      { n:12, type:"finale", prompt1:"Tell Eilai the order", prompt2:"Tell table 2",
+        lines1:[{ who:"Table 2", text:"Anakhnu rotsot le'ekhol pitsa." }, { who:"Eilai", text:"Nu?" }],
+        tokens:["Hen","rotsot","le'ekhol","pitsa"], extra:["hem","anakhnu","rotsim","lishtot"], extraCh:["aten","lishon"],
+        correct1:"Hen rotsot le'ekhol pitsa",
+        accept1:["Hen rotsot pitsa.","Table 2 rotsot le'ekhol pitsa."],
+        fb1:{ anakhnu:"You're not them. Tell Eilai about them: hen.",
+              hem:"Two women: hen rotsot.", rotsim:"Two women: hen rotsot.",
+              lishtot:"Pitsa is to eat: le'ekhol." },
+        lines2:[{ who:"Eilai", text:"Ein lanu pitsa. Yesh lanu uga." }],
+        sold2:{ glida:true, pitsa:true },
+        correct2:"Ein pitsa. Aten rotsot uga?",
+        accept2:["Ein lanu pitsa. Aten rotsot uga?","Aten rotsot le'ekhol uga?"],
+        distractors2:["Ein uga. Aten rotsot pitsa?","Ein pitsa. Hen rotsot uga?","Ein pitsa. Atem rotsim uga?"],
+        fb2:{ "Ein uga. Aten rotsot pitsa?":"Listen again: ein pitsa, yesh uga.",
+              "Ein pitsa. Hen rotsot uga?":"You're talking to them now: aten.",
+              "Ein pitsa. Atem rotsim uga?":"Two women: aten rotsot." } }
+    ];
   }
 
   function b1Begin(){
     const s = B1.st; if (!s || s.phase !== "intro") return;
-    const picked = document.querySelector("#g17intro .hh42-gender button[aria-pressed='true']");
-    s.g = picked && picked.dataset.g === "f" ? "f" : "m";
     s.rounds = b1Rounds();
-    s.i = 0; s.stars = 0; s.said = 0; s.scores = []; s.skillLoss = {}; s.review = false; s.stage = 0; s.phase = "round";
+    s.i = 0; s.stars = 0; s.bonus = 0; s.scores = []; s.sold = { glida:true }; s.review = false; s.phase = "round";
     $("g17intro").hidden = true; $("g17startRow").hidden = true;
+    b1PaintMenu();
     b1Round();
   }
 
   function b1Round(){
-    const s = B1.st; if (!s) return;
+    const s = ST(); if (!s) return;
     if (s.i >= s.rounds.length) return b1End();
     const r = s.rounds[s.i];
-    if (r.stage !== s.stage){
-      s.stage = r.stage; s.phase = "banner";
-      $("g17round").hidden = true;
-      const ph = B1_STAGE[r.stage], bn = $("g17banner");
-      bn.innerHTML = ""; bn.append(v39El("b", "", ph.banner || ph.tag), v39El("span", "", "Stage " + ph.n + " · " + ph.name + " · " + ph.sub));
-      bn.hidden = false; $("g17bannerRow").hidden = false; $("g17stage").textContent = ph.tag;
-      $("g17card").className = "card v39-arena v39-phase" + r.stage;
-      if (typeof hh41HowBtn === "function") hh41HowBtn("g17", false);
-      sfx("win"); pop(bn); return;
-    }
-    s.phase = "round"; $("g17banner").hidden = true; $("g17bannerRow").hidden = true;
-    ["g17hp","g17track"].forEach(id => { if ($(id)) $(id).style.display = ""; });
+    s.phase = "round"; s.cur = r; s.done = false; s.tries = 0; s.sub = 0; s.subOk = 0; s.errors = 0;
+    $("g17banner").hidden = true; $("g17bannerRow").hidden = true;
     $("g17round").hidden = false;
-    $("g17stage").textContent = B1_STAGE[r.stage].tag + " · ROUND " + (s.i + 1) + " / " + s.rounds.length;
+    $("g17stage").textContent = "CAFÉ EILAI · ROUND " + (s.i + 1) + " / " + s.rounds.length;
     if (typeof hh41HowBtn === "function") hh41HowBtn("g17", true);
-    b1PaintHud();
+    b1PaintHud(); b1PaintMenu();
     b1Play(r);
   }
 
   function b1Play(r){
-    const s = B1.st;
     const host = $("g17round");
     host.innerHTML = ""; host.className = "v39-round v39-e-boss hh42-b1";
-    s.cur = r; s.tries = 0; s.done = false; s.saidNow = false; s.timedOut = false; s._timer = null; s._fixing = false;
-    const ask = v39El("div", "v39-ask", r.prompt);
-    const scene = r.scene ? r.scene() : v39El("div");
-    host.append(scene, ask);
-    if (r.type === "pick" || r.type === "listen") b1PaintPick(host, r);
-    else if (r.type === "build") b1PaintBuild(host, r);
-    else if (r.type === "sort") b1PaintSort(host, r);
-    else if (r.type === "fix") b1PaintFix(host, r);
-    else if (r.type === "match") b1PaintMatch(host, r);
-    if (r.stage === 4) b1StartTimer(host, r);
+    host.append(v39El("div", "b1-ask", r.prompt));
+    if (r.type === "listen") b1PlayListen(host, r);
+    else if (r.type === "talk") b1PlayTalk(host, r);
+    else if (r.type === "texts") b1PlayTexts(host, r);
+    else if (r.type === "corners") b1PlayCorners(host, r);
+    else if (r.type === "build") b1PlayBuild(host, r);
+    else if (r.type === "ripple") b1PlayRipple(host, r);
+    else if (r.type === "finale") b1PlayFinale(host, r);
     pop(host);
-    if (s.i === 0 && !s.review && typeof hh41MaybeDemo === "function"){
-      const shim = {
-        host, r:{ mode:r.type === "build" ? "build" : "pick", correct:r.correct, tokens:(r.tokens || []).map(t => b1Norm(t)), options:[] },
-        done:false, q:sel => host.querySelector(sel), cfg:{ timer:0 },
-        stopTimer:b1StopTimer, startTimer:function(){}
-      };
-      // dataset.w is set on options; tokens already match chips
-      try{ hh41MaybeDemo(shim, "boss1", "g17"); }catch(e){}
-    }
   }
 
-  function b1Hint(host, cls, text){
-    let h = host.querySelector(".v39-hint"); if (!h){ h = v39El("div", "msg v39-hint"); host.append(h); }
-    h.className = "msg v39-hint" + (cls ? " " + cls : ""); h.textContent = text || "";
-  }
-  function b1PaintPick(host, r){
-    const box = v39El("div", "v39-opts is-list");
-    const opts = shuffle([r.correct].concat(r.distractors || []));
-    opts.forEach(t => {
+  function b1Opts(host, r, list, onPick){
+    const box = v39El("div", "v39-opts is-list"); box.dataset.role = "opts";
+    shuffle(list.slice()).forEach(t => {
       const b = document.createElement("button"); b.type = "button"; b.className = "v39-opt"; b.textContent = t; b.dataset.w = t;
-      b.addEventListener("click", () => b1Choose(host, r, t, b));
+      b.addEventListener("click", () => onPick(t, b));
       box.append(b);
     });
     host.append(box);
-    if (r.type === "listen"){
-      const bub = v39El("div", "hh42-bub");
-      const who = r.who || "";
-      const clip = b1Clip(r.listen);
-      bub.innerHTML = '<span class="hh42-face"><b>' + (B1_FACE[who] || "📞") + "</b></span><div class=\"hh42-bubtxt\"><small>" + who + '</small><div class="hh42-line"></div></div>';
-      const line = bub.querySelector(".hh42-line");
-      const showText = !b1Ch() || !clip;
-      line.textContent = showText ? (r.listen || "") : "";
-      line.dataset.full = r.listen || "";
-      if (clip) setTimeout(() => { try{ bgPlay([clip]); }catch(e){} }, 200);
-      host.insertBefore(bub, host.querySelector(".v39-ask").nextSibling);
-      ST()._showBubble = () => { line.textContent = line.dataset.full; };
+    return box;
+  }
+  function b1ShowOpts(host, r, list, onPick){
+    const existing = host.querySelector('[data-role="opts"]'); if (existing) existing.remove();
+    const box = b1Opts(host, r, list, onPick);
+    if (r.type === "talk" || r.type === "listen") box.style.visibility = "hidden";
+    if (r.type === "talk" || r.type === "listen") b1Think(() => { if (!ST().done) box.style.visibility = "visible"; });
+    else box.style.visibility = "visible";
+    return box;
+  }
+
+  function b1PlayListen(host, r){
+    if (r.faces && r.options){
+      const map = { Dana:["Dana"], Yoni:["Yoni"], Both:["Dana","Yoni"] };
+      /* avatars come with the options */
+    }
+    (r.lines || []).forEach(L => host.append(b1Ph(L.who, L.text)));
+    if (r.hook){
+      const h = v39El("div", "b1-hook");
+      h.innerHTML = "<b>l-</b> hook · lo = to him · la = to her";
+      host.append(h);
+    }
+    const opts = r.faces
+      ? r.options.map(t => t)
+      : r.options;
+    b1ShowOpts(host, r, opts, (t, b) => {
+      if (ST().done) return;
+      if (t === r.correct) b1Right(host, r, b, ST().tries === 0 ? 2 : 1);
+      else {
+        ST().tries++;
+        b1Hint(host, "bad", (r.fb && r.fb[t]) || "Not yet.");
+        sfx("bad");
+        if (b) { b.classList.add("shake"); }
+        if (ST().tries >= 2){ b1Hint(host, "bad", ((r.fb && r.fb[t]) || "") + (r.after ? " " + r.after : "")); b1Reveal(host, r); }
+      }
+    });
+  }
+
+  function b1PlayTalk(host, r){
+    (r.lines || []).forEach(L => host.append(b1Ph(L.who, L.text)));
+    if (r.chip) host.append(v39El("div", "b1-chip", r.chip));
+    const pick = (t, b) => {
+      if (ST().done) return;
+      if (b1Match(t, r.correct, r.accept)) return b1Right(host, r, b, ST().tries === 0 ? 2 : 1);
+      ST().tries++; sfx("bad");
+      b1Hint(host, "bad", (r.fb && r.fb[t]) || "Not yet.");
+      if (ST().tries >= 2) b1Reveal(host, r, r.correct);
+    };
+    if (b1Ch() && r.speak){
+      b1TypeIn(host, r, (got) => pick(got, null), () => {
+        b1ShowOpts(host, r, [r.correct].concat(r.distractors || []), pick);
+      });
+    } else {
+      b1ShowOpts(host, r, [r.correct].concat(r.distractors || []), pick);
     }
   }
-  function b1Choose(host, r, t, b){
-    if (ST().done) return;
-    if (b1Match(t, r.correct, r.accept)) return b1Right(host, r, b);
-    b1Miss(host, r, b);
+
+  function b1TypeIn(host, r, onOk, onGiveUp){
+    const typ = v39El("div", "hh42-type");
+    typ.innerHTML = '<label class="hh42-type-lab">Type your answer</label><input class="hh42-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" dir="ltr" placeholder="Type in Latin letters"><div class="row"><button class="btn hh42-type-go" type="button">Check</button></div>';
+    const go = () => {
+      if (ST().done) return;
+      const got = typ.querySelector("input").value;
+      if (b1Match(got, r.correct, r.accept) || (r.correct2 && b1Match(got, r.correct2, r.accept2))){ typ.hidden = true; onOk(got); return; }
+      ST().tries++; sfx("bad");
+      b1Hint(host, "bad", ST().tries >= 2 ? "Here are the options." : "Not yet. Try again.");
+      if (ST().tries >= 2){ typ.hidden = true; ST().tries = 0; if (onGiveUp) onGiveUp(); }
+    };
+    typ.querySelector(".hh42-type-go").addEventListener("click", go);
+    typ.querySelector("input").addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); go(); } });
+    host.append(typ);
+    if (B1.testFast) typ.querySelector("input").setAttribute("data-test", "1");
   }
-  function b1PaintBuild(host, r){
+
+  function b1PlayTexts(host, r){
+    const s = ST(); s.sub = 0; s.subOk = 0;
+    function showItem(){
+      const it = r.items[s.sub];
+      host.innerHTML = "";
+      host.append(v39El("div", "b1-ask", r.prompt));
+      const card = v39El("div", "b1-text");
+      card.innerHTML = "<small>A text, no name</small><p>" + it.text + "</p>";
+      host.append(card);
+      b1Opts(host, r, ["Dana","Yoni"], (t, b) => {
+        if (s._lock) return;
+        const ok = t === it.correct;
+        if (ok){ s.subOk++; b.classList.add("ok"); sfx("good"); b1Hint(host, "good", "Yes."); }
+        else { sfx("bad"); b1Hint(host, "bad", it.miss); }
+        s._lock = true;
+        host.querySelectorAll(".v39-opt").forEach(x => x.disabled = true);
+        if (s.sub < r.items.length - 1){
+          const next = v39El("button", "btn", "Next text"); next.type = "button";
+          next.addEventListener("click", () => { s._lock = false; s.sub++; showItem(); });
+          const row = v39El("div", "row"); row.append(next); host.append(row);
+        } else {
+          const star = s.subOk === 3 ? 2 : s.subOk === 2 ? 1 : 0;
+          b1Finish(host, r, star);
+        }
+      });
+    }
+    showItem();
+  }
+
+  function b1PlayCorners(host, r){
+    const s = ST(); s.sub = 0; s.subOk = 0;
+    function showFlip(){
+      const fl = r.flips[s.sub];
+      host.innerHTML = "";
+      host.append(v39El("div", "b1-ask", r.prompt));
+      host.append(b1Persons(fl.who));
+      const pick = (t, b) => {
+        if (s._lock) return;
+        const ok = b1Match(t, fl.correct, []);
+        if (ok){ s.subOk++; if (b) b.classList.add("ok"); sfx("good"); b1Hint(host, "good", "Yes."); }
+        else { sfx("bad"); b1Hint(host, "bad", (fl.fb && fl.fb[t]) || "Not yet."); }
+        s._lock = true;
+        host.querySelectorAll(".v39-opt, .hh42-input, .hh42-type-go").forEach(x => x.disabled = true);
+        if (s.sub < r.flips.length - 1){
+          const nxt = v39El("button", "btn", "Next"); nxt.type = "button";
+          nxt.addEventListener("click", () => { s._lock = false; s.sub++; showFlip(); });
+          const row = v39El("div", "row"); row.append(nxt); host.append(row);
+        } else {
+          b1Finish(host, r, s.subOk === 3 ? 2 : s.subOk === 2 ? 1 : 0);
+        }
+      };
+      if (b1Ch()){
+        const typ = v39El("div", "hh42-type");
+        typ.innerHTML = '<label class="hh42-type-lab">Type your question</label><input class="hh42-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" dir="ltr"><div class="hh42-timer"><b></b></div><div class="row"><button class="btn hh42-type-go" type="button">Check</button></div>';
+        const bar = typ.querySelector(".hh42-timer b");
+        const t0 = performance.now(), total = B1.testFast ? 20000 : 4000;
+        const iv = setInterval(() => {
+          if (s._lock){ clearInterval(iv); return; }
+          const left = Math.max(0, 1 - (performance.now() - t0) / total);
+          bar.style.width = (left * 100) + "%";
+          if (left <= 0){ clearInterval(iv); typ.hidden = true; b1Hint(host, "bad", "Time's up."); b1Opts(host, r, [fl.correct].concat(fl.wrong), pick); }
+        }, 80);
+        typ.querySelector(".hh42-type-go").addEventListener("click", () => {
+          const got = typ.querySelector("input").value;
+          if (b1Match(got, fl.correct, [])){ typ.hidden = true; clearInterval(iv); pick(fl.correct, null); }
+          else { s.tries++; sfx("bad"); b1Hint(host, "bad", "Not yet."); if (s.tries >= 2){ typ.hidden = true; clearInterval(iv); s.tries = 0; b1Opts(host, r, [fl.correct].concat(fl.wrong), pick); } }
+        });
+        host.append(typ);
+      } else {
+        b1Opts(host, r, [fl.correct].concat(fl.wrong), pick);
+      }
+    }
+    showFlip();
+  }
+
+  function b1PlayBuild(host, r){
+    const cfg = b1Ch() ? r.ch : r.easy;
+    host.querySelector(".b1-ask").textContent = r.prompt;
+    host.append(v39El("p", "hint", cfg.line));
     const sl = v39El("div", "v39-slots");
     const op = v39El("div", "v39-opts is-chips");
-    const extra = (r.distractors || []).concat(b1Ch() ? (r.extraCh || []) : []);
-    const tiles = shuffle((r.tokens || []).concat(extra));
+    const tiles = shuffle(cfg.tokens.concat(cfg.extra || []));
     ST().picked = [];
     tiles.forEach((t, k) => {
-      const b = document.createElement("button"); b.type = "button"; b.className = "v39-chip"; b.textContent = t; b.dataset.w = t; b.dataset.k = k;
+      const b = document.createElement("button"); b.type = "button"; b.className = "v39-chip"; b.textContent = t; b.dataset.w = t;
       b.addEventListener("click", () => {
-        if (ST().done || b.disabled) return;
-        ST().picked.push({ w:t, b }); b.disabled = true; b.classList.add("used"); sfx("tap"); b1PaintSlots(sl, r);
+        if (ST().done || b.disabled || ST()._ways) return;
+        if (cfg.fbTile && cfg.fbTile[t] && !cfg.tokens.includes(t)){ sfx("bad"); b1Hint(host, "bad", cfg.fbTile[t]); ST().tries++; return; }
+        ST().picked.push({ w:t, b }); b.disabled = true; b.classList.add("used"); sfx("tap"); paint();
       });
       op.append(b);
     });
     const row = v39El("div", "row v39-checkrow");
     const check = document.createElement("button"); check.type = "button"; check.className = "btn v39-check"; check.textContent = "Check"; check.disabled = true;
-    check.addEventListener("click", () => b1BuildCheck(host, r, sl));
-    ST()._slots = sl; ST()._check = check;
+    function paint(){
+      const n = cfg.tokens.length, picked = ST().picked || [];
+      sl.innerHTML = "";
+      for (let i = 0; i < n; i++){
+        const slot = document.createElement("button"); slot.type = "button"; slot.className = "v39-slot" + (picked[i] ? " full" : "");
+        slot.textContent = picked[i] ? picked[i].w : "";
+        slot.addEventListener("click", () => {
+          if (ST().done || ST()._ways || !picked[i]) return;
+          const c = picked[i]; picked.splice(i, 1); c.b.disabled = false; c.b.classList.remove("used"); sfx("tap"); paint();
+        });
+        sl.append(slot);
+      }
+      /* also allow shorter accepted lines */
+      check.disabled = picked.length < 3 || ST().done;
+    }
+    check.addEventListener("click", () => {
+      const got = (ST().picked || []).map(x => x.w).join(" ");
+      if (ST()._ways){
+        if (b1Match(got, cfg.correct, cfg.accept) && b1Norm(got) !== b1Norm(ST()._firstGot)){
+          ST().bonus = (ST().bonus || 0) + 1; b1Hint(host, "good", "Another way — +1 bonus tip!");
+          b1Finish(host, r, ST()._star, true); return;
+        }
+        b1Hint(host, "bad", "Try a different order."); return;
+      }
+      if (b1Match(got, cfg.correct, cfg.accept)){
+        const star = ST().tries === 0 ? 2 : 1;
+        ST()._firstGot = got; ST()._star = star; ST()._ways = true;
+        sfx("good");
+        b1Hint(host, "good", star === 2 ? "Right on the first try!" : "That's it!");
+        const ways = v39El("div", "b1-ways");
+        ways.innerHTML = "<p>Another way?</p>";
+        const skip = v39El("button", "btn ghost", "Skip"); skip.type = "button";
+        skip.addEventListener("click", () => b1Finish(host, r, star, true));
+        ways.append(skip);
+        host.append(ways);
+        /* reset tiles for a second build */
+        ST().picked.forEach(c => { c.b.disabled = false; c.b.classList.remove("used"); });
+        ST().picked = []; paint();
+        return;
+      }
+      ST().tries++; sfx("bad");
+      b1Hint(host, "bad", "Not yet.");
+      if (ST().tries >= 2){ b1Hint(host, "bad", "The answer: " + cfg.correct); b1Reveal(host, r, cfg.correct); }
+      else {
+        ST().picked.forEach(c => { c.b.disabled = false; c.b.classList.remove("used"); });
+        ST().picked = []; paint();
+      }
+    });
     row.append(check);
     host.append(sl, op, row);
-    b1PaintSlots(sl, r);
-  }
-  function b1PaintSlots(sl, r){
-    const picked = ST().picked || [];
-    const n = (r.tokens || []).length;
-    sl.innerHTML = "";
-    for (let i = 0; i < n; i++){
-      const slot = document.createElement("button"); slot.type = "button"; slot.className = "v39-slot" + (picked[i] ? " full" : "");
-      slot.textContent = picked[i] ? picked[i].w : "";
-      slot.addEventListener("click", () => {
-        if (ST().done || !picked[i]) return;
-        const c = picked[i]; picked.splice(i, 1); c.b.disabled = false; c.b.classList.remove("used"); sfx("tap"); b1PaintSlots(sl, r);
-      });
-      sl.append(slot);
-    }
-    if (ST()._check) ST()._check.disabled = picked.length !== n || ST().done;
-  }
-  function b1BuildCheck(host, r, sl){
-    if (ST().done) return;
-    const got = (ST().picked || []).map(x => x.w).join(" ");
-    if (b1Match(got, r.correct, r.accept)) return b1Right(host, r, null);
-    if (b1Ch() && r.stage === 2){ b1Hint(host, "bad", "The answer: " + r.correct); return b1Reveal(host, r); }
-    const want = b1Norm(r.correct).split(" ");
-    const gotA = (ST().picked || []).map(x => b1Norm(x.w));
-    let k = 0; while (k < want.length && gotA[k] === want[k]) k++;
-    (ST().picked || []).slice(k).forEach(c => { c.b.disabled = false; c.b.classList.remove("used"); });
-    ST().picked = (ST().picked || []).slice(0, k);
-    b1PaintSlots(sl, r);
-    b1Miss(host, r, null);
-  }
-  function b1PaintSort(host, r){
-    const box = v39El("div", "v39-opts is-grid hh42-sort");
-    const pics = { pitsa:"🍕", glida:"🍦", uga:"🍰", kafe:"☕", lekhem:"🍞", shokolad:"🍫" };
-    const items = shuffle((r.fem || []).concat(r.masc || []).map(w => ({ w, fem:(r.fem || []).includes(w), pic:pics[w] || "" })));
-    const picked = new Set();
-    items.forEach(it => {
-      const b = document.createElement("button"); b.type = "button"; b.className = "v39-opt hh42-food"; b.dataset.w = it.w;
-      b.innerHTML = '<span class="hh42-fp">' + it.pic + "</span><b>" + it.w + "</b>";
-      b.addEventListener("click", () => {
-        if (ST().done) return;
-        if (picked.has(it.w)) picked.delete(it.w); else {
-          if (picked.size >= 3) return;
-          picked.add(it.w);
-        }
-        b.classList.toggle("on", picked.has(it.w));
-        sfx("tap");
-        if (picked.size === 3) b1SortCheck(host, r, picked, box);
-      });
-      box.append(b);
-    });
-    host.append(box);
-  }
-  function b1SortCheck(host, r, picked, box){
-    const ok = r.fem.every(w => picked.has(w)) && picked.size === 3;
-    box.querySelectorAll(".hh42-food").forEach(b => {
-      const fem = (r.fem || []).includes(b.dataset.w);
-      if (!b1Ch()) b.classList.add(fem ? "fem" : "masc");
-    });
-    if (ok) return b1Right(host, r, null);
-    ST().tries++;
-    if (b1Ch() || ST().tries >= 2){ sfx("bad"); b1Hint(host, "bad", "The feminine words are pitsa, glida and uga."); return b1Reveal(host, r); }
-    sfx("bad"); b1Hint(host, "bad", "Not yet. Feminine words often end with -a. Try again.");
-    picked.clear(); box.querySelectorAll(".on").forEach(b => b.classList.remove("on"));
-  }
-  function b1PaintFix(host, r){
-    const sent = v39El("div", "hh42-sent");
-    r.sentence.forEach((w, i) => {
-      const b = document.createElement("button"); b.type = "button"; b.className = "hh42-word"; b.textContent = w; b.dataset.i = String(i);
-      b.addEventListener("click", () => {
-        if (ST().done || ST()._fixing) return;
-        if (i === r.wrong){
-          sent.querySelectorAll(".hh42-word").forEach(x => x.disabled = true);
-          b.classList.add("pick");
-          b1FixOptions(host, r, b);
-        } else b1Miss(host, r, b);
-      });
-      sent.append(b, document.createTextNode(" "));
-    });
-    host.append(sent);
-  }
-  function b1FixOptions(host, r, wordBtn){
-    ST()._fixing = true;
-    const box = v39El("div", "v39-opts is-grid");
-    r.options.forEach(t => {
-      const b = document.createElement("button"); b.type = "button"; b.className = "v39-opt"; b.textContent = t; b.dataset.w = t;
-      b.addEventListener("click", () => {
-        if (ST().done) return;
-        if (t === r.fix){ wordBtn.textContent = t.replace(/\.$/, "") + (String(r.sentence[r.wrong]).endsWith(".") ? "." : ""); return b1Right(host, r, b); }
-        b1Miss(host, r, b);
-      });
-      box.append(b);
-    });
-    host.append(box);
-  }
-  function b1PaintMatch(host, r){
-    const list = v39El("div", "hh42-match");
-    const assign = {};
-    r.pairs.forEach((p, i) => {
-      const row = v39El("div", "hh42-mrow");
-      row.innerHTML = '<span class="hh42-mp">' + p.pic + '</span><span class="hh42-mn">' + p.noun + "</span>";
-      const slot = document.createElement("button"); slot.type = "button"; slot.className = "v39-slot hh42-mslot"; slot.dataset.i = String(i); slot.textContent = "";
-      slot.addEventListener("click", () => { if (ST().done || !assign[i]) return; assign[i] = null; slot.textContent = ""; slot.classList.remove("full"); sfx("tap"); });
-      row.append(slot); list.append(row); p._slot = slot;
-    });
-    const bank = v39El("div", "v39-opts is-chips");
-    r.bank.forEach((t, k) => {
-      const b = document.createElement("button"); b.type = "button"; b.className = "v39-chip"; b.textContent = t; b.dataset.w = t; b.dataset.k = k;
-      b.addEventListener("click", () => {
-        if (ST().done || b.disabled) return;
-        const empty = r.pairs.findIndex((_, i) => !assign[i]);
-        if (empty < 0) return;
-        assign[empty] = t; r.pairs[empty]._slot.textContent = t; r.pairs[empty]._slot.classList.add("full");
-        b.disabled = true; b.classList.add("used"); sfx("tap");
-      });
-      bank.append(b);
-    });
-    const check = document.createElement("button"); check.type = "button"; check.className = "btn"; check.textContent = "Check";
-    check.addEventListener("click", () => b1MatchCheck(host, r, assign, bank));
-    host.append(list, bank, check);
-  }
-  function b1MatchCheck(host, r, assign, bank){
-    if (ST().done) return;
-    const ok = r.pairs.every((p, i) => assign[i] === p.adj);
-    if (ok) return b1Right(host, r, null);
-    b1Miss(host, r, null);
-    if (ST().tries >= 2){
-      r.pairs.forEach((p, i) => { p._slot.textContent = p.adj; p._slot.classList.add("full","ok"); });
-      b1Reveal(host, r);
-    } else {
-      r.pairs.forEach((p, i) => { assign[i] = null; p._slot.textContent = ""; p._slot.classList.remove("full"); });
-      bank.querySelectorAll(".v39-chip").forEach(b => { b.disabled = false; b.classList.remove("used"); });
-    }
+    ST()._check = check; paint();
   }
 
-  function b1StartTimer(host, r){
-    const ch = b1Ch(), sec = ch ? 10 : 15;
-    const bar = v39El("div", "v39-timer"); bar.innerHTML = "<b></b>"; host.prepend(bar);
-    const t0 = performance.now(), total = sec * 1000;
-    ST()._timer = setInterval(() => {
-      if (!ST() || ST().done || $("g17").hidden){ clearInterval(ST()._timer); return; }
-      const left = Math.max(0, 1 - (performance.now() - t0) / total);
-      bar.firstChild.style.width = (left * 100) + "%";
-      if (left <= 0){
-        clearInterval(ST()._timer); ST().timedOut = true;
-        if (ch){ b1Hint(host, "bad", "Time's up."); b1Reveal(host, r); }
-        else { if (typeof ST()._showBubble === "function") ST()._showBubble(); b1Hint(host, "bad", "Time's up. You can still answer."); }
-      }
-    }, 100);
-  }
-  function b1StopTimer(){ if (ST() && ST()._timer){ clearInterval(ST()._timer); ST()._timer = null; } }
-
-  function b1Miss(host, r, b){
-    if (ST().done) return;
-    ST().tries++; sfx("bad");
-    if (b){ b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); }
-    if (ST().tries >= 2){ b1Hint(host, "bad", (r.feedback ? r.feedback + " " : "") + "The answer: " + r.correct); b1Reveal(host, r); }
-    else b1Hint(host, "bad", "Not yet.");
-  }
-  function b1StarCount(correctNow){
-    const s = ST(), r = s.cur;
-    if (!correctNow) return 0;
-    if (r.stage === 4 && s.timedOut) return b1Ch() ? 0 : 1;
-    if (s.tries === 0) return 2;
-    if (s.tries === 1) return 1;
-    return 0;
-  }
-  function b1Right(host, r, b){
-    if (ST().done) return;
-    ST().done = true; b1StopTimer(); sfx("good");
-    if (b) b.classList.add("ok");
-    host.querySelectorAll(".v39-opt, .v39-chip, .hh42-word, .hh42-food").forEach(x => x.disabled = true);
-    const star = b1StarCount(true);
-    b1Hint(host, "good", (r.feedback ? r.feedback + " " : "") + (star === 2 ? "Right on the first try!" : "That's it!"));
-    b1FinishRound(host, r, star);
-  }
-  function b1Reveal(host, r){
-    if (ST().done) return;
-    ST().done = true; b1StopTimer();
-    host.querySelectorAll(".v39-opt, .v39-chip, .hh42-word, .hh42-food, .v39-check").forEach(x => x.disabled = true);
-    b1FinishRound(host, r, 0);
-  }
-  function b1FinishRound(host, r, star){
+  function b1PlayRipple(host, r){
     const s = ST();
-    s.stars += star;
-    s.scores[r.n] = star;
-    if (star < 2) s.skillLoss[r.skill] = (s.skillLoss[r.skill] || 0) + (2 - star);
-    $("g17stars").textContent = "⭐ " + s.stars + " / 36";
-    toast((star ? "⭐".repeat(star) + " " : "") + "Order served!");
-    const hp = $("g17hp"); hp.classList.remove("hit"); void hp.offsetWidth; hp.classList.add("hit");
-    b1PaintHud();
-    const clip = r.say && b1Clip(r.say);
-    if (clip){
-      const say = v39El("div", "v39-say");
-      say.innerHTML = '<div class="v39-say-tag">🎙 Say It</div><div class="v39-say-tr"></div><div class="v39-say-en"></div>' +
-        '<div class="hh-reprow v39-say-btns"><button class="pill v39-clip" type="button"></button>' +
-        '<button class="pill v39-said" type="button">I said it</button></div>' +
-        '<div class="row"><button class="btn hh42-next" type="button">Next</button></div>';
-      say.querySelector(".v39-say-tr").textContent = r.say;
-      say.querySelector(".v39-clip").textContent = "▶ Hear it";
-      say.querySelector(".v39-clip").addEventListener("click", () => bgPlay([clip]));
-      say.querySelector(".v39-said").addEventListener("click", ev => { if (!s.saidNow){ s.saidNow = true; s.said++; ev.currentTarget.disabled = true; ev.currentTarget.textContent = "Counted"; sfx("pop"); } });
-      say.querySelector(".hh42-next").addEventListener("click", b1Next);
-      host.append(say);
-      setTimeout(() => bgPlay([clip]), 200);
-    } else {
+    host.append(b1Ph("Eilai", r.start));
+    const sent = v39El("div", "b1-ripple");
+    const state = { phase:"show", picked:new Set(), forms:{} };
+    function render(words, flipWord){
+      sent.innerHTML = "";
+      words.forEach(w => {
+        const b = document.createElement("button"); b.type = "button"; b.className = "b1-rw" + (w === flipWord ? " flip" : "");
+        b.textContent = w; b.dataset.w = w;
+        b.addEventListener("click", () => onTap(w, b));
+        sent.append(b);
+      });
+    }
+    function onTap(w, b){
+      if (state.phase !== "fix" || s.done) return;
+      if (w === "glida"){ s.errors++; sfx("bad"); b1Hint(host, "bad", r.fb.glida); return; }
+      if (!r.change.includes(w)){ s.errors++; sfx("bad"); b1Hint(host, "bad", "That word stays."); return; }
+      if (state.picked.has(w)){ state.picked.delete(w); b.classList.remove("on"); }
+      else { state.picked.add(w); b.classList.add("on"); sfx("tap"); }
+      if (state.picked.size === r.change.length) showForms();
+    }
+    function showForms(){
+      if (state.phase !== "fix") return;
+      /* if only katan somehow... both must be selected; handled by size check */
+      const box = v39El("div", "v39-opts is-grid"); box.dataset.role = "forms";
+      r.change.forEach(w => {
+        const lab = v39El("div", "hint", "Pick the form for “" + w + "”");
+        box.append(lab);
+        (r.forms[w] || []).forEach(f => {
+          const b = document.createElement("button"); b.type = "button"; b.className = "v39-opt"; b.textContent = f; b.dataset.for = w; b.dataset.w = f;
+          b.addEventListener("click", () => {
+            if (s.done) return;
+            if (f === "gdola"){ s.errors++; sfx("bad"); b1Hint(host, "bad", r.fb.gdola); return; }
+            state.forms[w] = f;
+            box.querySelectorAll('.v39-opt[data-for="' + w + '"]').forEach(x => x.classList.toggle("ok", x === b));
+            if (r.change.every(k => state.forms[k])){
+              const got = (state.forms.Ze || "Ze") + " glida " + (state.forms.katan || "katan");
+              /* capitalize first letter for match */
+              const star = s.errors === 0 ? 2 : s.errors === 1 ? 1 : 0;
+              if (b1Match(got, r.correct, [])) b1Right(host, r, b, star);
+              else { s.errors++; b1Hint(host, "bad", "The answer: " + r.correct); b1Reveal(host, r, r.correct); }
+            }
+          });
+          box.append(b);
+        });
+      });
+      host.append(box);
+      const fixBtn = host.querySelector('[data-role="fixgo"]'); if (fixBtn) fixBtn.hidden = true;
+    }
+    host.append(sent);
+    render(["Ze","kafe","katan"]);
+    const goFix = () => {
+      state.phase = "fix";
+      render(["Ze","glida","katan"], "glida");
+      b1Hint(host, "", "Tap the words that must change.");
+      const go = v39El("button", "btn ghost"); go.type = "button"; go.dataset.role = "fixgo"; go.textContent = "I picked the words";
+      go.addEventListener("click", () => {
+        if (state.picked.has("katan") && !state.picked.has("Ze")){ s.errors++; b1Hint(host, "bad", r.fb.onlyKatan); }
+        if (state.picked.size) showForms();
+      });
+      host.append(go);
+    };
+    if (B1.testFast) goFix(); else setTimeout(goFix, 900);
+  }
+
+  function b1PlayFinale(host, r){
+    const s = ST(); s.sub = 0; s.turnOk = [false, false];
+    function turn1(){
+      host.innerHTML = "";
+      host.append(v39El("div", "b1-ask", r.prompt1));
+      r.lines1.forEach(L => host.append(b1Ph(L.who, L.text)));
+      const sl = v39El("div", "v39-slots"); const op = v39El("div", "v39-opts is-chips");
+      const extra = (r.extra || []).concat(b1Ch() ? (r.extraCh || []) : []);
+      const tiles = shuffle(r.tokens.concat(extra));
+      s.picked = [];
+      tiles.forEach(t => {
+        const b = document.createElement("button"); b.type = "button"; b.className = "v39-chip"; b.textContent = t; b.dataset.w = t;
+        b.addEventListener("click", () => {
+          if (s._lock || b.disabled) return;
+          s.picked.push({ w:t, b }); b.disabled = true; b.classList.add("used"); sfx("tap"); paint();
+        });
+        op.append(b);
+      });
+      function paint(){
+        sl.innerHTML = "";
+        for (let i = 0; i < r.tokens.length; i++){
+          const slot = document.createElement("button"); slot.type = "button"; slot.className = "v39-slot" + (s.picked[i] ? " full" : "");
+          slot.textContent = s.picked[i] ? s.picked[i].w : "";
+          slot.addEventListener("click", () => {
+            if (s._lock || !s.picked[i]) return;
+            const c = s.picked[i]; s.picked.splice(i, 1); c.b.disabled = false; c.b.classList.remove("used"); paint();
+          });
+          sl.append(slot);
+        }
+        ck.disabled = s.picked.length !== r.tokens.length;
+      }
+      const ck = document.createElement("button"); ck.type = "button"; ck.className = "btn"; ck.textContent = "Check";
+      ck.addEventListener("click", () => {
+        const got = s.picked.map(x => x.w).join(" ");
+        if (b1Match(got, r.correct1, r.accept1)){ s.turnOk[0] = true; sfx("good"); b1Hint(host, "good", "Yes."); s._lock = true; goNext(); }
+        else {
+          sfx("bad");
+          const bad = s.picked.map(x => x.w).find(w => r.fb1[w]);
+          b1Hint(host, "bad", (bad && r.fb1[bad]) || "Not yet.");
+          s.tries++;
+          if (s.tries >= 2){ b1Hint(host, "bad", "The answer: " + r.correct1); s._lock = true; goNext(); }
+          else { s.picked.forEach(c => { c.b.disabled = false; c.b.classList.remove("used"); }); s.picked = []; paint(); }
+        }
+      });
+      function goNext(){
+        const nxt = v39El("button", "btn hh42-next", "Next"); nxt.type = "button";
+        nxt.addEventListener("click", turn2);
+        const row = v39El("div", "row"); row.append(nxt); host.append(row);
+      }
+      const row = v39El("div", "row"); row.append(ck); host.append(sl, op, row);
+      paint();
+    }
+    function turn2(){
+      s.tries = 0; s._lock = false;
+      host.innerHTML = "";
+      host.append(v39El("div", "b1-ask", r.prompt2));
+      s.sold = Object.assign({}, r.sold2); b1PaintMenu();
+      r.lines2.forEach(L => host.append(b1Ph(L.who, L.text)));
+      const pick = (t, b) => {
+        if (s._lock) return;
+        if (b1Match(t, r.correct2, r.accept2)){ s.turnOk[1] = true; if (b) b.classList.add("ok"); sfx("good"); b1Hint(host, "good", "Yes."); }
+        else { sfx("bad"); b1Hint(host, "bad", (r.fb2 && r.fb2[t]) || "Not yet."); s.tries++; if (s.tries < 2) return; }
+        s._lock = true;
+        const nOk = s.turnOk.filter(Boolean).length;
+        const star = nOk === 2 ? 2 : nOk === 1 ? 1 : 0;
+        b1Finish(host, r, star);
+      };
+      if (b1Ch()){
+        b1TypeIn(host, { correct:r.correct2, accept:r.accept2 }, (got) => pick(got, null), () => {
+          b1ShowOpts(host, r, [r.correct2].concat(r.distractors2), pick);
+        });
+      } else {
+        b1ShowOpts(host, r, [r.correct2].concat(r.distractors2), pick);
+      }
+    }
+    turn1();
+  }
+
+  function b1Right(host, r, b, star){
+    if (ST().done) return;
+    ST().done = true; b1ClearThink(); sfx("good");
+    if (b) b.classList.add("ok");
+    host.querySelectorAll(".v39-opt, .v39-chip, .b1-rw, .hh42-input").forEach(x => x.disabled = true);
+    b1Hint(host, "good", (star === 2 ? "Right on the first try!" : "That's it!") + (r.after ? " " + r.after : ""));
+    b1Finish(host, r, star);
+  }
+  function b1Reveal(host, r, answer){
+    if (ST().done) return;
+    ST().done = true; b1ClearThink();
+    host.querySelectorAll(".v39-opt, .v39-chip, .v39-check, .b1-rw, .hh42-input").forEach(x => x.disabled = true);
+    if (answer) b1Hint(host, "bad", (host.querySelector(".v39-hint") && host.querySelector(".v39-hint").textContent) || ("The answer: " + answer));
+    if (r.after){ const p = v39El("div", "b1-after", r.after); host.append(p); }
+    b1Finish(host, r, 0);
+  }
+  function b1Finish(host, r, star, already){
+    const s = ST();
+    if (!already){ /* already painted for two-ways mid-state */ }
+    if (s._finished) { /* allow two-ways to call again to attach Next */ }
+    if (!s._finished){
+      s.stars += star;
+      s.scores[r.n] = star;
+      $("g17stars").textContent = "🪙 " + s.stars + " / 24" + (s.bonus ? (" · +" + s.bonus + " bonus") : "");
+      toast((star ? "🪙".repeat(star) + " " : "") + "Order in!");
+      b1PaintHud();
+      s._finished = true;
+    }
+    if (!host.querySelector(".hh42-next")){
       const row = v39El("div", "row");
       const n = v39El("button", "btn hh42-next", "Next"); n.type = "button";
       n.addEventListener("click", b1Next); row.append(n); host.append(row);
@@ -12276,63 +12490,55 @@ async function hh41MaybeDemo(P, id, sec){
   }
   function b1Next(){
     const s = ST(); if (!s || s.phase === "end") return;
-    s.i++; b1Round();
+    s._finished = false; s._lock = false; s.i++; b1Round();
   }
 
-  $("g17go").addEventListener("click", e => {
-    if (!B1.st || B1.st.phase !== "banner") return;
-    e.stopImmediatePropagation(); sfx("tap"); $("g17banner").hidden = true; $("g17bannerRow").hidden = true; B1.st.phase = "round"; b1Round();
-  }, true);
   $("g17start").addEventListener("click", e => {
     if (!B1.st || B1.st.phase !== "intro") return;
     e.stopImmediatePropagation(); sfx("tap"); b1Begin();
   }, true);
+  $("g17go").addEventListener("click", e => {
+    if (!B1.st || B1.st.phase !== "banner") return;
+    e.stopImmediatePropagation();
+  }, true);
   $("g17done").addEventListener("click", e => {
     if (!B1.st || B1.st.phase !== "end") return;
     e.stopImmediatePropagation();
-    const s = B1.st; window.v39Said = s.said;
+    const s = B1.st;
     const stars = s.officialStars || s.stars;
-    finish("Boss defeated!", stars + " / 36 ⭐", (s.officialRank || s.rank) + ".", "");
+    finish("Shift over!", stars + " / 24 tips", (s.officialRank || s.rank) + ".", "");
   }, true);
 
-  function b1Rank(stars, ch){
-    if (stars >= 32) return ch ? "Challenge Legend" : "Café Legend";
-    if (stars >= 24) return "Regular";
-    return "New in Town";
-  }
-  function b1Focus(loss){
-    const names = { magic:"the Magic Four and gender", yesh:"yesh / ein forms", adj:"noun and adjective agreement", q:"question words", cafe:"café phrases" };
-    let best = "", n = 0; Object.keys(loss || {}).forEach(k => { if (loss[k] > n){ n = loss[k]; best = k; } });
-    return best ? "Your next focus: " + names[best] : "A strong café shift.";
+  function b1Rank(stars){
+    if (stars >= 21) return "Employee of the Month";
+    if (stars >= 15) return "Solid Shift";
+    return "First Day";
   }
   function b1End(){
-    const s = ST(); s.phase = "end"; b1StopTimer();
+    const s = ST(); s.phase = "end"; b1ClearThink();
     $("g17round").hidden = true; $("g17bar").style.width = "100%"; $("g17count").textContent = "";
     s.i = s.rounds.length; b1PaintHud();
-    const ch = b1Ch();
-    s.rank = b1Rank(s.stars, ch);
+    s.rank = b1Rank(s.stars);
     if (!s.review){
-      s.officialStars = s.stars; s.officialRank = s.rank;
+      s.officialStars = s.stars; s.officialRank = s.rank; s.officialBonus = s.bonus;
       let best = 0, bestRank = "";
-      try{ const o = JSON.parse(localStorage.getItem(B1_BEST_KEY) || "null"); if (o){ best = o.stars || 0; bestRank = o.rank || ""; } }catch(e){}
-      if (s.stars > best || (s.stars === best && s.rank === "Challenge Legend" && bestRank !== "Challenge Legend")){
-        best = s.stars; bestRank = s.rank;
-        try{ localStorage.setItem(B1_BEST_KEY, JSON.stringify({ stars:best, rank:bestRank })); }catch(e){}
-      }
-      hhDiffMarkDone("boss1", !ch);
+      try{ const o = JSON.parse(localStorage.getItem("hhBoss1v61Best") || "null"); if (o){ best = o.stars || 0; bestRank = o.rank || ""; } }catch(e){}
+      if (s.stars > best){ best = s.stars; bestRank = s.rank; try{ localStorage.setItem("hhBoss1v61Best", JSON.stringify({ stars:best, rank:bestRank })); }catch(e){} }
+      hhDiffMarkDone("boss1", !b1Ch());
       try{ A.boss1 = 1; if (typeof saveA === "function") saveA(); }catch(e){}
     }
-    $("g17stage").textContent = "🏆 BOSS DEFEATED";
+    $("g17stage").textContent = "SHIFT OVER";
     const end = $("g17end"); end.hidden = false; end.innerHTML = "";
     const showStars = s.review ? s.officialStars : s.stars;
     const showRank = s.review ? s.officialRank : s.rank;
+    const showBonus = s.review ? s.officialBonus : s.bonus;
     const card = v39El("div", "hh-sn-end");
-    card.innerHTML = '<div class="tag">CAFÉ SHOWDOWN</div><div class="en">⭐ ' + showStars + " / 36</div>" +
-      (ch ? '<span class="hh42-chtag">Challenge</span>' : "") +
+    card.innerHTML = '<div class="tag">CAFÉ SHIFT</div><div class="en">🪙 ' + showStars + " / 24</div>" +
+      (showBonus ? '<p class="hint">Bonus tips: +' + showBonus + "</p>" : "") +
+      (b1Ch() ? '<span class="hh42-chtag">Challenge</span>' : "") +
       '<div class="hh-end-rank">' + showRank + "</div>" +
-      '<p class="hint">' + b1Focus(s.skillLoss) + "</p>" +
-      (s.said >= 10 ? '<p class="hint">🎙 Mic badge: you said it in ' + s.said + " rounds.</p>" : "") +
-      '<p class="hint">Best: ' + (function(){ try{ const o = JSON.parse(localStorage.getItem(B1_BEST_KEY) || "null"); return o ? (o.stars + " ⭐ · " + o.rank) : (showStars + " ⭐ · " + showRank); }catch(e){ return showStars + " ⭐"; } })() + "</p>";
+      '<p class="hint">Any rank opens Level 2.</p>' +
+      '<p class="hint">Best: ' + (function(){ try{ const o = JSON.parse(localStorage.getItem("hhBoss1v61Best") || "null"); return o ? (o.stars + " · " + o.rank) : (showStars + " · " + showRank); }catch(e){ return String(showStars); } })() + "</p>";
     end.append(card);
     $("g17doneRow").hidden = false;
     $("g17done").textContent = "Continue";
@@ -12344,9 +12550,9 @@ async function hh41MaybeDemo(P, id, sec){
       const b = document.createElement("button"); b.className = "btn ghost"; b.id = "g17prac"; b.type = "button"; b.textContent = "Practice my misses";
       b.addEventListener("click", () => {
         if (!B1.st || B1.st.phase !== "end") return;
-        const miss = B1.st.rounds.filter(r => (B1.st.scores[r.n] || 0) <= 1);
+        const miss = B1.st.rounds.filter(rr => (B1.st.scores[rr.n] || 0) <= 1);
         if (!miss.length) return;
-        B1.st.rounds = miss; B1.st.i = 0; B1.st.phase = "round"; B1.st.stage = 0; B1.st.review = true; B1.st.stars = 0;
+        B1.st.rounds = miss; B1.st.i = 0; B1.st.phase = "round"; B1.st.review = true; B1.st.stars = 0; B1.st.sold = { glida:true };
         $("g17end").hidden = true; $("g17doneRow").hidden = true; row.hidden = true; b1Round();
       });
       row.append(b);
@@ -12356,7 +12562,9 @@ async function hh41MaybeDemo(P, id, sec){
     sfx("win");
   }
 
-  const _bossStart42 = bossStart;
+  /* hooks already declared below when this block is spliced in place of the old engine */
+
+    const _bossStart42 = bossStart;
   bossStart = function(n){
     if (+n === 1) return b1Start();
     B1.st = null;
@@ -12385,7 +12593,7 @@ async function hh41MaybeDemo(P, id, sec){
   }
 
   /* Rebind gift/IR/PT starters to the wrapped bgStart (they captured the original). */
-  window.hh42Ready = true;
+  window.hh42Ready = true; window.hh43Ready = true;
 })();
 
 </script>
