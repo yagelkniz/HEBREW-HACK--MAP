@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>HEBREW HACK</title>
 <meta name="description" content="HEBREW HACK: speak Hebrew out loud in short steps.">
+<meta name="robots" content="noindex, nofollow">
 <meta property="og:image" content="https://yagelkniz.github.io/HEBREW-HACK--MAP/app/icons/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -1408,7 +1408,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v41-howto</p>
+  <p class="hh-ver" id="oVer">Version hh-v42-preview</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -2236,7 +2236,7 @@ const RUSH_VERBS = {
 /* Game 8: By Ear. The order is only heard; the answer is given by tapping pictures.
    EAR_MAIN = [word id, picture, meaning]; EAR_EXTRA = [key, picture, meaning, word ids]. */
 const EAR_ROUNDS = 8;
-const EAR_N = () => HH_CH(8) ? EAR_ROUNDS_CHALLENGE : EAR_ROUNDS, EAR_CARDS = () => HH_CH(8) ? EAR_CARDS_CHALLENGE : 4;
+const EAR_N = () => 8, EAR_CARDS = () => HH_CH(8) ? 4 : 3;  // v42: Easy 3 cards, Challenge 4; always 8 rounds
 const EAR_MAIN = [["kafe","☕","coffee"], ["te","🍵","tea"], ["mayim","💧","water"], ["uga","🍰","cake"], ["pitza","🍕","pizza"]];
 const EAR_EXTRA = [
   ["plain", "∅", "nothing else", []],
@@ -4147,7 +4147,7 @@ function cbKey(){   // the verb key under the chat header, in your own form
   CB_KEY.forEach(([e, v, en]) => { const d = document.createElement("span"); d.innerHTML = "<b></b><small></small>";   // v30: emoji + English only, never the Hebrew form
     d.children[0].textContent = e; d.children[1].textContent = en; k.append(d); });
 }
-const cbSay = (o, words) => (o.emoji ? cbCap(words[0] || "___") + " " + words.slice(1).join(" ") : "Ken, " + words.join(" "));
+let cbSay = (o, words) => (o.emoji ? cbCap(words[0] || "___") + " " + words.slice(1).join(" ") : "Ken, " + words.join(" "));
 function cbDraft(){
   const p = c11.pick, w = k => p[k] || "___";
   $("g11draft").textContent = cbSay(c11.cur, [w(0), w(1), w(2)]);
@@ -4745,7 +4745,7 @@ const GD2_FORMS = ["li","lekha","lakh","lo","la","lanu","lakhem","lahem"];
 const GD2_VIEWOF = { li:"me", lanu:"us", lekha:"to", lakh:"to", lakhem:"to", lo:"about", la:"about", lahem:"about" };
 const GD2_PLURAL = { lanu:1, lakhem:1, lahem:1 };
 const GD2_THING = { kafe:["☕","coffee"], te:["🍵","tea"], mayim:["💧","water"], khalav:["🥛","milk"], lekhem:["🍞","bread"], pitza:["🍕","pizza"], uga:["🍰","cake"], sukar:[BG_SUGAR,"sugar"] };
-const GD2_NOUNCLIP = { te:"te.mp3", khalav:"chalav.mp3", uga:"uga.mp3", sukar:"sukar.mp3" };
+const GD2_NOUNCLIP = { te:"te.mp3", khalav:"chalav.mp3", uga:"uga.mp3", sukar:"sukar.mp3", pitza:"pitsa.mp3", kafe:"kafe.mp3", mayim:"mayim.mp3", lekhem:"lekhem.mp3" };
 const GD2_CLIP = { "yesh li":"s6_01", "yesh lo":"s6_02", "yesh la":"s6_03", "yesh lanu":"s6_04", "yesh lakhem":"s6_05", "yesh lahem":"s6_07", "ein li":"s6_09", "ein la":"s6_10", "ein lahem":"s6_11" };
 /* v40: "ein" shows what you'd hold with nothing in it: an empty cup for drinks, an empty hand for food */
 const GD2_DRINK = { kafe:1, te:1, mayim:1, khalav:1 };
@@ -5207,7 +5207,7 @@ const ZIG = [0, -56, -78, -40, 30, 70, 36];   // one per map node: Welcome, STEP
    Unlocking a step only looks at the earlier steps that are required for this learner. */
 const stepRequired = st => !(st.reading && A.read === false);
 const PILOT_ALL_OPEN = true;   // pilot: nothing is locked by order yet
-function stepUnlocked(){ return true; }   // preview: no sequential unlock
+function stepUnlocked(i){ return PILOT_ALL_OPEN || STEPS.slice(0, i).filter(stepRequired).every(st => !!st.done); }
 
 /* STEP 4 lesson, one full-screen part at a time.
    type "video" / "embed" = an iframe card (url from STEP4_EMBEDS); type "game" = a Magic Four game (g = game number).
@@ -5394,10 +5394,10 @@ function useLesson(id){ if (!LESSONS[id]) return; CUR = id; LESSON = LESSONS[id]
 const STEP_LIVE = { step3:STEP3_LIVE, step5:STEP5_LIVE, step6:STEP6_LIVE, step7:STEP7_LIVE, step8:STEP8_LIVE };
 const stepLive = id => STEP_LIVE[id] !== false;
 /* v40 (Eli): trial. Lessons 1 & 2 (STEP 3, STEP 4) are open; everything from Lesson 3 on is locked with a link to the full course. */
-const TRIAL_LOCK = false, TRIAL_OPEN = ["step3", "step4"];   // preview: trial lock off
-function hh40Unlocked(){ return true; }
-function hh40Locked(){ return false; }   // preview: every lesson and boss stays unlocked
-const lessonOpen = id => !!LESSONS[id];   // preview: all 3 levels, all 10 lessons, all 3 bosses, no progress or level gate
+const TRIAL_LOCK = false, TRIAL_OPEN = ["step3", "step4"];
+function hh40Unlocked(){ try{ return new URLSearchParams(location.search).get("preview") === "all"; }catch(e){ return false; } }
+function hh40Locked(id){ return TRIAL_LOCK && !!LESSONS[id] && !TRIAL_OPEN.includes(id) && !hh40Unlocked(); }
+const lessonOpen = id => !!LESSONS[id] && !hh40Locked(id) && ((typeof v39Item === "function" && v39Item(id) && !v39Item(id).live) ? v39Open(id) : stepLive(id) && (SPEAK_ONLY || !LESSONS[id].speakOnly || A.read === false));   // v39: Lessons 7-30 + Bosses follow ALL_LEVELS_OPEN / LEVEL_LIVE / LESSON_LIVE (config.js)   // v35: STEP 3-8 open for everyone (speaking only)   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
 function lessonProgress(id){ const s = A[id] || {}; return s.completed ? 1 : Math.min(1, (s.pos || 0) / LESSONS[id].parts.length); }
 const XP_BONUS = 20;
 const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","g15","words"];
@@ -10070,7 +10070,13 @@ const V39_ALL = () => V39_LEVELS.flatMap(lv => lv.items);
 const v39Item = id => V39_ALL().find(x => x.id === id);
 const v39LevelOf = id => { const lv = V39_LEVELS.find(l => l.items.some(x => x.id === id)); return lv ? lv.n : 1; };
 /* open / closed (config.js) */
-function v39Open(id){ return !!v39Item(id); }   // preview: levels 2 and 3 and every boss stay open
+function v39Open(id){
+  const it = v39Item(id); if (!it) return false;
+  if (it.live) return lessonOpen(id);
+  if (typeof LESSON_LIVE === "object" && LESSON_LIVE[id] !== undefined) return !!LESSON_LIVE[id];
+  if (typeof ALL_LEVELS_OPEN !== "undefined" && ALL_LEVELS_OPEN) return true;
+  return !!(typeof LEVEL_LIVE === "object" && LEVEL_LIVE[v39LevelOf(id)]);
+}
 GAME_SECTIONS.push("g16", "g17");
 
 booted = true;
@@ -11183,17 +11189,8 @@ function hh40StepExtras(){
   const t = $("cjTable"); t.classList.toggle("hh40-lat", !A.showHe);
   let tb = $("hh40HeTab"); if (!tb){ tb = hh40El("button", "hh40-hetog"); tb.id = "hh40HeTab"; tb.type = "button"; tb.addEventListener("click", () => { A.showHe = !A.showHe; saveA(); hh40ApplyHe(); }); t.after(tb); }
   hh40ApplyHe();
-  // Easy / Challenge
-  let m = $("hh40Mode"); if (m) m.remove();
-  if (HH40_CH_LESSONS.includes(CUR)){
-    m = hh40El("div", "hh40-mode"); m.id = "hh40Mode";
-    m.innerHTML = '<b>Game level</b><div class="hh40-seg" role="group" aria-label="Game level"><button type="button" data-v="0">Easy</button><button type="button" class="ch" data-v="1">Challenge</button></div><small></small>';
-    const paint = () => { const on = hh40ChOn(); m.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String((b.dataset.v === "1") === on)));
-      m.querySelector("small").textContent = on ? (CUR === "step3" ? "Challenge: more rounds, a timer from the first photo, 6 options and harder groups." : "Challenge: more rounds, more choices, no translations, longer orders and a faster clock.")
-        : "Easy: a gentle start with hints. Switch to Challenge when the games feel easy."; };
-    m.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; A.chal = A.chal || {}; A.chal[CUR] = b.dataset.v === "1"; saveA(); sfx("tap"); paint(); });
-    paint(); document.querySelector("#sStep .hh-hero").after(m);
-  }
+  // v42: Easy / Challenge lives on each game start card, not as a global lesson toggle
+  const m = $("hh40Mode"); if (m) m.remove();
 }
 const _openStep40 = openStep;
 openStep = async function(id){
@@ -11396,6 +11393,1001 @@ async function hh41MaybeDemo(P, id, sec){
   bossEnd = function(){ hh41CloseHow(); _bossEnd(); hh41HowBtn("g17", false); };
   setInterval(() => { if ($("hh41ov") && !$("hh41ov").hidden && ($("g16").hidden && $("g17").hidden)) hh41CloseHow(); }, 400);
 })();
+</script>
+<style>
+/* v42: in-game Easy/Challenge + Boss 1 CAFÉ SHOWDOWN v2 */
+.v39-b1 .v39-hp{flex-wrap:wrap;justify-content:center;row-gap:0;font-size:15px;max-height:44px;overflow:hidden}
+.v39-b1 .v39-track{overflow-x:auto;max-width:100%}
+
+.hh42-diff{margin:14px 0 8px;padding:12px 14px;border-radius:16px;background:rgba(0,0,0,.16);border:1px solid var(--divider);text-align:left}
+.hh42-diff-lab{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:8px}
+.hh42-seg{display:flex;gap:8px}
+.hh42-seg button{flex:1;min-height:44px;border-radius:12px;border:2px solid var(--divider);background:var(--green-soft);color:var(--cream);font-weight:800;cursor:pointer}
+.hh42-seg button[aria-pressed="true"]{border-color:var(--coral);background:rgba(255,111,165,.16);color:#F4F1E8}
+.hh42-seg button:disabled{opacity:.45;cursor:not-allowed}
+.hh42-diff-note{display:block;margin-top:8px;font-size:12px;color:var(--cream-dim);line-height:1.35}
+.hh42-gender{margin:12px 0 4px;padding:12px 14px;border-radius:16px;background:rgba(0,0,0,.16);border:1px solid var(--divider);text-align:left}
+.hh42-gate-wrap{padding:8px 0 12px}
+.hh42-gate-go{margin-top:8px;width:100%}
+.hh42-wait{margin:8px 0 0;padding:8px 12px;border-radius:14px;background:rgba(0,0,0,.18);border:1px dashed var(--divider);color:var(--cream);text-align:left}
+.hh42-wait small{display:block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:2px}
+.hh42-status{margin:0 0 8px;padding:8px 12px;border-radius:12px;background:rgba(255,111,165,.14);border:1px solid var(--coral);color:#F4F1E8;font-weight:700;font-size:14px;text-align:left}
+.hh42-scene{margin:4px 0 10px;padding:12px;border-radius:16px;background:rgba(0,0,0,.16);text-align:center}
+.hh42-faces{display:flex;justify-content:center;gap:16px;margin-bottom:6px}
+.hh42-face{display:inline-flex;flex-direction:column;align-items:center;gap:2px}
+.hh42-face b{font-size:36px;line-height:1;font-style:normal}
+.hh42-face small{font-size:12px;font-weight:700;color:var(--cream-dim)}
+.hh42-emo{font-size:40px;line-height:1.1;margin:4px 0}
+.hh42-cap{font-weight:800;color:#F4F1E8;margin-top:6px}
+.hh42-sub{font-size:13px;color:var(--cream-dim);margin-top:4px}
+.hh42-bub{display:flex;align-items:flex-start;gap:8px;margin:8px 0;padding:10px 12px;border-radius:16px;background:#F4F1E8;color:#1E4A3A;text-align:left}
+.hh42-bubtxt small{display:block;font-weight:800;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#26543F}
+.hh42-line{font-weight:800;font-size:18px;min-height:1.2em}
+.hh42-sort{display:grid!important;grid-template-columns:repeat(3,1fr);gap:8px}
+.hh42-food{display:flex;flex-direction:column;align-items:center;gap:4px;min-height:76px}
+.hh42-food .hh42-fp{font-size:28px}
+.hh42-food.on{border-color:var(--coral);box-shadow:0 0 0 2px rgba(255,111,165,.35)}
+.hh42-food.fem{background:rgba(255,168,210,.18)}
+.hh42-food.masc{background:rgba(156,201,245,.18)}
+.hh42-sent{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:8px 0 12px;font-size:22px;font-weight:800;color:#F4F1E8}
+.hh42-word{border:0;background:rgba(244,241,232,.1);color:#F4F1E8;border-radius:10px;padding:6px 10px;font:inherit;font-weight:800;cursor:pointer}
+.hh42-word.pick{background:rgba(255,111,165,.3);outline:2px solid var(--coral)}
+.hh42-match{display:flex;flex-direction:column;gap:8px;margin:8px 0}
+.hh42-mrow{display:flex;align-items:center;gap:10px}
+.hh42-mp{font-size:28px;width:42px;text-align:center}
+.hh42-mn{font-weight:800;color:#F4F1E8;min-width:64px}
+.hh42-mslot{flex:1}
+.hh42-chtag{display:inline-block;margin:6px 0;padding:2px 8px;border-radius:999px;background:rgba(255,111,165,.2);border:1px solid var(--coral);font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.hh42-type{margin-top:10px;text-align:left}
+.hh42-type-lab{display:block;font-size:12px;font-weight:800;color:var(--cream-dim);margin-bottom:6px}
+.hh42-input{width:100%;box-sizing:border-box;min-height:48px;border-radius:12px;border:2px solid var(--divider);background:#F4F1E8;color:#1E4A3A;padding:8px 12px;font:inherit;font-weight:700}
+.hh42-timer{height:8px;border-radius:99px;background:rgba(0,0,0,.25);overflow:hidden;margin:10px 0}
+.hh42-timer b{display:block;height:100%;width:100%;background:var(--coral);border-radius:99px}
+#g15.hh42-noch .hh-bg-face.m small,
+#g15.hh42-noch .hh-bg-face.f small,
+#g15.hh42-noch .m,
+#g15.hh42-noch .f{color:var(--cream)!important}
+#hh40Mode{display:none!important}
+
+</style>
+<script>
+/* v42-preview: Boss 1 CAFÉ SHOWDOWN v2 + in-game Easy/Challenge */
+(function hh42(){
+  const DIFF_KEY = "hhGameDiff";
+  const B1_BEST_KEY = "hhBoss1Best";
+  const DIFF_META = {
+    g8:{ key:"g8", ch:"No written sentence after the audio. Each clip plays twice. 4 choices." },
+    g7:{ key:"g7", ch:"A shorter timer, two orders waiting, no picture hints." },
+    g11:{ key:"g11", ch:"A status card may swap the word, and Ken is not pre-filled." },
+    g13:{ key:"g13", ch:"All who-forms, plus two extra tiles." },
+    g14:{ key:"g14", ch:"Build the full question, with a timer." },
+    g15:{ key:"g15", ch:"Trap rounds, and no color hints." },
+    "L1.10":{ key:"L1.10", ch:"Type the order, with a timer." },
+    boss1:{ key:"boss1", ch:"More tiles, one try in Build, a tighter listen stage." }
+  };
+  function diffLoad(){ try{ return JSON.parse(localStorage.getItem(DIFF_KEY)) || {}; }catch(e){ return {}; } }
+  function diffSave(o){ try{ localStorage.setItem(DIFF_KEY, JSON.stringify(o)); }catch(e){} }
+  function diffState(key){ const o = diffLoad()[key] || {}; return { mode:o.mode === "challenge" ? "challenge" : "easy", easyDone:!!o.easyDone }; }
+  function diffSet(key, patch){ const all = diffLoad(); all[key] = Object.assign(diffState(key), patch); diffSave(all); }
+  function hhDiffOn(key){ return diffState(key).mode === "challenge"; }
+  window.hhDiffOn = hhDiffOn;
+  window.hhDiffMarkDone = function(key, wasEasy){
+    if (wasEasy) diffSet(key, { easyDone:true, mode:"easy" });
+    else diffSet(key, { easyDone:true });
+  };
+
+  function hhDiffBar(key){
+    const meta = DIFF_META[key];
+    const box = v39El("div", "hh42-diff"); box.setAttribute("data-key", key);
+    const lab = v39El("div", "hh42-diff-lab", "Game level");
+    const row = v39El("div", "hh42-seg"); row.setAttribute("role", "group"); row.setAttribute("aria-label", "Game level");
+    const easy = document.createElement("button"); easy.type = "button"; easy.dataset.v = "easy"; easy.textContent = "Easy";
+    const ch = document.createElement("button"); ch.type = "button"; ch.dataset.v = "challenge"; ch.textContent = "Challenge";
+    const note = v39El("small", "hh42-diff-note", "");
+    function paint(){
+      const s = diffState(key), locked = !s.easyDone;
+      easy.setAttribute("aria-pressed", String(s.mode === "easy"));
+      ch.setAttribute("aria-pressed", String(s.mode === "challenge"));
+      ch.disabled = locked && s.mode !== "challenge";
+      ch.title = ch.disabled ? "Try after one Easy round" : "";
+      note.textContent = ch.disabled ? "Try after one Easy round." : (s.mode === "challenge" ? ((meta && meta.ch) || "Challenge") : "Easy: a gentle start with hints.");
+    }
+    row.addEventListener("click", e => {
+      const b = e.target.closest("button"); if (!b || b.disabled) return;
+      diffSet(key, { mode:b.dataset.v }); sfx("tap"); paint();
+    });
+    row.append(easy, ch); box.append(lab, row, note); paint();
+    return box;
+  }
+
+  /* Global lesson toggle is gone. HH_CH now reads the per-game store for the 8 games only. */
+  HH_CH = function(g){
+    if (g === 8) return hhDiffOn("g8");
+    if (g === 7) return hhDiffOn("g7");
+    if (g === 11) return hhDiffOn("g11");
+    if (g === 13) return hhDiffOn("g13");
+    if (g === 14) return hhDiffOn("g14");
+    if (g === 15) return hhDiffOn("g15");
+    return false;
+  };
+  hhApply = function(g){
+    if (g === 7){
+      if (HH_CH(7)){ RUSH.seconds = 9; RUSH.fastest = 5; }
+      else { RUSH.seconds = 14; RUSH.fastest = 7; }
+    }
+  };
+
+  function hh42Gate(key, secId, goLabel, onStart){
+    const sec = $(secId); if (!sec) return onStart();
+    show(secId);
+    let gate = sec.querySelector(":scope > .hh42-gate-wrap");
+    if (!gate){
+      gate = v39El("div", "hh42-gate-wrap");
+      const top = [...sec.children].find(el => el.classList && el.classList.contains("top"));
+      if (top && top.parentNode === sec) sec.insertBefore(gate, top.nextSibling);
+      else sec.insertBefore(gate, sec.firstChild);
+    }
+    [...sec.children].forEach(el => {
+      if (el === gate || (el.classList && el.classList.contains("top"))) return;
+      el.setAttribute("data-hh42hide", "1"); el.hidden = true;
+    });
+    const engine = { g8:"quickpick", g7:"buildgame", g11:"chatback", g13:"buildgame", g14:"buildgame", g15:"buildgame" }[key] || "quickpick";
+    gate.hidden = false; gate.innerHTML = "";
+    if (typeof hh41Card === "function") gate.append(hh41Card(engine));
+    else gate.append(v39El("h3", "", "How to play"));
+    gate.append(hhDiffBar(key));
+    const go = v39El("button", "btn hh42-gate-go", goLabel || "Start"); go.type = "button";
+    go.addEventListener("click", () => { sfx("tap"); hh42Ungate(sec); onStart(); });
+    gate.append(go);
+  }
+  function hh42Ungate(sec){
+    const gate = sec.querySelector(":scope > .hh42-gate-wrap"); if (gate) gate.hidden = true;
+    sec.querySelectorAll("[data-hh42hide]").forEach(el => { el.hidden = false; el.removeAttribute("data-hh42hide"); });
+  }
+
+  /* ===== BY EAR ===== */
+  let earPlays = 0;
+  const _startEar42 = startEar, _nextEar42 = nextEar, _checkEar42 = checkEar, _earCards42 = earCards;
+  startEar = function(opts){
+    if (!(opts && (opts.real || opts._gated))){
+      return hh42Gate("g8", "g8", "Start", () => startEar(Object.assign({}, opts || {}, { _gated:true })));
+    }
+    _startEar42(opts);
+  };
+  starters[8] = startEar;
+  earCards = function(o){
+    const want = HH_CH(8) ? 4 : 3;
+    const pool = earPool(o.g).filter(x => x.en !== o.en);
+    const verb = ids => ids.find(w => /^(rotz|tzar|tzri|ohev|yach|yech)/.test(w)) || "";
+    const near = shuffle(pool.filter(x => x.set === o.set || verb(x.ids).slice(0, 3) === verb(o.ids).slice(0, 3)));
+    const far = shuffle(pool.filter(x => !near.includes(x)));
+    const out = [o], seen = new Set([o.en]);
+    near.slice(0, 2).concat(far).concat(near.slice(2)).forEach(x => { if (out.length < want && !seen.has(x.en)){ seen.add(x.en); out.push(x); } });
+    return shuffle(out);
+  };
+  nextEar = function(){
+    earPlays = 0;
+    if ($("g8play")) $("g8play").disabled = false;
+    if ($("g8slow")) $("g8slow").disabled = false;
+    _nextEar42();
+    if (e8 && e8.phase === "listen"){
+      earPlays = 1;
+      if (HH_CH(8)){
+        if ($("g8sent")) $("g8sent").hidden = true;
+        if ($("g8note") && !$("g8note").textContent) $("g8note").hidden = true;
+      }
+    }
+    if (e8 && e8.endShown) hhDiffMarkDone("g8", !hhDiffOn("g8"));
+  };
+  checkEar = function(c, btn){
+    _checkEar42(c, btn);
+    if (HH_CH(8) && $("g8sent")) $("g8sent").hidden = true;
+  };
+  function earCapClick(e, btn){
+    if (!HH_CH(8) || !e8 || e8.phase !== "listen") return;
+    if (earPlays >= 2){ e.preventDefault(); e.stopImmediatePropagation(); btn.disabled = true; return; }
+    earPlays++;
+    if (earPlays >= 2) btn.disabled = true;
+  }
+  $("g8play").addEventListener("click", e => earCapClick(e, $("g8play")), true);
+  $("g8slow").addEventListener("click", e => earCapClick(e, $("g8slow")), true);
+
+  /* ===== RUSH HOUR: diff on the existing start card ===== */
+  const _startRush42 = startRush, _openRush42 = openRush, _nextCustomer42 = nextCustomer, _endRush42 = endRush, _makeOrder42 = makeOrder;
+  startRush = function(){
+    hhApply(7);
+    _startRush42();
+    const intro = $("g7intro");
+    if (intro){
+      const old = intro.querySelector(".hh42-diff"); if (old) old.remove();
+      intro.append(hhDiffBar("g7"));
+    }
+  };
+  starters[7] = startRush;
+  openRush = function(){
+    hhApply(7);
+    _openRush42();
+  };
+  nextCustomer = function(){
+    if (HH_CH(7) && r7 && r7._wait && !r7.reviewing && !r7.demo){
+      const saved = r7._wait; r7._wait = null;
+      makeOrder = function(){ makeOrder = _makeOrder42; return saved; };
+    }
+    _nextCustomer42();
+    makeOrder = _makeOrder42;
+    let w = $("g7wait");
+    if (!w && $("g7ord") && $("g7ord").parentNode){
+      w = document.createElement("div"); w.id = "g7wait"; w.className = "hh42-wait";
+      $("g7ord").parentNode.after(w);
+    }
+    if (HH_CH(7) && r7 && !r7.reviewing && !r7.demo && r7.phase === "play"){
+      if ($("g7ord") && r7.cur) $("g7ord").textContent = "“" + r7.cur.en + "”";
+      try{ r7._wait = makeOrder(r7.served); }catch(err){ r7._wait = null; }
+      if (w){ w.hidden = !r7._wait; if (r7._wait) w.innerHTML = "<small>Also waiting</small><div>“" + r7._wait.en + "”</div>"; }
+    } else if (w){ w.hidden = true; }
+  };
+  endRush = function(){
+    const easy = diffState("g7").mode === "easy";
+    const r = _endRush42();
+    if (r7 && (r7.phase === "end" || r7.__end)) hhDiffMarkDone("g7", easy);
+    return r;
+  };
+
+  /* ===== CHAT BACK ===== */
+  const _cbSay42 = cbSay, _startChat42 = startChat, _cbRound42 = cbRound, _cbEnd42 = cbEnd;
+  cbSay = function(o, words){
+    if (HH_CH(11) && o && !o.emoji) return cbCap(words[0] || "___") + " " + words.slice(1).join(" ");
+    return _cbSay42(o, words);
+  };
+  startChat = function(){
+    hh42Gate("g11", "g11", "Start", () => _startChat42());
+  };
+  starters[11] = startChat;
+  cbRound = function(){
+    _cbRound42();
+    if (!c11 || c11.demo || !c11.cur) return;
+    let card = $("g11status");
+    if (!card){
+      card = v39El("div", "hh42-status"); card.id = "g11status";
+      const host = $("g11chat") || $("g11card"); if (host) host.prepend(card);
+    }
+    if (HH_CH(11)){
+      const o = c11.cur;
+      const swap = o.inf === "lishtot" ? "le'ekhol" : o.inf === "le'ekhol" ? "lishtot" : (o.inf === "lishon" ? "ledaber" : "");
+      if (swap){
+        o.inf = swap;
+        if (c11.P) c11.P.inf = swap;
+        card.hidden = false;
+        card.textContent = "Status: answer with " + swap + " (the message is a trap).";
+      } else { card.hidden = true; }
+    } else if (card) card.hidden = true;
+  };
+  cbEnd = function(){
+    const easy = diffState("g11").mode === "easy";
+    _cbEnd42();
+    hhDiffMarkDone("g11", easy);
+  };
+
+  /* ===== GIFT DROP / INTERROGATION / PICTURE TRUTH ===== */
+  const _bgStart42 = bgStart, _bgShow42 = bgShow, _bgFastStart42 = bgFastStart, _bgEnd42 = bgEnd, _bgPlay42 = bgPlay;
+  bgStart = function(G){
+    const key = G && G.cfg && ({ 13:"g13", 14:"g14", 15:"g15" }[G.cfg.g]);
+    if (!key || G._gated) return _bgStart42(G);
+    hh42Gate(key, G.id, "Start", () => { G._gated = true; _bgStart42(G); });
+  };
+  bgPlay = function(list){
+    return _bgPlay42((list || []).map(f => String(f).replace(/\bpitza\.mp3\b/g, "pitsa.mp3")));
+  };
+  bgShow = function(G, r, label, count){
+    if (G.cfg && G.cfg.g === 13){
+      if (HH_CH(13) && r && r.rows){
+        const used = new Set();
+        r.rows.forEach(row => (row.chips || []).forEach(c => used.add(c)));
+        const extra = ["te","sukar","mayim","lekhem","uga","kafe","khalav"].filter(x => !used.has(x) && x !== (r.o && r.o.t));
+        const thing = r.rows.find(row => row.label === "Thing");
+        if (thing) extra.slice(0, 2).forEach(x => { if (!thing.chips.includes(x)) thing.chips.push(x); });
+      }
+    }
+    if (G.cfg && G.cfg.g === 14 && HH_CH(14) && r && r.stage === 1 && r.o && !r.rows.some(row => row.label === "TO-word")){
+      r.rows.push({ label:"TO-word", chips: IV2_TO.filter(x => (r.o.to || [r.o.inf]).includes(x) || true).slice(0, 4).concat([r.o.inf]).filter((x,i,a) => a.indexOf(x) === i).slice(0, 4) });
+      if (!r.right.includes(r.o.inf)) r.right.push(r.o.inf);
+      const prev = r.draft;
+      r.draft = p => {
+        const base = typeof prev === "function" ? prev(p) : "";
+        return String(base).replace(bgSlot(r.o.inf, "given"), bgSlot(p[3]));
+      };
+    }
+    if (G.cfg && G.cfg.g === 15){
+      const sec = $(G.id); if (sec) sec.classList.toggle("hh42-noch", HH_CH(15));
+    }
+    _bgShow42(G, r, label, count);
+    if (G.cfg && G.cfg.g === 13){
+      document.querySelectorAll("#" + G.id + " .hh-cb-chip").forEach(b => { if (b.dataset.w === "pitza") b.textContent = "pitsa"; });
+    }
+  };
+  bgFastStart = function(G, sec){
+    if (G.cfg && G.cfg.g === 14 && HH_CH(14)) sec = sec || 12;
+    _bgFastStart42(G, sec);
+  };
+  bgEnd = function(G){
+    const key = G && G.cfg && ({ 13:"g13", 14:"g14", 15:"g15" }[G.cfg.g]);
+    const easy = key && diffState(key).mode === "easy";
+    const out = _bgEnd42(G);
+    if (key) hhDiffMarkDone(key, easy);
+    return out;
+  };
+
+  /* ===== AT THE COUNTER (L1.10 only) ===== */
+  const _lgStart42 = lgStart, _lgRound42 = lgRound, _lgEnd42 = lgEnd;
+  lgStart = function(slot){
+    _lgStart42(slot);
+    const box = $("g16intro");
+    if (!box) return;
+    const old = box.querySelector(".hh42-diff"); if (old) old.remove();
+    if (slot === "L1.10") box.append(hhDiffBar("L1.10"));
+  };
+  starters[16] = () => lgStart((typeof L !== "undefined" && L && LESSON[L.pos] && LESSON[L.pos].game) || "L1.7");
+  function typeNorm(s){ return String(s || "").toLowerCase().replace(/[.,!?;:…'"’]/g, "").replace(/\s+/g, " ").trim(); }
+  lgRound = function(){
+    _lgRound42();
+    const s = LG.st, G = LG.game, P = LG.P;
+    if (!s || s.phase !== "round" || !G || G.slot !== "L1.10" || !hhDiffOn("L1.10") || !P || !P.r) return;
+    const host = P.host, typId = "hh42Type";
+    let typ = host.querySelector("." + typId);
+    if (!typ){
+      typ = v39El("div", "hh42-type " + typId);
+      typ.innerHTML = '<label class="hh42-type-lab">Type your order</label><input class="hh42-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" dir="ltr" placeholder="Type in Latin letters"><div class="row"><button class="btn hh42-type-go" type="button">Check</button></div>';
+      typ.querySelector(".hh42-type-go").addEventListener("click", () => {
+        if (P.done) return;
+        const got = typ.querySelector("input").value;
+        const accept = [P.r.correct, P.r.answer, P.r.say].filter(Boolean);
+        if (accept.some(x => typeNorm(x) === typeNorm(got))){ typ.hidden = true; P.right(null); }
+        else {
+          P.misses++; sfx("bad");
+          const h = P.q(".v39-hint"); h.className = "msg v39-hint bad";
+          h.textContent = P.misses >= 2 ? ("That's it: " + (P.r.answer || P.r.correct)) : "Not yet. Try again.";
+          if (P.misses >= 2){ typ.hidden = true; P.right(null); }
+        }
+      });
+      typ.querySelector("input").addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); typ.querySelector(".hh42-type-go").click(); } });
+      (P.q(".v39-ask") || host).after(typ);
+    }
+    typ.hidden = false; typ.querySelector("input").value = ""; typ.querySelector("input").disabled = false;
+    const opts = P.q(".v39-opts"), slots = P.q(".v39-slots"), check = P.q(".v39-checkrow"), fr = P.q(".v39-frame");
+    if (opts) opts.hidden = true; if (slots) slots.hidden = true; if (check) check.hidden = true; if (fr) fr.hidden = true;
+    P.startTimer(12);
+  };
+  lgEnd = function(){
+    const slot = LG.st && LG.st.slot, easy = slot === "L1.10" && diffState("L1.10").mode === "easy";
+    _lgEnd42();
+    if (slot === "L1.10") hhDiffMarkDone("L1.10", easy);
+  };
+
+  /* ========================================================================
+     Boss 1 — CAFÉ SHOWDOWN v2
+     ======================================================================== */
+  const B1_FACE = { Dana:"👧", Yoni:"👦" };
+  const B1_STAGE = [
+    null,
+    { n:1, name:"Warm-up", tag:"STAGE 1 · WARM-UP", sub:"5 quick picks" },
+    { n:2, name:"Build", tag:"STAGE 2 · BUILD", sub:"5 sentences you build", banner:"🛡️ Shield breaks!" },
+    { n:3, name:"Fix it & match", tag:"STAGE 3 · FIX IT & MATCH", sub:"4 rounds", banner:"✨ New practice!" },
+    { n:4, name:"Listen & respond", tag:"STAGE 4 · LISTEN & RESPOND", sub:"4 timed rounds", banner:"💥 Armor cracks!" }
+  ];
+  const B1_AUDIO = {
+    "Ani rotsa kafe.":"ani-rotza-kafe.mp3",
+    "Ani rotse kafe.":"ani-rotze-kafe.mp3",
+    "Anakhnu tsrikhim mayim.":"anachnu-tzrichim-mayim.mp3",
+    "Ani rotse te.":"ani-rotze-te.mp3",
+    "Ani rotsa te.":"ani-rotza-te.mp3"
+  };
+  function b1Clip(line){ return B1_AUDIO[line] || ""; }
+  function b1Norm(s){ return String(s || "").toLowerCase().replace(/[.,!?;:…'"’]/g, "").replace(/\s+/g, " ").trim(); }
+  function b1Match(got, correct, accept){ const g = b1Norm(got); return [correct].concat(accept || []).some(x => b1Norm(x) === g); }
+  function b1G(){ return (B1.st && B1.st.g) || (A.gender === "f" ? "f" : "m"); }
+  function b1Ch(){ return hhDiffOn("boss1"); }
+  function ST(){ return B1.st; }
+
+  function b1Rounds(){
+    const g = b1G();
+    const r16ans = g === "f" ? "Ani rotsa te." : "Ani rotse te.";
+    const r16acc = g === "f" ? ["Ani rotsa lishtot te.", "Te, bevakasha."] : ["Ani rotse lishtot te.", "Te, bevakasha."];
+    const r16wrong = g === "f" ? ["Ani rotsa kafe.", "Hu rotse te.", "Ani tsrikha te."] : ["Ani rotse kafe.", "Hu rotse te.", "Ani tsarikh te."];
+    const r16q = g === "f" ? "Ma at rotsa lishtot?" : "Ma ata rotse lishtot?";
+    const r15q = g === "f" ? "Yesh lakh uga?" : "Yesh lekha uga?";
+    const r18q = g === "f" ? "Ma at rotsa?" : "Ma ata rotse?";
+    return [
+      { n:1, stage:1, type:"pick", prompt:"Dana says she wants coffee. What does she say?",
+        scene:() => b1Pic("Dana", "💭☕", "Dana, hand on her chest, thinking of coffee"),
+        correct:"Ani rotsa kafe.", distractors:["Ani rotse kafe.", "Hi rotsa kafe.", "At rotsa kafe."],
+        say:"Ani rotsa kafe.", skill:"magic" },
+      { n:2, stage:1, type:"pick", prompt:"Talk ABOUT Dana: She doesn't have cake.",
+        scene:() => b1Pic("Dana", "🍰❌", "Dana has no cake.", "Dana next to an empty plate"),
+        correct:"Ein la uga.", distractors:["Ein lo uga.", "Ein li uga.", "Yesh la uga."],
+        say:"Ein la uga.", skill:"yesh" },
+      { n:3, stage:1, type:"sort", prompt:"Tap the 3 feminine words.",
+        scene:() => b1Note("Food words"),
+        fem:["pitsa","glida","uga"], masc:["kafe","lekhem","shokolad"], skill:"adj" },
+      { n:4, stage:1, type:"pick", prompt:"Dana answers: Coffee! Which question did Yoni ask?  ___ at rotsa lishtot",
+        scene:() => b1Pic("Yoni", "☕", "Dana answers: “Kafe!”"),
+        correct:"Ma", distractors:["Mi","Eifo","Matai"], skill:"q" },
+      { n:5, stage:1, type:"pick", prompt:"The answer is: Dana. Which question fits?  ___ rotse glida",
+        scene:() => b1Pic("Yoni", "🍦", "Yoni points at Dana, who holds ice cream"),
+        correct:"Mi", distractors:["Ma","Eifo","Lama"], skill:"q" },
+      { n:6, stage:2, type:"build", prompt:"Dana and Yoni say together: We need water.",
+        scene:() => b1Pic("Dana + Yoni", "💧", "Dana and Yoni together"),
+        correct:"Anakhnu tsrikhim mayim.", tokens:["Anakhnu","tsrikhim","mayim"],
+        distractors:["tsrikhot","tsarikh","lishtot"], extraCh:["hem","anakhnu"],
+        say:"Anakhnu tsrikhim mayim.", skill:"magic" },
+      { n:7, stage:2, type:"build", prompt:"Order politely: a big ice cream, please.",
+        scene:() => b1Pic("", "🍦", "The ice-cream counter"),
+        correct:"Efshar glida gdola bevakasha.", accept:["Efshar bevakasha glida gdola.", "Efshar glida gdola, bevakasha."],
+        tokens:["Efshar","glida","gdola","bevakasha"],
+        distractors:["gadol","ktana"], extraCh:["katan","lishtot"],
+        say:"Efshar glida gdola, bevakasha.", skill:"cafe" },
+      { n:8, stage:2, type:"build", prompt:"Ask Yoni: Do you have bread?",
+        scene:() => b1Pic("Yoni", "🍞❓", "You are facing Yoni"),
+        correct:"Yesh lekha lekhem?", tokens:["Yesh","lekha","lekhem"],
+        distractors:["lakh","lo","ein"], extraCh:["la","li"],
+        say:"Yesh lekha lekhem?", skill:"yesh" },
+      { n:9, stage:2, type:"build", prompt:"Say: The pizza is good.",
+        scene:() => b1Pic("", "🍕👍", ""),
+        correct:"Ha-pitsa tova.", tokens:["Ha-pitsa","tova"],
+        distractors:["tov","ha-kafe"], extraCh:["gdola","ha-glida"],
+        say:"Ha-pitsa tova.", skill:"adj" },
+      { n:10, stage:2, type:"build", prompt:"Talk ABOUT Yoni: He loves to eat chocolate.",
+        scene:() => b1Pic("Yoni", "❤️🍫", "Yoni with chocolate"),
+        correct:"Hu ohev le'ekhol shokolad.", tokens:["Hu","ohev","le'ekhol","shokolad"],
+        distractors:["hi","ohevet","lishtot"], extraCh:["ani","ohev"],
+        say:"Hu ohev le'ekhol shokolad.", skill:"magic" },
+      { n:11, stage:3, type:"fix", prompt:"One word is wrong. Tap it, then choose the fix.",
+        scene:() => b1Note("Sentence card"),
+        sentence:["Dana","ohev","kafe","tov."], wrong:1, fix:"ohevet",
+        options:["ohevet","ohavim","ohavot"],
+        correct:"Dana ohevet kafe tov.",
+        feedback:"Dana is a she, so the verb is ohevet. Kafe is masculine, so tov stays.",
+        say:"Dana ohevet kafe tov.", skill:"magic" },
+      { n:12, stage:3, type:"fix", prompt:"One word is wrong. Tap it, then choose the fix.",
+        scene:() => b1Pic("", "🍦", ""),
+        sentence:["Yoni","rotse","glida","gadol."], wrong:3, fix:"gdola",
+        options:["gdola","ktana","gdolim"],
+        correct:"Yoni rotse glida gdola.",
+        feedback:"Yoni is a he, so rotse is right. Glida is feminine, so the adjective is gdola.",
+        say:"Yoni rotse glida gdola.", skill:"adj" },
+      { n:13, stage:3, type:"match", prompt:"Give each food the right word.",
+        scene:() => b1Note("Match the word to the food"),
+        pairs:[{ pic:"🍰👍", en:"cake", noun:"uga", adj:"tova" }, { pic:"🍞👍", en:"bread", noun:"lekhem", adj:"tov" },
+               { pic:"🍕", en:"pizza", noun:"pitsa", adj:"gdola" }, { pic:"☕", en:"coffee", noun:"kafe", adj:"katan" }],
+        bank:["tov","tova","gadol","gdola","katan","ktana"],
+        correct:"uga tova, lekhem tov, pitsa gdola, kafe katan.", skill:"adj" },
+      { n:14, stage:3, type:"pick", prompt:"Yoni says: This is my coffee.",
+        scene:() => b1Pic("Yoni", "☕", "Yoni holds coffee, pointing at himself"),
+        correct:"Ze ha-kafe sheli.", distractors:["Zot ha-kafe sheli.","Ze ha-kafe shelkha.","Zot ha-glida sheli."],
+        say:"Ze ha-kafe sheli.", skill:"cafe" },
+      { n:15, stage:4, type:"listen", prompt:"You have cake. Answer Dana: Yes, I have cake!",
+        status:"You have: 🍰 cake", who:"Dana", listen:r15q,
+        scene:() => b1Pic("Dana", "🍰", "You have: 🍰 cake"),
+        correct:"Ken, yesh li uga!", accept:["Ken, yesh li!"],
+        distractors:["Ken, yesh lekha uga!","Lo, ein li uga.","Ken, yesh la uga!"],
+        say:"Ken, yesh li uga!", skill:"yesh" },
+      { n:16, stage:4, type:"listen", prompt:"You want tea. Answer Yoni.",
+        status:"You want: 🍵 tea", who:"Yoni", listen:r16q,
+        scene:() => b1Pic("Yoni", "🍵", "You want: 🍵 tea"),
+        correct:r16ans, accept:r16acc, distractors:r16wrong,
+        say:r16ans, skill:"magic" },
+      { n:17, stage:4, type:"listen", prompt:"Answer Dana: No, he doesn't have coffee.",
+        status:"Yoni has no coffee.", who:"Dana", listen:"Yesh lo kafe?",
+        scene:() => b1Pic("Dana", "☕❌", "Yoni has no coffee."),
+        correct:"Lo, ein lo kafe.", distractors:["Lo, ein la kafe.","Lo, ein li kafe.","Ken, yesh lo kafe."],
+        say:"Lo, ein lo kafe.", skill:"yesh" },
+      { n:18, stage:4, type:"listen", prompt:"Order a small coffee, politely.",
+        status:"Order: ☕ small coffee", who:"Yoni", listen:r18q,
+        scene:() => b1Pic("Yoni", "☕", "Yoni is behind the counter. Order: ☕ small coffee"),
+        correct:"Efshar kafe katan, bevakasha.", accept:["Efshar bevakasha kafe katan."],
+        distractors:["Efshar kafe gadol, bevakasha.","Efshar uga ktana, bevakasha.","Kafe katan."],
+        say:"Efshar kafe katan, bevakasha.", skill:"cafe" }
+    ];
+  }
+  function b1Pic(who, emoji, caption, sub){
+    const el = v39El("div", "hh42-scene");
+    const faces = (who || "").split(" + ").filter(Boolean).map(n => '<span class="hh42-face"><b>' + (B1_FACE[n] || "🙂") + "</b><small>" + n + "</small></span>").join("");
+    el.innerHTML = (faces ? '<div class="hh42-faces">' + faces + "</div>" : "") +
+      (emoji ? '<div class="hh42-emo">' + emoji + "</div>" : "") +
+      (caption ? '<div class="hh42-cap">' + caption + "</div>" : "") +
+      (sub ? '<div class="hh42-sub">' + sub + "</div>" : "");
+    return el;
+  }
+  function b1Note(t){ const el = v39El("div", "hh42-scene"); el.append(v39El("div", "hh42-sub", t)); return el; }
+
+  const B1 = { st:null };
+  window.B1 = B1;
+
+  function b1PaintHud(){
+    const s = B1.st; if (!s) return;
+    const hp = $("g17hp"), tr = $("g17track");
+    const n = (s.rounds && s.rounds.length) || 18;
+    const i = s.i || 0;
+    hp.innerHTML = "";
+    for (let k = 0; k < n; k++){ const el = v39El("i", k < (n - i) ? "on" : "off", k < (n - i) ? "❤️" : "🖤"); hp.append(el); }
+    hp.setAttribute("aria-label", "Rounds left " + Math.max(0, n - i) + " of " + n);
+    tr.innerHTML = ""; tr.append(v39El("small", "", "The queue"));
+    const row = v39El("div", "v39-trow");
+    for (let k = 0; k < n; k++) row.append(v39El("span", k < i ? "done" : k === i ? "now" : "", k < i ? "☕" : "🧍"));
+    tr.append(row);
+    $("g17stars").textContent = "⭐ " + (s.stars || 0) + " / 36";
+    $("g17bar").style.width = (i / n * 100) + "%";
+    $("g17count").textContent = s.phase === "round" ? (i + 1) + " / " + n : "";
+  }
+
+  function b1Start(){
+    if (typeof hh41CloseHow === "function") hh41CloseHow();
+    show("g17");
+    const sec = $("g17"); sec.dataset.boss = "1"; sec.className = "v39-sec v39-boss v39-b1";
+    $("g17name").textContent = "★ BOSS 1 · CAFÉ SHOWDOWN";
+    $("g17stage").textContent = "18 rounds · 4 stages";
+    $("g17bar").style.width = "0%"; $("g17count").textContent = "";
+    ["g17round","g17end","g17banner"].forEach(id => $(id).hidden = true);
+    ["g17doneRow","g17bannerRow"].forEach(id => $(id).hidden = true);
+    const prac = $("g17pracRow"); if (prac) prac.hidden = true;
+    $("g17startRow").hidden = false;
+    $("g17start").textContent = "Enter the arena";
+    const box = $("g17intro"); box.hidden = false; box.innerHTML = "";
+    box.append(v39El("div", "v39-gicon", "☕"), v39El("p", "v39-theme", "Yoni's café at the Friday rush, Dana at your table. Every right answer serves one order."));
+    if (typeof hh41Card === "function") box.append(hh41Card("boss"));
+    const gender = v39El("div", "hh42-gender");
+    gender.append(v39El("div", "hh42-diff-lab", "Talk to me as"));
+    const row = v39El("div", "hh42-seg"); row.setAttribute("role", "radiogroup"); row.setAttribute("aria-label", "Talk to me as");
+    const pref = A.gender === "f" ? "f" : "m";
+    [["m","ata (he)"],["f","at (she)"]].forEach(([v, lab]) => {
+      const b = document.createElement("button"); b.type = "button"; b.dataset.g = v; b.textContent = lab;
+      b.setAttribute("aria-pressed", String(v === pref));
+      b.addEventListener("click", () => { row.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); sfx("tap"); });
+      row.append(b);
+    });
+    gender.append(row);
+    box.append(gender);
+    box.append(hhDiffBar("boss1"));
+    B1.st = { phase:"intro", g:pref, i:0, stars:0, said:0, skillLoss:{}, scores:[], review:false, officialStars:0, officialRank:"", stage:0, rounds:new Array(18) };
+    if (typeof hh41HowBtn === "function") hh41HowBtn("g17", false);
+    ["g17hp","g17track"].forEach(id => { if ($(id)) $(id).style.display = "none"; });
+    b1PaintHud();
+  }
+
+  function b1Begin(){
+    const s = B1.st; if (!s || s.phase !== "intro") return;
+    const picked = document.querySelector("#g17intro .hh42-gender button[aria-pressed='true']");
+    s.g = picked && picked.dataset.g === "f" ? "f" : "m";
+    s.rounds = b1Rounds();
+    s.i = 0; s.stars = 0; s.said = 0; s.scores = []; s.skillLoss = {}; s.review = false; s.stage = 0; s.phase = "round";
+    $("g17intro").hidden = true; $("g17startRow").hidden = true;
+    b1Round();
+  }
+
+  function b1Round(){
+    const s = B1.st; if (!s) return;
+    if (s.i >= s.rounds.length) return b1End();
+    const r = s.rounds[s.i];
+    if (r.stage !== s.stage){
+      s.stage = r.stage; s.phase = "banner";
+      $("g17round").hidden = true;
+      const ph = B1_STAGE[r.stage], bn = $("g17banner");
+      bn.innerHTML = ""; bn.append(v39El("b", "", ph.banner || ph.tag), v39El("span", "", "Stage " + ph.n + " · " + ph.name + " · " + ph.sub));
+      bn.hidden = false; $("g17bannerRow").hidden = false; $("g17stage").textContent = ph.tag;
+      $("g17card").className = "card v39-arena v39-phase" + r.stage;
+      if (typeof hh41HowBtn === "function") hh41HowBtn("g17", false);
+      sfx("win"); pop(bn); return;
+    }
+    s.phase = "round"; $("g17banner").hidden = true; $("g17bannerRow").hidden = true;
+    ["g17hp","g17track"].forEach(id => { if ($(id)) $(id).style.display = ""; });
+    $("g17round").hidden = false;
+    $("g17stage").textContent = B1_STAGE[r.stage].tag + " · ROUND " + (s.i + 1) + " / " + s.rounds.length;
+    if (typeof hh41HowBtn === "function") hh41HowBtn("g17", true);
+    b1PaintHud();
+    b1Play(r);
+  }
+
+  function b1Play(r){
+    const s = B1.st;
+    const host = $("g17round");
+    host.innerHTML = ""; host.className = "v39-round v39-e-boss hh42-b1";
+    s.cur = r; s.tries = 0; s.done = false; s.saidNow = false; s.timedOut = false; s._timer = null; s._fixing = false;
+    const ask = v39El("div", "v39-ask", r.prompt);
+    const scene = r.scene ? r.scene() : v39El("div");
+    host.append(scene, ask);
+    if (r.type === "pick" || r.type === "listen") b1PaintPick(host, r);
+    else if (r.type === "build") b1PaintBuild(host, r);
+    else if (r.type === "sort") b1PaintSort(host, r);
+    else if (r.type === "fix") b1PaintFix(host, r);
+    else if (r.type === "match") b1PaintMatch(host, r);
+    if (r.stage === 4) b1StartTimer(host, r);
+    pop(host);
+    if (s.i === 0 && !s.review && typeof hh41MaybeDemo === "function"){
+      const shim = {
+        host, r:{ mode:r.type === "build" ? "build" : "pick", correct:r.correct, tokens:(r.tokens || []).map(t => b1Norm(t)), options:[] },
+        done:false, q:sel => host.querySelector(sel), cfg:{ timer:0 },
+        stopTimer:b1StopTimer, startTimer:function(){}
+      };
+      // dataset.w is set on options; tokens already match chips
+      try{ hh41MaybeDemo(shim, "boss1", "g17"); }catch(e){}
+    }
+  }
+
+  function b1Hint(host, cls, text){
+    let h = host.querySelector(".v39-hint"); if (!h){ h = v39El("div", "msg v39-hint"); host.append(h); }
+    h.className = "msg v39-hint" + (cls ? " " + cls : ""); h.textContent = text || "";
+  }
+  function b1PaintPick(host, r){
+    const box = v39El("div", "v39-opts is-list");
+    const opts = shuffle([r.correct].concat(r.distractors || []));
+    opts.forEach(t => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "v39-opt"; b.textContent = t; b.dataset.w = t;
+      b.addEventListener("click", () => b1Choose(host, r, t, b));
+      box.append(b);
+    });
+    host.append(box);
+    if (r.type === "listen"){
+      const bub = v39El("div", "hh42-bub");
+      const who = r.who || "";
+      const clip = b1Clip(r.listen);
+      bub.innerHTML = '<span class="hh42-face"><b>' + (B1_FACE[who] || "📞") + "</b></span><div class=\"hh42-bubtxt\"><small>" + who + '</small><div class="hh42-line"></div></div>';
+      const line = bub.querySelector(".hh42-line");
+      const showText = !b1Ch() || !clip;
+      line.textContent = showText ? (r.listen || "") : "";
+      line.dataset.full = r.listen || "";
+      if (clip) setTimeout(() => { try{ bgPlay([clip]); }catch(e){} }, 200);
+      host.insertBefore(bub, host.querySelector(".v39-ask").nextSibling);
+      ST()._showBubble = () => { line.textContent = line.dataset.full; };
+    }
+  }
+  function b1Choose(host, r, t, b){
+    if (ST().done) return;
+    if (b1Match(t, r.correct, r.accept)) return b1Right(host, r, b);
+    b1Miss(host, r, b);
+  }
+  function b1PaintBuild(host, r){
+    const sl = v39El("div", "v39-slots");
+    const op = v39El("div", "v39-opts is-chips");
+    const extra = (r.distractors || []).concat(b1Ch() ? (r.extraCh || []) : []);
+    const tiles = shuffle((r.tokens || []).concat(extra));
+    ST().picked = [];
+    tiles.forEach((t, k) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "v39-chip"; b.textContent = t; b.dataset.w = t; b.dataset.k = k;
+      b.addEventListener("click", () => {
+        if (ST().done || b.disabled) return;
+        ST().picked.push({ w:t, b }); b.disabled = true; b.classList.add("used"); sfx("tap"); b1PaintSlots(sl, r);
+      });
+      op.append(b);
+    });
+    const row = v39El("div", "row v39-checkrow");
+    const check = document.createElement("button"); check.type = "button"; check.className = "btn v39-check"; check.textContent = "Check"; check.disabled = true;
+    check.addEventListener("click", () => b1BuildCheck(host, r, sl));
+    ST()._slots = sl; ST()._check = check;
+    row.append(check);
+    host.append(sl, op, row);
+    b1PaintSlots(sl, r);
+  }
+  function b1PaintSlots(sl, r){
+    const picked = ST().picked || [];
+    const n = (r.tokens || []).length;
+    sl.innerHTML = "";
+    for (let i = 0; i < n; i++){
+      const slot = document.createElement("button"); slot.type = "button"; slot.className = "v39-slot" + (picked[i] ? " full" : "");
+      slot.textContent = picked[i] ? picked[i].w : "";
+      slot.addEventListener("click", () => {
+        if (ST().done || !picked[i]) return;
+        const c = picked[i]; picked.splice(i, 1); c.b.disabled = false; c.b.classList.remove("used"); sfx("tap"); b1PaintSlots(sl, r);
+      });
+      sl.append(slot);
+    }
+    if (ST()._check) ST()._check.disabled = picked.length !== n || ST().done;
+  }
+  function b1BuildCheck(host, r, sl){
+    if (ST().done) return;
+    const got = (ST().picked || []).map(x => x.w).join(" ");
+    if (b1Match(got, r.correct, r.accept)) return b1Right(host, r, null);
+    if (b1Ch() && r.stage === 2){ b1Hint(host, "bad", "The answer: " + r.correct); return b1Reveal(host, r); }
+    const want = b1Norm(r.correct).split(" ");
+    const gotA = (ST().picked || []).map(x => b1Norm(x.w));
+    let k = 0; while (k < want.length && gotA[k] === want[k]) k++;
+    (ST().picked || []).slice(k).forEach(c => { c.b.disabled = false; c.b.classList.remove("used"); });
+    ST().picked = (ST().picked || []).slice(0, k);
+    b1PaintSlots(sl, r);
+    b1Miss(host, r, null);
+  }
+  function b1PaintSort(host, r){
+    const box = v39El("div", "v39-opts is-grid hh42-sort");
+    const pics = { pitsa:"🍕", glida:"🍦", uga:"🍰", kafe:"☕", lekhem:"🍞", shokolad:"🍫" };
+    const items = shuffle((r.fem || []).concat(r.masc || []).map(w => ({ w, fem:(r.fem || []).includes(w), pic:pics[w] || "" })));
+    const picked = new Set();
+    items.forEach(it => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "v39-opt hh42-food"; b.dataset.w = it.w;
+      b.innerHTML = '<span class="hh42-fp">' + it.pic + "</span><b>" + it.w + "</b>";
+      b.addEventListener("click", () => {
+        if (ST().done) return;
+        if (picked.has(it.w)) picked.delete(it.w); else {
+          if (picked.size >= 3) return;
+          picked.add(it.w);
+        }
+        b.classList.toggle("on", picked.has(it.w));
+        sfx("tap");
+        if (picked.size === 3) b1SortCheck(host, r, picked, box);
+      });
+      box.append(b);
+    });
+    host.append(box);
+  }
+  function b1SortCheck(host, r, picked, box){
+    const ok = r.fem.every(w => picked.has(w)) && picked.size === 3;
+    box.querySelectorAll(".hh42-food").forEach(b => {
+      const fem = (r.fem || []).includes(b.dataset.w);
+      if (!b1Ch()) b.classList.add(fem ? "fem" : "masc");
+    });
+    if (ok) return b1Right(host, r, null);
+    ST().tries++;
+    if (b1Ch() || ST().tries >= 2){ sfx("bad"); b1Hint(host, "bad", "The feminine words are pitsa, glida and uga."); return b1Reveal(host, r); }
+    sfx("bad"); b1Hint(host, "bad", "Not yet. Feminine words often end with -a. Try again.");
+    picked.clear(); box.querySelectorAll(".on").forEach(b => b.classList.remove("on"));
+  }
+  function b1PaintFix(host, r){
+    const sent = v39El("div", "hh42-sent");
+    r.sentence.forEach((w, i) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "hh42-word"; b.textContent = w; b.dataset.i = String(i);
+      b.addEventListener("click", () => {
+        if (ST().done || ST()._fixing) return;
+        if (i === r.wrong){
+          sent.querySelectorAll(".hh42-word").forEach(x => x.disabled = true);
+          b.classList.add("pick");
+          b1FixOptions(host, r, b);
+        } else b1Miss(host, r, b);
+      });
+      sent.append(b, document.createTextNode(" "));
+    });
+    host.append(sent);
+  }
+  function b1FixOptions(host, r, wordBtn){
+    ST()._fixing = true;
+    const box = v39El("div", "v39-opts is-grid");
+    r.options.forEach(t => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "v39-opt"; b.textContent = t; b.dataset.w = t;
+      b.addEventListener("click", () => {
+        if (ST().done) return;
+        if (t === r.fix){ wordBtn.textContent = t.replace(/\.$/, "") + (String(r.sentence[r.wrong]).endsWith(".") ? "." : ""); return b1Right(host, r, b); }
+        b1Miss(host, r, b);
+      });
+      box.append(b);
+    });
+    host.append(box);
+  }
+  function b1PaintMatch(host, r){
+    const list = v39El("div", "hh42-match");
+    const assign = {};
+    r.pairs.forEach((p, i) => {
+      const row = v39El("div", "hh42-mrow");
+      row.innerHTML = '<span class="hh42-mp">' + p.pic + '</span><span class="hh42-mn">' + p.noun + "</span>";
+      const slot = document.createElement("button"); slot.type = "button"; slot.className = "v39-slot hh42-mslot"; slot.dataset.i = String(i); slot.textContent = "";
+      slot.addEventListener("click", () => { if (ST().done || !assign[i]) return; assign[i] = null; slot.textContent = ""; slot.classList.remove("full"); sfx("tap"); });
+      row.append(slot); list.append(row); p._slot = slot;
+    });
+    const bank = v39El("div", "v39-opts is-chips");
+    r.bank.forEach((t, k) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "v39-chip"; b.textContent = t; b.dataset.w = t; b.dataset.k = k;
+      b.addEventListener("click", () => {
+        if (ST().done || b.disabled) return;
+        const empty = r.pairs.findIndex((_, i) => !assign[i]);
+        if (empty < 0) return;
+        assign[empty] = t; r.pairs[empty]._slot.textContent = t; r.pairs[empty]._slot.classList.add("full");
+        b.disabled = true; b.classList.add("used"); sfx("tap");
+      });
+      bank.append(b);
+    });
+    const check = document.createElement("button"); check.type = "button"; check.className = "btn"; check.textContent = "Check";
+    check.addEventListener("click", () => b1MatchCheck(host, r, assign, bank));
+    host.append(list, bank, check);
+  }
+  function b1MatchCheck(host, r, assign, bank){
+    if (ST().done) return;
+    const ok = r.pairs.every((p, i) => assign[i] === p.adj);
+    if (ok) return b1Right(host, r, null);
+    b1Miss(host, r, null);
+    if (ST().tries >= 2){
+      r.pairs.forEach((p, i) => { p._slot.textContent = p.adj; p._slot.classList.add("full","ok"); });
+      b1Reveal(host, r);
+    } else {
+      r.pairs.forEach((p, i) => { assign[i] = null; p._slot.textContent = ""; p._slot.classList.remove("full"); });
+      bank.querySelectorAll(".v39-chip").forEach(b => { b.disabled = false; b.classList.remove("used"); });
+    }
+  }
+
+  function b1StartTimer(host, r){
+    const ch = b1Ch(), sec = ch ? 10 : 15;
+    const bar = v39El("div", "v39-timer"); bar.innerHTML = "<b></b>"; host.prepend(bar);
+    const t0 = performance.now(), total = sec * 1000;
+    ST()._timer = setInterval(() => {
+      if (!ST() || ST().done || $("g17").hidden){ clearInterval(ST()._timer); return; }
+      const left = Math.max(0, 1 - (performance.now() - t0) / total);
+      bar.firstChild.style.width = (left * 100) + "%";
+      if (left <= 0){
+        clearInterval(ST()._timer); ST().timedOut = true;
+        if (ch){ b1Hint(host, "bad", "Time's up."); b1Reveal(host, r); }
+        else { if (typeof ST()._showBubble === "function") ST()._showBubble(); b1Hint(host, "bad", "Time's up. You can still answer."); }
+      }
+    }, 100);
+  }
+  function b1StopTimer(){ if (ST() && ST()._timer){ clearInterval(ST()._timer); ST()._timer = null; } }
+
+  function b1Miss(host, r, b){
+    if (ST().done) return;
+    ST().tries++; sfx("bad");
+    if (b){ b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); }
+    if (ST().tries >= 2){ b1Hint(host, "bad", (r.feedback ? r.feedback + " " : "") + "The answer: " + r.correct); b1Reveal(host, r); }
+    else b1Hint(host, "bad", "Not yet.");
+  }
+  function b1StarCount(correctNow){
+    const s = ST(), r = s.cur;
+    if (!correctNow) return 0;
+    if (r.stage === 4 && s.timedOut) return b1Ch() ? 0 : 1;
+    if (s.tries === 0) return 2;
+    if (s.tries === 1) return 1;
+    return 0;
+  }
+  function b1Right(host, r, b){
+    if (ST().done) return;
+    ST().done = true; b1StopTimer(); sfx("good");
+    if (b) b.classList.add("ok");
+    host.querySelectorAll(".v39-opt, .v39-chip, .hh42-word, .hh42-food").forEach(x => x.disabled = true);
+    const star = b1StarCount(true);
+    b1Hint(host, "good", (r.feedback ? r.feedback + " " : "") + (star === 2 ? "Right on the first try!" : "That's it!"));
+    b1FinishRound(host, r, star);
+  }
+  function b1Reveal(host, r){
+    if (ST().done) return;
+    ST().done = true; b1StopTimer();
+    host.querySelectorAll(".v39-opt, .v39-chip, .hh42-word, .hh42-food, .v39-check").forEach(x => x.disabled = true);
+    b1FinishRound(host, r, 0);
+  }
+  function b1FinishRound(host, r, star){
+    const s = ST();
+    s.stars += star;
+    s.scores[r.n] = star;
+    if (star < 2) s.skillLoss[r.skill] = (s.skillLoss[r.skill] || 0) + (2 - star);
+    $("g17stars").textContent = "⭐ " + s.stars + " / 36";
+    toast((star ? "⭐".repeat(star) + " " : "") + "Order served!");
+    const hp = $("g17hp"); hp.classList.remove("hit"); void hp.offsetWidth; hp.classList.add("hit");
+    b1PaintHud();
+    const clip = r.say && b1Clip(r.say);
+    if (clip){
+      const say = v39El("div", "v39-say");
+      say.innerHTML = '<div class="v39-say-tag">🎙 Say It</div><div class="v39-say-tr"></div><div class="v39-say-en"></div>' +
+        '<div class="hh-reprow v39-say-btns"><button class="pill v39-clip" type="button"></button>' +
+        '<button class="pill v39-said" type="button">I said it</button></div>' +
+        '<div class="row"><button class="btn hh42-next" type="button">Next</button></div>';
+      say.querySelector(".v39-say-tr").textContent = r.say;
+      say.querySelector(".v39-clip").textContent = "▶ Hear it";
+      say.querySelector(".v39-clip").addEventListener("click", () => bgPlay([clip]));
+      say.querySelector(".v39-said").addEventListener("click", ev => { if (!s.saidNow){ s.saidNow = true; s.said++; ev.currentTarget.disabled = true; ev.currentTarget.textContent = "Counted"; sfx("pop"); } });
+      say.querySelector(".hh42-next").addEventListener("click", b1Next);
+      host.append(say);
+      setTimeout(() => bgPlay([clip]), 200);
+    } else {
+      const row = v39El("div", "row");
+      const n = v39El("button", "btn hh42-next", "Next"); n.type = "button";
+      n.addEventListener("click", b1Next); row.append(n); host.append(row);
+    }
+  }
+  function b1Next(){
+    const s = ST(); if (!s || s.phase === "end") return;
+    s.i++; b1Round();
+  }
+
+  $("g17go").addEventListener("click", e => {
+    if (!B1.st || B1.st.phase !== "banner") return;
+    e.stopImmediatePropagation(); sfx("tap"); $("g17banner").hidden = true; $("g17bannerRow").hidden = true; B1.st.phase = "round"; b1Round();
+  }, true);
+  $("g17start").addEventListener("click", e => {
+    if (!B1.st || B1.st.phase !== "intro") return;
+    e.stopImmediatePropagation(); sfx("tap"); b1Begin();
+  }, true);
+  $("g17done").addEventListener("click", e => {
+    if (!B1.st || B1.st.phase !== "end") return;
+    e.stopImmediatePropagation();
+    const s = B1.st; window.v39Said = s.said;
+    const stars = s.officialStars || s.stars;
+    finish("Boss defeated!", stars + " / 36 ⭐", (s.officialRank || s.rank) + ".", "");
+  }, true);
+
+  function b1Rank(stars, ch){
+    if (stars >= 32) return ch ? "Challenge Legend" : "Café Legend";
+    if (stars >= 24) return "Regular";
+    return "New in Town";
+  }
+  function b1Focus(loss){
+    const names = { magic:"the Magic Four and gender", yesh:"yesh / ein forms", adj:"noun and adjective agreement", q:"question words", cafe:"café phrases" };
+    let best = "", n = 0; Object.keys(loss || {}).forEach(k => { if (loss[k] > n){ n = loss[k]; best = k; } });
+    return best ? "Your next focus: " + names[best] : "A strong café shift.";
+  }
+  function b1End(){
+    const s = ST(); s.phase = "end"; b1StopTimer();
+    $("g17round").hidden = true; $("g17bar").style.width = "100%"; $("g17count").textContent = "";
+    s.i = s.rounds.length; b1PaintHud();
+    const ch = b1Ch();
+    s.rank = b1Rank(s.stars, ch);
+    if (!s.review){
+      s.officialStars = s.stars; s.officialRank = s.rank;
+      let best = 0, bestRank = "";
+      try{ const o = JSON.parse(localStorage.getItem(B1_BEST_KEY) || "null"); if (o){ best = o.stars || 0; bestRank = o.rank || ""; } }catch(e){}
+      if (s.stars > best || (s.stars === best && s.rank === "Challenge Legend" && bestRank !== "Challenge Legend")){
+        best = s.stars; bestRank = s.rank;
+        try{ localStorage.setItem(B1_BEST_KEY, JSON.stringify({ stars:best, rank:bestRank })); }catch(e){}
+      }
+      hhDiffMarkDone("boss1", !ch);
+      try{ A.boss1 = 1; if (typeof saveA === "function") saveA(); }catch(e){}
+    }
+    $("g17stage").textContent = "🏆 BOSS DEFEATED";
+    const end = $("g17end"); end.hidden = false; end.innerHTML = "";
+    const showStars = s.review ? s.officialStars : s.stars;
+    const showRank = s.review ? s.officialRank : s.rank;
+    const card = v39El("div", "hh-sn-end");
+    card.innerHTML = '<div class="tag">CAFÉ SHOWDOWN</div><div class="en">⭐ ' + showStars + " / 36</div>" +
+      (ch ? '<span class="hh42-chtag">Challenge</span>' : "") +
+      '<div class="hh-end-rank">' + showRank + "</div>" +
+      '<p class="hint">' + b1Focus(s.skillLoss) + "</p>" +
+      (s.said >= 10 ? '<p class="hint">🎙 Mic badge: you said it in ' + s.said + " rounds.</p>" : "") +
+      '<p class="hint">Best: ' + (function(){ try{ const o = JSON.parse(localStorage.getItem(B1_BEST_KEY) || "null"); return o ? (o.stars + " ⭐ · " + o.rank) : (showStars + " ⭐ · " + showRank); }catch(e){ return showStars + " ⭐"; } })() + "</p>";
+    end.append(card);
+    $("g17doneRow").hidden = false;
+    $("g17done").textContent = "Continue";
+    const misses = (s.review ? [] : s.rounds.filter(r => (s.scores[r.n] || 0) <= 1));
+    let row = $("g17pracRow");
+    if (!row){
+      row = document.createElement("div"); row.className = "row"; row.id = "g17pracRow";
+      $("g17doneRow").before(row);
+      const b = document.createElement("button"); b.className = "btn ghost"; b.id = "g17prac"; b.type = "button"; b.textContent = "Practice my misses";
+      b.addEventListener("click", () => {
+        if (!B1.st || B1.st.phase !== "end") return;
+        const miss = B1.st.rounds.filter(r => (B1.st.scores[r.n] || 0) <= 1);
+        if (!miss.length) return;
+        B1.st.rounds = miss; B1.st.i = 0; B1.st.phase = "round"; B1.st.stage = 0; B1.st.review = true; B1.st.stars = 0;
+        $("g17end").hidden = true; $("g17doneRow").hidden = true; row.hidden = true; b1Round();
+      });
+      row.append(b);
+    }
+    row.hidden = !misses.length;
+    if (typeof hh41HowBtn === "function") hh41HowBtn("g17", false);
+    sfx("win");
+  }
+
+  const _bossStart42 = bossStart;
+  bossStart = function(n){
+    if (+n === 1) return b1Start();
+    B1.st = null;
+    return _bossStart42(n);
+  };
+  starters[17] = () => bossStart((typeof L !== "undefined" && L && LESSON[L.pos] && LESSON[L.pos].boss) || 1);
+
+  const _hh41OpenHow = typeof hh41OpenHow === "function" ? hh41OpenHow : null;
+  if (_hh41OpenHow){
+    hh41OpenHow = function(secId){
+      if (secId === "g17" && B1.st && B1.st.phase === "round"){
+        const prev = BS.st; BS.st = { phase:"round", n:1 };
+        _hh41OpenHow(secId);
+        BS.st = prev;
+        return;
+      }
+      _hh41OpenHow(secId);
+    };
+  }
+  const _hh41CloseHow = typeof hh41CloseHow === "function" ? hh41CloseHow : null;
+  if (_hh41CloseHow){
+    hh41CloseHow = function(){
+      _hh41CloseHow();
+      if (B1.st && B1.st.phase === "round" && $("g17") && !$("g17").hidden) hh41HowBtn("g17", true);
+    };
+  }
+
+  /* Rebind gift/IR/PT starters to the wrapped bgStart (they captured the original). */
+  window.hh42Ready = true;
+})();
+
 </script>
 </body>
 </html>
