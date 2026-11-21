@@ -684,7 +684,7 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 .hh-psheet .hh-cf-card{gap:10px;padding-top:10px}
 .hh-psheet .hh-pron{margin:0;width:100%}
 
-/* v16: the self-compare line under My voice / Eilai: one line, a little more visible than a plain hint */
+/* v16: the self-compare line under My voice / Teacher Eilai: one line, a little more visible than a plain hint */
 #g8recnote{color:var(--cream);opacity:.85;font-size:14px;font-weight:600;line-height:1.4;margin-top:10px}
 .hh-fullbig[hidden]{display:none!important}
 
@@ -1226,6 +1226,116 @@ main section > .top > .back{display:none}
 .v39-arena .v39-chip{background:#f4f1e8;color:#183B2F}
 .v39-msg{align-self:flex-start;text-align:left}
 .v39-msg.me{align-self:flex-end}
+/* ===================== v40 batch (Nov 20) ===================== */
+/* #1 How to play panel on the game card + #7 what it trains */
+.hh40-how{margin-top:18px;width:100%;max-width:360px;text-align:left;background:rgba(0,0,0,.18);border:1px solid var(--divider);border-radius:18px;padding:14px 16px}
+.hh40-how b{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);font-weight:900}
+.hh40-how ol{margin:8px 0 0 18px;padding:0;color:var(--cream);font-size:15px;line-height:1.45}
+.hh40-how ol li{margin-top:4px}
+.hh40-how p{color:var(--cream);font-size:15px;line-height:1.45;margin-top:6px;max-width:none}
+.hh40-how small{display:block;margin-top:10px;font-size:13px;color:var(--cream-dim)}
+.hh40-chchip{display:inline-block;margin-top:10px;padding:4px 10px;border-radius:999px;background:var(--coral);color:var(--green-deep);font-size:12px;font-weight:900;letter-spacing:.06em}
+.hh40-trains{display:block;margin-top:3px;font-size:12px;font-weight:700;color:#FFC2D9}
+/* #2 desktop: slides (no video) fill the height at 16:9, the hint line shows, buttons sit right under */
+@media (min-width:900px) and (min-height:501px){
+  .hh-embed .hh-frame.is-wide.is-slides:not(.is-full){aspect-ratio:auto;height:calc(100dvh - 330px);min-height:300px;max-height:720px;
+    width:min(100%, calc(min(100dvh - 330px, 720px) * 16 / 9 + var(--hh-arrow-gap)));margin:12px auto 0;border-radius:16px}
+  .hh-embed.is-slides #eHow{display:block;text-align:center;margin:6px auto 0;color:var(--cream-dim);font-size:15px;max-width:720px}
+  .hh-embed.is-slides .hh-ehead{text-align:center} .hh-embed.is-slides .hh-ehead>div{width:100%}
+  .hh-embed.is-slides .hh-under{margin:0 auto}
+  .hh-embed.is-slides .hh-ego{margin-top:12px}
+}
+/* #3 Wordwall: no full-screen link, one small tip */
+.hh40-wwtip{text-align:center;font-size:13px;color:var(--cream-dim);margin-top:10px}
+.hh40-wlbtn{align-self:center;margin-top:10px;min-height:40px;padding:0 16px;border-radius:999px;border:1.5px solid rgba(244,241,232,.4);background:transparent;color:var(--cream);font:inherit;font-size:14px;font-weight:800;cursor:pointer}
+/* the v40 page screen (dialogues, word pages, word list, reply dialogue) */
+.hh40-page .hh40-phead{margin-top:14px}
+.hh40-page .hh40-phead h2{font-size:24px;font-weight:900;line-height:1.2;margin-top:2px}
+.hh40-page .hh40-phead p{color:var(--cream-dim);font-size:15px;line-height:1.45;margin-top:4px}
+.hh40-pbody{flex:1;margin-top:12px;display:flex;flex-direction:column;gap:12px;padding-bottom:6px}
+.hh40-box{background:var(--green-soft);border-radius:20px;padding:14px}
+.hh40-box>h3{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);font-weight:900;margin-bottom:8px}
+.hh40-box>p.hh40-note{font-size:13px;color:var(--cream-dim);line-height:1.4;margin:-2px 0 8px}
+.hh40-play{flex:none;width:42px;height:42px;border-radius:50%;border:0;background:var(--cream);color:var(--green-deep);font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.hh40-play.on{background:var(--coral)}
+.hh40-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--divider)}
+.hh40-row:first-of-type{border-top:0}
+.hh40-row .hh40-txt{flex:1;min-width:0}
+.hh40-row .hh40-lat{display:block;font-size:19px;font-weight:800;line-height:1.3}
+.hh40-row .hh40-en{display:block;font-size:13px;color:var(--cream-dim);margin-top:1px}
+.hh40-row .hh40-he{display:block;font-size:18px;font-weight:700;direction:rtl;text-align:left;margin-top:3px;color:var(--cream)}
+.hh40-row .hh40-ic{flex:none;width:34px;font-size:26px;text-align:center}
+.hh40-sp{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.hh40-sp.m{color:var(--he)} .hh40-sp.f{color:var(--she)}
+.hh40-row.cur{background:rgba(255,111,165,.12);border-radius:12px;padding-left:8px;padding-right:8px}
+.hh40-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.hh40-pill{min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid rgba(244,241,232,.4);background:transparent;color:var(--cream);font:inherit;font-size:14px;font-weight:800;cursor:pointer}
+.hh40-pill.solid{background:var(--cream);color:var(--green-deep);border-color:var(--cream)}
+.hh40-pill[aria-pressed="true"]{background:var(--cream);color:var(--green-deep);border-color:var(--cream)}
+.hh40-he-off .hh40-he{display:none}
+.hh40-mf .m{color:var(--he)} .hh40-mf .f{color:var(--she)}
+/* #10 word tables: Latin big + meaning, Hebrew behind a toggle */
+.hh-table.hh40-lat{direction:ltr}
+.hh-table.hh40-lat [lang="he"]{display:none!important}
+.hh-table.hh40-lat .hh-cj-tr{display:inline-block!important;font-size:19px;font-weight:800;color:var(--cream);text-align:left;direction:ltr}
+.hh-table.hh40-lat .hh-p,.hh-table.hh40-lat .hh-v{text-align:left}
+.hh-table.hh40-lat .hh-en{font-size:14px;text-align:left}
+.hh-table.hh40-lat .hh-v .m+.hh-cj-tr{color:var(--he)!important} .hh-table.hh40-lat .hh-v .f+.hh-cj-tr{color:var(--she)!important}
+.hh40-hetog{display:block;margin:10px auto 0;min-height:34px;padding:0 14px;border-radius:999px;border:1.5px solid rgba(244,241,232,.35);background:transparent;color:var(--cream-dim);font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.hh40-hetog[aria-pressed="true"]{color:var(--cream);border-color:var(--cream)}
+/* #8 Easy / Challenge */
+.hh40-mode{margin-top:14px;background:var(--green-soft);border-radius:18px;padding:12px 14px}
+.hh40-mode b{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);font-weight:900}
+.hh40-seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;background:rgba(0,0,0,.2);padding:4px;border-radius:999px}
+.hh40-seg button{min-height:40px;border:0;border-radius:999px;background:transparent;color:var(--cream-dim);font:inherit;font-size:15px;font-weight:900;cursor:pointer}
+.hh40-seg button[aria-pressed="true"]{background:var(--cream);color:var(--green-deep)}
+.hh40-seg button.ch[aria-pressed="true"]{background:var(--coral);color:var(--green-deep)}
+.hh40-mode small{display:block;margin-top:8px;font-size:13px;color:var(--cream-dim);line-height:1.4}
+/* #13 trial: lessons 1-2 open, the rest locked */
+.hh40-trial{margin-top:12px;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;background:linear-gradient(135deg,#26543F,#2A5E4B);border:1.5px solid rgba(255,111,165,.55)}
+.hh40-trial div{flex:1;min-width:0}
+.hh40-trial b{display:block;font-size:16px;font-weight:900}
+.hh40-trial small{display:block;font-size:13px;color:var(--cream-dim);margin-top:2px;line-height:1.35}
+.hh40-trial a{flex:none;min-height:40px;padding:0 14px;border-radius:999px;background:var(--coral);color:var(--green-deep);font-weight:900;font-size:14px;display:inline-flex;align-items:center;text-decoration:none}
+.hh-map li.hh40-locked .hh-node{opacity:.55;filter:grayscale(.35)}
+.hh-map li.hh40-locked .hh-cap em{color:#FFC2D9}
+.hh40-sheet{position:fixed;inset:0;z-index:80;background:rgba(10,25,19,.6);display:flex;align-items:flex-end;justify-content:center}
+.hh40-sheet[hidden]{display:none}
+.hh40-card{width:100%;max-width:480px;background:#26543F;border-radius:24px 24px 0 0;padding:22px 20px calc(env(safe-area-inset-bottom,0px) + 20px);text-align:center;box-shadow:0 -10px 30px rgba(0,0,0,.35)}
+.hh40-card .hh40-lk{font-size:40px}
+.hh40-card h2{font-size:22px;font-weight:900;margin-top:6px}
+.hh40-card p{color:var(--cream-dim);font-size:15px;line-height:1.45;margin-top:8px}
+.hh40-card a.btn{display:flex;align-items:center;justify-content:center;margin-top:16px;text-decoration:none}
+.hh40-card .hh-cf-no{margin-top:8px}
+@media (min-width:700px){ .hh40-sheet{align-items:center} .hh40-card{border-radius:24px} }
+/* #14 GIFT DROP: an empty cup / empty hand instead of an X */
+.hh-bg-gift.hh40-empty{display:flex;flex-direction:column;align-items:center;gap:2px}
+.hh40-cup{width:58px;height:58px}
+.hh40-hand{font-size:52px;line-height:1}
+.hh40-emptylab{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#FFC2D9;font-style:normal}
+.hh40-gden{margin-top:8px;text-align:center;font-size:14px;color:var(--cream);font-weight:700}
+/* #6 the demo waits for Next */
+.hh40-dnext{position:fixed;z-index:90;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%);min-height:52px;padding:0 26px;border:0;border-radius:999px;
+  background:var(--coral);color:var(--green-deep);font:inherit;font-size:18px;font-weight:900;box-shadow:0 6px 18px rgba(0,0,0,.35);cursor:pointer}
+.hh40-dnext[hidden]{display:none}
+.hh40-dnext small{display:block;font-size:11px;font-weight:800;opacity:.75;margin-top:-2px}
+/* reply dialogue */
+.hh40-chat{display:flex;gap:10px;align-items:flex-start}
+.hh40-face{flex:none;width:46px;height:46px;border-radius:50%;background:var(--green-deep);display:flex;align-items:center;justify-content:center;font-size:26px}
+.hh40-bub{flex:1;background:var(--green-deep);border-radius:4px 18px 18px 18px;padding:10px 12px}
+.hh40-bub .hh40-lat{font-size:20px;font-weight:800;display:block}
+.hh40-bub .hh40-en{font-size:13px;color:var(--cream-dim);display:block;margin-top:2px}
+.hh40-cue{margin-top:12px;padding:10px 12px;border-radius:14px;border:1.5px dashed rgba(255,111,165,.7);font-size:16px;font-weight:800;text-align:center}
+.hh40-recbtn{display:block;width:100%;margin-top:12px;min-height:54px;border-radius:999px;border:0;background:var(--cream);color:var(--green-deep);font:inherit;font-size:17px;font-weight:900;cursor:pointer}
+.hh40-recbtn.on{background:#ff4d6d;color:#fff}
+.hh40-model{margin-top:12px;padding:12px;border-radius:14px;background:rgba(0,0,0,.2)}
+.hh40-model small{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);font-weight:900}
+.hh40-model .hh40-lat{display:block;font-size:20px;font-weight:800;margin-top:4px}
+.hh40-model .hh40-en{display:block;font-size:13px;color:var(--cream-dim)}
+.hh40-steps{display:flex;gap:6px;justify-content:center;margin-top:4px}
+.hh40-steps i{width:8px;height:8px;border-radius:50%;background:rgba(244,241,232,.25)}
+.hh40-steps i.on{background:var(--coral)}
+.hh40-soonnote{font-size:12.5px;color:#FFC2D9;line-height:1.4;text-align:center}
 </style>
 </head>
 <body>
@@ -1275,7 +1385,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v39c-anim</p>
+  <p class="hh-ver" id="oVer">Version hh-v40-batch2</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -1318,6 +1428,15 @@ main section > .top > .back{display:none}
   <p class="hh-fhint" id="eHint" hidden>Turn your phone sideways for a bigger picture</p>
   <button class="hh-fbtn hh-frot" id="eRot" type="button" aria-label="Turn the video" hidden>↻</button>
   <div class="hh-ego"><button class="hh-back" id="eBack" type="button" aria-label="Back to the previous part">‹ Back</button><button class="btn" id="eGo" type="button">Continue</button></div>
+</div>
+
+<!-- v40 PAGE: listen-along dialogues, the adjectives page, the food word list, the Reply dialogue -->
+<div class="screen hh40-page" id="sPage" hidden>
+  <div class="hh-lbar"><button class="back hh-toparts" id="pQuit" type="button" aria-label="Back to the lesson parts">‹ Lesson</button><button class="hh-home hh-tohome" type="button" data-home aria-label="Menu: the lessons map">⌂ Menu</button>
+    <div class="bar"><i id="pBar"></i></div><span class="hh-chip hh-lxp" data-xp aria-label="Your XP">⚡ 0</span></div>
+  <div class="hh40-phead"><div class="brand" id="pSec"></div><h2 id="pName"></h2><p id="pHow"></p></div>
+  <div class="hh40-pbody" id="pBody"></div>
+  <div class="push hh-ego"><button class="hh-back" id="pBack" type="button" aria-label="Back to the previous part">‹ Back</button><button class="btn" id="pGo" type="button">Continue</button></div>
 </div>
 
 <!-- CONFIRM SHEET (pink Continue button on every part) -->
@@ -1598,7 +1717,7 @@ main section > .top > .back{display:none}
     <div class="hint" id="g8how" style="margin-top:10px">Listen, then tap the sentence you heard. One tap is your answer.</div>
     <div class="opts" id="g8opts" style="margin-top:10px"></div>
     <div class="msg" id="g8msg" aria-live="polite"></div>
-    <div class="hh-rep" id="g8rep" hidden><button class="hh-recbtn" id="g8rec" type="button">🎙 Record yourself</button><div class="hh-reprow" id="g8cmp" hidden><button class="pill" id="g8mine" type="button">▶ My voice</button><button class="pill" id="g8orig" type="button" aria-label="Play Eilai saying it">▶ Eilai</button><button class="pill" id="g8again" type="button">↻ Try again</button><button class="pill" id="g8said" type="button" hidden>I said it</button></div><div class="hint" id="g8recnote" aria-live="polite"></div></div>
+    <div class="hh-rep" id="g8rep" hidden><button class="hh-recbtn" id="g8rec" type="button">🎙 Record yourself</button><div class="hh-reprow" id="g8cmp" hidden><button class="pill" id="g8mine" type="button">▶ My voice</button><button class="pill" id="g8orig" type="button" aria-label="Play Teacher Eilai saying it">▶ Teacher Eilai</button><button class="pill" id="g8again" type="button">↻ Try again</button><button class="pill" id="g8said" type="button" hidden>I said it</button></div><div class="hint" id="g8recnote" aria-live="polite"></div></div>
   </div>
   <div class="row" id="g8nextRow" hidden><button class="btn" id="g8next" type="button">Next</button></div>
 </section>
@@ -1696,7 +1815,7 @@ main section > .top > .back{display:none}
     <div class="msg hh-sn-msg" id="g9msg" aria-live="polite"></div>
     <div class="hh-sn-say" id="g9say" hidden>
       <button class="hh-recbtn" id="g9rec" type="button">🎙 Say it</button>
-      <div class="hh-reprow" id="g9cmp" hidden><button class="pill" id="g9mine" type="button">▶ My voice</button><button class="pill" id="g9orig" type="button">▶ Eilai</button><button class="pill" id="g9said" type="button" hidden>I said it</button></div>
+      <div class="hh-reprow" id="g9cmp" hidden><button class="pill" id="g9mine" type="button">▶ My voice</button><button class="pill" id="g9orig" type="button">▶ Teacher Eilai</button><button class="pill" id="g9said" type="button" hidden>I said it</button></div>
       <div class="hint" id="g9recnote" aria-live="polite"></div>
     </div>
     <div class="hh-sn-panel" id="g9intro" hidden>
@@ -1752,7 +1871,7 @@ main section > .top > .back{display:none}
     <div class="msg hh-sn-msg" id="g10msg" aria-live="polite"></div>
     <div class="hh-sn-say" id="g10say" hidden>
       <button class="hh-recbtn" id="g10rec" type="button">🎙 Say it</button>
-      <div class="hh-reprow" id="g10cmp" hidden><button class="pill" id="g10mine" type="button">▶ My voice</button><button class="pill" id="g10orig" type="button">▶ Eilai</button><button class="pill" id="g10said" type="button" hidden>I said it</button></div>
+      <div class="hh-reprow" id="g10cmp" hidden><button class="pill" id="g10mine" type="button">▶ My voice</button><button class="pill" id="g10orig" type="button">▶ Teacher Eilai</button><button class="pill" id="g10said" type="button" hidden>I said it</button></div>
       <div class="hint" id="g10recnote" aria-live="polite"></div>
     </div>
     <div class="hh-sn-end" id="g10end" hidden></div>
@@ -1821,11 +1940,11 @@ main section > .top > .back{display:none}
 const LEX = {
   ani:{he:"אֲנִי",tr:"ani"}, ata:{he:"אַתָּה",tr:"ata"}, at:{he:"אַתְּ",tr:"at"},
   hu:{he:"הוּא",tr:"hu"}, hi:{he:"הִיא",tr:"hi"}, lo:{he:"לֹא",tr:"lo"}, ken:{he:"כֵּן",tr:"ken"},
-  rotze:{he:"רוֹצֶה",tr:"rotze"}, rotza:{he:"רוֹצָה",tr:"rotza"},
+  rotze:{he:"רוֹצֶה",tr:"rotse"}, rotza:{he:"רוֹצָה",tr:"rotsa"},
   ohev:{he:"אוֹהֵב",tr:"ohev"}, ohevet:{he:"אוֹהֶבֶת",tr:"ohevet"},
-  tzarich:{he:"צָרִיךְ",tr:"tzarikh"}, tzricha:{he:"צְרִיכָה",tr:"tzrikha"},
+  tzarich:{he:"צָרִיךְ",tr:"tsarikh"}, tzricha:{he:"צְרִיכָה",tr:"tsrikha"},
   yachol:{he:"יָכוֹל",tr:"yakhol"}, yechola:{he:"יְכוֹלָה",tr:"yekhola"},
-  kafe:{he:"קָפֶה",tr:"kafe"}, pitza:{he:"פִּיצָה",tr:"pitza"}, mayim:{he:"מַיִם",tr:"mayim"},
+  kafe:{he:"קָפֶה",tr:"kafe"}, pitza:{he:"פִּיצָה",tr:"pitsa"}, mayim:{he:"מַיִם",tr:"mayim"},
   ledaber:{he:"לְדַבֵּר",tr:"ledaber"}, ivrit:{he:"עִבְרִית",tr:"ivrit"}, leechol:{he:"לֶאֱכֹל",tr:"le'ekhol"},
   /* extra words used only in the café chat (game 5) */
   chalav:{he:"חָלָב",tr:"khalav"}, sukar:{he:"סֻכָּר",tr:"sukar"}, te:{he:"תֵּה",tr:"te"}, uga:{he:"עוּגָה",tr:"uga"},
@@ -2064,7 +2183,8 @@ const CAFE_MENU = [
   ["chalav","milk","🥛"], ["sukar","sugar","🍬"], ["te","tea","🍵"],
   ["uga","cake","🍰"], ["chazak","strong","💪"], ["chalash","weak","🪶"]
 ];
-const ORDER_STEPS = 5;   // the longest path, used for the progress bar
+const ORDER_STEPS = 5;
+const ORDER_N = () => HH_CH(5) ? ORDER_STEPS_CHALLENGE : ORDER_STEPS;   // the longest path, used for the progress bar
 
 /* Game 6: sentences that grow, shortest first. */
 const ECHO = [
@@ -2093,6 +2213,7 @@ const RUSH_VERBS = {
 /* Game 8: By Ear. The order is only heard; the answer is given by tapping pictures.
    EAR_MAIN = [word id, picture, meaning]; EAR_EXTRA = [key, picture, meaning, word ids]. */
 const EAR_ROUNDS = 8;
+const EAR_N = () => HH_CH(8) ? EAR_ROUNDS_CHALLENGE : EAR_ROUNDS, EAR_CARDS = () => HH_CH(8) ? EAR_CARDS_CHALLENGE : 4;
 const EAR_MAIN = [["kafe","☕","coffee"], ["te","🍵","tea"], ["mayim","💧","water"], ["uga","🍰","cake"], ["pitza","🍕","pizza"]];
 const EAR_EXTRA = [
   ["plain", "∅", "nothing else", []],
@@ -2689,6 +2810,8 @@ function askStep(id){
   if (id === "end") return finalOrder();
   o5.step = id; o5.pick = null;
   const st = ORDER.steps[id], q = res5(st.q);
+  $("g5who").textContent = st.note || ((S.gender === "m" ? "Dana" : "Yoni") + " asks");
+  $("g5card").classList.toggle("nogloss", S.gloss === false || HH_CH(5));
   $("g5qhe").textContent = heOf(q, true); $("g5qtr").textContent = trOf(q, true); $("g5qen").textContent = st.en;
   const box = $("g5opts"); box.innerHTML = "";
   st.opts.forEach((o, i) => {
@@ -2705,15 +2828,15 @@ function askStep(id){
     box.append(b);
   });
   box.hidden = false; $("g5say").hidden = true; $("g5ansb").hidden = true; rows5("");
-  $("g5bar").style.width = Math.min(100, o5.said.length / ORDER_STEPS * 100) + "%";
+  $("g5bar").style.width = Math.min(100, o5.said.length / ORDER_N() * 100) + "%";
   o5.phase = "choose"; pop($("g5card")); speak(q, false, true);
 }
 function choose5(i){
   if (o5.phase !== "choose") return;
   o5.pick = ORDER.steps[o5.step].opts[i];
   $("g5opts").hidden = true; $("g5say").hidden = false;
-  $("g5cue").textContent = S.gloss !== false ? "Say in Hebrew: “" + o5.pick.en + "”" : "Say your answer in a full sentence";
-  const wait = 3000 + 800 * o5.pick.a.length;   // 3 s + 0.8 s per word of the answer
+  $("g5cue").textContent = S.gloss !== false && !HH_CH(5) ? "Say in Hebrew: “" + o5.pick.en + "”" : "Say your answer in a full sentence";
+  const F5 = HH_CH(5) ? CAFE_FUSE_CHALLENGE : { baseMs:3000, perWordMs:800 }, wait = F5.baseMs + F5.perWordMs * o5.pick.a.length;   // 3 s + 0.8 s per word of the answer
   const fuse = $("g5fuse"); fuse.querySelector("i").style.animationDuration = (wait / 1000) + "s";
   fuse.classList.remove("run"); void fuse.offsetWidth; fuse.classList.add("run");
   rows5("show"); o5.phase = "say";
@@ -2729,7 +2852,7 @@ function reveal5(){
   if (o5.pick.tk.length) o5.lines.push({ icon:o5.pick.icon, ids:o5.pick.tk });
   drawTicket(); rows5("next");
   $("g5next").textContent = o5.pick.next === "end" ? "See my order" : "Next";
-  $("g5bar").style.width = Math.min(100, o5.said.length / ORDER_STEPS * 100) + "%";
+  $("g5bar").style.width = Math.min(100, o5.said.length / ORDER_N() * 100) + "%";
   sfx("good"); speak(ids);
 }
 function drawTicket(){
@@ -2898,6 +3021,7 @@ const rush3Pool = () => RUSH3.filter(k => audioUrl(k.split("-")));
 
 Object.assign(AUDIO, {"hu-rotze-kafe": "hu-rotze-kafe.mp3", "hu-rotze-mayim": "hu-rotze-mayim.mp3", "hu-rotze-pitza": "hu-rotze-pitza.mp3", "hu-tzarich-mayim": "hu-tzarich-mayim.mp3", "hu-tzarich-sukar": "hu-tzarich-sukar.mp3", "hu-lo-rotze-te": "hu-lo-rotze-te.mp3", "hi-rotza-mayim": "hi-rotza-mayim.mp3", "hi-rotza-kafe": "hi-rotza-kafe.mp3", "hi-tzricha-chalav": "hi-tzricha-chalav.mp3", "hi-lo-rotza-uga": "hi-lo-rotza-uga.mp3", "hi-lo-rotza-pitza": "hi-lo-rotza-pitza.mp3", "anachnu-rotzim-pitza": "anachnu-rotzim-pitza.mp3", "anachnu-rotzim-te": "anachnu-rotzim-te.mp3", "anachnu-tzrichim-mayim": "anachnu-tzrichim-mayim.mp3", "hem-rotzim-kafe": "hem-rotzim-kafe.mp3", "hem-rotzim-uga": "hem-rotzim-uga.mp3", "hem-lo-rotzim-pitza": "hem-lo-rotzim-pitza.mp3", "hen-rotzot-te": "hen-rotzot-te.mp3", "hen-rotzot-pitza": "hen-rotzot-pitza.mp3", "hen-tzrichot-sukar": "hen-tzrichot-sukar.mp3"});
 function makeOrder(served){
+  if (r7.chq && r7.chq.length) return r7.chq.shift();
   // the customer speaks for themselves ("I want..."), so the verb follows the customer: a man says rotze, a woman rotza
   if (r7.seen >= 6){ const pool = rush3Pool().filter(k => k !== r7.last.replace(/,/g, "-")), need = 2 - (r7.third || 0);
     if (pool.length && (need >= RUSH.customers - r7.seen || (need > 0 && Math.random() < 0.4) || Math.random() < 0.2)) return rush3Order(pick7(pool)); }
@@ -2925,7 +3049,7 @@ function startRush(){
          review:[], queue:[], reviewing:false, fixed:0 };
   show("g7");
   $("g7barista").src = $("dAvatar").src;
-  $("g7story").textContent = (name() ? name() + ", the" : "The") + " customers order in English, and Eilai behind the bar only takes orders in Hebrew. " +
+  $("g7story").textContent = (name() ? name() + ", the" : "The") + " customers order in English, and Teacher Eilai behind the bar only takes orders in Hebrew. " +
     "Say each order in Hebrew, word by word, before the customer loses patience. A man says “rotze”, a woman says “rotza”. " + RUSH.customers + " customers, then the café closes.";
   $("g7afterRow").hidden = true;
   $("g7intro").hidden = false; $("g7play").hidden = true; $("g7openRow").hidden = false;
@@ -3105,11 +3229,11 @@ function earCards(o){
   const near = shuffle(pool.filter(x => x.set === o.set || verb(x.ids).slice(0, 3) === verb(o.ids).slice(0, 3)));
   const far = shuffle(pool.filter(x => !near.includes(x)));
   const out = [o], seen = new Set([o.en]);
-  near.slice(0, 2).concat(far).concat(near.slice(2)).forEach(x => { if (out.length < 4 && !seen.has(x.en)){ seen.add(x.en); out.push(x); } });
+  near.slice(0, 2).concat(far).concat(near.slice(2)).forEach(x => { if (out.length < EAR_CARDS() && !seen.has(x.en)){ seen.add(x.en); out.push(x); } });
   return shuffle(out);
 }
 function nextEar(){
-  if (e8.i >= EAR_ROUNDS){ earRelease(); return finish("Good ear!", e8.clean + " / " + EAR_ROUNDS,
+  if (e8.i >= EAR_N()){ earRelease(); return finish("Good ear!", e8.clean + " / " + EAR_N(),
     "sentences understood by ear on the first try.", "No reading needed."); }
   let o, guard = 0; do { o = makeEar(e8.i); } while (o.k === e8.last && guard++ < 10);
   e8.cur = o; e8.last = o.k; e8.used.push(o.en); e8.saidNow = false;
@@ -3121,10 +3245,10 @@ function nextEar(){
     b.append(ic, t); b.addEventListener("click", () => checkEar(c, b)); box.append(b);
   });
   $("g8tag").textContent = "Listen. What did you hear?";
-  $("g8how").hidden = false;
+  $("g8how").hidden = HH_CH(8);
   $("g8msg").textContent = ""; $("g8sent").hidden = true; $("g8nextRow").hidden = true; earRepReset(); $("g8play").hidden = false; $("g8slow").hidden = false;
-  $("g8bar").style.width = (e8.i / EAR_ROUNDS * 100) + "%";
-  $("g8count").textContent = (e8.i + 1) + " / " + EAR_ROUNDS;
+  $("g8bar").style.width = (e8.i / EAR_N() * 100) + "%";
+  $("g8count").textContent = (e8.i + 1) + " / " + EAR_N();
   const audio = hasAudio(o.ids, o.q);
   $("g8note").hidden = audio;
   if (!audio){ $("g8note").textContent = "No Hebrew audio on this device yet, so the sentence is shown as text."; showSent8(); }
@@ -3147,7 +3271,7 @@ function checkEar(c, btn){
   $("g8how").hidden = true; $("g8msg").textContent = "";
   showSent8(); $("g8nextRow").hidden = false; $("g8rep").hidden = false;
   if (e8.noMic) earNoMic();
-  $("g8play").hidden = true; $("g8slow").hidden = true;   // replay is now the "Eilai" button next to "My voice"
+  $("g8play").hidden = true; $("g8slow").hidden = true;   // replay is now the "Teacher Eilai" button next to "My voice"
   sfx(ok ? "good" : "soft"); speak(e8.cur.ids, false, e8.cur.q);   // the same recording, matching the text shown
 }
 
@@ -3158,7 +3282,7 @@ function earRepReset(){
   if (earUrl){ URL.revokeObjectURL(earUrl); earUrl = null; }
   $("g8rep").hidden = true; $("g8cmp").hidden = true; $("g8rec").hidden = false;
   $("g8rec").textContent = earAsking ? "🎙 Asking for the microphone…" : "🎙 Record yourself"; $("g8rec").disabled = earAsking; $("g8rec").classList.remove("on"); $("g8recnote").textContent = "";
-  $("g8orig").textContent = "▶ Eilai"; $("g8said").hidden = true; $("g8said").disabled = false; $("g8said").textContent = "I said it";
+  $("g8orig").textContent = "▶ Teacher Eilai"; $("g8said").hidden = true; $("g8said").disabled = false; $("g8said").textContent = "I said it";
 }
 /* spec C3: honest count. One per round, only when the learner recorded, or (no microphone) tapped "I said it". */
 function earCount(){ if (e8.cur && !e8.saidNow){ e8.saidNow = true; e8.said++; } }
@@ -3207,7 +3331,7 @@ async function earRecord(){
     earUrl = URL.createObjectURL(new Blob(earChunks, { type: r.mimeType || "audio/webm" }));
     $("g8rec").hidden = true; $("g8cmp").hidden = false; $("g8mine").hidden = false; $("g8again").hidden = false; $("g8said").hidden = true;
     earCount();   // spec C3: a round counts as said only when the learner recorded themselves
-    $("g8recnote").textContent = "Compare yourself: play your recording, then Eilai's. Sound close? Tap Next.";
+    $("g8recnote").textContent = "Compare yourself: play your recording, then Teacher Eilai's. Sound close? Tap Next.";
     sfx("pop");
   };
   r.start(); sfx("tap");
@@ -3232,7 +3356,22 @@ function demoHand(){
   if (!DEMO.hand){ const h = document.createElement("div"); h.id = "hhHand"; h.setAttribute("aria-hidden", "true"); h.innerHTML = "<span>👆</span>"; h.hidden = true; document.body.append(h); DEMO.hand = h; }
   return DEMO.hand;
 }
-const demoWait = ms => new Promise(r => setTimeout(r, ms));
+/* v40 (Eli): the demo runs much slower, and nothing is tapped or solved until the learner taps Next */
+const DEMO_SLOW = 1.7;
+const demoWait = ms => new Promise(r => setTimeout(r, ms >= 400 ? ms * DEMO_SLOW : ms));
+function demoGate(ok, el){
+  return new Promise(res => {
+    let b = document.getElementById("hhDemoNext");
+    if (!b){ b = document.createElement("button"); b.id = "hhDemoNext"; b.type = "button"; b.className = "hh40-dnext"; b.innerHTML = "Next ›<small>see the next step</small>"; b.hidden = true; document.body.append(b); }
+    const r = el && el.getBoundingClientRect ? el.getBoundingClientRect() : null, low = r && r.bottom > innerHeight - 110;
+    b.style.top = low ? "calc(env(safe-area-inset-top,0px) + 70px)" : ""; b.style.bottom = low ? "auto" : "";
+    if (DEMO.onPause) DEMO.onPause();
+    b.hidden = false;
+    let iv = 0; const done = v => { clearInterval(iv); b.hidden = true; b.onclick = null; if (v && DEMO.onResume) DEMO.onResume(); res(v); };
+    b.onclick = e => { e.stopPropagation(); done(true); };
+    iv = setInterval(() => { if (!ok()) done(false); }, 200);
+  });
+}
 async function demoTap(el, ok){
   if (!el || !ok()) return false;
   const h = demoHand();
@@ -3241,6 +3380,7 @@ async function demoTap(el, ok){
   const r = el.getBoundingClientRect();
   h.style.transform = "translate(" + (r.left + r.width / 2 - 14) + "px," + (r.top + r.height / 2 - 2) + "px)";
   await demoWait(800); if (!ok()) return false;
+  if (!await demoGate(ok, el)) return false;   // v40: wait for the learner's Next
   h.classList.add("tap"); el.classList.add("hh-demo-hit"); await demoWait(260);
   h.classList.remove("tap"); el.classList.remove("hh-demo-hit"); if (!ok()) return false;
   el.click(); await demoWait(300); return ok();
@@ -3503,7 +3643,10 @@ async function snapDemo(){
   $("g9skip").hidden = !A.snapDemoSeen; $("g9how").hidden = true;   // v23: first time, the demo + guided turn are a must (no Skip)
   nextSnap(); s9.hush = false; demoLab("g9lab", "👂 Listen");
   snapNarrStop(); try{ const pp = snapNarr.play(); if (pp && pp.catch) pp.catch(() => {}); }catch(e){}
-  const t0 = performance.now(), until = async t => { const d = t0 + t * 1000 - performance.now(); if (d > 0) await demoWait(d); return ok(); };
+  let t0 = performance.now(), pz = 0;   // v40: the narration pauses while the demo waits for Next, and the timeline moves with it
+  DEMO.onPause = () => { pz = performance.now(); try{ snapNarr.pause(); }catch(e){} };
+  DEMO.onResume = () => { t0 += performance.now() - pz; if ($("g9").hidden) return; try{ const pp = snapNarr.play(); if (pp && pp.catch) pp.catch(() => {}); }catch(e){} };
+  const until = async t => { const d = t0 + t * 1000 - performance.now(); if (d > 0) await new Promise(r => setTimeout(r, d)); return ok(); };
   const tapAt = async (el, t) => (await until(t - 1.06)) && demoTap(el, ok), pointAt = async (el, t) => (await until(t - 0.8)) && demoPoint(el, ok);
   if (!await tapAt($("g9hear"), 1.0)) return;
   if (!await until(1.45)) return; demoLab("g9lab", "Pick the camera");
@@ -3523,7 +3666,7 @@ async function snapDemo(){
   if (!await demoTap(snapModeBtn("call"), ok)) return;
   if (!await demoTap($("g9shoot"), ok)) return;
   await demoWait(2200); if (!ok()) return;
-  demoHide(); snapPractice();
+  DEMO.onPause = DEMO.onResume = null; demoHide(); snapPractice();
 }
 function snapPractice(){
   snapStop(); clearInterval(snapGuide);
@@ -3544,7 +3687,7 @@ function snapGuideTarget(){
   return off ? document.querySelector('#g9beach [data-id="' + off + '"]') : $("g9shoot");
 }
 function snapDemoEnd(){
-  snapTok++; clearInterval(snapGuide); demoPulse(null); demoHide(); snapStop(); snapNarrStop();
+  snapTok++; clearInterval(snapGuide); demoPulse(null); demoHide(); snapStop(); snapNarrStop(); DEMO.onPause = DEMO.onResume = null;
   demoLab("g9lab", ""); $("g9skip").hidden = true; $("g9how").hidden = false;
   if (!snapReal) return;
   s9 = snapReal; snapReal = null;
@@ -3630,7 +3773,7 @@ async function snapRecord(){
     if (r.__drop || !chunks.length) return;
     if (snapUrl) URL.revokeObjectURL(snapUrl);
     snapUrl = URL.createObjectURL(new Blob(chunks, { type:r.mimeType || "audio/webm" }));
-    $("g9cmp").hidden = false; $("g9mine").hidden = false; $("g9recnote").textContent = "Play yours, then Eilai's. Close? Tap Next photo.";
+    $("g9cmp").hidden = false; $("g9mine").hidden = false; $("g9recnote").textContent = "Play yours, then Teacher Eilai's. Close? Tap Next photo.";
     snapCount(); sfx("pop");
   };
   r.start(); $("g9rec").textContent = "■ Stop"; $("g9rec").classList.add("on"); $("g9recnote").textContent = "Say it now…";
@@ -3717,7 +3860,7 @@ function rpRound(){
   $("g10tag").textContent = "Pick the word before the time runs out";
   ["g10say","g10nextRow","g10hear"].forEach(id => $(id).hidden = true); $("g10scene").hidden = false;
   if (r10.demo){ $("g10count").textContent = r10.practice ? "Your turn" : "Demo"; $("g10bar").style.width = "0%"; $("g10tag").textContent = "How to play"; }
-  rpAsk(r10.demo ? 0 : rpSec(r10.i));
+  rpAsk(r10.demo ? 0 : (o.sec || rpSec(r10.i)));
   pop($("g10card"));
 }
 function rpPaint(joined){
@@ -3735,7 +3878,7 @@ function rpAsk(sec, extra){
   rpPaint(r10.step === 1 ? o.join : "");
   $("g10msg").textContent = r10.step === 1 ? snapPerson(o.join).name + " joins the group! Pick again." : ""; $("g10msg").className = "msg hh-sn-msg" + (r10.step === 1 ? " good" : "");
   const box = $("g10opts"); box.innerHTML = ""; box.hidden = false;
-  rpOptions(r10.ans, r10.demo ? 4 : rpN(r10.i), extra).forEach(w => {
+  rpOptions(r10.ans, r10.demo ? 4 : (o.n || rpN(r10.i)), extra).forEach(w => {
     const b = document.createElement("button"); b.type = "button"; b.className = "hh-rp-opt"; b.dataset.w = w; b.textContent = rpWord(w);
     b.addEventListener("click", () => rpPick(w)); box.append(b);
   });
@@ -3762,7 +3905,7 @@ function rpPick(w){
   speak([t]);
   if (r10.step === 0 && r10.cur.join){   // a guest walks over: the word has to flip
     const first = t;
-    setTimeout(() => { if (!r10 || r10.phase !== "shown" || $("g10").hidden) return; r10.step = 1; r10.ids.push(r10.cur.join); sfx("pop"); rpAsk(Math.max(3, rpSec(r10.i) - 1), first); }, 1500);
+    setTimeout(() => { if (!r10 || r10.phase !== "shown" || $("g10").hidden) return; r10.step = 1; r10.ids.push(r10.cur.join); sfx("pop"); rpAsk(Math.max(r10.cur.sec ? 2.5 : 3, (r10.cur.sec || rpSec(r10.i)) - 1), first); }, 1500);
     return;
   }
   if (r10.ok) r10.clean++;
@@ -3865,7 +4008,7 @@ async function rpRecord(){
     if (r.__drop || !chunks.length) return;
     if (rpUrl) URL.revokeObjectURL(rpUrl);
     rpUrl = URL.createObjectURL(new Blob(chunks, { type:r.mimeType || "audio/webm" }));
-    $("g10cmp").hidden = false; $("g10mine").hidden = false; $("g10recnote").textContent = "Play yours, then Eilai's. Close? Tap Next round.";
+    $("g10cmp").hidden = false; $("g10mine").hidden = false; $("g10recnote").textContent = "Play yours, then Teacher Eilai's. Close? Tap Next round.";
     rpCount(); sfx("pop");
   };
   r.start(); $("g10rec").textContent = "■ Stop"; $("g10rec").classList.add("on"); $("g10recnote").textContent = "Say it now…";
@@ -4115,16 +4258,16 @@ window.cbState11 = () => ({ emoji:!!(c11.cur && c11.cur.emoji), key:$("g11key").
 const SAY_SETS = {
   // STEP 3: the pronoun clips SNAP! / ROOFTOP PARTY already use (from KNIZ Speak)
   step3:[
-  { id:"ani", sp:"Eilai", tr:"Ani.", en:"I", emo:"🙋" },
-  { id:"ata", sp:"Eilai", tr:"Ata.", en:"You (to a boy)", emo:"💬👦" },
-  { id:"at", sp:"Eilai", tr:"At.", en:"You (to a girl)", emo:"💬👧" },
-  { id:"hu", sp:"Eilai", tr:"Hu.", en:"He", emo:"👦" },
-  { id:"hi", sp:"Eilai", tr:"Hi.", en:"She", emo:"👧" },
-  { id:"anachnu", sp:"Eilai", tr:"Anakhnu.", en:"We", emo:"👫" },
-  { id:"atem", sp:"Eilai", tr:"Atem.", en:"You (to boys / mixed)", emo:"💬👬" },
-  { id:"aten", sp:"Eilai", tr:"Aten.", en:"You (to girls)", emo:"💬👭" },
-  { id:"hem", sp:"Eilai", tr:"Hem.", en:"They (boys / mixed)", emo:"👬" },
-  { id:"hen", sp:"Eilai", tr:"Hen.", en:"They (girls)", emo:"👭" } ],
+  { id:"ani", sp:"Teacher Eilai", tr:"Ani.", en:"I", emo:"🙋" },
+  { id:"ata", sp:"Teacher Eilai", tr:"Ata.", en:"You (to a boy)", emo:"💬👦" },
+  { id:"at", sp:"Teacher Eilai", tr:"At.", en:"You (to a girl)", emo:"💬👧" },
+  { id:"hu", sp:"Teacher Eilai", tr:"Hu.", en:"He", emo:"👦" },
+  { id:"hi", sp:"Teacher Eilai", tr:"Hi.", en:"She", emo:"👧" },
+  { id:"anachnu", sp:"Teacher Eilai", tr:"Anakhnu.", en:"We", emo:"👫" },
+  { id:"atem", sp:"Teacher Eilai", tr:"Atem.", en:"You (to boys / mixed)", emo:"💬👬" },
+  { id:"aten", sp:"Teacher Eilai", tr:"Aten.", en:"You (to girls)", emo:"💬👭" },
+  { id:"hem", sp:"Teacher Eilai", tr:"Hem.", en:"They (boys / mixed)", emo:"👬" },
+  { id:"hen", sp:"Teacher Eilai", tr:"Hen.", en:"They (girls)", emo:"👭" } ],
   step5:[
   { id:"s5_01", sp:"Dana", tr:"Ani ohevet le'ekhol pitza.", en:"I (f) love to eat pizza.", emo:"🍕" },
   { id:"s5_02", sp:"Yoni", tr:"Ani rotze lishtot kafe.", en:"I (m) want to drink coffee.", emo:"☕" },
@@ -4137,41 +4280,41 @@ const SAY_SETS = {
   // s6_06 "yesh lakhen" / s6_08 "yesh lahen" left out: Whisper hears "lakhem" / "lahem" (Eli to listen first)
   // STEP 6-8: the existing KNIZ Speak clips (/workspace/kniz-have-audio/fixed, kniz-questions-audio, kniz-gender-audio), one voice
   step6:[
-  { id:"s6_01", sp:"Eilai", tr:"Yesh li.", en:"I have.", emo:"🙋" },
-  { id:"s6_02", sp:"Eilai", tr:"Yesh lo.", en:"He has.", emo:"👦" },
-  { id:"s6_03", sp:"Eilai", tr:"Yesh la.", en:"She has.", emo:"👧" },
-  { id:"s6_04", sp:"Eilai", tr:"Yesh lanu.", en:"We have.", emo:"👫" },
-  { id:"s6_05", sp:"Eilai", tr:"Yesh lakhem.", en:"You have (pl, m).", emo:"💬👬" },
-  { id:"s6_07", sp:"Eilai", tr:"Yesh lahem.", en:"They have (m).", emo:"👬" },
-  { id:"s6_09", sp:"Eilai", tr:"Ein li.", en:"I don't have.", emo:"🙅" },
-  { id:"s6_10", sp:"Eilai", tr:"Ein la.", en:"She doesn't have.", emo:"🤷‍♀️" },
-  { id:"s6_11", sp:"Eilai", tr:"Ein lahem.", en:"They don't have.", emo:"🚫" } ],
+  { id:"s6_01", sp:"Teacher Eilai", tr:"Yesh li.", en:"I have.", emo:"🙋" },
+  { id:"s6_02", sp:"Teacher Eilai", tr:"Yesh lo.", en:"He has.", emo:"👦" },
+  { id:"s6_03", sp:"Teacher Eilai", tr:"Yesh la.", en:"She has.", emo:"👧" },
+  { id:"s6_04", sp:"Teacher Eilai", tr:"Yesh lanu.", en:"We have.", emo:"👫" },
+  { id:"s6_05", sp:"Teacher Eilai", tr:"Yesh lakhem.", en:"You have (pl, m).", emo:"💬👬" },
+  { id:"s6_07", sp:"Teacher Eilai", tr:"Yesh lahem.", en:"They have (m).", emo:"👬" },
+  { id:"s6_09", sp:"Teacher Eilai", tr:"Ein li.", en:"I don't have.", emo:"🙅" },
+  { id:"s6_10", sp:"Teacher Eilai", tr:"Ein la.", en:"She doesn't have.", emo:"🤷‍♀️" },
+  { id:"s6_11", sp:"Teacher Eilai", tr:"Ein lahem.", en:"They don't have.", emo:"🚫" } ],
   step7:[
-  { id:"s7_01", sp:"Eilai", tr:"Ma?", en:"What?", emo:"❓" },
-  { id:"s7_02", sp:"Eilai", tr:"Mi?", en:"Who?", emo:"🧑" },
-  { id:"s7_03", sp:"Eilai", tr:"Eifo?", en:"Where?", emo:"📍" },
-  { id:"s7_04", sp:"Eilai", tr:"Matai?", en:"When?", emo:"📅" },
-  { id:"s7_05", sp:"Eilai", tr:"Lama?", en:"Why?", emo:"🤔" },
-  { id:"s7_06", sp:"Eilai", tr:"Eikh?", en:"How?", emo:"🛠️" },
-  { id:"s7_07", sp:"Eilai", tr:"Kama?", en:"How many? How much?", emo:"🔢" },
-  { id:"s7_08", sp:"Eilai", tr:"Ma ata rotze?", en:"What do you (m) want?", emo:"🛒" },
-  { id:"s7_09", sp:"Eilai", tr:"Mi rotze?", en:"Who wants?", emo:"🙋" },
-  { id:"s7_10", sp:"Eilai", tr:"Eifo hu?", en:"Where is he?", emo:"🔎" },
-  { id:"s7_11", sp:"Eilai", tr:"Matai ata yakhol?", en:"When can you (m)?", emo:"📅💪" },
-  { id:"s7_12", sp:"Eilai", tr:"Ma yesh la?", en:"What does she have?", emo:"👜" } ],
+  { id:"s7_01", sp:"Teacher Eilai", tr:"Ma?", en:"What?", emo:"❓" },
+  { id:"s7_02", sp:"Teacher Eilai", tr:"Mi?", en:"Who?", emo:"🧑" },
+  { id:"s7_03", sp:"Teacher Eilai", tr:"Eifo?", en:"Where?", emo:"📍" },
+  { id:"s7_04", sp:"Teacher Eilai", tr:"Matai?", en:"When?", emo:"📅" },
+  { id:"s7_05", sp:"Teacher Eilai", tr:"Lama?", en:"Why?", emo:"🤔" },
+  { id:"s7_06", sp:"Teacher Eilai", tr:"Eikh?", en:"How?", emo:"🛠️" },
+  { id:"s7_07", sp:"Teacher Eilai", tr:"Kama?", en:"How many? How much?", emo:"🔢" },
+  { id:"s7_08", sp:"Teacher Eilai", tr:"Ma ata rotze?", en:"What do you (m) want?", emo:"🛒" },
+  { id:"s7_09", sp:"Teacher Eilai", tr:"Mi rotze?", en:"Who wants?", emo:"🙋" },
+  { id:"s7_10", sp:"Teacher Eilai", tr:"Eifo hu?", en:"Where is he?", emo:"🔎" },
+  { id:"s7_11", sp:"Teacher Eilai", tr:"Matai ata yakhol?", en:"When can you (m)?", emo:"📅💪" },
+  { id:"s7_12", sp:"Teacher Eilai", tr:"Ma yesh la?", en:"What does she have?", emo:"👜" } ],
   step8:[
-  { id:"s8_01", sp:"Eilai", tr:"Kafe tov.", en:"Good coffee.", emo:"☕" },
-  { id:"s8_02", sp:"Eilai", tr:"Glida tova.", en:"Good ice cream.", emo:"🍦" },
-  { id:"s8_03", sp:"Eilai", tr:"Bayit gadol.", en:"A big house.", emo:"🏠" },
-  { id:"s8_04", sp:"Eilai", tr:"Pitza gdola.", en:"A big pizza.", emo:"🍕" },
-  { id:"s8_05", sp:"Eilai", tr:"Khatul katan.", en:"A small cat.", emo:"🐱" },
-  { id:"s8_06", sp:"Eilai", tr:"Monit ktana.", en:"A small taxi.", emo:"🚕" },
-  { id:"s8_07", sp:"Eilai", tr:"Yeled tov.", en:"A good boy.", emo:"👦" },
-  { id:"s8_08", sp:"Eilai", tr:"Yalda tova.", en:"A good girl.", emo:"👧" },
-  { id:"s8_09", sp:"Eilai", tr:"Yeladim tovim.", en:"Good kids.", emo:"🧒" },
-  { id:"s8_10", sp:"Eilai", tr:"Yeladot tovot.", en:"Good girls.", emo:"👭" },
-  { id:"s8_11", sp:"Eilai", tr:"Bayit khadash.", en:"A new house.", emo:"🏡" },
-  { id:"s8_12", sp:"Eilai", tr:"Hi rotza glida gdola.", en:"She wants a big ice cream.", emo:"🍨" } ]
+  { id:"s8_01", sp:"Teacher Eilai", tr:"Kafe tov.", en:"Good coffee.", emo:"☕" },
+  { id:"s8_02", sp:"Teacher Eilai", tr:"Glida tova.", en:"Good ice cream.", emo:"🍦" },
+  { id:"s8_03", sp:"Teacher Eilai", tr:"Bayit gadol.", en:"A big house.", emo:"🏠" },
+  { id:"s8_04", sp:"Teacher Eilai", tr:"Pitza gdola.", en:"A big pizza.", emo:"🍕" },
+  { id:"s8_05", sp:"Teacher Eilai", tr:"Khatul katan.", en:"A small cat.", emo:"🐱" },
+  { id:"s8_06", sp:"Teacher Eilai", tr:"Monit ktana.", en:"A small taxi.", emo:"🚕" },
+  { id:"s8_07", sp:"Teacher Eilai", tr:"Yeled tov.", en:"A good boy.", emo:"👦" },
+  { id:"s8_08", sp:"Teacher Eilai", tr:"Yalda tova.", en:"A good girl.", emo:"👧" },
+  { id:"s8_09", sp:"Teacher Eilai", tr:"Yeladim tovim.", en:"Good kids.", emo:"🧒" },
+  { id:"s8_10", sp:"Teacher Eilai", tr:"Yeladot tovot.", en:"Good girls.", emo:"👭" },
+  { id:"s8_11", sp:"Teacher Eilai", tr:"Bayit khadash.", en:"A new house.", emo:"🏡" },
+  { id:"s8_12", sp:"Teacher Eilai", tr:"Hi rotza glida gdola.", en:"She wants a big ice cream.", emo:"🍨" } ]
 };
 /* v30 (Claude review C3): STEP 4, 8 existing STEP 4 clips. [he clip, she clip, he text, she text, English, emoji]; one id = the same line for both */
 const SAY4 = [
@@ -4183,7 +4326,7 @@ const SAY4 = [
   ["hi-tzricha-chalav","","Hi tzrikha khalav.","","She needs milk.","👧🥛"],
   ["anachnu-rotzim-pitza","","Anakhnu rotzim pitza.","","We want pizza.","👫🍕"],
   ["hen-rotzot-te","","Hen rotzot te.","","They (girls) want tea.","👭🍵"] ];
-SAY_SETS.step4 = () => SAY4.map(([m, f, tm, tf, en, emo]) => { const she = A.gender === "f" && f; return { id:she ? f : m, sp:"Eilai", tr:she ? tf : tm, en, emo }; });
+SAY_SETS.step4 = () => SAY4.map(([m, f, tm, tf, en, emo]) => { const she = A.gender === "f" && f; return { id:she ? f : m, sp:"Teacher Eilai", tr:she ? tf : tm, en, emo }; });
 SAY4.forEach(r => { if (r[0]) AUDIO[r[0]] = AUDIO[r[0]] || r[0] + ".mp3"; if (r[1]) AUDIO[r[1]] = AUDIO[r[1]] || r[1] + ".mp3"; });
 /* v30 (Claude review C7): the speaker is on every card, and the lines in the learner's own gender come first */
 const SAY_SPG = { Dana:"f", Yoni:"m" };
@@ -4581,6 +4724,10 @@ const GD2_PLURAL = { lanu:1, lakhem:1, lahem:1 };
 const GD2_THING = { kafe:["☕","coffee"], te:["🍵","tea"], mayim:["💧","water"], khalav:["🥛","milk"], lekhem:["🍞","bread"], pitza:["🍕","pizza"], uga:["🍰","cake"], sukar:[BG_SUGAR,"sugar"] };
 const GD2_NOUNCLIP = { te:"te.mp3", khalav:"chalav.mp3", uga:"uga.mp3", sukar:"sukar.mp3" };
 const GD2_CLIP = { "yesh li":"s6_01", "yesh lo":"s6_02", "yesh la":"s6_03", "yesh lanu":"s6_04", "yesh lakhem":"s6_05", "yesh lahem":"s6_07", "ein li":"s6_09", "ein la":"s6_10", "ein lahem":"s6_11" };
+/* v40: "ein" shows what you'd hold with nothing in it: an empty cup for drinks, an empty hand for food */
+const GD2_DRINK = { kafe:1, te:1, mayim:1, khalav:1 };
+const GD2_CUP = '<svg class="hh40-cup" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 18h30l-3 34a5 5 0 0 1-5 4.5H22a5 5 0 0 1-5-4.5z" fill="rgba(244,241,232,.08)" stroke="#F4F1E8" stroke-width="3" stroke-linejoin="round"/><path d="M44 25h5a6 6 0 0 1 0 12h-6" fill="none" stroke="#F4F1E8" stroke-width="3"/><path d="M20 12c0-3 3-3 3-6M28 12c0-3 3-3 3-6M36 12c0-3 3-3 3-6" fill="none" stroke="rgba(244,241,232,.25)" stroke-width="2" stroke-linecap="round"/></svg>';
+const GD2_EMPTY = t => GD2_DRINK[t] ? GD2_CUP : '<span class="hh40-hand">🫴</span>';
 const GD2_EN = { li:"I", lekha:"you (m)", lakh:"you (f)", lo:"he", la:"she", lanu:"we", lakhem:"you (pl)", lahem:"they" };
 /* [view, who, thing, crossed, THING chips (stages 2-3), clip pair played after a right answer] */
 const GD2_ROUNDS = [
@@ -4627,11 +4774,13 @@ const GD2 = {
     const tag = o.view === "me" ? "🙋 About me" : o.view === "us" ? "👫 Us: me and my friends" : (o.view === "to" ? "💬 Talking TO " : "👉 Talking ABOUT ") + gd2Pron(o);
     const faces = (o.view === "me" || o.view === "us" ? bgFace(bgMe(), "You", "me") : "") + ps.map(p => bgFace(p.face, p.name, p.g)).join("");
     el.innerHTML = '<div class="hh-bg-view" data-view="' + o.view + '">' + tag + '</div><div class="hh-bg-stage"><div class="hh-bg-who">' + faces + '</div>' +
-      '<div class="hh-bg-gift' + (o.no ? " no" : "") + '"><span class="hh-bg-thing">' + GD2_THING[o.t][0] + "</span>" + (o.no ? '<i class="hh-bg-x"></i><em class="hh-bg-ban">🚫</em>' : "") + "</div></div>";
+      (o.no ? '<div class="hh-bg-gift hh40-empty">' + GD2_EMPTY(o.t) + '<em class="hh40-emptylab">empty</em></div></div>'
+            : '<div class="hh-bg-gift"><span class="hh-bg-thing">' + GD2_THING[o.t][0] + "</span></div></div>") +
+      '<p class="hh40-gden">' + r.en + "</p>";   // v40 (Eli): the sentence in English, for yesh and for ein
   },
   why(r, p){
     const o = r.o, [yn, f] = r.right, x = p[1];
-    if (p[0] !== yn) return { row:0, text:o.no ? "🚫 Has it: the gift is crossed out → ein." : "🎁 Has it: nothing is crossed out → yesh." };
+    if (p[0] !== yn) return { row:0, text:o.no ? "🫴 Has it: it's empty, there's nothing → ein." : "🎁 Has it: it's there → yesh." };
     if (x !== f){
       if (GD2_VIEWOF[x] !== o.view){
         if (o.view === "me") return { row:1, text:"🙋 Who: it's you → li." };
@@ -4658,9 +4807,9 @@ const GD2 = {
   },
   demo:[
     { stage:1, round:{ view:"me", who:[], t:"pitza", no:false, clip:["s6_01"] }, steps:[
-      { lab:"👀 Look: it's you, nothing is crossed out", wait:2200 }, { lab:"Tap yesh", tap:[0, "yesh"] }, { lab:"It's you: tap li", tap:[1, "li"] }, { lab:"Tap Drop the gift", go:true } ] },
+      { lab:"👀 Look: it's you, and it's there", wait:2200 }, { lab:"Tap yesh", tap:[0, "yesh"] }, { lab:"It's you: tap li", tap:[1, "li"] }, { lab:"Tap Drop the gift", go:true } ] },
     { stage:2, round:{ view:"about", who:["noa"], t:"uga", no:true, chips:["uga","khalav","pitza","te"], clip:["s6_10","uga"] }, steps:[
-      { lab:"👀 Crossed out, and you're talking ABOUT Dana", wait:2400 }, { lab:"Tap ein", tap:[0, "ein"] }, { lab:"About her: tap la", tap:[1, "la"] },
+      { lab:"👀 Empty, and you're talking ABOUT Dana", wait:2400 }, { lab:"Tap ein", tap:[0, "ein"] }, { lab:"About her: tap la", tap:[1, "la"] },
       { lab:"🍰 is uga: tap uga", tap:[2, "uga"] }, { lab:"Tap Drop the gift", go:true } ] }
   ],
   guided:{ stage:2, round:{ view:"about", who:["yonatan"], t:"te", no:false, chips:["te","kafe","khalav","mayim"], clip:["s6_02","te"] },
@@ -4888,7 +5037,7 @@ const STEP3_EMBEDS = {
    lesson "STEP 5 - The TO-Words — say what you want to DO", page 45987480 (read only, Nov 15) */
 const STEP5_LIVE = true;   // false = "Coming soon" on the map; set true when Eli approves
 const STEP5_EMBEDS = {
-  video1:   "https://player.vimeo.com/video/1239992750",   // Eilai: Sentence Builder TO-Words (5:14)
+  video1:   "https://player.vimeo.com/video/1239992750",   // Teacher Eilai: Sentence Builder TO-Words (5:14)
   genially: "https://view.genially.com/6ada5d9f5e0e2679b57b1c0b",
   video2:   "https://player.vimeo.com/video/1243567467",   // Infinitives dialogue (2:55, no captions track)
   wordwall1:"https://wordwall.net/embed/457cc734ff694c5d8c68d27d5db21081?themeId=53&templateId=3&fontStackId=0",   // STEP 5 – THE TO WORDS
@@ -4901,14 +5050,14 @@ const STEP5_EMBEDS = {
    (/workspace/next-lessons/systeme_content.md). The KNIZ Speak iframes are not used: Speak is the in-app self-compare. */
 const STEP6_LIVE = true;    // "I Have / I Don't Have", page 45987481. false = "Coming soon" on the map; true when Eli approves
 const STEP6_EMBEDS = {
-  video1:   "https://player.vimeo.com/video/1239998754",   // Eilai: lesson video (speak) 3 (3:06)
+  video1:   "https://player.vimeo.com/video/1239998754",   // Teacher Eilai: lesson video (speak) 3 (3:06)
   genially: "https://view.genially.com/6ada7ca8da3da94ef90430b0",   // iframe title "Copy - I HAVE"; its preview says "SENTENCE BUILDER: I WANT / I NEED" (check with Eli)
   video2:   "https://player.vimeo.com/video/1248740761",   // v39b: "An Empty Kitchen" animated dialogue (1:31). Old: 1239342786 (Dana + Yoni)
   wordwall1:"https://wordwall.net/embed/8d1eec2276944a42ae4c0b14707969b9?themeId=49&templateId=5&fontStackId=0"   // STEP 6 - WHO HAS IT? (quiz)
 };
 const STEP7_LIVE = true;    // "Question Words", page 45987482
 const STEP7_EMBEDS = {
-  video1:   "https://player.vimeo.com/video/1240968533",   // Eilai: Question Words (speak) (5:26)
+  video1:   "https://player.vimeo.com/video/1240968533",   // Teacher Eilai: Question Words (speak) (5:26)
   genially: "https://view.genially.com/6ada9310f332b6326b7b5501",   // iframe title "Copy - SENTENCE BUILDER: I WANT / I NEED" (check with Eli)
   video2:   "https://player.vimeo.com/video/1239342784",   // L7 Question Words - Speak (1:11)
   wordwall1:"https://wordwall.net/embed/2b904232a4d84580b732c3ff013551ba?themeId=68&templateId=2&fontStackId=0",   // ASK & ANSWER (group sort)
@@ -4916,7 +5065,7 @@ const STEP7_EMBEDS = {
 };
 const STEP8_LIVE = true;    // "Gender", page 45987483
 const STEP8_EMBEDS = {
-  video1:   "https://player.vimeo.com/video/1240968535",   // Eilai: Noun Gender (speak) (5:22)
+  video1:   "https://player.vimeo.com/video/1240968535",   // Teacher Eilai: Noun Gender (speak) (5:22)
   video1b:  "https://player.vimeo.com/video/1237390446",   // second teacher video (5:09, no title shown) right after it on Systeme
   genially: "https://view.genially.com/6a865955ddc044d03ce06267",   // iframe title "שמות עצם מגדר"; preview says "SENTENCE BUILDER: I WANT / I NEED" (check with Eli)
   video2:   "https://player.vimeo.com/video/1248844562",   // v39c: "At the Café" (Gender / gdola-ktana). Old: 1239342799 (L8 Gender - Speak)
@@ -5022,7 +5171,7 @@ const STEPS = [
   { id:"step1",   n:"STEP 1",   t:"The Alphabet",      he:"א ב ג", tr:"alef bet", reading:true },   // reading track only
   { id:"step2",   n:"STEP 2",   t:"Niqud",             he:"בָּ בִּ בּוּ", tr:"ba bi bu", reading:true },
   { id:"step3",   n:"STEP 3",   t:"Pronouns",          he:"אֲנִי", tr:"ani" },
-  { id:"step4",   n:"STEP 4",   t:"The Magic Four",    he:"רוֹצֶה", tr:"rotze", live:true },
+  { id:"step4",   n:"STEP 4",   t:"The Magic Four",    he:"רוֹצֶה", tr:"rotse", live:true },
   { id:"step5",   n:"STEP 5",   t:"The TO-Words",      he:"לֶאֱכוֹל", tr:"le'ekhol" },
   { id:"step6",   n:"STEP 6",   t:"I Have / I Don't Have", he:"יֵשׁ לִי", tr:"yesh li" },
   { id:"step7",   n:"STEP 7",   t:"Question Words",    he:"מָה?", tr:"ma?" },
@@ -5041,23 +5190,32 @@ function stepUnlocked(i){ return PILOT_ALL_OPEN || STEPS.slice(0, i).filter(step
    type "video" / "embed" = an iframe card (url from STEP4_EMBEDS); type "game" = a Magic Four game (g = game number).
    sec = the section heading on the overview; xp = XP for finishing the part. */
 const LESSON_STEP4 = [
-  { type:"video", sec:"Watch",    icon:"🎬", key:"Sentence Builder", name:"Watch & learn", sub:"Eilai explains", url:STEP4_EMBEDS.video1, xp:5,
+  { type:"video", sec:"Watch",    icon:"🎬", key:"Sentence Builder", name:"Watch & learn", sub:"Teacher Eilai explains", url:STEP4_EMBEDS.video1, xp:5,
     how:"See how one of the Magic Four verbs turns into a full sentence." },
   { type:"embed", sec:"Learn",    icon:"📖", key:"The Magic Four", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP4_EMBEDS.genially, xp:5, wide:true, slides:true,
     how:"Tap Open full screen to see the slides bigger. Want, can, need, love, for he and for she." },
   { type:"video", sec:"Watch",    icon:"🎬", name:"At the Café", url:STEP4_EMBEDS.video2, xp:5, cc:false,   // captions burned into the video; the CC track (Latin letters) is optional, off at start
     how:"The Magic Four at a café counter. Watch, then it's your turn to order." },
+  // v40: Claude P1A (new coffee dialogue) + P1B (new page: hot, cold, big, small, good, gam, ve) with the "At the café" adjectives dialogue
+  { type:"dlg", dlg:"p1a", sec:"Listen", icon:"🎧", key:"Coffee chat", name:"Coffee chat", sub:"Yonatan and Noa at the café", xp:5, box:"Yonatan and Noa",
+    note:"Tap ▶ on a line, or Play all. Then say each line with them.", how:"Listen line by line. Want, love, need: who wants what?" },
+  { type:"adj", sec:"Learn", icon:"🌡️", key:"Hot, cold, big, small", name:"Hot, cold, big, small", sub:"7 new words + a dialogue", xp:5,
+    how:"Kham, kar, gadol, katan, tov, gam, ve. Hear each word, then the examples and two short dialogues." },
   // STEP 4 plays three games: listen, guided, then against the clock (spec A4, Nov 15; was By Ear, Rush Hour, Café Order). Echo and Swap It are kept in HIDDEN_GAMES below.
   { type:"game", sec:"Play", g:8, icon:"👂", key:"By Ear", name:"BY EAR", sub:"Tap what you hear", xp:10, how:"Listen to I, he, she and you with want, can, need and love. Tap the sentence you heard." },
   { type:"game", sec:"Play", g:5, icon:"☕", key:"Café Order", name:"CAFÉ ORDER", sub:"Order in Hebrew", xp:10, how:"The barista asks what you want. Pick it, say it in Hebrew, and build your order." },
   { type:"game", sec:"Play", g:7, icon:"⏱", key:"Rush Hour", name:"RUSH HOUR", sub:"Serve them fast", xp:10, how:"The café opens at 8:00. Customers walk in; answer each one in Hebrew before the clock runs out." },
   // "Speak" (KNIZ Speak iframe) left STEP 4 on Nov 15 (Eli: it repeats By Ear). It is kept in HIDDEN_PARTS below.
-  { type:"embed", sec:"Practice", icon:"🧩", key:"Practice 1", name:"Find the pairs", sub:"Food and drinks", url:STEP4_EMBEDS.wordwall1, xp:5, how:"Match each food and drink word to its meaning." },
+  { type:"food", sec:"Practice", icon:"🍽️", key:"Food words", name:"Food words", sub:"The words for the pairs game", xp:5, how:"Hear each word before the pairs game. The list is also in the game: tap Word list." },
+  { type:"embed", sec:"Practice", icon:"🧩", key:"Practice 1", name:"Find the pairs", sub:"Food and drinks", url:STEP4_EMBEDS.wordwall1, xp:5, wordlist:true, how:"Match each food and drink word to its meaning." },
   { type:"embed", sec:"Practice", icon:"🧩", key:"Practice 2", name:"HU, HI or HEM", sub:"Sort the verbs", url:STEP4_EMBEDS.wordwall2, xp:5, how:"Sort want, need, love and can into he, she and they." },
   { type:"embed", sec:"Practice", icon:"🧩", key:"Practice 3", name:"Pair or no pair?", sub:"True or false", url:STEP4_EMBEDS.wordwall3, xp:5, how:"Does the sentence match the English?" },
-  // v30 (Claude review C3): the same Speak part as every other STEP, from existing STEP 4 clips in the learner's gender (SAY_SETS.step4)
-  { type:"game", sec:"Speak", g:12, icon:"🎙", name:"Say them out loud", sub:"Record yourself and compare", xp:10,
-    how:"Hear the sentence, record yourself, then play both and compare." }
+  // v40: Claude P3 Reply dialogue replaces "Say them out loud" here (game 12 + SAY_SETS.step4 / SAY4 are kept in the code, see HIDDEN_SPEAK_V40)
+  { type:"reply", set:"step4", sec:"Speak", icon:"🗣️", key:"Reply dialogue", name:"Reply dialogue", sub:"Yonatan asks, you answer", xp:10,
+    how:"Yonatan asks you a question. Record your answer, hear how he reacts, then compare with the model answer." }
+];
+const HIDDEN_SPEAK_V40 = [
+  { type:"game", sec:"Speak", g:12, icon:"🎙", name:"Say them out loud", sub:"Record yourself and compare", xp:10, how:"Hear the sentence, record yourself, then play both and compare." }   // was the last part of STEP 4 and STEP 5 until v39b
 ];
 /* out of the STEP 4 flow for now; move an entry back into LESSON (and bump LESSON_VERSION + add the old names list) to restore it.
    Game code, audio and the STEP4_EMBEDS.speak URL are untouched. */
@@ -5070,13 +5228,14 @@ const HIDDEN_GAMES = [
   { type:"game", sec:"Play", g:6, icon:"⚡", name:"Echo",       xp:10, how:"A sentence flashes and disappears. Rebuild it from memory, then say it out loud." },
   { type:"game", sec:"Play", g:4, icon:"🔁", name:"Swap It",    xp:10, how:"Tap the word that has to change and pick the new one. Then say the new sentence." }
 ];
-const LESSON_VERSION = 6;   // bump when LESSON changes shape; saved progress from older lessons is carried over by part name below
+const LESSON_VERSION = 7;   // v40: Coffee chat, Hot cold big small, Food words added; Say them out loud -> Reply dialogue   // bump when LESSON changes shape; saved progress from older lessons is carried over by part name below
 // part names of every older lesson (index = saved position / saved done-part index)
 const OLD_NAMES = {
   2: ["Sentence Builder","The Magic Four","At the Café","Echo","Swap It","Café Order","By Ear","Rush Hour","Speak","Practice 1","Practice 2","Practice 3"],
   3: ["Sentence Builder","The Magic Four","At the Café","By Ear","Rush Hour","Café Order","Speak","Practice 1","Practice 2","Practice 3"],   // v3 -> v4: Speak removed
   4: ["Sentence Builder","The Magic Four","At the Café","By Ear","Rush Hour","Café Order","Practice 1","Practice 2","Practice 3"],   // v4 -> v5: Café Order before Rush Hour
-  5: ["Sentence Builder","The Magic Four","At the Café","By Ear","Café Order","Rush Hour","Practice 1","Practice 2","Practice 3"]   // v5 -> v6: Say them out loud added at the end
+  5: ["Sentence Builder","The Magic Four","At the Café","By Ear","Café Order","Rush Hour","Practice 1","Practice 2","Practice 3"],   // v5 -> v6: Say them out loud added at the end
+  6: ["Sentence Builder","The Magic Four","At the Café","By Ear","Café Order","Rush Hour","Practice 1","Practice 2","Practice 3","Say them out loud"]   // v6 -> v7 (v40)
 };
 const partKey = p => p.key || p.name;
 if (OLD_NAMES[A.step4.v]){
@@ -5087,7 +5246,7 @@ if (OLD_NAMES[A.step4.v]){
   A.step4.parts = [...new Set(A.step4.parts.concat(old.slice(0, A.step4.pos || 0).map(n => keys.indexOf(n)).filter(k => k >= 0)))].sort((a, b) => a - b);
   // the saved place: the same part in the new lesson; a removed part -> the next part that still exists
   let pos = 0;
-  if ((A.step4.v === 3 || A.step4.v === 4 || A.step4.v === 5) && A.step4.pos > 0){
+  if ((A.step4.v === 3 || A.step4.v === 4 || A.step4.v === 5 || A.step4.v === 6) && A.step4.pos > 0){
     let i = Math.min(A.step4.pos, old.length);
     while (i < old.length && keys.indexOf(old[i]) < 0) i++;
     pos = i >= old.length ? LESSON.length : keys.indexOf(old[i]);
@@ -5103,7 +5262,7 @@ if (OLD_NAMES[A.step4.v]){
 if (A.step4.v !== LESSON_VERSION){ A.step4.pos = 0; A.step4.run = null; A.step4.done = []; A.step4.v = LESSON_VERSION; try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){} }
 /* STEP 3 (Pronouns), Just speak track: content from the Systeme course "HEBREW HACK without reading", page 45987478 */
 const LESSON_STEP3 = [
-  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Eilai explains", url:STEP3_EMBEDS.video1, xp:5,
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Teacher Eilai explains", url:STEP3_EMBEDS.video1, xp:5,
     how:"I, you, he, she: who is who in Hebrew." },
   { type:"embed", sec:"Learn",    icon:"📖", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP3_EMBEDS.genially, xp:5, wide:true, slides:true,
     how:"Tap Open full screen to see the slides bigger." },
@@ -5120,20 +5279,21 @@ const LESSON_STEP3 = [
 /* STEP 5 (The TO-Words), Just speak track: Systeme course "HEBREW HACK without reading", page 45987480. Same template as STEP 3:
    Watch -> Learn -> Watch (dialogue) -> Play (CHAT BACK pilot; type "soon" = an empty games slot) -> Practice (Wordwall, unchanged) -> Speak */
 const LESSON_STEP5 = [
-  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Eilai explains", url:STEP5_EMBEDS.video1, xp:5,
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Teacher Eilai explains", url:STEP5_EMBEDS.video1, xp:5,
     how:"To eat, to drink, to sleep: build a sentence with what you want to do." },
   { type:"embed", sec:"Learn",    icon:"📖", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP5_EMBEDS.genially, xp:5, wide:true, slides:true,
     how:"Tap Open full screen to see the slides bigger." },
-  { type:"video", sec:"Watch",    icon:"🎬", name:"Infinitives dialogue", url:STEP5_EMBEDS.video2, xp:5, cc:false,   // no captions track on this video
-    how:"Dana and Yoni say what they want to do. Say the TO-word in the pause before the answer shows." },
+  // v40: Claude P2, the new infinitives chat-back (recorded), replaces the old "Infinitives dialogue" video (STEP5_EMBEDS.video2 kept in config for the new animation)
+  { type:"dlg", dlg:"p2", sec:"Listen", icon:"🎧", name:"Infinitives chat", sub:"Yonatan and Noa: what do you want to do?", xp:5, box:"Yonatan and Noa",
+    note:"Tap ▶ on a line, or Play all. Listen for the TO-words: lishon, le'ekhol, lishtot, ledaber, lalekhet.", how:"To sleep, to eat, to drink, to talk, to go: listen, then say each line with them." },
   { type:"game",  sec:"Play", g:11, icon:"💬", name:"CHAT BACK", sub:"Answer your friends", xp:10,
     how:"A friend texts you a question. Build your answer: who, the verb, the TO-word, then send it." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"The TO-Words", sub:"Match them up", url:STEP5_EMBEDS.wordwall1, xp:5, how:"Match each TO-word to its meaning." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"What goes with it?", sub:"Sort the words", url:STEP5_EMBEDS.wordwall2, xp:5, how:"Which words go with which TO-word?" },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Say it in Hebrew", sub:"Pick the right one", url:STEP5_EMBEDS.wordwall3, xp:5, how:"Pick the Hebrew that says the English." },
-  // Speak: the STEP 4 self-compare (record yourself, play both, no judging), not the KNIZ Speak recognition card (Eli, Nov 15)
-  { type:"game", sec:"Speak", g:12, icon:"🎙", name:"Say them out loud", sub:"Record yourself and compare", xp:10,
-    how:"Hear the sentence, record yourself, then play both and compare." }
+  // v40: Claude P3 Reply dialogue replaces "Say them out loud" (HIDDEN_SPEAK_V40)
+  { type:"reply", set:"step5", sec:"Speak", icon:"🗣️", name:"Reply dialogue", sub:"Noa asks, you answer", xp:10,
+    how:"Noa asks you a question. Record your answer, hear how she reacts, then compare with the model answer." }
 ];
 /* STEP 6-8 (Just speak track), same template as STEP 5: teacher video(s) -> Genially -> dialogue video -> Play slot ("soon" until
    the games are built) -> Wordwall (Systeme order) -> Speak = the STEP 4/5 self-compare (game 12, sentence set per STEP in say5.js) */
@@ -5141,19 +5301,19 @@ const PLAY_SOON = { type:"soon", sec:"Play", icon:"🎮", name:"Mini-games", sub
   how:"New games for this step are on the way. Tap Continue." };
 const SPEAK_PART = how => ({ type:"game", sec:"Speak", g:12, icon:"🎙", name:"Say them out loud", sub:"Record yourself and compare", xp:10, how });
 const LESSON_STEP6 = [
-  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Eilai explains", url:STEP6_EMBEDS.video1, xp:5,
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Teacher Eilai explains", url:STEP6_EMBEDS.video1, xp:5,
     how:"Yesh li, ein li: how to say what you have and what you don't." },
   { type:"embed", sec:"Learn",    icon:"📖", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP6_EMBEDS.genially, xp:5, wide:true, slides:true,
     how:"Tap Open full screen to see the slides bigger." },
   { type:"video", sec:"Watch",    icon:"🎬", name:"Have / don't have dialogue", url:STEP6_EMBEDS.video2, xp:5, cc:false,   // text is on screen; no captions track
     how:"Dana and Yoni check what they have in the kitchen. Say each line with them." },
   { type:"game",  sec:"Play", g:13, icon:"🎁", name:"GIFT DROP", sub:"Say who has it, your way", xp:10,
-    how:"Look at the scene: who has the gift, and is it crossed out? Build the sentence, drop the gift, then say it." },
+    how:"Look at the scene: who has the gift, and is it there or empty? Build the sentence, drop the gift, then say it." },
   { type:"embed", sec:"Practice", icon:"🧩", name:"Who has it?", sub:"Pick the right one", url:STEP6_EMBEDS.wordwall1, xp:5, how:"Who has it? Pick the right answer." },
   SPEAK_PART("Hear it, record yourself, then play both and compare.")
 ];
 const LESSON_STEP7 = [
-  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Eilai explains", url:STEP7_EMBEDS.video1, xp:5,
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Teacher Eilai explains", url:STEP7_EMBEDS.video1, xp:5,
     how:"What, who, where, when, why: now you ask the questions." },
   { type:"embed", sec:"Learn",    icon:"📖", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP7_EMBEDS.genially, xp:5, wide:true, slides:true,
     how:"Tap Open full screen to see the slides bigger." },
@@ -5166,9 +5326,9 @@ const LESSON_STEP7 = [
   SPEAK_PART("Hear it, record yourself, then play both and compare.")
 ];
 const LESSON_STEP8 = [
-  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Eilai explains", url:STEP8_EMBEDS.video1, xp:5,
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn", sub:"Teacher Eilai explains", url:STEP8_EMBEDS.video1, xp:5,
     how:"Is it a he or a she? How Hebrew words get a gender." },
-  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn, part 2", sub:"More with Eilai", url:STEP8_EMBEDS.video1b, xp:5,
+  { type:"video", sec:"Watch",    icon:"🎬", name:"Watch & learn, part 2", sub:"More with Teacher Eilai", url:STEP8_EMBEDS.video1b, xp:5,
     how:"More words, more practice: make the describing word match." },
   { type:"embed", sec:"Learn",    icon:"📖", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP8_EMBEDS.genially, xp:5, wide:true, slides:true,
     how:"Tap Open full screen to see the slides bigger." },
@@ -5210,7 +5370,11 @@ function useLesson(id){ if (!LESSONS[id]) return; CUR = id; LESSON = LESSONS[id]
 /* a STEP with a LIVE flag in config.js only opens once the flag is true */
 const STEP_LIVE = { step3:STEP3_LIVE, step5:STEP5_LIVE, step6:STEP6_LIVE, step7:STEP7_LIVE, step8:STEP8_LIVE };
 const stepLive = id => STEP_LIVE[id] !== false;
-const lessonOpen = id => !!LESSONS[id] && ((typeof v39Item === "function" && v39Item(id) && !v39Item(id).live) ? v39Open(id) : stepLive(id) && (SPEAK_ONLY || !LESSONS[id].speakOnly || A.read === false));   // v39: Lessons 7-30 + Bosses follow ALL_LEVELS_OPEN / LEVEL_LIVE / LESSON_LIVE (config.js)   // v35: STEP 3-8 open for everyone (speaking only)   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
+/* v40 (Eli): trial. Lessons 1 & 2 (STEP 3, STEP 4) are open; everything from Lesson 3 on is locked with a link to the full course. */
+const TRIAL_LOCK = true, TRIAL_OPEN = ["step3", "step4"];
+function hh40Unlocked(){ try{ return new URLSearchParams(location.search).get("preview") === "all"; }catch(e){ return false; } }
+function hh40Locked(id){ return TRIAL_LOCK && !!LESSONS[id] && !TRIAL_OPEN.includes(id) && !hh40Unlocked(); }
+const lessonOpen = id => !!LESSONS[id] && !hh40Locked(id) && ((typeof v39Item === "function" && v39Item(id) && !v39Item(id).live) ? v39Open(id) : stepLive(id) && (SPEAK_ONLY || !LESSONS[id].speakOnly || A.read === false));   // v39: Lessons 7-30 + Bosses follow ALL_LEVELS_OPEN / LEVEL_LIVE / LESSON_LIVE (config.js)   // v35: STEP 3-8 open for everyone (speaking only)   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
 function lessonProgress(id){ const s = A[id] || {}; return s.completed ? 1 : Math.min(1, (s.pos || 0) / LESSONS[id].parts.length); }
 const XP_BONUS = 20;
 const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","g15","words"];
@@ -5228,7 +5392,7 @@ function bumpStreak(){
 function step4Progress(){ return ST().completed ? 1 : Math.min(1, ST().pos / LESSON.length); }
 
 /* ---------- screens ---------- */
-const SCREENS = ["sHome","sOnb","sStep","sLesson","sEmbed","sDone"];
+const SCREENS = ["sHome","sOnb","sStep","sLesson","sEmbed","sPage","sDone"];
 let booted = false;
 function go(id){
   if (id !== "sEmbed") clearEmbed();
@@ -5277,7 +5441,7 @@ function paintHome(level){
     const b = document.createElement("button");
     b.type = "button"; b.className = "hh-node" + (live ? (done ? " done" : " live") : "") + (st.boss ? " hh-boss" : "");
     b.id = "node-" + st.id;
-    b.setAttribute("aria-label", st.n + " " + st.t + (live ? "" : ", coming soon"));
+    b.setAttribute("aria-label", st.n + " " + st.t + (live ? "" : hh40Locked(st.id) ? ", locked: in the full course" : ", coming soon"));
     b.innerHTML = (live ? '<svg class="hh-ring" viewBox="0 0 104 104" aria-hidden="true"><circle class="bg" cx="52" cy="52" r="' + R + '"/>' +
         '<circle class="fg" cx="52" cy="52" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="' + (C * (1 - prog)) + '"/></svg>' : "") +
       '<span class="hh-glyph"></span>' + (live ? "" : '<span class="hh-lock" aria-hidden="true">🔒</span>');
@@ -5293,14 +5457,14 @@ function paintHome(level){
         li.append(bub);
       }
       b.addEventListener("click", () => openStep(st.id));
-    } else b.addEventListener("click", () => { sfx("soft"); toast(st.t + ": coming soon"); });
+    } else b.addEventListener("click", () => { if (hh40Locked(st.id)) return hh40LockSheet(st.id); sfx("soft"); toast(st.t + ": coming soon"); });
     const cap = document.createElement("div"); cap.className = "hh-cap";
     const pct = Math.round(prog * 100);
     cap.innerHTML = "<small></small><b></b><em></em>";
     cap.querySelector("small").textContent = st.n;
     if (st.fresh){ const tag = document.createElement("span"); tag.className = "hh-rtag hh-newtag"; tag.textContent = "New"; cap.querySelector("small").after(tag); }
     cap.querySelector("b").textContent = st.t;
-    cap.querySelector("em").textContent = live ? (done ? "Done · " + sst.completed + "×" : pct + "% · " + (sst.pos || 0) + "/" + LESSONS[st.id].parts.length) : "Coming soon";
+    cap.querySelector("em").textContent = live ? (done ? "Done · " + sst.completed + "×" : pct + "% · " + (sst.pos || 0) + "/" + LESSONS[st.id].parts.length) : (hh40Locked(st.id) ? "Full course" : "Coming soon");
     li.append(b, cap); $("hMap").append(li);
   });
   const nx = V39_LEVELS[lvN];   // the next level, under the map
@@ -5369,11 +5533,12 @@ async function openStep(id){
     const b = document.createElement("button"); b.type = "button";
     b.className = "hh-part" + (done ? " done" : "") + (next ? " next" : "");
     b.innerHTML = "<i></i><span><b></b><small></small></span><em></em>";
-    b.querySelector("i").textContent = done ? "★" : p.icon;
+    b.querySelector("i").textContent = p.icon;   // v40: the part keeps its own icon when done (was ★)
     b.querySelector("b").textContent = p.name;
     b.querySelector("em").textContent = p.xp ? "+" + p.xp : "";
     b.querySelector("small").textContent = (p.sub ? p.sub + "\n" : "") + (done ? "Done · tap to open again" : next ? "Up next" : "Tap to open");
     b.querySelector("small").style.whiteSpace = "pre-line";   // subtitle on its own line, then the status
+    if (p.trains){ const tr = document.createElement("span"); tr.className = "hh40-trains"; tr.textContent = "Trains: " + p.trains; b.querySelector("b").after(tr); }
     b.addEventListener("click", () => startAt(i));   // every part is open at any time, in any order
     li.append(b); ol.append(li);
   });
@@ -5389,9 +5554,9 @@ const PRONOUNS = [
   ["אֲנַחְנוּ","anakhnu","we","pl"], ["אַתֶּם","atem","you (pl)","pl"], ["הֵם","hem","they","pl"]
 ];   // the in-game Pronouns sheet and the STEP 3 page use these
 const CONJ = {
-  want:{ en:"want", m:["רוֹצֶה","rotze"],   f:["רוֹצָה","rotza"],    pl:["רוֹצִים","rotzim"] },
+  want:{ en:"want", m:["רוֹצֶה","rotse"],   f:["רוֹצָה","rotsa"],    pl:["רוֹצִים","rotsim"] },
   can: { en:"can",  m:["יָכוֹל","yakhol"],  f:["יְכוֹלָה","yekhola"], pl:["יְכוֹלִים","yekholim"] },
-  need:{ en:"need", m:["צָרִיךְ","tzarikh"], f:["צְרִיכָה","tzrikha"], pl:["צְרִיכִים","tzrikhim"] },
+  need:{ en:"need", m:["צָרִיךְ","tsarikh"], f:["צְרִיכָה","tsrikha"], pl:["צְרִיכִים","tsrikhim"] },
   love:{ en:"love", m:["אוֹהֵב","ohev"],    f:["אוֹהֶבֶת","ohevet"],  pl:["אוֹהֲבִים","ohavim"] }
 };
 let conjVerb = "want";
@@ -5451,7 +5616,7 @@ const STEP_WORDS = {
     ["יֵשׁ לָכֶם","yesh lakhem","you have (pl, m)"], ["יֵשׁ לָכֶן","yesh lakhen","you have (pl, f)"], ["יֵשׁ לָהֶם","yesh lahem","they have (m)"], ["יֵשׁ לָהֶן","yesh lahen","they have (f)"],
     ["אֵין לִי","ein li","I don't have"], ["אֵין לָהּ","ein la","she doesn't have"], ["אֵין לָהֶם","ein lahem","they don't have"]],
   step7:[["מָה?","ma?","what?"], ["מִי?","mi?","who?"], ["אֵיפֹה?","eifo?","where?"], ["מָתַי?","matai?","when?"], ["לָמָּה?","lama?","why?"], ["אֵיךְ?","eikh?","how?"], ["כַּמָּה?","kama?","how many / how much?"]],
-  step8:[["קָפֶה טוֹב","kafe tov","good coffee"], ["גְּלִידָה טוֹבָה","glida tova","good ice cream"], ["בַּיִת גָּדוֹל","bayit gadol","a big house"], ["פִּיצָה גְּדוֹלָה","pitza gdola","a big pizza"],
+  step8:[["קָפֶה טוֹב","kafe tov","good coffee"], ["גְּלִידָה טוֹבָה","glida tova","good ice cream"], ["בַּיִת גָּדוֹל","bayit gadol","a big house"], ["פִּיצָה גְּדוֹלָה","pitsa gdola","a big pizza"],
     ["חָתוּל קָטָן","khatul katan","a small cat"], ["מוֹנִית קְטַנָּה","monit ktana","a small taxi"], ["יֶלֶד טוֹב","yeled tov","a good boy"], ["יַלְדָּה טוֹבָה","yalda tova","a good girl"],
     ["יְלָדִים טוֹבִים","yeladim tovim","good kids"], ["יְלָדוֹת טוֹבוֹת","yeladot tovot","good girls"], ["בַּיִת חָדָשׁ","bayit khadash","a new house"]]
 };
@@ -6691,9 +6856,9 @@ const PLAN39 = {
 "n": 1,
 "stage": 1,
 "kind": "",
-"prompt": "☕",
-"answer": "Ze kafe.",
-"en": "This is coffee.",
+"prompt": "☕ The cups got mixed up. You find yours",
+"answer": "Ze ha-kafe sheli!",
+"en": "This is my coffee!",
 "wrong": [
 "zot"
 ],
@@ -6703,9 +6868,9 @@ const PLAN39 = {
 "n": 2,
 "stage": 1,
 "kind": "",
-"prompt": "🍦",
-"answer": "Zot glida.",
-"en": "This is ice cream.",
+"prompt": "🍦 You hold up an ice cream and ask Dana",
+"answer": "Zot ha-glida shelakh?",
+"en": "Is this your ice cream?",
 "wrong": [
 "ze"
 ],
@@ -9862,8 +10027,8 @@ const V39_LEVELS = [];
     const G = PLAN39.games[row.slot], md = M[id] || {}, gl = V39_GLYPH[row.slot] || [row.title, ""], info = V39_GAMEINFO[row.slot] || {};
     lv.items.push({ id, slot:row.slot, n:"LESSON " + lessonNo, t:row.title, he:gl[1], tr:gl[0], num:lessonNo, fresh:row.src === "new" });
     const parts = [];
-    parts.push(md.video1 ? { type:"video", sec:"Watch", icon:"🎬", name:"Watch & learn", sub:"Eilai explains", url:md.video1, xp:5, cc:md.cc === true ? undefined : false, how:V39_INTRO[row.slot] || "" }
-      : { type:"soon", sec:"Watch", icon:"🎬", name:"Watch & learn", sub:"Video lesson coming soon: Eilai is recording this lesson.", xp:0, soon:"video", how:"" });
+    parts.push(md.video1 ? { type:"video", sec:"Watch", icon:"🎬", name:"Watch & learn", sub:"Teacher Eilai explains", url:md.video1, xp:5, cc:md.cc === true ? undefined : false, how:V39_INTRO[row.slot] || "" }
+      : { type:"soon", sec:"Watch", icon:"🎬", name:"Watch & learn", sub:"Video lesson coming soon: Teacher Eilai is recording this lesson.", xp:0, soon:"video", how:"" });
     parts.push(md.genially ? { type:"embed", sec:"Learn", icon:"📖", name:"Explore on your own", sub:"Click and discover at your own pace", url:md.genially, xp:5, wide:true, slides:true, how:"Tap Open full screen to see the slides bigger." }
       : { type:"soon", sec:"Learn", icon:"📖", name:"Explore on your own", sub:"Interactive slides coming soon.", xp:0, soon:"slides", how:"" });
     parts.push({ type:"game", sec:"Play", g:16, game:row.slot, icon:info.icon || "🎮", name:G.name, sub:info.label || "Mini-game", xp:10, how:(G.meta.theme || "").split("Design cue:")[0].trim() });
@@ -9874,7 +10039,7 @@ const V39_LEVELS = [];
     if (!A[id]) A[id] = blankState();
     // Speak: the lesson's six answers, in the learner's form (no teacher clip yet: record yourself, play it back)
     SAY_SETS[id] = () => G.rounds.map(r => { const o = V39.prep(r, v39Ctx(), G.engine); const clip = V39.clipFor(o.say, V39_AUDIO);
-      return { id:clip ? clip.replace(/\.mp3$/, "") : "", sp:"Eilai", tr:o.say, en:o.sayEn, emo:(String(r.prompt).match(V39_EMO) || [info.icon || "🎙"])[0] }; });
+      return { id:clip ? clip.replace(/\.mp3$/, "") : "", sp:"Teacher Eilai", tr:o.say, en:o.sayEn, emo:(String(r.prompt).match(V39_EMO) || [info.icon || "🎙"])[0] }; });
   });
   V39_LEVELS.forEach(lv => lv.items.filter(x => x.boss).forEach(x => { if (!A[x.id]) A[x.id] = blankState(); }));
 })();
@@ -9983,10 +10148,10 @@ startEar = function(opts){
 starters[8] = startEar;
 nextEar = function(){
   if (e8.demo){ _nextEar(); $("g8count").textContent = S4.practice ? "Your turn" : "Demo"; $("g8bar").style.width = "0%"; return; }
-  if (e8.i >= EAR_ROUNDS && !e8.endShown){
+  if (e8.i >= EAR_N() && !e8.endShown){
     e8.endShown = true; earRelease();
     ["g8opts","g8sent","g8rep","g8nextRow","g8play","g8slow","g8how"].forEach(id => $(id).hidden = true);
-    return hhEndOverlay({ tag:"BY EAR", n:e8.clean, total:EAR_ROUNDS, what:"sentences understood on the first try", best:e8.best || 0, said:e8.said, rank:hhRank(8, e8.clean, EAR_ROUNDS) }, () => _nextEar());
+    return hhEndOverlay({ tag:"BY EAR", n:e8.clean, total:EAR_N(), what:"sentences understood on the first try", best:e8.best || 0, said:e8.said, rank:hhRank(8, e8.clean, EAR_N()) }, () => _nextEar());
   }
   _nextEar();
 };
@@ -10146,6 +10311,919 @@ function rushRestart(){
 $("g7skip").addEventListener("click", () => { if (!S4.on) return; s4Done(7); rushRestart(); });
 $("g7how").addEventListener("click", () => { if (S4.on || r7.phase === "intro" || r7.phase === "end") return; cancelAnimationFrame(raf); S4.force = true; _startRush(); r7.clean = 0; r7.best = 0; openRush(); });
 
+</script>
+
+<script>
+/* ===== Challenge mode (Level 1, Lessons 1-2): data + hooks. Easy data is copied once and put back when Challenge is off. ===== */
+/* HEBREW HACK v39: Challenge sets for Level 1, Lessons 1-2 (generated by tools/build_challenge.py; do not hand-edit).
+   Same formats as index.html; paste after the Easy data they mirror (see README.md for the exact spots and the 6 small engine reads). */
+/* Lesson 1 (step3): SNAP! (game 9), same shape as SNAP_SHOTS; sec = shutter time for that shot */
+const SNAP_SHOTS_CHALLENGE = [
+  {"t": "hi", "pre": ["dani"], "sec": 4.5},
+  {"t": "at", "sec": 4.5},
+  {"t": "ata", "pre": ["maya"], "sec": 4.5},
+  {"t": "hu", "sec": 4.0},
+  {"t": "ani", "pre": ["noa"], "sec": 4.0},
+  {"t": "anachnu", "sec": 4.0},
+  {"t": "hen", "pre": ["noa", "maya", "dani"], "sec": 4.0},
+  {"t": "hem", "sec": 4.0},
+  {"t": "aten", "pre": ["noa", "maya"], "sec": 4.0},
+  {"t": "atem", "pre": ["noa", "maya", "yosi"], "sec": 3.5},
+  {"t": "hen", "pre": ["noa", "maya", "yosi"], "sec": 3.5},
+  {"t": "hi", "sec": 3.5},
+  {"t": "hen", "pre": ["noa"], "sec": 3.5},
+  {"t": "aten", "pre": ["maya"], "sec": 3.5},
+  {"t": "ata", "pre": ["yonatan", "dani"], "sec": 3.5},
+  {"t": "atem", "pre": ["yonatan"], "sec": 3.0},
+  {"t": "hem", "pre": ["yonatan", "noa", "maya", "dani", "yosi"], "sec": 3.0},
+  {"t": "anachnu", "pre": ["yonatan", "noa", "maya", "dani", "yosi"], "sec": 3.0},
+  {"t": "at", "pre": ["noa", "maya"], "sec": 3.0},
+  {"t": "hu", "pre": ["noa"], "sec": 3.0},
+  {"t": "ani", "sec": 3.0},
+  {"t": "aten", "pre": ["noa", "maya", "dani"], "sec": 2.5},
+  {"t": "hem", "pre": ["noa", "maya"], "sec": 2.5},
+  {"t": "hi", "pre": ["maya", "yosi"], "sec": 2.5}
+];
+/* Lesson 1 (step3): ROOFTOP PARTY (game 10), same shape as RP_ROUNDS; sec = timer, n = number of options */
+const RP_ROUNDS_CHALLENGE = [
+  {"cue": "about", "g": ["noa", "dani"], "sec": 5.0, "n": 6},   // answer: hem
+  {"cue": "to", "g": ["maya"], "sec": 5.0, "n": 6},   // answer: at
+  {"cue": "photo", "g": [], "join": "noa", "sec": 5.0, "n": 6},   // answer: ani, after the join: anachnu
+  {"cue": "about", "g": ["yosi"], "sec": 4.5, "n": 6},   // answer: hu
+  {"cue": "to", "g": ["noa", "maya"], "sec": 4.5, "n": 6},   // answer: aten
+  {"cue": "about", "g": ["noa", "maya"], "join": "yonatan", "sec": 4.5, "n": 6},   // answer: hen, after the join: hem
+  {"cue": "photo", "g": ["dani", "yosi"], "sec": 4.5, "n": 6},   // answer: anachnu
+  {"cue": "to", "g": ["dani"], "sec": 4.5, "n": 6},   // answer: ata
+  {"cue": "to", "g": ["noa"], "join": "maya", "sec": 4.5, "n": 6},   // answer: at, after the join: aten
+  {"cue": "about", "g": ["maya"], "sec": 4.0, "n": 6},   // answer: hi
+  {"cue": "to", "g": ["yonatan", "dani", "yosi"], "sec": 4.0, "n": 6},   // answer: atem
+  {"cue": "about", "g": ["dani", "yosi"], "join": "noa", "sec": 4.0, "n": 6},   // answer: hem, after the join: hem
+  {"cue": "photo", "g": [], "sec": 4.0, "n": 6},   // answer: ani
+  {"cue": "to", "g": ["maya", "noa"], "sec": 4.0, "n": 6},   // answer: aten
+  {"cue": "about", "g": ["yonatan"], "sec": 4.0, "n": 6},   // answer: hu
+  {"cue": "to", "g": ["yosi"], "join": "maya", "sec": 3.5, "n": 6},   // answer: ata, after the join: atem
+  {"cue": "about", "g": ["noa", "maya", "dani"], "sec": 3.5, "n": 6},   // answer: hem
+  {"cue": "to", "g": ["noa", "maya", "yosi"], "sec": 3.5, "n": 6},   // answer: atem
+  {"cue": "photo", "g": ["maya"], "sec": 3.5, "n": 6},   // answer: anachnu
+  {"cue": "about", "g": ["noa"], "sec": 3.5, "n": 6},   // answer: hi
+  {"cue": "to", "g": ["maya", "noa"], "join": "dani", "sec": 3.5, "n": 6},   // answer: aten, after the join: atem
+  {"cue": "about", "g": ["noa", "yonatan"], "sec": 3.0, "n": 6},   // answer: hem
+  {"cue": "to", "g": ["yonatan"], "sec": 3.0, "n": 6},   // answer: ata
+  {"cue": "about", "g": ["maya", "noa"], "sec": 3.0, "n": 6},   // answer: hen
+];
+/* Lesson 2 (step4): BY EAR (game 8), same shape as EAR_SETS / EAR_ORDER / EAR_ROUNDS. Lines without a recording are skipped by earPool(). */
+const EAR_SETS_CHALLENGE = {
+  iwant: [
+    [["ani", "@want", "kafe", "im", "chalav"], "I want coffee with milk", "☕"],
+    [["ani", "@want", "kafe", "bli", "chalav"], "I want coffee without milk", "☕"],
+    [["ani", "@want", "te", "im", "sukar"], "I want tea with sugar", "🍵"],
+    [["ani", "@want", "te", "bli", "sukar"], "I want tea without sugar", "🍵"],
+    [["ani", "@want", "kafe", "bli", "sukar"], "I want coffee without sugar", "☕"],
+    [["ani", "@want", "te", "bli", "chalav"], "I want tea without milk", "🍵"],
+    [["ani", "lo", "@want", "te"], "I don't want tea", "🚫"],
+    [["ani", "lo", "@want", "uga"], "I don't want cake", "🚫"],
+    [["ani", "@want", "leechol"], "I want to eat", "🍽"],
+    [["ani", "lo", "@want", "leechol", "pitza"], "I don't want to eat pizza", "🚫"] ],
+  ineed: [
+    [["ani", "@need", "chalav"], "I need milk", "🥛"],
+    [["ani", "@need", "sukar"], "I need sugar", "🍬"],
+    [["ani", "@need", "mayim"], "I need water", "💧"] ],
+  ilove: [
+    [["ani", "@love", "kafe", "chazak"], "I love strong coffee", "☕"],
+    [["ani", "@love", "kafe", "chalash"], "I love weak coffee", "☕"],
+    [["ani", "@love", "ledaber", "ivrit"], "I love to speak Hebrew", "🗣"] ],
+  can: [
+    [["ani", "@can", "ledaber", "ivrit"], "I can speak Hebrew", "🗣"],
+    [["ani", "lo", "@can", "ledaber", "ivrit"], "I can't speak Hebrew", "🚫"],
+    [["hi", "yechola", "ledaber", "ivrit"], "She can speak Hebrew", "👩"],
+    [["hi", "lo", "yechola", "ledaber", "ivrit"], "She can't speak Hebrew", "👩"],
+    [["hu", "yachol", "ledaber", "ivrit"], "He can speak Hebrew", "👨"] ],
+  he: [
+    [["hu", "rotze", "kafe"], "He wants coffee", "👨"],
+    [["hu", "tzarich", "sukar"], "He needs sugar", "👨"],
+    [["hu", "lo", "rotze", "te"], "He doesn't want tea", "👨"],
+    [["hu", "rotze", "leechol", "pitza"], "He wants to eat pizza", "👨"],
+    [["hu", "lo", "rotze", "leechol", "pitza"], "He doesn't want to eat pizza", "👨"] ],
+  she: [
+    [["hi", "rotza", "kafe"], "She wants coffee", "👩"],
+    [["hi", "rotza", "mayim"], "She wants water", "👩"],
+    [["hi", "tzricha", "chalav"], "She needs milk", "👩"],
+    [["hi", "lo", "rotza", "uga"], "She doesn't want cake", "👩"],
+    [["hi", "lo", "ohevet", "pitza"], "She doesn't love pizza", "👩"],
+    [["hi", "ohevet", "pitza"], "She loves pizza", "👩"] ],
+  many: [
+    [["anachnu", "rotzim", "pitza"], "We want pizza", "👥"],
+    [["anachnu", "rotzim", "te"], "We want tea", "👥"],
+    [["anachnu", "tzrichim", "mayim"], "We need water", "👥"],
+    [["hem", "rotzim", "kafe"], "They (boys / mixed) want coffee", "👬"],
+    [["hem", "rotzim", "uga"], "They (boys / mixed) want cake", "👬"],
+    [["hem", "lo", "rotzim", "pitza"], "They (boys / mixed) don't want pizza", "👬"],
+    [["hen", "rotzot", "te"], "They (girls) want tea", "👭"],
+    [["hen", "rotzot", "pitza"], "They (girls) want pizza", "👭"],
+    [["hen", "tzrichot", "sukar"], "They (girls) need sugar", "👭"] ],
+  you: [
+    [["ata", "rotze", "kafe", "im", "chalav"], "Do you want coffee with milk? (to a man)", "💬", 1],
+    [["at", "rotza", "kafe", "im", "chalav"], "Do you want coffee with milk? (to a woman)", "💬", 1],
+    [["ata", "rotze", "te", "im", "chalav"], "Do you want tea with milk? (to a man)", "💬", 1],
+    [["at", "rotza", "te", "im", "chalav"], "Do you want tea with milk? (to a woman)", "💬", 1],
+    [["ata", "rotze", "leechol", "uga"], "Do you want to eat cake? (to a man)", "💬", 1],
+    [["at", "rotza", "leechol", "uga"], "Do you want to eat cake? (to a woman)", "💬", 1],
+    [["atem", "rotzim", "kafe"], "Do you want coffee? (to a group)", "💬", 1],
+    [["aten", "rotzot", "te"], "Do you want tea? (to women)", "💬", 1] ]
+};
+const EAR_ORDER_CHALLENGE = ["many", "you", "iwant", "she", "he", "can", "many", "you", "ilove", "iwant", "ineed", "many"];
+const EAR_ROUNDS_CHALLENGE = 12, EAR_CARDS_CHALLENGE = 6;
+/* Lesson 2 (step4): CAFÉ ORDER (game 5), same shape as ORDER (TOKENS: YOU / WANT / LOVE / NEED). note = one line under the question (new, optional) */
+const ORDER_CHALLENGE = { start:"drink", steps:{
+  drink: {"q": ["YOU", "WANT", "kafe"], "en": "Do you want coffee?", "opts": [{"icon": "🥛", "label": "Yes, with milk", "a": ["ken", "ani", "WANT", "kafe", "im", "chalav"], "en": "Yes, I want coffee with milk", "tk": ["kafe", "im", "chalav"], "next": "strong"}, {"icon": "🍵", "label": "No, tea without sugar", "a": ["lo", "ani", "WANT", "te", "bli", "sukar"], "en": "No, I want tea without sugar", "tk": ["te", "bli", "sukar"], "next": "friend"}, {"icon": "💧", "label": "No, water", "a": ["lo", "ani", "WANT", "mayim"], "en": "No, I want water", "tk": ["mayim"], "next": "friend"}, {"icon": "🙅", "label": "No coffee", "a": ["lo", "ani", "lo", "WANT", "kafe"], "en": "No, I don't want coffee", "tk": [], "lb": ["lo"], "next": "friend"}]},
+  strong: {"q": ["YOU", "LOVE", "kafe", "chazak"], "en": "Do you love strong coffee?", "opts": [{"icon": "💪", "label": "Strong", "a": ["ken", "ani", "LOVE", "kafe", "chazak"], "en": "Yes, I love strong coffee", "tk": ["chazak"], "next": "sugar"}, {"icon": "🪶", "label": "Weak", "a": ["lo", "ani", "LOVE", "kafe", "chalash"], "en": "No, I love weak coffee", "tk": ["chalash"], "next": "sugar"}]},
+  sugar: {"q": ["YOU", "NEED", "sukar"], "en": "Do you need sugar?", "opts": [{"icon": "🍬", "label": "Sugar", "a": ["ken", "ani", "NEED", "sukar"], "en": "Yes, I need sugar", "tk": ["im", "sukar"], "next": "friend"}, {"icon": "🚫", "label": "No sugar", "a": ["lo", "ani", "lo", "NEED", "sukar"], "en": "No, I don't need sugar", "tk": ["bli", "sukar"], "next": "friend"}]},
+  friend: {"q": ["hi", "rotza", "te", "im", "chalav"], "en": "Does she want tea with milk?", "note": "👩 Maya, your friend, is with you. Answer for her.", "opts": [{"icon": "👩🍵", "label": "Yes, with milk", "a": ["ken", "hi", "rotza", "te", "im", "chalav"], "en": "Yes, she wants tea with milk", "tk": ["te", "im", "chalav"], "next": "group"}, {"icon": "👩🚫", "label": "No, without milk", "a": ["lo", "hi", "rotza", "te", "bli", "chalav"], "en": "No, she wants tea without milk", "tk": ["te", "bli", "chalav"], "next": "group"}, {"icon": "👩💧", "label": "No, water", "a": ["lo", "hi", "rotza", "mayim"], "en": "No, she wants water", "tk": ["mayim"], "next": "group"}]},
+  group: {"q": ["atem", "rotzim", "leechol", "uga"], "en": "Do you (both) want to eat cake?", "note": "👥 Now the barista asks you and Maya together.", "opts": [{"icon": "🍰", "label": "Yes, cake", "a": ["ken", "anachnu", "rotzim", "leechol", "uga"], "en": "Yes, we want to eat cake", "tk": ["uga"], "next": "end"}, {"icon": "🍕", "label": "No, pizza", "a": ["lo", "anachnu", "rotzim", "leechol", "pitza"], "en": "No, we want to eat pizza", "tk": ["pitza"], "next": "end"}, {"icon": "🙅", "label": "Nothing", "a": ["lo", "anachnu", "lo", "rotzim", "leechol"], "en": "No, we don't want to eat", "tk": [], "lb": ["lo"], "next": "end"}]}
+} };
+const ORDER_STEPS_CHALLENGE = 5, CAFE_FUSE_CHALLENGE = { baseMs:2000, perWordMs:600 };   // Easy: 3000 + 800 per word
+/* Lesson 2 (step4): RUSH HOUR (game 7). RUSH settings + fixed orders in the shape makeOrder() returns ({ g, ids, en, icon, third, traps }) */
+const RUSH_CHALLENGE = {"seconds": 11, "fastest": 6, "lives": 3, "penalty": 3, "customers": 16};
+const RUSH_ORDERS_CHALLENGE = [
+  {"g": "f", "ids": ["ani", "rotza", "te", "bli", "sukar"], "en": "I want tea without sugar", "icon": "🍵🚫🍬", "traps": ["rotze", "im", "chalav"]},
+  {"g": "m", "ids": ["ani", "rotze", "kafe", "im", "sukar"], "en": "I want coffee with sugar", "icon": "☕➕🍬", "traps": ["rotza", "bli", "te"]},
+  {"g": "m", "ids": ["hu", "tzarich", "sukar"], "en": "He needs sugar", "icon": "👨 🍬", "traps": ["hi", "tzricha", "ani"], "third": true},
+  {"g": "f", "ids": ["ani", "ohevet", "kafe", "chalash"], "en": "I love weak coffee", "icon": "☕🪶", "traps": ["ohev", "chazak", "rotza"]},
+  {"g": "f", "ids": ["hi", "lo", "rotza", "uga"], "en": "She doesn't want cake", "icon": "👩 🚫🍰", "traps": ["hu", "rotze", "ani"], "third": true},
+  {"g": "m", "ids": ["ani", "lo", "rotze", "leechol", "pitza"], "en": "I don't want to eat pizza", "icon": "🚫🍕", "traps": ["rotza", "uga", "hu"]},
+  {"g": "m", "ids": ["anachnu", "tzrichim", "mayim"], "en": "We need water", "icon": "👥 💧", "traps": ["hem", "tzarich", "ani"], "third": true},
+  {"g": "f", "ids": ["hen", "rotzot", "pitza"], "en": "They (women) want pizza", "icon": "👭 🍕", "traps": ["hem", "rotzim", "hi"], "third": true},
+  {"g": "m", "ids": ["hem", "lo", "rotzim", "pitza"], "en": "They (men) don't want pizza", "icon": "👬 🚫🍕", "traps": ["hen", "rotzot", "rotze"], "third": true},
+  {"g": "f", "ids": ["ani", "rotza", "kafe", "bli", "chalav"], "en": "I want coffee without milk", "icon": "☕🚫🥛", "traps": ["rotze", "im", "te"]},
+  {"g": "m", "ids": ["hu", "rotze", "te", "bli", "chalav"], "en": "He wants tea without milk", "icon": "👨 🍵🚫🥛", "traps": ["hi", "rotza", "im"], "third": true},
+  {"g": "f", "ids": ["hi", "rotza", "kafe", "im", "sukar"], "en": "She wants coffee with sugar", "icon": "👩 ☕➕🍬", "traps": ["hu", "rotze", "bli"], "third": true},
+  {"g": "m", "ids": ["anachnu", "rotzim", "kafe", "bli", "sukar"], "en": "We want coffee without sugar", "icon": "👥 ☕🚫🍬", "traps": ["hem", "rotze", "im"], "third": true},
+  {"g": "f", "ids": ["hen", "lo", "rotzot", "kafe"], "en": "They (women) don't want coffee", "icon": "👭 🚫☕", "traps": ["hem", "rotzim", "ani"], "third": true},
+  {"g": "m", "ids": ["hem", "tzrichim", "chalav"], "en": "They (men) need milk", "icon": "👬 🥛", "traps": ["hen", "tzrichot", "tzarich"], "third": true},
+  {"g": "f", "ids": ["hi", "ohevet", "kafe", "chazak"], "en": "She loves strong coffee", "icon": "👩 ☕💪", "traps": ["hu", "ohev", "chalash"], "third": true},
+  {"g": "f", "ids": ["hen", "tzrichot", "sukar"], "en": "They (women) need sugar", "icon": "👭 🍬", "traps": ["hem", "tzrichim", "hi"], "third": true},
+  {"g": "m", "ids": ["hu", "lo", "rotze", "te"], "en": "He doesn't want tea", "icon": "👨 🚫🍵", "traps": ["hi", "rotza", "ani"], "third": true}
+];
+/* Lesson 2 (step4): SAY THEM OUT LOUD (game 12), same shape as SAY4. All clips exist. */
+const SAY4_CHALLENGE = [
+  ["ani-rotze-kafe-bli-sukar", "ani-rotza-kafe-bli-sukar", "Ani rotse kafe bli sukar.", "Ani rotsa kafe bli sukar.", "I want coffee without sugar.", "☕🚫🍬"],
+  ["ani-lo-rotze-leechol-pitza", "ani-lo-rotza-leechol-pitza", "Ani lo rotse le'ekhol pitsa.", "Ani lo rotsa le'ekhol pitsa.", "I don't want to eat pizza.", "🚫🍕"],
+  ["ani-lo-yachol-ledaber-ivrit", "ani-lo-yechola-ledaber-ivrit", "Ani lo yakhol ledaber ivrit.", "Ani lo yekhola ledaber ivrit.", "I can't speak Hebrew.", "🚫🗣"],
+  ["ani-ohev-kafe-chalash", "ani-ohevet-kafe-chalash", "Ani ohev kafe khalash.", "Ani ohevet kafe khalash.", "I love weak coffee.", "☕🪶"],
+  ["hi-lo-yechola-ledaber-ivrit", "", "Hi lo yekhola ledaber ivrit.", "", "She can't speak Hebrew.", "👧🚫🗣"],
+  ["hu-lo-rotze-leechol-pitza", "", "Hu lo rotse le'ekhol pitsa.", "", "He doesn't want to eat pizza.", "👦🚫🍕"],
+  ["hem-lo-rotzim-pitza", "", "Hem lo rotsim pitsa.", "", "They (boys / mixed) don't want pizza.", "👬🚫🍕"],
+  ["hen-tzrichot-sukar", "", "Hen tsrikhot sukar.", "", "They (girls) need sugar.", "👭🍬"]
+];
+/* Recordings these sets still need (the AUDIO key -> file name): */
+const CHALLENGE_NEW_AUDIO = {
+  "ani-yachol-ledaber-ivrit": "ani-yachol-ledaber-ivrit.mp3",
+  "ani-yechola-ledaber-ivrit": "ani-yechola-ledaber-ivrit.mp3",
+  "hu-yachol-ledaber-ivrit": "hu-yachol-ledaber-ivrit.mp3",
+  "atem-rotzim-kafe?": "atem-rotzim-kafe_q.mp3",
+  "aten-rotzot-te?": "aten-rotzot-te_q.mp3",
+  "lo-ani-rotze-te-bli-sukar": "lo-ani-rotze-te-bli-sukar.mp3",
+  "lo-ani-rotza-te-bli-sukar": "lo-ani-rotza-te-bli-sukar.mp3",
+  "lo-ani-lo-rotze-kafe": "lo-ani-lo-rotze-kafe.mp3",
+  "lo-ani-lo-rotza-kafe": "lo-ani-lo-rotza-kafe.mp3",
+  "hi-rotza-te-im-chalav?": "hi-rotza-te-im-chalav_q.mp3",
+  "ken-hi-rotza-te-im-chalav": "ken-hi-rotza-te-im-chalav.mp3",
+  "lo-hi-rotza-te-bli-chalav": "lo-hi-rotza-te-bli-chalav.mp3",
+  "lo-hi-rotza-mayim": "lo-hi-rotza-mayim.mp3",
+  "atem-rotzim-leechol-uga?": "atem-rotzim-leechol-uga_q.mp3",
+  "ken-anachnu-rotzim-leechol-uga": "ken-anachnu-rotzim-leechol-uga.mp3",
+  "lo-anachnu-rotzim-leechol-pitza": "lo-anachnu-rotzim-leechol-pitza.mp3",
+  "lo-anachnu-lo-rotzim-leechol": "lo-anachnu-lo-rotzim-leechol.mp3",
+  "hu-rotze-te-bli-chalav": "hu-rotze-te-bli-chalav.mp3",
+  "hi-rotza-kafe-im-sukar": "hi-rotza-kafe-im-sukar.mp3",
+  "anachnu-rotzim-kafe-bli-sukar": "anachnu-rotzim-kafe-bli-sukar.mp3",
+  "hen-lo-rotzot-kafe": "hen-lo-rotzot-kafe.mp3",
+  "hem-tzrichim-chalav": "hem-tzrichim-chalav.mp3",
+  "hi-ohevet-kafe-chazak": "hi-ohevet-kafe-chazak.mp3"
+};
+
+function HH_CH(g){
+  try{ if (new URLSearchParams(location.search).get("challenge") === "1") return true; }catch(e){}
+  return [5, 7, 8, 9, 10, 12].includes(g) && (CUR === "step3" || CUR === "step4") && !!(A.chal || {})[CUR];   // v40: the Easy / Challenge switch on the Lesson 1-2 page
+}
+const HH_EASY = {};
+function hhSwap(name, target, ch, on){
+  if (!HH_EASY[name]) HH_EASY[name] = JSON.parse(JSON.stringify(target));
+  const src = JSON.parse(JSON.stringify(on ? ch : HH_EASY[name]));
+  if (Array.isArray(target)) target.splice(0, target.length, ...src);
+  else { Object.keys(target).forEach(k => delete target[k]); Object.assign(target, src); }
+}
+function hhApply(g){
+  const on = HH_CH(g);
+  if (g === 9) hhSwap("SNAP_SHOTS", SNAP_SHOTS, SNAP_SHOTS_CHALLENGE, on);
+  if (g === 10) hhSwap("RP_ROUNDS", RP_ROUNDS, RP_ROUNDS_CHALLENGE, on);
+  if (g === 8){ hhSwap("EAR_SETS", EAR_SETS, EAR_SETS_CHALLENGE, on); hhSwap("EAR_ORDER", EAR_ORDER, EAR_ORDER_CHALLENGE, on); }
+  if (g === 5) hhSwap("ORDER", ORDER, ORDER_CHALLENGE, on);
+  if (g === 7) hhSwap("RUSH", RUSH, RUSH_CHALLENGE, on);
+  if (g === 12 && CUR === "step4") hhSwap("SAY4", SAY4, SAY4_CHALLENGE, on);
+}
+Object.assign(AUDIO, CHALLENGE_NEW_AUDIO);   // v40: the 23 Challenge clips are in audio/
+[5, 7, 8, 9, 10, 12].forEach(g => { const f = starters[g]; starters[g] = (...a) => {
+  hhApply(g); const r = f(...a);
+  if (g === 7 && HH_CH(7)){   // short orders first, longer ones later, shuffled inside each third
+    const L = RUSH_ORDERS_CHALLENGE.map(o => JSON.parse(JSON.stringify(o))).sort((a, b) => a.ids.length - b.ids.length), k = Math.ceil(L.length / 3);
+    r7.chq = [L.slice(0, k), L.slice(k, 2 * k), L.slice(2 * k)].flatMap(x => shuffle(x));
+  }
+  return r; }; });
+</script>
+<script>
+const HH40_DATA = {
+ "p1a": [
+  {
+   "sp": "Yonatan",
+   "tr": "Noa! At rotsa kafe?",
+   "en": "Noa! Do you want coffee?",
+   "he": "נוֹעָה! אַתְּ רוֹצָה קָפֶה?",
+   "f": "p1a-01-itai-maya-at-rotsa-kafe.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Kafe? Lo, lo, lo.",
+   "en": "Coffee? No, no, no.",
+   "he": "קָפֶה... לֹא, לֹא, לֹא.",
+   "f": "p1a-02-maya-kafe-lo-lo-lo.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Lo?! Ani ohev kafe!",
+   "en": "No?! I love coffee!",
+   "he": "לֹא! אֲנִי אוֹהֵב קָפֶה!",
+   "f": "p1a-03-itai-lo-ani-ohev-kafe.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Ani ohevet te.",
+   "en": "I love tea.",
+   "he": "אֲנִי אוֹהֶבֶת תֵּה.",
+   "f": "p1a-04-maya-ani-ohevet-te.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Te… At rotsa khalav?",
+   "en": "Tea… Do you want milk?",
+   "he": "תֵּה... אַתְּ רוֹצָה חָלָב?",
+   "f": "p1a-05-itai-te-at-rotsa-khalav.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Ken. Ata rotse te?",
+   "en": "Yes. Do you want tea?",
+   "he": "כֵּן. אַתָּה רוֹצֶה תֵּה?",
+   "f": "p1a-06-maya-ken-ata-rotse-te.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Ani? Lo. Ani tsarikh kafe!",
+   "en": "Me? No. I need coffee!",
+   "he": "אֲנִי... לֹא. אֲנִי צָרִיךְ קָפֶה!",
+   "f": "p1a-07-itai-ani-lo-ani-tsarikh-kafe.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Ata tsarikh kafe? Ani tsrikha glida!",
+   "en": "You need coffee? I need ice cream!",
+   "he": "אַתָּה צָרִיךְ קָפֶה... אֲנִי צְרִיכָה גְּלִידָה!",
+   "f": "p1a-08-maya-ata-tsarikh-kafe-ani-tsrikha-glida.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Glida? Ken! Ani rotse glida!",
+   "en": "Ice cream? Yes! I want ice cream!",
+   "he": "גְּלִידָה... כֵּן! אֲנִי רוֹצֶה גְּלִידָה!",
+   "f": "p1a-09-itai-glida-ken-ani-rotse-glida.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Ata ohev kafe, ata ohev glida…",
+   "en": "You love coffee, you love ice cream…",
+   "he": "אַתָּה אוֹהֵב קָפֶה, אַתָּה אוֹהֵב גְּלִידָה...",
+   "f": "p1a-10-maya-ata-ohev-kafe-ata-ohev-glida.mp3"
+  }
+ ],
+ "mini": [
+  {
+   "sp": "Noa",
+   "tr": "Yonatan, ata rotse kafe kham?",
+   "en": "Yonatan, do you want hot coffee?",
+   "he": "יוֹנָתָן, אַתָּה רוֹצֶה קָפֶה חַם?",
+   "f": "p1b-01-maya-itai-ata-rotse-kafe-kham.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Lo. Ani rotse kafe kar. Kafe kar gadol!",
+   "en": "No. I want cold coffee. A big cold coffee!",
+   "he": "לֹא. אֲנִי רוֹצֶה קָפֶה קַר. קָפֶה קַר גָּדוֹל!",
+   "f": "p1b-02-itai-lo-ani-rotse-kafe-kar.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Kafe kar… ve'okhel?",
+   "en": "Cold coffee… and food?",
+   "he": "קָפֶה קַר... וְאֹכֶל?",
+   "f": "p1b-03-maya-kafe-kar-ve-okhel.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Ken! Pitsa gdola!",
+   "en": "Yes! A big pizza!",
+   "he": "כֵּן! פִּיצָה גְּדוֹלָה!",
+   "f": "p1b-04-itai-ken-pitsa-gdola.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Ani rotsa glida ktana.",
+   "en": "I want a small ice cream.",
+   "he": "אֲנִי רוֹצָה גְּלִידָה קְטַנָּה.",
+   "f": "p1b-05-maya-ani-rotsa-glida-ktana.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Ktana?! Ani gam rotse glida – glida gdola!",
+   "en": "Small?! I want ice cream too – a big one!",
+   "he": "קְטַנָּה! אֲנִי גַּם רוֹצֶה גְּלִידָה – גְּלִידָה גְּדוֹלָה!",
+   "f": "p1b-06-itai-ktana-ani-gam-rotse-glida.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Pitsa gdola, glida gdola… tov!",
+   "en": "A big pizza, a big ice cream… OK!",
+   "he": "פִּיצָה גְּדוֹלָה, גְּלִידָה גְּדוֹלָה... טוֹב!",
+   "f": "p1b-07-maya-pitsa-gdola-glida-gdola-tov.mp3"
+  }
+ ],
+ "p2": [
+  {
+   "sp": "Yonatan",
+   "tr": "Noa, at rotsa lishon?",
+   "en": "Noa, do you want to sleep?",
+   "he": "נוֹעָה, אַתְּ רוֹצָה לִישׁוֹן?",
+   "f": "p2-01-itai-maya-at-rotsa-lishon.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Lo! Ani rotsa le'ekhol.",
+   "en": "No! I want to eat.",
+   "he": "לֹא! אֲנִי רוֹצָה לֶאֱכֹל.",
+   "f": "p2-02-maya-lo-ani-rotsa-leekhol.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Ani gam! At rotsa pitsa?",
+   "en": "Me too! Do you want pizza?",
+   "he": "אֲנִי גַּם! אַתְּ רוֹצָה פִּיצָה?",
+   "f": "p2-03-itai-ani-gam-at-rotsa-pitsa.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Ken, ani ohevet pitsa! Ve'ata?",
+   "en": "Yes, I love pizza! And you?",
+   "he": "כֵּן, אֲנִי אוֹהֶבֶת פִּיצָה! וְאַתָּה?",
+   "f": "p2-04-maya-ken-ani-ohevet-pitsa-veata.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Ani? Ani ohev pitsa!",
+   "en": "Me? I love pizza!",
+   "he": "אֲנִי... אֲנִי אוֹהֵב פִּיצָה!",
+   "f": "p2-05-itai-ani-ani-ohev-pitsa.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Ata rotse lishtot kafe?",
+   "en": "Do you want to drink coffee?",
+   "he": "אַתָּה רוֹצֶה לִשְׁתּוֹת קָפֶה?",
+   "f": "p2-06-maya-ata-rotse-lishtot-kafe.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Lo, ani lo yakhol lishtot kafe. Ani tsarikh lishon.",
+   "en": "No, I can't drink coffee. I need to sleep.",
+   "he": "לֹא, אֲנִי לֹא יָכוֹל לִשְׁתּוֹת קָפֶה. אֲנִי צָרִיךְ לִישׁוֹן.",
+   "f": "p2-07-itai-lo-ani-lo-yakhol-lishtot-kafe.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Lishon? Ani rotsa ledaber!",
+   "en": "Sleep? I want to talk!",
+   "he": "לִישׁוֹן... אֲנִי רוֹצָה לְדַבֵּר!",
+   "f": "p2-08-maya-lishon-ani-rotsa-ledaber.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Ledaber? Tov! Ani ohev ledaber.",
+   "en": "Talk? OK! I love talking.",
+   "he": "לְדַבֵּר... טוֹב! אֲנִי אוֹהֵב לְדַבֵּר.",
+   "f": "p2-09-itai-ledaber-tov-ani-ohev-ledaber.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Ata yakhol lalekhet?",
+   "en": "Can you go (out)?",
+   "he": "אַתָּה יָכוֹל לָלֶכֶת?",
+   "f": "p2-10-maya-ata-yakhol-lalekhet.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Ken! Ani yakhol lalekhet ve le'ekhol pitsa!",
+   "en": "Yes! I can go and eat pizza!",
+   "he": "כֵּן! אֲנִי יָכוֹל לָלֶכֶת וְלֶאֱכֹל פִּיצָה!",
+   "f": "p2-11-itai-ken-ani-yakhol-lalekhet-ve-leekhol-pitsa.mp3"
+  }
+ ],
+ "words": [
+  {
+   "tr": "kham / khama",
+   "en": "hot",
+   "he": "חַם / חַמָּה",
+   "f": "p1b-word-itai-kham-khama.mp3"
+  },
+  {
+   "tr": "kar / kara",
+   "en": "cold",
+   "he": "קַר / קָרָה",
+   "f": "p1b-word-itai-kar-kara.mp3"
+  },
+  {
+   "tr": "gadol / gdola",
+   "en": "big",
+   "he": "גָּדוֹל / גְּדוֹלָה",
+   "f": "p1b-word-itai-gadol-gdola.mp3"
+  },
+  {
+   "tr": "katan / ktana",
+   "en": "small",
+   "he": "קָטָן / קְטַנָּה",
+   "f": "p1b-word-itai-katan-ktana.mp3"
+  },
+  {
+   "tr": "tov / tova",
+   "en": "good",
+   "he": "טוֹב / טוֹבָה",
+   "f": "p1b-word-itai-tov-tova.mp3"
+  },
+  {
+   "tr": "gam",
+   "en": "also, too",
+   "he": "גַּם",
+   "f": "p1b-word-itai-gam.mp3"
+  },
+  {
+   "tr": "ve",
+   "en": "and",
+   "he": "וְ",
+   "f": "p1b-word-itai-ve.mp3"
+  }
+ ],
+ "ex": [
+  {
+   "tr": "kafe kham, pitsa khama",
+   "en": "hot coffee, hot pizza",
+   "he": "קָפֶה חַם, פִּיצָה חַמָּה",
+   "f": "p1b-ex-itai-kafe-kham-pitsa-khama.mp3"
+  },
+  {
+   "tr": "khalav kar, glida kara",
+   "en": "cold milk, cold ice cream",
+   "he": "חָלָב קַר, גְּלִידָה קָרָה",
+   "f": "p1b-ex-itai-khalav-kar-glida-kara.mp3"
+  },
+  {
+   "tr": "lekhem gadol, pitsa gdola",
+   "en": "big bread, big pizza",
+   "he": "לֶחֶם גָּדוֹל, פִּיצָה גְּדוֹלָה",
+   "f": "p1b-ex-itai-lekhem-gadol-pitsa-gdola.mp3"
+  },
+  {
+   "tr": "shokolad katan, glida ktana",
+   "en": "small chocolate, small ice cream",
+   "he": "שׁוֹקוֹלָד קָטָן, גְּלִידָה קְטַנָּה",
+   "f": "p1b-ex-itai-shokolad-katan-glida-ktana.mp3"
+  },
+  {
+   "tr": "kafe tov, pitsa tova",
+   "en": "good coffee, good pizza",
+   "he": "קָפֶה טוֹב, פִּיצָה טוֹבָה",
+   "f": "p1b-ex-itai-kafe-tov-pitsa-tova.mp3"
+  },
+  {
+   "tr": "Ani gam rotse kafe.",
+   "en": "I also want coffee.",
+   "he": "אֲנִי גַּם רוֹצֶה קָפֶה.",
+   "f": "p1b-ex-itai-ani-gam-rotse-kafe.mp3"
+  },
+  {
+   "tr": "kafe ve te",
+   "en": "coffee and tea",
+   "he": "קָפֶה וְתֵה",
+   "f": "p1b-ex-itai-kafe-ve-te.mp3"
+  }
+ ],
+ "cafe": [
+  {
+   "sp": "Yonatan",
+   "tr": "Noa, at rotsa glida?",
+   "en": "Noa, do you want ice cream?",
+   "he": "נוֹעָה, אַתְּ רוֹצָה גְּלִידָה?",
+   "f": "cafe-01-yonatan-noa-at-rotsa-glida.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Ken! Glida gdola!",
+   "en": "Yes! A big ice cream!",
+   "he": "כֵּן! גְּלִידָה גְּדוֹלָה!",
+   "f": "cafe-02-noa-ken-glida-gdola.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Ani rotse glida ktana.",
+   "en": "I want a small ice cream.",
+   "he": "אֲנִי רוֹצֶה גְּלִידָה קְטַנָּה.",
+   "f": "cafe-03-yonatan-ani-rotse-glida-ktana.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Ktana? Lama?",
+   "en": "Small? Why?",
+   "he": "קְטַנָּה? לָמָּה?",
+   "f": "cafe-04-noa-ktana-lama.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Ki ani rotse gam pitsa ve kafe.",
+   "en": "Because I also want pizza and coffee.",
+   "he": "כִּי אֲנִי רוֹצֶה גַּם פִּיצָה וְקָפֶה.",
+   "f": "cafe-05-yonatan-ki-ani-rotse-gam-pitsa-vekafe.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Pitsa gdola o ktana? Ve kafe?",
+   "en": "A big pizza or a small one? And the coffee?",
+   "he": "פִּיצָה גְּדוֹלָה אוֹ קְטַנָּה? וְקָפֶה?",
+   "f": "cafe-06-noa-pitsa-gdola-o-ktana-vekafe.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Gdola, kamuvan! Ve kafe gadol.",
+   "en": "Big, of course! And a big coffee.",
+   "he": "גְּדוֹלָה, כַּמּוּבָן! וְקָפֶה גָּדוֹל.",
+   "f": "cafe-07-yonatan-gdola-kamuvan-vekafe-gadol.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Ata yeled katan im kafe gadol!",
+   "en": "You're a little boy with a big coffee!",
+   "he": "אַתָּה יֶלֶד קָטָן עִם קָפֶה גָּדוֹל!",
+   "f": "cafe-08-noa-ata-yeled-katan-im-kafe-gadol.mp3"
+  },
+  {
+   "sp": "Yonatan",
+   "tr": "Ve at yalda ktana im glida gdola!",
+   "en": "And you're a little girl with a big ice cream!",
+   "he": "וְאַתְּ יַלְדָּה קְטַנָּה עִם גְּלִידָה גְּדוֹלָה!",
+   "f": "cafe-09-yonatan-veat-yalda-ktana-im-glida-gdola.mp3"
+  },
+  {
+   "sp": "Noa",
+   "tr": "Ken! ...Ve ani rotsa gam kafe gadol!",
+   "en": "Yes! ...and I want a big coffee too!",
+   "he": "כֵּן! …וַאֲנִי רוֹצָה גַּם קָפֶה גָּדוֹל!",
+   "f": "cafe-10-noa-ken-veani-rotsa-gam-kafe-gadol.mp3"
+  }
+ ]
+};
+/* ===================== v40 batch (Nov 20): new L1 pages, Reply dialogue, trial lock, word tables, kh/ts on screen ===================== */
+const HH40_SPK = { Yonatan:{ face:"👦🏻", g:"m" }, Noa:{ face:"👧🏽", g:"f" } };
+/* #9 food words: [word, meaning, icon, Hebrew, clip, what the clip says]. v40-batch2: one-word Itai clips (eleven_v4, niqud) for every word; khalav keeps existing chalav.mp3 filename. */
+const HH40_FOOD = [
+  ["mayim", "water", "💧", "מַיִם", "mayim.mp3", ""],
+  ["kafe", "coffee", "☕", "קָפֶה", "kafe.mp3", ""],
+  ["te", "tea", "🍵", "תֵּה", "te.mp3", ""],
+  ["khalav", "milk", "🥛", "חָלָב", "chalav.mp3", ""],
+  ["okhel", "food", "🍽️", "אֹכֶל", "okhel.mp3", ""],
+  ["lekhem", "bread", "🍞", "לֶחֶם", "lekhem.mp3", ""],
+  ["pitsa", "pizza", "🍕", "פִּיצָה", "pitsa.mp3", ""],
+  ["glida", "ice cream", "🍦", "גְּלִידָה", "glida.mp3", ""],
+  ["shokolad", "chocolate", "🍫", "שׁוֹקוֹלָד", "shokolad.mp3", ""]
+];
+/* #11 Reply Dialogue (Claude P3). [guy, girl] pairs; a clip of "" = not recorded yet (text only). Clips are used only where an existing file says exactly that line. */
+const HH40_REPLY = {
+  step4:{ who:"Yonatan", items:[
+    { q:["Ata rotse kafe?", "At rotsa kafe?"], qen:"Do you want coffee?", qc:["ata-rotze-kafe_q.mp3", "at-rotza-kafe_q.mp3"], cue:"Say yes: you want coffee.",
+      m:["Ken, ani rotse kafe.", "Ken, ani rotsa kafe."], men:"Yes, I want coffee.", mc:["ken-ani-rotze-kafe.mp3", "ken-ani-rotza-kafe.mp3"], r:"Tov! Ani gam rotse kafe.", ren:"Great! I want coffee too." },
+    { q:["Kafe kham?", "Kafe kham?"], qen:"Hot coffee?", cue:"Say no: cold coffee.", m:["Lo, kafe kar.", "Lo, kafe kar."], men:"No, cold coffee.", r:"Kafe kar… ani ohev kafe kar!", ren:"Cold coffee… I love cold coffee!" },
+    { q:["Ata tsarikh khalav?", "At tsrikha khalav?"], qen:"Do you need milk?", cue:"Say you don't need milk.", m:["Lo, ani lo tsarikh khalav.", "Lo, ani lo tsrikha khalav."], men:"No, I don't need milk.", r:"Lo khalav. Tov!", ren:"No milk. OK!" },
+    { q:["Ata ohev shokolad?", "At ohevet shokolad?"], qen:"Do you love chocolate?", cue:"Say yes: you love chocolate!", m:["Ken! Ani ohev shokolad!", "Ken! Ani ohevet shokolad!"], men:"Yes! I love chocolate!", r:"Ani gam! Shokolad tov!", ren:"Me too! Chocolate is good!" },
+    { q:["Ata rotse glida?", "At rotsa glida?"], qen:"Do you want ice cream?", cue:"Say yes: a small one.", m:["Ken, glida ktana.", "Ken, glida ktana."], men:"Yes, a small ice cream.", r:"Ktana… ani rotse glida gdola!", ren:"Small… I want a big ice cream!" } ] },
+  step5:{ who:"Noa", items:[
+    { q:["Ata rotse le'ekhol?", "At rotsa le'ekhol?"], qen:"Do you want to eat?", cue:"Say yes: you want to eat pizza.", m:["Ken, ani rotse le'ekhol pitsa.", "Ken, ani rotsa le'ekhol pitsa."], men:"Yes, I want to eat pizza.", r:"Pitsa… ani ohevet pitsa!", ren:"Pizza… I love pizza!" },
+    { q:["Ata rotse lishtot kafe?", "At rotsa lishtot kafe?"], qen:"Do you want to drink coffee?", qc:["p2-06-maya-ata-rotse-lishtot-kafe.mp3", ""], cue:"Say no: you want to drink tea.", m:["Lo, ani rotse lishtot te.", "Lo, ani rotsa lishtot te."], men:"No, I want to drink tea.", r:"Te… tov, ani gam rotsa te.", ren:"Tea… OK, I want tea too." },
+    { q:["Ata yakhol lalekhet?", "At yekhola lalekhet?"], qen:"Can you go?", qc:["p2-10-maya-ata-yakhol-lalekhet.mp3", ""], cue:"Say you can't: you need to sleep.", m:["Ani lo yakhol. Ani tsarikh lishon.", "Ani lo yekhola. Ani tsrikha lishon."], men:"I can't. I need to sleep.", r:"Lishon?! Ani lo rotsa lishon!", ren:"Sleep?! I don't want to sleep!" },
+    { q:["Ata ohev ledaber?", "At ohevet ledaber?"], qen:"Do you love talking?", cue:"Say yes, then ask her back.", m:["Ken, ani ohev ledaber. Ve'at?", "Ken, ani ohevet ledaber. Ve'at?"], men:"Yes, I love talking. And you?", r:"Ani? Ani ohevet ledaber… ve le'ekhol!", ren:"Me? I love talking… and eating!" },
+    { q:["Yonatan rotse lishon. Ve'ata?", "Yonatan rotse lishon. Ve'at?"], qen:"Yonatan wants to sleep. And you?", cue:"Say no: you want to talk!", m:["Ani lo rotse lishon. Ani rotse ledaber!", "Ani lo rotsa lishon. Ani rotsa ledaber!"], men:"I don't want to sleep. I want to talk!", r:"Tov! Ani gam!", ren:"Great! Me too!" } ] }
+};
+/* #1 How to play: three short steps per game (shown on the card before the game starts) */
+const HH40_HOW = {
+  9:["Listen to the word: who is it?", "Pick the camera: 🤳 selfie (you're in it), 📷 camera (about them), 📱 call (talking to them).", "Tap the right people into the photo and snap."],
+  10:["Look at the party: 👋 talking TO guests, 🤫 whispering ABOUT them, 📸 a photo with you.", "Pick the pronoun that fits before the time runs out.", "Say it out loud."],
+  8:["Listen to a sentence.", "Tap the sentence you heard.", "Say it out loud, then tap Next."],
+  5:["The barista asks what you want.", "Pick your answer and say it in Hebrew.", "Tap I said it to hear how it sounds, then Next."],
+  7:["Read the customer's order in English.", "Tap the Hebrew words in order before the clock runs out.", "Serve it and say it out loud."],
+  11:["A friend texts you a question.", "Build your answer: who, the verb, the TO-word.", "Send it, then say it out loud."],
+  13:["Look at the scene: who is it, and do they have it, or is it empty?", "Build the sentence: yesh or ein, then who.", "Drop the gift, then say it."],
+  14:["Every file is missing one thing.", "Build the question that asks for it.", "Ask the suspect, then say it."],
+  15:["Look at the photo.", "Build a caption that is true: he or she word, one or more, big or small.", "Say it out loud."],
+  12:["Hear the sentence.", "Record yourself, or just say it.", "Play both and compare."]
+};
+const HH40_ENGINE_HOW = { chatback:"Someone talks to you. Pick or build your reply, then say it out loud.", buildgame:"Look at the picture. Tap the words in order to build the sentence, then say it out loud.", quickpick:"Look at the picture or listen. Pick the right answer fast, then say it out loud." };
+/* #7 one icon per game + what it trains (by part name) */
+const HH40_GAMES = {
+  "SNAP!":["📸", "hearing who a pronoun means"], "ROOFTOP PARTY":["🎉", "picking the right pronoun fast"],
+  "Who is it?":["👥", "one person or more than one"], "Pick the right word":["🎯", "choosing the pronoun that fits"],
+  "BY EAR":["👂", "understanding whole sentences by ear"], "CAFÉ ORDER":["☕", "ordering for yourself in Hebrew"], "RUSH HOUR":["⏱", "building sentences fast"],
+  "Food words":["🍽️", "the food and drink words"], "Find the pairs":["🍎", "food and drink words"], "HU, HI or HEM":["🔀", "verb forms for he, she and they"], "Pair or no pair?":["⚖️", "checking what a sentence means"],
+  "Reply dialogue":["🗣️", "answering a question out loud"], "Say them out loud":["🎙", "saying it out loud and comparing"],
+  "CHAT BACK":["💬", "answering with a TO-word"], "The TO-Words":["🔗", "what each TO-word means"], "What goes with it?":["🧺", "which words go together"], "Say it in Hebrew":["🔁", "from English to Hebrew"],
+  "GIFT DROP":["🎁", "yesh / ein and who has it"], "Who has it?":["🙋", "who has what"],
+  "INTERROGATION ROOM":["🔦", "asking with question words"], "Ask & answer":["❓", "questions vs answers"], "Question words":["🧭", "what each question word means"],
+  "PICTURE TRUTH":["🖼️", "matching he/she, one/many, big/small"], "Gender game":["🏷️", "he-words and she-words"], "Matching pairs":["🃏", "describing words"]
+};
+function hh40Decorate(){
+  Object.keys(LESSONS).forEach(id => (LESSONS[id].parts || []).forEach(p => {
+    const g = HH40_GAMES[p.name];
+    if (g && (p.type === "game" || p.type === "embed" || HH40_TYPES[p.type]) && !p.slides){ p.icon = g[0]; if (!p.trains) p.trains = g[1]; }
+    if (p.g === 16 && PLAN39.games[p.game] && !p.trains){ p.trains = String(PLAN39.games[p.game].meta.skill || "").split(/ Trap:|\. /)[0].replace(/\.$/, ""); }
+    if (p.g === 17 && !p.trains) p.trains = "everything in this level, mixed";
+  }));
+}
+
+/* ---------- audio for the v40 pages ---------- */
+const hh40Au = new Audio(); let hh40Seq = null, hh40Btn = null;
+function hh40Clear(){ document.querySelectorAll(".hh40-row.cur").forEach(r => r.classList.remove("cur")); document.querySelectorAll(".hh40-play.on").forEach(b => b.classList.remove("on")); }
+function hh40Stop(){ try{ hh40Au.pause(); }catch(e){} hh40Seq = null; hh40Clear(); const pa = document.querySelector(".hh40-pall"); if (pa) pa.textContent = "▶ Play all"; r40Stop(true); }
+function hh40Play(file, btn, onEnd){
+  try{ player.pause(); }catch(e){}
+  hh40Clear(); if (btn){ btn.classList.add("on"); const row = btn.closest(".hh40-row"); if (row) row.classList.add("cur"); }
+  hh40Au.onended = () => { hh40Clear(); if (onEnd) onEnd(); };
+  hh40Au.onerror = () => { hh40Clear(); if (onEnd) onEnd(); };
+  hh40Au.src = AUDIO_BASE + file; hh40Au.playbackRate = 1;
+  const p = hh40Au.play(); if (p && p.catch) p.catch(() => { hh40Clear(); });
+}
+const hh40El = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; };
+function hh40PlayBtn(file, label){ const b = hh40El("button", "hh40-play", "▶"); b.type = "button"; b.setAttribute("aria-label", "Play: " + (label || "")); b.addEventListener("click", e => { e.stopPropagation(); hh40Seq = null; hh40Play(file, b); }); return b; }
+/* one line: speaker, Latin (big), English, Hebrew (only with Show in Hebrew), play */
+function hh40Row(o){
+  const r = hh40El("div", "hh40-row"), t = hh40El("div", "hh40-txt");
+  if (o.icon) r.append(hh40El("span", "hh40-ic", o.icon));
+  if (o.sp){ const s = hh40El("span", "hh40-sp " + ((HH40_SPK[o.sp] || {}).g || ""), (HH40_SPK[o.sp] ? HH40_SPK[o.sp].face + " " : "") + o.sp); t.append(s); }
+  const lat = hh40El("span", "hh40-lat"); if (o.mf){ lat.classList.add("hh40-mf"); const [m, f] = o.tr.split(" / "); lat.innerHTML = '<span class="m"></span>' + (f ? ' / <span class="f"></span>' : ""); lat.querySelector(".m").textContent = m; if (f) lat.querySelector(".f").textContent = f; } else lat.textContent = o.tr;
+  t.append(lat, hh40El("span", "hh40-en", o.en));
+  if (o.he){ const h = hh40El("span", "hh40-he", o.he); h.lang = "he"; t.append(h); }
+  if (o.note) t.append(hh40El("span", "hh40-en", o.note));
+  r.append(t); if (o.f) r.append(hh40PlayBtn(o.f, o.tr));
+  return r;
+}
+function hh40HeToggle(){
+  const b = hh40El("button", "hh40-pill hh40-hebtn", A.showHe ? "Hide Hebrew" : "Show in Hebrew"); b.type = "button"; b.setAttribute("aria-pressed", String(!!A.showHe));
+  b.addEventListener("click", () => { A.showHe = !A.showHe; saveA(); hh40ApplyHe(); });
+  return b;
+}
+function hh40ApplyHe(){
+  document.querySelectorAll(".hh40-hebody").forEach(e => e.classList.toggle("hh40-he-off", !A.showHe));
+  document.querySelectorAll(".hh40-hebtn").forEach(b => { b.textContent = A.showHe ? "Hide Hebrew" : "Show in Hebrew"; b.setAttribute("aria-pressed", String(!!A.showHe)); });
+  const t = $("cjTable"); if (t) t.classList.toggle("hh40-lat", !A.showHe);
+  const tb = $("hh40HeTab"); if (tb){ tb.textContent = A.showHe ? "Hide Hebrew" : "Show in Hebrew"; tb.setAttribute("aria-pressed", String(!!A.showHe)); }
+}
+function hh40DlgBox(title, lines, note){
+  const box = hh40El("div", "hh40-box"); box.append(hh40El("h3", "", title));
+  if (note) box.append(hh40El("p", "hh40-note", note));
+  const tools = hh40El("div", "hh40-tools"), all = hh40El("button", "hh40-pill solid hh40-pall", "▶ Play all"); all.type = "button";
+  tools.append(all, hh40HeToggle()); box.append(tools);
+  const rows = lines.map(l => { const r = hh40Row(l); box.append(r); return r; });
+  all.addEventListener("click", () => {
+    if (hh40Seq === box){ hh40Stop(); return; }
+    hh40Stop(); hh40Seq = box; all.textContent = "■ Stop";
+    const step = k => { if (hh40Seq !== box) return; if (k >= lines.length){ hh40Seq = null; all.textContent = "▶ Play all"; return; }
+      rows[k].scrollIntoView({ block:"nearest", behavior:"smooth" }); hh40Play(lines[k].f, rows[k].querySelector(".hh40-play"), () => setTimeout(() => step(k + 1), 450)); };
+    step(0);
+  });
+  return box;
+}
+
+/* ---------- the v40 page screen ---------- */
+const HH40_TYPES = { dlg:1, adj:1, food:1, reply:1 };
+function hh40Render(p){
+  hh40Stop(); clearEmbed();
+  paintBar("pBar"); $("pSec").textContent = partLabel(); $("pName").textContent = p.name; $("pHow").textContent = p.how || "";
+  const body = $("pBody"); body.innerHTML = ""; body.className = "hh40-pbody hh40-hebody" + (A.showHe ? "" : " hh40-he-off");
+  ({ dlg:hh40Dlg, adj:hh40Adj, food:hh40Food, reply:hh40Reply })[p.type](body, p);
+  $("pGo").textContent = L.mode === "single" ? "Done" : "Continue · +" + p.xp + " XP";
+  $("pBack").hidden = !canBack();
+  go("sPage");
+}
+function hh40Dlg(body, p){ body.append(hh40DlgBox(p.box || "Dialogue", HH40_DATA[p.dlg], p.note)); }
+function hh40Adj(body){
+  const w = hh40El("div", "hh40-box"); w.append(hh40El("h3", "", "7 new words"), hh40El("p", "hh40-note", "The describing word comes after the food and matches it: blue for he-words (kafe, te, khalav, lekhem, okhel, shokolad), pink for she-words (pitsa, glida)."));
+  const tl = hh40El("div", "hh40-tools"); tl.append(hh40HeToggle()); w.append(tl);
+  HH40_DATA.words.forEach(x => w.append(hh40Row(Object.assign({ mf:/ \/ /.test(x.tr) }, x))));
+  const e = hh40El("div", "hh40-box"); e.append(hh40El("h3", "", "Examples"));
+  HH40_DATA.ex.forEach(x => e.append(hh40Row(x)));
+  body.append(w, e,
+    hh40DlgBox("Mini dialogue: Noa and Yonatan", HH40_DATA.mini, "Listen, then say each line with them."),
+    hh40DlgBox("At the café: big or small?", HH40_DATA.cafe, "A listen-along dialogue. Tap ▶ on a line, or Play all."));
+}
+function hh40FoodBox(){
+  const b = hh40El("div", "hh40-box"); b.append(hh40El("h3", "", "Food and drinks"), hh40El("p", "hh40-note", "Tap ▶ to hear the word."));
+  const tl = hh40El("div", "hh40-tools"); tl.append(hh40HeToggle()); b.append(tl);
+  HH40_FOOD.forEach(([tr, en, icon, he, f, said]) => b.append(hh40Row({ icon, tr, en, he, f, note:said ? "▶ " + said : "" })));
+  return b;
+}
+function hh40Food(body){ body.append(hh40FoodBox()); }
+/* the Word list button inside the pairs game (#9): the same list in a sheet over the game */
+function hh40WordSheet(){
+  let s = $("hh40Words");
+  if (!s){ s = hh40El("div", "hh40-sheet"); s.id = "hh40Words"; s.hidden = true;
+    s.innerHTML = '<div class="hh40-card" role="dialog" aria-modal="true" aria-label="Word list" style="text-align:left;max-height:86dvh;overflow:auto"></div>';
+    s.addEventListener("click", e => { if (e.target === s){ hh40Stop(); s.hidden = true; } }); document.body.append(s); }
+  const c = s.firstChild; c.innerHTML = ""; c.className = "hh40-card hh40-hebody" + (A.showHe ? "" : " hh40-he-off");
+  c.append(hh40FoodBox());
+  const close = hh40El("button", "btn", "Back to the game"); close.type = "button"; close.style.marginTop = "12px"; close.addEventListener("click", () => { hh40Stop(); s.hidden = true; }); c.append(close);
+  s.hidden = false;
+}
+
+/* ---------- #11 Reply Dialogue: the character asks -> you record -> they react -> compare with the model ---------- */
+const R40 = { rec:null, stream:null, chunks:[], url:"", on:false };
+function r40Stop(drop){ try{ if (R40.rec && R40.rec.state !== "inactive"){ R40.drop = !!drop; R40.rec.stop(); } }catch(e){} try{ if (R40.stream) R40.stream.getTracks().forEach(t => t.stop()); }catch(e){} R40.stream = null; R40.on = false; clearTimeout(R40.t); }
+async function r40Start(onDone){
+  r40Stop(true); if (R40.url){ try{ URL.revokeObjectURL(R40.url); }catch(e){} R40.url = ""; }
+  if (!navigator.mediaDevices || !window.MediaRecorder) throw new Error("missing");
+  R40.stream = await navigator.mediaDevices.getUserMedia({ audio:true });
+  R40.chunks = []; R40.drop = false; R40.rec = new MediaRecorder(R40.stream);
+  R40.rec.ondataavailable = e => { if (e.data && e.data.size) R40.chunks.push(e.data); };
+  R40.rec.onstop = () => { try{ R40.stream && R40.stream.getTracks().forEach(t => t.stop()); }catch(e){} if (R40.drop) return; R40.url = URL.createObjectURL(new Blob(R40.chunks, { type:R40.rec.mimeType || "audio/webm" })); onDone(); };
+  R40.rec.start(); R40.on = true; R40.t = setTimeout(() => { if (R40.on){ R40.on = false; R40.rec.stop(); } }, 8000);
+}
+function hh40Reply(body, p){
+  const set = HH40_REPLY[p.set], g = A.gender === "f" ? 1 : 0, who = set.who, face = HH40_SPK[who].face;
+  let i = 0;
+  const note = hh40El("p", "hh40-soonnote", "Some voice clips for this dialogue are still being recorded. Lines without a clip show the text only.");
+  const stage = hh40El("div", "hh40-box"); body.append(stage, note);
+  const draw = () => {
+    hh40Stop(); stage.innerHTML = "";
+    const it = set.items[i], st = { phase:"ask" };
+    const dots = hh40El("div", "hh40-steps"); set.items.forEach((x, k) => dots.append(hh40El("i", k === i ? "on" : ""))); stage.append(hh40El("h3", "", who + " asks · " + (i + 1) + " / " + set.items.length), dots);
+    const bubble = (sp, lat, en, clip) => { const c = hh40El("div", "hh40-chat"); c.style.marginTop = "12px"; c.append(hh40El("div", "hh40-face", sp === "me" ? "🙋" : face));
+      const b = hh40El("div", "hh40-bub"); b.append(hh40El("span", "hh40-lat", lat), hh40El("span", "hh40-en", en)); if (sp === "me") b.style.borderRadius = "18px 4px 18px 18px";
+      c.append(b); if (clip) c.append(hh40PlayBtn(clip, lat)); return c; };
+    const qc = (it.qc || [])[g]; stage.append(bubble(who, it.q[g], it.qen, qc));
+    stage.append(hh40El("div", "hh40-cue", "🎯 " + it.cue));
+    const recB = hh40El("button", "hh40-recbtn", "🎙 Record your answer"); recB.type = "button";
+    const said = hh40El("button", "hh40-pill", "I said it"); said.type = "button"; said.style.marginTop = "8px";
+    const recNote = hh40El("p", "hh40-note"); recNote.style.marginTop = "8px"; recNote.style.textAlign = "center";
+    const after = hh40El("div"); stage.append(recB, said, recNote, after);
+    const react = () => {
+      st.phase = "react"; recB.hidden = true; said.hidden = true;
+      after.innerHTML = ""; after.append(bubble(who, it.r, it.ren, ""));
+      const cmp = hh40El("button", "btn", "Compare"); cmp.type = "button"; cmp.style.marginTop = "12px"; after.append(cmp);
+      cmp.addEventListener("click", () => {
+        cmp.remove();
+        const m = hh40El("div", "hh40-model"); m.append(hh40El("small", "", "Model answer"), hh40El("span", "hh40-lat", it.m[g]), hh40El("span", "hh40-en", it.men));
+        const row = hh40El("div", "hh40-tools"); row.style.marginTop = "10px";
+        if (R40.url){ const mine = hh40El("button", "hh40-pill", "▶ My voice"); mine.type = "button"; mine.addEventListener("click", () => { hh40Stop(); hh40Au.src = R40.url; hh40Au.onended = null; hh40Au.play().catch(() => {}); }); row.append(mine); }
+        const mc = (it.mc || [])[g];
+        if (mc){ const t = hh40El("button", "hh40-pill solid", "▶ Teacher Eilai"); t.type = "button"; t.addEventListener("click", () => hh40Play(mc, null)); row.append(t); }
+        else row.append(hh40El("span", "hh40-soonnote", "Model clip coming soon"));
+        m.append(row); after.append(m);
+        const nx = hh40El("button", "btn", i + 1 < set.items.length ? "Next question" : "Again from the start"); nx.type = "button"; nx.style.marginTop = "12px";
+        nx.addEventListener("click", () => { i = (i + 1) % set.items.length; draw(); }); after.append(nx);
+      });
+    };
+    recB.addEventListener("click", async () => {
+      if (R40.on){ R40.on = false; clearTimeout(R40.t); R40.rec.stop(); recB.classList.remove("on"); recB.textContent = "🎙 Record your answer"; return; }
+      try{ await r40Start(() => { recB.classList.remove("on"); react(); }); recB.classList.add("on"); recB.textContent = "■ Stop recording"; recNote.textContent = "Say your answer, then tap Stop."; }
+      catch(e){ recNote.textContent = (e && (e.name === "NotAllowedError" || e.name === "SecurityError") ? "The microphone is blocked in this browser." : "No microphone here.") + " Say it out loud, then tap I said it."; }
+    });
+    said.addEventListener("click", () => { r40Stop(true); react(); });
+    if (qc) setTimeout(() => { if (st.phase === "ask" && !$("sPage").hidden) hh40Play(qc, stage.querySelector(".hh40-chat .hh40-play")); }, 350);
+  };
+  draw();
+}
+
+/* ---------- wiring: the lesson card, the embed card, the step page, the map ---------- */
+const _renderCard40 = renderCard;
+renderCard = function(){
+  const p = LESSON[L.pos];
+  if (HH40_TYPES[p.type]) return hh40Render(p);
+  _renderCard40();
+  if (p.type === "game") hh40HowPanel(p);
+};
+function hh40HowPanel(p){
+  const card = $("lCard"), box = hh40El("div", "hh40-how"); box.append(hh40El("b", "", "How to play"));
+  let steps = HH40_HOW[p.g];
+  if (p.g === 16 && PLAN39.games[p.game]){ const G = PLAN39.games[p.game];
+    steps = [HH40_ENGINE_HOW[G.engine] || p.how].concat(String(G.meta.stages || "").split(/\s*·\s*/).filter(Boolean).map(s => s.replace(/^(\d)\s+/, "Stage $1: ").replace(/, with the [^,]*trap\.?$/i, "").replace(/\s*\(.*?\)\s*/g, " ").trim())); }
+  if (steps && steps.length){ const ol = hh40El("ol"); steps.forEach(s => ol.append(hh40El("li", "", s))); box.append(ol); }
+  else box.append(hh40El("p", "", p.how || ""));
+  if (p.trains) box.append(hh40El("small", "", "Trains: " + p.trains));
+  if (typeof HH_CH === "function" && hh40ChOn() && [5, 7, 8, 9, 10, 12].includes(p.g)) box.append(hh40El("span", "hh40-chchip", "CHALLENGE MODE"));
+  card.append(box);
+}
+const _renderEmbed40 = renderEmbed;
+renderEmbed = function(p){
+  _renderEmbed40(p);
+  $("sEmbed").classList.toggle("is-slides", !!p.slides);
+  const ww = /wordwall\.net/.test(p.url || ""), under = document.querySelector("#sEmbed .hh-under");
+  document.querySelectorAll("#sEmbed .hh40-wwtip, #sEmbed .hh40-wlbtn").forEach(e => e.remove());
+  if (ww){
+    $("eFull").hidden = true;   // #3: no "Open full screen" under Wordwall games
+    if (p.wordlist){ const b = hh40El("button", "hh40-wlbtn", "📋 Word list"); b.type = "button"; b.addEventListener("click", hh40WordSheet); under.append(b); }
+    under.append(hh40El("p", "hh40-wwtip", "Tip: use the expand icon inside the game for full screen."));
+  }
+};
+$("pGo").addEventListener("click", () => {
+  if (!L) return; const p = LESSON[L.pos]; hh40Stop();
+  if (L.mode === "single"){ L = null; return openStep(); }
+  const first = firstTime(); if (first) earn(p.xp); sfx("good");
+  advance(p.name + (first ? "  ·  +" + p.xp + " XP" : ""));
+});
+$("pQuit").addEventListener("click", () => { hh40Stop(); L = null; openStep(); });
+$("pBack").addEventListener("click", e => { e.preventDefault(); hh40Stop(); backPart(); });
+const _go40 = go;
+go = function(id){ if (id !== "sPage"){ hh40Stop(); const w = $("hh40Words"); if (w) w.hidden = true; } _go40(id); };
+
+/* #8 Easy / Challenge for Lessons 1-2 (step3, step4) */
+const HH40_CH_LESSONS = ["step3", "step4"];
+function hh40ChOn(){ return HH40_CH_LESSONS.includes(CUR) && !!(A.chal || {})[CUR]; }
+function hh40StepExtras(){
+  // #10 word table: Latin big, Hebrew behind a toggle
+  const t = $("cjTable"); t.classList.toggle("hh40-lat", !A.showHe);
+  let tb = $("hh40HeTab"); if (!tb){ tb = hh40El("button", "hh40-hetog"); tb.id = "hh40HeTab"; tb.type = "button"; tb.addEventListener("click", () => { A.showHe = !A.showHe; saveA(); hh40ApplyHe(); }); t.after(tb); }
+  hh40ApplyHe();
+  // Easy / Challenge
+  let m = $("hh40Mode"); if (m) m.remove();
+  if (HH40_CH_LESSONS.includes(CUR)){
+    m = hh40El("div", "hh40-mode"); m.id = "hh40Mode";
+    m.innerHTML = '<b>Game level</b><div class="hh40-seg" role="group" aria-label="Game level"><button type="button" data-v="0">Easy</button><button type="button" class="ch" data-v="1">Challenge</button></div><small></small>';
+    const paint = () => { const on = hh40ChOn(); m.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String((b.dataset.v === "1") === on)));
+      m.querySelector("small").textContent = on ? (CUR === "step3" ? "Challenge: more rounds, a timer from the first photo, 6 options and harder groups." : "Challenge: more rounds, more choices, no translations, longer orders and a faster clock.")
+        : "Easy: a gentle start with hints. Switch to Challenge when the games feel easy."; };
+    m.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; A.chal = A.chal || {}; A.chal[CUR] = b.dataset.v === "1"; saveA(); sfx("tap"); paint(); });
+    paint(); document.querySelector("#sStep .hh-hero").after(m);
+  }
+}
+const _openStep40 = openStep;
+openStep = async function(id){
+  if (id && hh40Locked(id)) return hh40LockSheet(id);
+  await _openStep40(id);
+  hh40StepExtras();
+};
+/* #13 trial: Lessons 1 & 2 open, the rest locked with a link to the full course */
+function hh40LockSheet(id){
+  let s = $("hh40Lock");
+  if (!s){ s = hh40El("div", "hh40-sheet"); s.id = "hh40Lock"; s.hidden = true;
+    s.innerHTML = '<div class="hh40-card" role="dialog" aria-modal="true" aria-labelledby="hh40LkT"><div class="hh40-lk" aria-hidden="true">🔒</div><h2 id="hh40LkT"></h2>' +
+      '<p>You\'re trying Lessons 1 &amp; 2. The full course opens every lesson, all 3 levels and the Boss challenges.</p>' +
+      '<a class="btn" id="hh40LkGo" href="' + ACCESS.buyUrl + '" target="_blank" rel="noopener">Get the full course</a><button class="hh-cf-no" type="button" id="hh40LkNo">Keep practicing Lessons 1 &amp; 2</button></div>';
+    s.addEventListener("click", e => { if (e.target === s || e.target.id === "hh40LkNo") s.hidden = true; }); document.body.append(s); }
+  const it = (typeof v39Item === "function" && v39Item(id)) || {}, LS = LESSONS[id] || {};
+  $("hh40LkT").textContent = (it.n ? it.n.charAt(0) + it.n.slice(1).toLowerCase() + ": " : "") + (it.t || LS.title || "This lesson") + " is in the full course";
+  sfx("soft"); s.hidden = false;
+}
+const _paintHome40 = paintHome;
+paintHome = function(level){
+  _paintHome40(level);
+  let b = $("hh40Trial");
+  if (TRIAL_LOCK && !hh40Unlocked()){
+    if (!b){ b = hh40El("div", "hh40-trial"); b.id = "hh40Trial";
+      b.innerHTML = '<div><b>Try Lessons 1 &amp; 2</b><small>Both are open now. Lesson 3 and on are in the full course.</small></div><a href="' + ACCESS.buyUrl + '" target="_blank" rel="noopener">Full course</a>';
+      document.querySelector("#sHome .hh-unit39").after(b); }
+  } else if (b) b.remove();
+  document.querySelectorAll("#hMap .hh-node").forEach(n => { const id = n.id.replace(/^node-/, ""); n.closest("li").classList.toggle("hh40-locked", hh40Locked(id)); });
+};
+
+/* #12 kh / ts in everything the learner sees (ids, AUDIO keys and file names keep the old spelling) */
+const HH40_SP = [[/\b(R|r)otz(e|a|im|ot)\b/g, "$1ots$2"], [/\b(T|t)zarik?ch\b/g, "$1sarikh"], [/\b(T|t)zarikh\b/g, "$1sarikh"], [/\b(T|t)zri(ch|kh)(a|im|ot)\b/g, "$1srikh$3"],
+  [/\b(P|p)itza\b/g, "$1itsa"], [/\b(C|c)halav\b/g, (m, c) => (c === "C" ? "K" : "k") + "halav"], [/\b(C|c)haza(k|q)\b/g, (m, c) => (c === "C" ? "K" : "k") + "hazak"],
+  [/\b(C|c)halash\b/g, (m, c) => (c === "C" ? "K" : "k") + "halash"], [/\b(L|l)eechol\b/g, "$1e'ekhol"], [/\b(A|a)nachnu\b/g, "$1nakhnu"], [/\b(Y|y)achol\b/g, "$1akhol"],
+  [/\b(Y|y)echol(a|im|ot)\b/g, "$1ekhol$2"], [/\b(L|l)echem\b/g, "$1ekhem"], [/\b(O|o)chel\b/g, "$1khel"], [/\b(B|b)ruchim\b/g, "$1rukhim"], [/([A-Za-z'])tz/g, "$1ts"], [/\bTz/g, "Ts"], [/\btz/g, "ts"]];
+function hh40Spell(s){ if (!/tz|Tz|ch|Ch/.test(s)) return s; HH40_SP.forEach(([re, to]) => { s = s.replace(re, to); }); return s; }
+const HH40_SKIP = { SCRIPT:1, STYLE:1, TEXTAREA:1, INPUT:1, NOSCRIPT:1 };
+function hh40FixNode(n){
+  if (n.nodeType === 3){ const p = n.parentNode; if (!p || HH40_SKIP[p.nodeName] || (p.closest && p.closest('[lang="he"],[data-raw]'))) return; const v = n.nodeValue, w = hh40Spell(v); if (w !== v) n.nodeValue = w; return; }
+  if (n.nodeType === 1 && !HH40_SKIP[n.nodeName]){ const tw = document.createTreeWalker(n, NodeFilter.SHOW_TEXT); let t; const list = []; while ((t = tw.nextNode())) list.push(t); list.forEach(hh40FixNode); }
+}
+new MutationObserver(ms => ms.forEach(m => { if (m.type === "characterData") hh40FixNode(m.target); else m.addedNodes.forEach(hh40FixNode); }))
+  .observe(document.body, { childList:true, subtree:true, characterData:true });
+hh40FixNode(document.body);
+
+/* boot again: the map was painted before this block loaded */
+hh40Decorate();
+document.title = document.title;
+if (!$("sHome").hidden) paintHome();
 </script>
 </body>
 </html>
