@@ -1408,7 +1408,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v43-preview</p>
+  <p class="hh-ver" id="oVer">Version hh-v45-preview</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -11473,6 +11473,32 @@ async function hh41MaybeDemo(P, id, sec){
 .b1-text small{display:block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#26543F;margin-bottom:4px}
 .b1-text p{margin:0;font-weight:800;font-size:18px}
 .b1-ripple{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:10px 0 8px}
+.b1-key{margin:8px auto;max-width:320px;padding:14px 14px 12px;border-radius:16px;background:#F4F1E8;color:#1E4A3A;text-align:left}
+.b1-key h3{margin:0 0 4px;font-size:16px;letter-spacing:.01em}
+.b1-key-note{margin:0 0 10px;font-size:12px;font-weight:600;color:#26543F}
+.b1-key-cols{display:flex;align-items:center;gap:6px;margin:0 0 4px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.b1-key-cols .b1-key-m,.b1-key-cols .b1-key-f{padding:2px 8px}
+.b1-key-list{display:flex;flex-direction:column;gap:6px}
+.b1-key-row{display:flex;align-items:center;gap:6px;font-weight:800;font-size:16px}
+.b1-key-m{background:#9CC9F5;color:#14324A;padding:3px 9px;border-radius:999px}
+.b1-key-f{background:#FFA8D2;color:#5A1638;padding:3px 9px;border-radius:999px}
+.b1-key-slash{color:#26543F;opacity:.5}
+.b1-key-en{margin-left:auto;font-size:13px;font-weight:700;color:#26543F}
+.b1-adj-noun{display:flex;flex-direction:column;align-items:center;gap:2px;margin:10px 0 12px}
+.b1-adj-noun b{font-size:52px;line-height:1;font-style:normal}
+#b1menu:empty,#b1menu[hidden]{display:none!important;margin:0;padding:0;height:0}
+.b1-scene{display:flex;justify-content:center;gap:10px;margin:8px 0 12px;flex-wrap:wrap}
+.b1-card{flex:1 1 140px;max-width:176px;background:#F4F1E8;color:#1E4A3A;border-radius:16px;padding:12px 8px 10px;text-align:center}
+.b1-card b{display:block;font-size:52px;line-height:1;font-style:normal}
+.b1-card span{display:block;margin-top:6px;font-weight:800;font-size:13px;line-height:1.25}
+.b1-card.offer{outline:2px solid rgba(255,111,165,.65)}
+.b1-card.want{outline:2px solid #9CC9F5}
+.b1-qemo{font-size:42px;line-height:1;margin:8px 0 4px}
+.b1-qline{font-weight:700;font-size:14px;color:rgba(244,241,232,.9);margin:0 0 8px}
+.b1-key-note.plural{margin-top:8px}
+
+.b1-adj-noun span{font-weight:800;font-size:22px}
+
 .b1-rw{border:0;background:rgba(244,241,232,.12);color:#F4F1E8;border-radius:12px;padding:8px 12px;font:inherit;font-weight:800;font-size:20px;cursor:pointer}
 .b1-rw.on{background:rgba(255,111,165,.3);outline:2px solid #FF6FA5}
 .b1-rw.flip{background:#F4F1E8;color:#1E4A3A;animation:b1Pop .4s ease}
@@ -11810,6 +11836,9 @@ async function hh41MaybeDemo(P, id, sec){
     { id:"uga", ico:"🍰" }, { id:"shokolad", ico:"🍫" }, { id:"glida", ico:"🍦" }
   ];
   function b1Ch(){ return hhDiffOn("boss1"); }
+  function b1Me(){ return (typeof A !== "undefined" && A.gender === "f") ? "f" : "m"; }
+  function b1MyName(){ const n = (typeof A !== "undefined" && A.name) ? String(A.name).trim() : ""; return n; }
+  function b1SetStar(n, ok){ const miss = n - ok; if (miss <= 0) return 2; if (n >= 6) return miss <= 2 ? 1 : 0; return miss === 1 ? 1 : 0; }
   function ST(){ return B1.st; }
   function b1Norm(s){ return String(s || "").toLowerCase().replace(/[.,!?;:…'"’]/g, "").replace(/\s+/g, " ").trim(); }
   function b1Match(got, correct, accept){ const g = b1Norm(got); return [correct].concat(accept || []).some(x => b1Norm(x) === g); }
@@ -11875,13 +11904,23 @@ async function hh41MaybeDemo(P, id, sec){
     return box;
   }
   function b1SetSold(sold){ ST().sold = Object.assign({}, sold); const host = $("g17intro").parentNode; }
+  function b1MenuNeeded(){
+    const s = ST();
+    if (!s || s.phase !== "round") return false;
+    const r = s.cur || (s.rounds && s.rounds[s.i]);
+    if (!r) return false;
+    if (r.menu) return true;
+    return r.n === 3 || r.n === 6 || r.n === 12;
+  }
   function b1PaintMenu(){
     let slot = $("b1menu");
     if (!slot){
       slot = document.createElement("div"); slot.id = "b1menu";
       const stage = $("g17stage"); if (stage) stage.after(slot);
     }
-    slot.innerHTML = ""; slot.append(b1MenuEl(ST().sold || { glida:true }));
+    if (!b1MenuNeeded()){ slot.hidden = true; slot.innerHTML = ""; return; }
+    slot.hidden = false; slot.innerHTML = "";
+    slot.append(b1MenuEl(ST().sold || { glida:true }));
   }
   function b1Ph(who, line){
     const el = v39El("div", "b1-ph");
@@ -11951,29 +11990,88 @@ async function hh41MaybeDemo(P, id, sec){
   }
 
   function b1Rounds(){
+    const fem = b1Me() === "f";
+    const my = b1MyName();
+    const korim = my ? ("Korim li " + my + ".") : "Korim li…";
+    const yeshYou = fem ? "Yesh lakh uga?" : "Yesh lekha uga?";
+    const askName = fem ? "Eikh korim lakh?" : "Eikh korim lekha?";
     return [
       { n:1, type:"listen", prompt:"What does Dana want?",
         lines:[{ who:"Yoni", text:"At rotsa kafe?" }, { who:"Dana", text:"Lo, ani rotsa te." }],
         options:["Tea","Coffee","Nothing"], correct:"Tea",
         fb:{ Coffee:"She said lo, then: te.", Nothing:"Lo… ani rotsa te. She still wants something." } },
-      { n:2, type:"texts", prompt:"Who texted this?",
+
+      { n:2, type:"texts", prompt:"Who is this about?",
         items:[
-          { text:"Ani tsrikha lishon!", correct:"Dana", miss:"tsrikha ends in -a: a she." },
-          { text:"Ani lo yakhol lishtot khalav.", correct:"Yoni", miss:"yakhol, not yekhola: a he." },
-          { text:"Ani ohev le'ekhol pitsa gdola!", correct:"Yoni", miss:"Gdola is about the pizza. Ohev is about Yoni." }
+          { text:"Ani tsrikha lishon!", correct:"Dana", opts:["Dana","Yoni"], miss:"tsrikha ends in -a: a she." },
+          { text:"Ani lo yakhol lishtot khalav.", correct:"Yoni", opts:["Dana","Yoni"], miss:"yakhol, not yekhola: a he." },
+          { text:"Ani ohev le'ekhol pitsa gdola!", correct:"Yoni", opts:["Dana","Yoni"], miss:"Gdola is about the pizza. Ohev is about Yoni." },
+          { text:"Ani yekhola ledaber ivrit!", correct:"Dana", opts:["Dana","Yoni"], miss:"yekhola ends in -a: a she." },
+          { text:"Hem tsrikhim leshalem.", correct:"The guys", opts:["Dana","Yoni","The guys","The women"], miss:"Hem tsrikhim: they (men)." },
+          { text:"Hen yekholot lavo.", correct:"The women", opts:["Dana","Yoni","The guys","The women"], miss:"Hen yekholot: they (women)." }
         ] },
-      { n:3, type:"talk", prompt:"Answer Yoni", speak:true,
-        lines:[{ who:"Yoni", text:"Yesh lakhem glida?" }],
-        correct:"Lo, ein lanu glida.", accept:["Ein lanu glida.","Lo, ein lanu."],
-        distractors:["Lo, ein lakhem glida.","Ken, yesh lanu glida.","Lo, ein li glida."],
-        fb:{ "Lo, ein lakhem glida.":"He asked about you all. You answer for us: lanu.",
-             "Ken, yesh lanu glida.":"Look at the board: glida is sold out.",
-             "Lo, ein li glida.":"You speak for the café: lanu." } },
-      { n:4, type:"listen", prompt:"What does Yoni need to do?",
-        lines:[{ who:"Yoni", text:"Ani lo rotse lishon. Ani tsarikh lilmod." }],
-        options:["Study","Sleep","Eat","Go"], correct:"Study",
-        fb:{ Sleep:"Lo rotse lishon = he doesn't want to sleep.", Eat:"Le'ekhol = to eat. He said lilmod = to study.", Go:"Lalekhet = to go. He said lilmod." },
-        after:"Ani lo rotse lishon. Ani tsarikh lilmod. = I don't want to sleep. I need to study." },
+
+      { n:3, type:"set", menu:true, prompt:"Answer",
+        items:[
+          { prompt:"Answer Yoni", speak:true,
+            lines:[{ who:"Yoni", text:"Yesh lakhem glida?" }],
+            options:["Lo, ein lanu glida.","Lo, ein lakhem glida.","Ken, yesh lanu glida.","Lo, ein li glida."],
+            correct:"Lo, ein lanu glida.",
+            accept:["Ein lanu glida.","Lo, ein lanu."],
+            fb:{ "Lo, ein lakhem glida.":"He asked about you all. You answer for us: lanu.",
+                 "Ken, yesh lanu glida.":"Look at the board: glida is sold out.",
+                 "Lo, ein li glida.":"You speak for the café: lanu." } },
+          { prompt:"Answer Dana",
+            ico:"🍰", line:"You have cake.",
+            lines:[{ who:"Dana", text: yeshYou }],
+            options:["Ken, yesh li uga!","Ken, yesh lekha uga!","Ken, yesh lakh uga!","Lo, ein li uga."],
+            correct:"Ken, yesh li uga!",
+            accept:["Yesh li uga.","Ken, yesh li."],
+            fb:{ "Ken, yesh lekha uga!":"She asked you. You answer: yesh li.",
+                 "Ken, yesh lakh uga!":"She asked you. You answer: yesh li.",
+                 "Lo, ein li uga.":"Look: you have cake." } },
+          { prompt:"Say it in Hebrew",
+            ico:"👬🍵", line:"The two men have tea.",
+            options:["Yesh lahem te.","Yesh lanu te.","Yesh lakhem te.","Yesh lakhen te."],
+            correct:"Yesh lahem te.",
+            fb:{ "Yesh lanu te.":"Lanu = we. They (men) = lahem.",
+                 "Yesh lakhem te.":"Lakhem = you all. They (men) = lahem.",
+                 "Yesh lakhen te.":"Lakhen = you (women). They (men) = lahem." } },
+          { prompt:"Say it in Hebrew",
+            ico:"👭", line:"You are talking to two women. They have no sugar.",
+            options:["Ein lakhen sukar.","Ein lahem sukar.","Ein lakhem sukar.","Ein lanu sukar."],
+            correct:"Ein lakhen sukar.",
+            fb:{ "Ein lahem sukar.":"Lahem = they (men). Talking to two women: lakhen.",
+                 "Ein lakhem sukar.":"Lakhem is mixed or men. Two women: lakhen.",
+                 "Ein lanu sukar.":"Lanu = we. You're talking to them: lakhen." } }
+        ] },
+
+      { n:4, type:"set", prompt:"Listen, then pick",
+        items:[
+          { prompt:"What does Yoni need to do?",
+            lines:[{ who:"Yoni", text:"Ani lo rotse lishon. Ani tsarikh lilmod." }],
+            options:["Study","Sleep","Eat","Go"], correct:"Study",
+            fb:{ Sleep:"Lo rotse lishon = he doesn't want to sleep.", Eat:"Le'ekhol = to eat. He said lilmod = to study.", Go:"Lalekhet = to go. He said lilmod." } },
+          { prompt:"Pick the question word.", ico:"📍", line:"You can't see the milk. Ask where.",
+            options:["Eifo?","Matai?","Ma?"], correct:"Eifo?",
+            fb:{ "Matai?":"Matai = when. Where is eifo.", "Ma?":"Ma = what. Where is eifo." } },
+          { prompt:"Pick the question word.", ico:"👤", line:"Someone wants cake. You don't know who.",
+            options:["Mi?","Ma?","Eifo?"], correct:"Mi?",
+            fb:{ "Ma?":"Ma = what. Who is mi.", "Eifo?":"Eifo = where. Who is mi." } },
+          { prompt:"Pick the question word.", ico:"📅", line:"Ask Yoni when he can come.",
+            options:["Matai?","Eifo?","Lama?"], correct:"Matai?",
+            fb:{ "Eifo?":"Eifo = where. When is matai.", "Lama?":"Lama = why. When is matai." } },
+          { prompt:"Pick the question word.", ico:"🤔", line:"Dana said no to cake. Ask why.",
+            options:["Lama?","Matai?","Mi?"], correct:"Lama?",
+            fb:{ "Matai?":"Matai = when. Why is lama.", "Mi?":"Mi = who. Why is lama." } },
+          { prompt:"Pick the question word.", ico:"🛠️", line:"Ask Dana how she likes her coffee.",
+            options:["Eikh?","Ma?","Kama?"], correct:"Eikh?",
+            fb:{ "Ma?":"Ma = what. How is eikh.", "Kama?":"Kama = how much. How is eikh." } },
+          { prompt:"Pick the question word.", ico:"🔢", line:"Ask how much the tea is.",
+            options:["Kama?","Mi?","Eifo?"], correct:"Kama?",
+            fb:{ "Mi?":"Mi = who. How much is kama.", "Eifo?":"Eifo = where. How much is kama." } }
+        ] },
+
       { n:5, type:"corners", prompt:"Ask them what they want to drink",
         flips:[
           { who:["Dana"], correct:"Ma at rotsa lishtot?",
@@ -11986,47 +12084,142 @@ async function hh41MaybeDemo(P, id, sec){
             wrong:["Ma atem rotsim lishtot?","Ma aten rotsot le'ekhol?"],
             fb:{ "Ma atem rotsim lishtot?":"Two women: aten rotsot.", "Ma aten rotsot le'ekhol?":"To drink: lishtot." } }
         ] },
-      { n:6, type:"listen", prompt:"Who is still waiting?", hook:true,
+
+      { n:6, type:"listen", menu:true, prompt:"Who is still waiting?", hook:true,
         lines:[{ who:"Eilai", text:"Yesh lo kafe. Ein la te." }],
         options:["Dana","Yoni","Both"], correct:"Dana",
         faces:true,
         fb:{ Yoni:"Lo here is the l-hook: to him. Yesh lo = he has.", Both:"Yesh lo: he has his coffee. Ein la: she doesn't have her tea." },
         after:"He has coffee. She doesn't have tea." },
-      { n:7, type:"talk", prompt:"Answer Eilai", speak:true, chip:"🥤",
+
+      { n:7, type:"talk", prompt:"Answer Eilai", speak:true,
         lines:[{ who:"Eilai", text:"Atem rotsim le'ekhol?" }],
+        offer:{ ico:"🍕", lab:"Eilai offers food" },
+        want:{ ico:"☕", lab:"You want to drink." },
         correct:"Lo, anakhnu rotsim lishtot.", accept:["Lo, lishtot.","Anakhnu rotsim lishtot."],
         distractors:["Ken, anakhnu rotsim le'ekhol.","Lo, atem rotsim lishtot.","Lo, anakhnu rotsim le'ekhol."],
-        fb:{ "Ken, anakhnu rotsim le'ekhol.":"Look at the chip: 🥤 = to drink.",
+        fb:{ "Ken, anakhnu rotsim le'ekhol.":"Your card: you want to drink → lishtot.",
              "Lo, atem rotsim lishtot.":"He asked you all. You answer: anakhnu.",
              "Lo, anakhnu rotsim le'ekhol.":"Lo… then the new action: lishtot." } },
-      { n:8, type:"build", prompt:"Say it in Hebrew",
-        easy:{ line:"A small coffee, please.",
-          tokens:["Efshar","kafe","katan","bevakasha"], extra:["ktana","gadol"],
-          correct:"Efshar kafe katan bevakasha",
-          accept:["Efshar bevakasha kafe katan","Kafe katan bevakasha"],
-          fbTile:{ ktana:"Kafe is a he-word: katan." } },
-        ch:{ line:"A big pizza, please.",
-          tokens:["Efshar","pitsa","gdola","bevakasha"], extra:["gadol","katan"],
-          correct:"Efshar pitsa gdola bevakasha",
-          accept:["Efshar bevakasha pitsa gdola"],
-          fbTile:{ gadol:"Pitsa is a she-word: gdola." } } },
-      { n:9, type:"listen", prompt:"Where is Dana from?",
-        lines:[{ who:"Yoni", text:"Me-eifo at?" }, { who:"Dana", text:"Ani mi-Kanada." }],
-        options:["Canada","Israel","Mexico"], correct:"Canada",
-        fb:{ Israel:"Mi-Kanada = from Canada.", Mexico:"Mi- = from. Then: Kanada." } },
-      { n:10, type:"ripple", prompt:"Fix the sentence",
-        start:"Ze kafe katan.", after:"Ze glida katan.",
-        words:["Ze","glida","katan"], change:["Ze","katan"],
-        forms:{ Ze:["zot","ze"], katan:["ktana","gdola","katan"] },
-        correct:"Zot glida ktana.",
-        fb:{ onlyKatan:"Ze also follows the noun: zot.",
-             glida:"Glida is the new word. Fix the words around it.",
-             gdola:"Same size, just the she-form: ktana." } },
-      { n:11, type:"listen", prompt:"How much does Dana pay?",
-        lines:[{ who:"Dana", text:"Efshar kheshbon, bevakasha?" }, { who:"Eilai", text:"Shmone shekel." }],
-        options:["₪8","₪3","₪7","₪10"], correct:"₪8",
-        fb:{ "₪3":"Shalosh = 3. Shmone = 8.", "₪7":"Sheva = 7. Shmone = 8.", "₪10":"Eser = 10. Shmone = 8." } },
-      { n:12, type:"finale", prompt1:"Tell Eilai the order", prompt2:"Tell table 2",
+
+      { n:8, type:"set", prompt:"Say it in Hebrew",
+        items:[
+          { kind:"build", prompt:"Say it in Hebrew",
+            easy:{ line:"A small coffee, please.",
+              tokens:["Efshar","kafe","katan","bevakasha"], extra:["ktana","gadol"],
+              correct:"Efshar kafe katan bevakasha",
+              accept:["Efshar bevakasha kafe katan","Kafe katan bevakasha"],
+              fbTile:{ ktana:"Kafe is a he-word: katan." } },
+            ch:{ line:"A big pizza, please.",
+              tokens:["Efshar","pitsa","gdola","bevakasha"], extra:["gadol","katan"],
+              correct:"Efshar pitsa gdola bevakasha",
+              accept:["Efshar bevakasha pitsa gdola"],
+              fbTile:{ gadol:"Pitsa is a she-word: gdola." } } },
+          { prompt:"Say it in Hebrew", ico:"☕", line:"The big coffee (the one you mean).",
+            options:["ha-kafe ha-gadol","ha-kafe gadol","ha-kafe ha-gdola","ha-kafe tov"],
+            correct:"ha-kafe ha-gadol",
+            fb:{ "ha-kafe gadol":"A specific one: ha- on both words → ha-kafe ha-gadol.",
+                 "ha-kafe ha-gdola":"Kafe is a he-word: gadol.",
+                 "ha-kafe tov":"That means the coffee is good. You want the big one: ha-kafe ha-gadol." } },
+          { prompt:"Say it in Hebrew", ico:"👍", line:"The coffee is good.",
+            options:["ha-kafe tov","ha-kafe ha-tov","ha-kafe tova","ha-kafe ha-gadol"],
+            correct:"ha-kafe tov",
+            fb:{ "ha-kafe ha-tov":"Ha- on tov makes 'the good coffee'. It IS good: ha-kafe tov.",
+                 "ha-kafe tova":"Kafe is a he-word: tov.",
+                 "ha-kafe ha-gadol":"That's the big coffee. It IS good: ha-kafe tov." } }
+        ] },
+
+      { n:9, type:"set", prompt:"Meet & Greet",
+        items:[
+          { prompt:"Say hi back",
+            lines:[{ who:"Yoni", text:"Shalom!" }],
+            options:["Shalom!","Toda!","Slikha!"], correct:"Shalom!",
+            fb:{ "Toda!":"He said hello. Say hi back: shalom.", "Slikha!":"Slikha = sorry / excuse me. Say hi: shalom." } },
+          { prompt:"Ask Dana her name",
+            lines:[{ who:"Dana", text:"Shalom!" }],
+            options:["Eikh korim lakh?","Eikh korim lekha?","Me-eifo at?"],
+            correct:"Eikh korim lakh?",
+            fb:{ "Eikh korim lekha?":"Dana is a she: lakh.", "Me-eifo at?":"That's 'where are you from?'. Her name: eikh korim lakh?" } },
+          { prompt:"Answer Yoni",
+            lines:[{ who:"Yoni", text: askName }],
+            options:[korim, "Korim lekha " + (my || "…") + ".", "Shalom " + (my || "…") + "."],
+            correct: korim,
+            accept: my ? ["Korim li " + my, "Korim li " + my + "!"] : ["Korim li.","Korim li…"],
+            miss:"He asked about you: korim li." },
+          { prompt:"Answer Yoni",
+            lines:[{ who:"Yoni", text:"Korim li Yoni." }],
+            options:["Na'im me'od!","Bevakasha!","Slikha!"], correct:"Na'im me'od!",
+            fb:{ "Bevakasha!":"He told you his name. Nice to meet you: na'im me'od.", "Slikha!":"He introduced himself: na'im me'od." } },
+          { prompt:"Ask Yoni where he is from",
+            options:["Me-eifo ata?","Eifo ata?","Me-eifo at?"], correct:"Me-eifo ata?",
+            fb:{ "Eifo ata?":"Eifo = where (now). From where: me-eifo.", "Me-eifo at?":"Yoni is a he: ata." } },
+          { prompt:"Where is Dana from?",
+            lines:[{ who:"Yoni", text:"Me-eifo at?" }, { who:"Dana", text:"Ani mi-Kanada." }],
+            options:["Canada","Israel","Mexico"], correct:"Canada",
+            fb:{ Israel:"Mi-Kanada = from Canada.", Mexico:"Mi- = from. Then: Kanada." } },
+          { prompt:"Answer Dana",
+            lines:[{ who:"Dana", text:"Ma nishma?" }],
+            options:["Be-seder, ve-at?","Be-seder, ve-ata?","Toda!"],
+            correct:"Be-seder, ve-at?",
+            fb:{ "Be-seder, ve-ata?":"Dana is a she: ve-at?", "Toda!":"She asked how you are: be-seder, ve-at?" } },
+          { prompt:"Answer Yoni",
+            lines:[{ who:"Yoni", text:"Toda!" }],
+            options:["Bevakasha!","Toda!","Slikha!"], correct:"Bevakasha!",
+            fb:{ "Toda!":"He thanked you. You're welcome: bevakasha.", "Slikha!":"He said thanks. You're welcome: bevakasha." } }
+        ] },
+
+      { n:10, type:"adj", prompt:"Pick the right form.",
+        key:[
+          { m:"kham",  f:"khama",  en:"hot" },
+          { m:"gadol", f:"gdola",  en:"big" },
+          { m:"katan", f:"ktana",  en:"small" },
+          { m:"tov",   f:"tova",   en:"good" },
+          { m:"yafe",  f:"yafa",   en:"pretty" },
+          { m:"khadash", f:"khadasha", en:"new" }
+        ],
+        plural:"Plural: -im (he) / -ot (she), e.g. tovim / tovot.",
+        items:[
+          { ico:"☕", noun:"kafe",     m:"kham",  f:"khama", correct:"kham",  fb:"Kafe is a he-word: kham." },
+          { ico:"🍦", noun:"glida",    m:"yafe",  f:"yafa",  correct:"yafa",  fb:"Glida is a she-word: add -a → yafa." },
+          { ico:"🍞", noun:"lekhem",   m:"gadol", f:"gdola", correct:"gadol", fb:"Lekhem is a he-word: gadol." },
+          { ico:"🍕", noun:"pitsa",    m:"khadash", f:"khadasha", correct:"khadasha", fb:"Pitsa is a she-word: add -a → khadasha." },
+          { ico:"🍫", noun:"shokolad", m:"katan", f:"ktana", correct:"katan", fb:"Shokolad is a he-word: katan." },
+          { ico:"👦👦", noun:"yeladim", m:"tovim", f:"tovot", correct:"tovim", fb:"Yeladim is a they-word (he): tovim.", plural:true }
+        ] },
+
+      { n:11, type:"set", prompt:"At the counter",
+        items:[
+          { prompt:"How much does Dana pay?",
+            lines:[{ who:"Dana", text:"Efshar kheshbon, bevakasha?" }, { who:"Eilai", text:"Shmone shekel." }],
+            options:["₪8","₪3","₪7","₪10"], correct:"₪8",
+            fb:{ "₪3":"Shalosh = 3. Shmone = 8.", "₪7":"Sheva = 7. Shmone = 8.", "₪10":"Eser = 10. Shmone = 8." } },
+          { prompt:"Ask the price",
+            ico:"🏷️", line:"You want to know how much it is.",
+            options:["Kama ze ole?","Ma ze ole?","Eifo ze ole?"], correct:"Kama ze ole?",
+            fb:{ "Ma ze ole?":"How much: kama ze ole?", "Eifo ze ole?":"Eifo = where. How much: kama ze ole?" } },
+          { prompt:"Say it in Hebrew",
+            ico:"☕", line:"This is your coffee.",
+            options:["Ze ha-kafe sheli.","Zot ha-kafe sheli.","Ze ha-kafe shelkha.","Ze kafe sheli."],
+            correct:"Ze ha-kafe sheli.",
+            fb:{ "Zot ha-kafe sheli.":"Kafe is a he-word: ze.",
+                 "Ze ha-kafe shelkha.":"It's yours: sheli.",
+                 "Ze kafe sheli.":"A specific cup: ha-kafe." } },
+          { prompt:"Ask Dana",
+            ico:"🍦", line:"Ask if this is her ice cream.",
+            options:["Zot ha-glida shelakh?","Ze ha-glida shelakh?","Zot ha-glida shelkha?","Zot ha-glida sheli?"],
+            correct:"Zot ha-glida shelakh?",
+            fb:{ "Ze ha-glida shelakh?":"Glida is a she-word: zot.",
+                 "Zot ha-glida shelkha?":"Dana is a she: shelakh.",
+                 "Zot ha-glida sheli?":"You're asking her: shelakh." } },
+          { prompt:"Get Eilai's attention",
+            options:["Slikha!","Toda!","Sababa!"], correct:"Slikha!",
+            fb:{ "Toda!":"Toda = thanks. Excuse me: slikha.", "Sababa!":"Sababa = cool. Excuse me: slikha." } },
+          { prompt:"The order is in. What do you say?",
+            options:["Sababa!","Slikha!","Me-eifo?"], correct:"Sababa!",
+            fb:{ "Slikha!":"Slikha = sorry. Cool / great: sababa.", "Me-eifo?":"That's 'from where?'. Cool: sababa." } }
+        ] },
+
+      { n:12, type:"finale", menu:true, prompt1:"Tell Eilai the order", prompt2:"Tell table 2",
         lines1:[{ who:"Table 2", text:"Anakhnu rotsot le'ekhol pitsa." }, { who:"Eilai", text:"Nu?" }],
         tokens:["Hen","rotsot","le'ekhol","pitsa"], extra:["hem","anakhnu","rotsim","lishtot"], extraCh:["aten","lishon"],
         correct1:"Hen rotsot le'ekhol pitsa",
@@ -12076,7 +12269,8 @@ async function hh41MaybeDemo(P, id, sec){
     else if (r.type === "texts") b1PlayTexts(host, r);
     else if (r.type === "corners") b1PlayCorners(host, r);
     else if (r.type === "build") b1PlayBuild(host, r);
-    else if (r.type === "ripple") b1PlayRipple(host, r);
+    else if (r.type === "adj") b1PlayAdj(host, r);
+    else if (r.type === "set") b1PlaySet(host, r);
     else if (r.type === "finale") b1PlayFinale(host, r);
     pop(host);
   }
@@ -12127,9 +12321,27 @@ async function hh41MaybeDemo(P, id, sec){
     });
   }
 
+  function b1Scene(host, r){
+    if (r.offer || r.want){
+      const row = v39El("div", "b1-scene");
+      if (r.offer){
+        const c = v39El("div", "b1-card offer");
+        c.append(v39El("b", "", r.offer.ico));
+        c.append(v39El("span", "", r.offer.lab));
+        row.append(c);
+      }
+      if (r.want){
+        const c = v39El("div", "b1-card want");
+        c.append(v39El("b", "", r.want.ico));
+        c.append(v39El("span", "", r.want.lab));
+        row.append(c);
+      }
+      host.append(row);
+    } else if (r.chip) host.append(v39El("div", "b1-chip", r.chip));
+  }
   function b1PlayTalk(host, r){
     (r.lines || []).forEach(L => host.append(b1Ph(L.who, L.text)));
-    if (r.chip) host.append(v39El("div", "b1-chip", r.chip));
+    b1Scene(host, r);
     const pick = (t, b) => {
       if (ST().done) return;
       if (b1Match(t, r.correct, r.accept)) return b1Right(host, r, b, ST().tries === 0 ? 2 : 1);
@@ -12172,7 +12384,7 @@ async function hh41MaybeDemo(P, id, sec){
       const card = v39El("div", "b1-text");
       card.innerHTML = "<small>A text, no name</small><p>" + it.text + "</p>";
       host.append(card);
-      b1Opts(host, r, ["Dana","Yoni"], (t, b) => {
+      b1Opts(host, r, it.opts || ["Dana","Yoni"], (t, b) => {
         if (s._lock) return;
         const ok = t === it.correct;
         if (ok){ s.subOk++; b.classList.add("ok"); sfx("good"); b1Hint(host, "good", "Yes."); }
@@ -12184,8 +12396,7 @@ async function hh41MaybeDemo(P, id, sec){
           next.addEventListener("click", () => { s._lock = false; s.sub++; showItem(); });
           const row = v39El("div", "row"); row.append(next); host.append(row);
         } else {
-          const star = s.subOk === 3 ? 2 : s.subOk === 2 ? 1 : 0;
-          b1Finish(host, r, star);
+          b1Finish(host, r, b1SetStar(r.items.length, s.subOk));
         }
       });
     }
@@ -12310,70 +12521,167 @@ async function hh41MaybeDemo(P, id, sec){
     ST()._check = check; paint();
   }
 
-  function b1PlayRipple(host, r){
-    const s = ST();
-    host.append(b1Ph("Eilai", r.start));
-    const sent = v39El("div", "b1-ripple");
-    const state = { phase:"show", picked:new Set(), forms:{} };
-    function render(words, flipWord){
-      sent.innerHTML = "";
-      words.forEach(w => {
-        const b = document.createElement("button"); b.type = "button"; b.className = "b1-rw" + (w === flipWord ? " flip" : "");
-        b.textContent = w; b.dataset.w = w;
-        b.addEventListener("click", () => onTap(w, b));
-        sent.append(b);
-      });
+  function b1PlaySet(host, r){
+    const s = ST(); s.sub = 0; s.subOk = 0; s._lock = false; s.tries = 0;
+    function nextOrFinish(){
+      if (s.sub < r.items.length - 1){
+        const nxt = v39El("button", "btn", "Next"); nxt.type = "button";
+        nxt.addEventListener("click", () => { s._lock = false; s.tries = 0; s.sub++; showItem(); });
+        const row = v39El("div", "row"); row.append(nxt); host.append(row);
+      } else {
+        b1Finish(host, r, b1SetStar(r.items.length, s.subOk));
+      }
     }
-    function onTap(w, b){
-      if (state.phase !== "fix" || s.done) return;
-      if (w === "glida"){ s.errors++; sfx("bad"); b1Hint(host, "bad", r.fb.glida); return; }
-      if (!r.change.includes(w)){ s.errors++; sfx("bad"); b1Hint(host, "bad", "That word stays."); return; }
-      if (state.picked.has(w)){ state.picked.delete(w); b.classList.remove("on"); }
-      else { state.picked.add(w); b.classList.add("on"); sfx("tap"); }
-      if (state.picked.size === r.change.length) showForms();
+    function pickOf(it, t, b){
+      if (s._lock) return;
+      const ok = b1Match(t, it.correct, it.accept);
+      if (ok){ s.subOk++; if (b) b.classList.add("ok"); sfx("good"); b1Hint(host, "good", "Yes."); }
+      else { sfx("bad"); b1Hint(host, "bad", (it.fb && it.fb[t]) || it.miss || "Not yet."); if (b) b.classList.add("shake"); }
+      s._lock = true;
+      host.querySelectorAll(".v39-opt, .v39-chip, .v39-check, .hh42-input, .hh42-type-go").forEach(x => x.disabled = true);
+      nextOrFinish();
     }
-    function showForms(){
-      if (state.phase !== "fix") return;
-      /* if only katan somehow... both must be selected; handled by size check */
-      const box = v39El("div", "v39-opts is-grid"); box.dataset.role = "forms";
-      r.change.forEach(w => {
-        const lab = v39El("div", "hint", "Pick the form for “" + w + "”");
-        box.append(lab);
-        (r.forms[w] || []).forEach(f => {
-          const b = document.createElement("button"); b.type = "button"; b.className = "v39-opt"; b.textContent = f; b.dataset.for = w; b.dataset.w = f;
-          b.addEventListener("click", () => {
-            if (s.done) return;
-            if (f === "gdola"){ s.errors++; sfx("bad"); b1Hint(host, "bad", r.fb.gdola); return; }
-            state.forms[w] = f;
-            box.querySelectorAll('.v39-opt[data-for="' + w + '"]').forEach(x => x.classList.toggle("ok", x === b));
-            if (r.change.every(k => state.forms[k])){
-              const got = (state.forms.Ze || "Ze") + " glida " + (state.forms.katan || "katan");
-              /* capitalize first letter for match */
-              const star = s.errors === 0 ? 2 : s.errors === 1 ? 1 : 0;
-              if (b1Match(got, r.correct, [])) b1Right(host, r, b, star);
-              else { s.errors++; b1Hint(host, "bad", "The answer: " + r.correct); b1Reveal(host, r, r.correct); }
-            }
-          });
-          box.append(b);
+    function paintItemShell(it){
+      host.innerHTML = "";
+      host.append(v39El("div", "b1-ask", it.prompt || r.prompt));
+      (it.lines || []).forEach(L => host.append(b1Ph(L.who, L.text)));
+      b1Scene(host, it);
+      if (it.ico || it.line){
+        if (it.ico) host.append(v39El("div", "b1-qemo", it.ico));
+        if (it.line) host.append(v39El("p", "b1-qline", it.line));
+      }
+    }
+    function showBuild(it){
+      const cfg = b1Ch() ? (it.ch || it.easy) : (it.easy || it.ch);
+      paintItemShell(it);
+      host.append(v39El("p", "hint", cfg.line));
+      const sl = v39El("div", "v39-slots");
+      const op = v39El("div", "v39-opts is-chips");
+      s.picked = [];
+      shuffle(cfg.tokens.concat(cfg.extra || [])).forEach(t => {
+        const b = document.createElement("button"); b.type = "button"; b.className = "v39-chip"; b.textContent = t; b.dataset.w = t;
+        b.addEventListener("click", () => {
+          if (s._lock || b.disabled) return;
+          if (cfg.fbTile && cfg.fbTile[t] && !cfg.tokens.includes(t)){ sfx("bad"); b1Hint(host, "bad", cfg.fbTile[t]); return; }
+          s.picked.push({ w:t, b }); b.disabled = true; b.classList.add("used"); sfx("tap"); paint();
         });
+        op.append(b);
       });
-      host.append(box);
-      const fixBtn = host.querySelector('[data-role="fixgo"]'); if (fixBtn) fixBtn.hidden = true;
+      const row = v39El("div", "row v39-checkrow");
+      const check = document.createElement("button"); check.type = "button"; check.className = "btn v39-check"; check.textContent = "Check"; check.disabled = true;
+      function paint(){
+        sl.innerHTML = "";
+        for (let i = 0; i < cfg.tokens.length; i++){
+          const slot = document.createElement("button"); slot.type = "button"; slot.className = "v39-slot" + (s.picked[i] ? " full" : "");
+          slot.textContent = s.picked[i] ? s.picked[i].w : "";
+          slot.addEventListener("click", () => {
+            if (s._lock || !s.picked[i]) return;
+            const c = s.picked[i]; s.picked.splice(i, 1); c.b.disabled = false; c.b.classList.remove("used"); paint();
+          });
+          sl.append(slot);
+        }
+        check.disabled = s.picked.length < 3 || s._lock;
+      }
+      check.addEventListener("click", () => {
+        if (s._lock) return;
+        const got = s.picked.map(x => x.w).join(" ");
+        if (b1Match(got, cfg.correct, cfg.accept)){
+          s.subOk++; sfx("good"); b1Hint(host, "good", "Yes.");
+          s._lock = true;
+          host.querySelectorAll(".v39-opt, .v39-chip, .v39-check, .hh42-input, .hh42-type-go").forEach(x => x.disabled = true);
+          nextOrFinish();
+        } else {
+          s.tries++; sfx("bad"); b1Hint(host, "bad", "Not yet.");
+          if (s.tries >= 2){
+            b1Hint(host, "bad", "The answer: " + cfg.correct);
+            s._lock = true;
+            host.querySelectorAll(".v39-opt, .v39-chip, .v39-check, .hh42-input, .hh42-type-go").forEach(x => x.disabled = true);
+            nextOrFinish();
+          }
+          else { s.picked.forEach(c => { c.b.disabled = false; c.b.classList.remove("used"); }); s.picked = []; paint(); }
+        }
+      });
+      row.append(check); host.append(sl, op, row); paint();
     }
-    host.append(sent);
-    render(["Ze","kafe","katan"]);
-    const goFix = () => {
-      state.phase = "fix";
-      render(["Ze","glida","katan"], "glida");
-      b1Hint(host, "", "Tap the words that must change.");
-      const go = v39El("button", "btn ghost"); go.type = "button"; go.dataset.role = "fixgo"; go.textContent = "I picked the words";
-      go.addEventListener("click", () => {
-        if (state.picked.has("katan") && !state.picked.has("Ze")){ s.errors++; b1Hint(host, "bad", r.fb.onlyKatan); }
-        if (state.picked.size) showForms();
+    function showItem(){
+      const it = r.items[s.sub];
+      if (it.kind === "build") return showBuild(it);
+      paintItemShell(it);
+      const opts = it.options || [it.correct].concat(it.distractors || it.wrong || []);
+      const pick = (t, b) => pickOf(it, t, b);
+      if (b1Ch() && it.speak){
+        b1TypeIn(host, it, (got) => pick(got, null), () => b1Opts(host, r, opts, pick));
+      } else {
+        b1Opts(host, r, opts, pick);
+      }
+    }
+    showItem();
+  }
+
+  function b1PlayAdj(host, r){
+    const s = ST(); s.sub = 0; s.subOk = 0; s._lock = false;
+    function showKey(){
+      host.innerHTML = "";
+      host.append(v39El("div", "b1-ask", "Key"));
+      const card = v39El("div", "b1-key");
+      card.append(v39El("h3", "", "The forms"));
+      card.append(v39El("p", "b1-key-note", "The describing word matches the food."));
+      const cols = v39El("div", "b1-key-cols");
+      cols.append(v39El("span", "b1-key-m", "he"));
+      cols.append(v39El("span", "b1-key-slash", "/"));
+      cols.append(v39El("span", "b1-key-f", "she"));
+      card.append(cols);
+      const list = v39El("div", "b1-key-list");
+      (r.key || []).forEach(k => {
+        const row = v39El("div", "b1-key-row");
+        row.append(v39El("span", "b1-key-m", k.m));
+        row.append(v39El("span", "b1-key-slash", "/"));
+        row.append(v39El("span", "b1-key-f", k.f));
+        row.append(v39El("span", "b1-key-en", "= " + k.en));
+        list.append(row);
       });
-      host.append(go);
-    };
-    if (B1.testFast) goFix(); else setTimeout(goFix, 900);
+      card.append(list);
+      if (r.plural) card.append(v39El("p", "b1-key-note plural", r.plural));
+      host.append(card);
+      const go = v39El("button", "btn", "Got it"); go.type = "button";
+      go.addEventListener("click", () => { sfx("tap"); showItem(); });
+      const row = v39El("div", "row"); row.append(go); host.append(row);
+    }
+    function showItem(){
+      const it = r.items[s.sub];
+      host.innerHTML = "";
+      host.append(v39El("div", "b1-ask", r.prompt));
+      const noun = v39El("div", "b1-adj-noun");
+      noun.append(v39El("b", "", it.ico));
+      noun.append(v39El("span", "", it.noun));
+      host.append(noun);
+      const opts = b1Ch()
+        ? shuffle([it.m, it.f, "ze", "zot"])
+        : shuffle([it.correct, it.correct === it.m ? it.f : it.m]);
+      b1Opts(host, r, opts, (t, b) => {
+        if (s._lock) return;
+        const ok = t === it.correct;
+        if (ok){ s.subOk++; b.classList.add("ok"); sfx("good"); b1Hint(host, "good", "Yes."); }
+        else {
+          sfx("bad");
+          const msg = (t === "ze" || t === "zot")
+            ? "Ze / zot means this. Pick the describing word."
+            : (it.fb || "Not yet.");
+          b1Hint(host, "bad", msg);
+          if (b) b.classList.add("shake");
+        }
+        s._lock = true;
+        host.querySelectorAll(".v39-opt").forEach(x => x.disabled = true);
+        if (s.sub < r.items.length - 1){
+          const nxt = v39El("button", "btn", "Next"); nxt.type = "button";
+          nxt.addEventListener("click", () => { s._lock = false; s.sub++; showItem(); });
+          const row = v39El("div", "row"); row.append(nxt); host.append(row);
+        } else {
+          b1Finish(host, r, b1SetStar(r.items.length, s.subOk));
+        }
+      });
+    }
+    showKey();
   }
 
   function b1PlayFinale(host, r){
@@ -12593,7 +12901,7 @@ async function hh41MaybeDemo(P, id, sec){
   }
 
   /* Rebind gift/IR/PT starters to the wrapped bgStart (they captured the original). */
-  window.hh42Ready = true; window.hh43Ready = true;
+  window.hh42Ready = true; window.hh43Ready = true; window.hh44Ready = true; window.hh45Ready = true; B1.round = b1Round;
 })();
 
 </script>
