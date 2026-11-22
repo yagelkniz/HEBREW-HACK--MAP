@@ -839,6 +839,21 @@ p.hh-vtip svg{width:15px;height:15px;flex:none;color:var(--cream-dim)}
 .hh-cb-key.hh-pulse{background:rgba(255,124,150,.25)}
 .hh-cb-b.in.big{font-size:38px;line-height:1;padding:8px 14px;letter-spacing:4px}
 .hh-cb-b.sys{align-self:center;background:rgba(255,124,150,.18);color:#ffd8e0;border:1px solid rgba(255,124,150,.5);font-size:13px;border-radius:99px;padding:5px 12px}
+/* v46: CHAT BACK Stage 0 match warm-up */
+#g11match[hidden]{display:none}
+#g11match{padding:8px 4px 4px}
+.hh-cb-mkey{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:0 0 10px}
+.hh-cb-mkey span{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:800;color:#F4F1E8;background:rgba(244,241,232,.1);padding:4px 8px;border-radius:999px}
+.hh-cb-mkey b{font-style:normal;font-size:16px;line-height:1}
+.hh-cb-ask{margin:4px 0 8px;font-weight:800;font-size:18px;text-align:center;color:#F4F1E8}
+.hh-cb-stem{margin:10px 0 14px;font-weight:800;font-size:28px;text-align:center;color:#F4F1E8}
+.hh-cb-stem.emo{font-size:64px;line-height:1}
+.hh-cb-mopts{display:flex;flex-direction:column;gap:8px}
+.hh-cb-mopt{min-height:52px;border-radius:14px;border:2px solid rgba(244,241,232,.22);background:rgba(244,241,232,.08);color:#F4F1E8;font:inherit;font-weight:800;font-size:20px;cursor:pointer}
+.hh-cb-mopt.emo{font-size:34px;line-height:1;padding:10px 12px}
+.hh-cb-mopt.ok{background:#F4F1E8;color:#1E4A3A;border-color:#7dcea0;outline:2px solid #7dcea0}
+.hh-cb-mopt.bad{background:#ffb4c0;color:#1E4A3A;border-color:#ffb4c0;animation:shake .35s}
+
 /* ---------- v25: labeled top-bar buttons (Eli): "‹ Lesson" = the lesson parts, "⌂ Menu" = the map ---------- */
 .hh-toparts,.hh-tohome,#hhStrip .hh-home,#hhStrip .hh-squit,.hh-lbar .back,.hh-lbar .hh-home,#stBack,#oHome,.hh-topright .hh-home{
   width:auto!important;min-width:0!important;height:44px!important;min-height:44px!important;padding:0 10px!important;
@@ -1360,6 +1375,118 @@ main section > .top > .back{display:none}
   display:block!important;text-align:center;margin:8px auto 0;color:#F4F1E8;font-size:15px;line-height:1.45;max-width:720px;font-weight:700
 }
 </style>
+<style>
+/* ---------- v51: PASSPORT CHECK (game 18, STEP 3) ---------- */
+#g18 .top{display:flex;align-items:center;gap:12px}
+#g18 .top .bar{flex:1}
+#g18card.shake{animation:shake .35s}
+.hh-ppc-intro,.hh-ppc-new,.hh-ppc-rev,.hh-ppc-desk{display:block;width:100%;box-sizing:border-box}
+#g18round{width:100%}
+#g18round{display:flex;flex-direction:column;gap:10px}
+.hh-ppc [hidden]{display:none!important}
+.hh-ppc-intro{background:#F4F1E8;color:#1E4A3A;border-radius:18px;padding:14px 14px 12px}
+.hh-ppc-intro h3{margin:0 0 4px;font-size:20px;letter-spacing:.5px}
+.hh-ppc-intro .goal{margin:0 0 10px;font-weight:800;font-size:14.5px;line-height:1.35}
+.hh-ppc-intro ol{margin:0 0 10px;padding-left:20px;font-size:14px;line-height:1.45;font-weight:600}
+.hh-ppc-flags{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:2px 0 10px}
+.hh-ppc-flags svg{width:34px;height:23px;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.hh-ppc-seg{display:flex;gap:6px;justify-content:center;margin-top:4px}
+.hh-ppc-seg button{flex:1;max-width:150px;min-height:40px;border-radius:12px;border:2px solid #1E4A3A;background:transparent;color:#1E4A3A;font:inherit;font-weight:900;font-size:14px;cursor:pointer}
+.hh-ppc-seg button[aria-pressed="true"]{background:#1E4A3A;color:#F4F1E8}
+.hh-ppc-seg button:disabled{opacity:.45;cursor:default}
+.hh-ppc-segnote{display:block;text-align:center;font-size:12.5px;margin-top:6px;font-weight:600;opacity:.85}
+.hh-ppc-new{background:#F4F1E8;color:#1E4A3A;border-radius:18px;padding:16px 14px;text-align:center}
+.hh-ppc-new .lab{font-size:12px;font-weight:900;letter-spacing:1.5px;color:#c2477c}
+.hh-ppc-new svg{width:150px;height:100px;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,.25);margin:10px auto 8px;display:block}
+.hh-ppc-new .nm{font-size:30px;font-weight:900;line-height:1.1}
+.hh-ppc-new .en{font-size:14px;font-weight:700;opacity:.8;margin-top:2px}
+.hh-ppc-new .from{display:inline-block;margin-top:10px;background:#1E4A3A;color:#F4F1E8;border-radius:99px;padding:4px 14px;font-weight:900;font-size:17px}
+.hh-ppc-new .hint{color:#1E4A3A;opacity:.8;margin:10px 0 0}
+.hh-ppc-play{border:0;background:#FF6FA5;color:#1E4A3A;border-radius:99px;padding:6px 14px;font:inherit;font-weight:900;font-size:14px;cursor:pointer;margin-top:10px}
+.hh-ppc-desk{position:relative;background:linear-gradient(#e9f1ee,#d6e6df);border-radius:18px;padding:10px 10px 8px;color:#1E4A3A}
+.hh-ppc-pass{display:flex;align-items:center;gap:10px;background:#1E4A3A;color:#F4F1E8;border-radius:12px;padding:6px 10px;width:max-content;margin:0 auto 6px}
+.hh-ppc-pass svg{width:66px;height:44px;border-radius:5px;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.hh-ppc-pass b{font-size:11px;letter-spacing:2px;font-weight:900}
+.hh-ppc-pass span{display:block;font-size:11px;opacity:.8;font-weight:700}
+.hh-ppc-scene{display:flex;align-items:flex-end;justify-content:center;gap:4px;min-height:112px;padding:6px 2px 2px;flex-wrap:nowrap}
+.hh-ppc-p{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px 4px;border-radius:14px;border:3px solid transparent;min-width:54px}
+.hh-ppc-p b{font-size:40px;line-height:1;font-style:normal}
+.hh-ppc-p span{font-size:11.5px;font-weight:800;background:#fff;border-radius:99px;padding:1px 7px;color:#1E4A3A}
+.hh-ppc-p.you{opacity:.75}
+.hh-ppc-p.you b{font-size:30px}
+.hh-ppc-p.you span{background:#FF6FA5}
+.hh-ppc-p.t.m{border-color:#9CC9F5;background:rgba(156,201,245,.35)}
+.hh-ppc-p.t.f{border-color:#FFA8D2;background:rgba(255,168,210,.35)}
+.hh-ppc-p .fl{position:absolute;top:-6px;right:-8px}
+.hh-ppc-p .fl svg{width:24px;height:16px;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.35);display:block}
+.hh-ppc-p .bub{position:absolute;top:-10px;left:-6px;font-size:20px;line-height:1}
+.hh-ppc-grp{display:flex;gap:2px;border-radius:16px;border:3px dashed transparent;padding:2px}
+.hh-ppc-grp.t.m{border-color:#9CC9F5;background:rgba(156,201,245,.25)}
+.hh-ppc-grp.t.f{border-color:#FFA8D2;background:rgba(255,168,210,.25)}
+.hh-ppc-grp.t .hh-ppc-p.t{border-color:transparent;background:transparent}
+.hh-ppc-arrow{align-self:center;display:flex;flex-direction:column;align-items:center;font-size:26px;line-height:1;margin:0 2px}
+.hh-ppc-arrow small{font-size:10px;font-weight:900;letter-spacing:.5px;margin-top:2px;white-space:nowrap}
+.hh-ppc-cap{text-align:center;font-weight:800;font-size:14px;margin:4px 0 0}
+.hh-ppc-say{display:flex;align-items:center;gap:8px;background:#fff;color:#1E4A3A;border-radius:16px;padding:10px 12px;font-weight:900;font-size:20px;min-height:52px}
+.hh-ppc-say .who{font-size:12px;font-weight:800;opacity:.7;display:block}
+.hh-ppc-say .txt{flex:1}
+.hh-ppc-say .txt.listen{font-size:15px;opacity:.75}
+.hh-ppc-say button{border:0;background:#1E4A3A;color:#F4F1E8;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;flex:none}
+.hh-ppc-say button:disabled{opacity:.35;cursor:default}
+.hh-ppc-judge{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hh-ppc-judge button,.hh-ppc-opts button{min-height:54px;border-radius:14px;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:var(--cream);font:inherit;font-size:16px;font-weight:900;cursor:pointer}
+.hh-ppc-judge button.yes{border-color:#9fe0c8}
+.hh-ppc-judge button.no{border-color:#ffb4c0}
+.hh-ppc-fix p{margin:2px 0 8px;text-align:center;font-weight:800}
+.hh-ppc-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.hh-ppc-opts.two{grid-template-columns:1fr 1fr}
+.hh-ppc-opts button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px 4px;font-size:15px}
+.hh-ppc-opts button svg{width:36px;height:24px;border-radius:3px}
+.hh-ppc-opts button.m{border-color:#9CC9F5}
+.hh-ppc-opts button.f{border-color:#FFA8D2}
+.hh-ppc-opts button.right,.hh-ppc-judge button.right{background:#9fe0c8;border-color:#9fe0c8;color:#1E4A3A}
+.hh-ppc-opts button.wrong,.hh-ppc-judge button.wrong{background:#ffb4c0;border-color:#ffb4c0;color:#1E4A3A}
+.hh-ppc-opts button:disabled,.hh-ppc-judge button:disabled{cursor:default}
+.hh-ppc-rev{background:#F4F1E8;color:#1E4A3A;border-radius:18px;padding:14px;text-align:center}
+.hh-ppc-rev .lab{font-size:12px;font-weight:900;letter-spacing:1.5px;color:#c2477c}
+.hh-ppc-rev svg.big{width:140px;height:93px;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,.25);margin:10px auto;display:block}
+.hh-ppc-rev .hh-ppc-opts button{color:#1E4A3A;border-color:#1E4A3A;background:#fff}
+.hh-ppc-rev .hh-ppc-opts button.right{background:#9fe0c8}
+.hh-ppc-rev .hh-ppc-opts button.wrong{background:#ffb4c0}
+@media (max-width:380px){.hh-ppc-p b{font-size:34px}.hh-ppc-p{min-width:46px}.hh-ppc-arrow{font-size:22px}}
+
+/* v52: one fixed narrator (guard / traveler), neutral figures with blue / pink rings */
+.hh-ppc-p.t.n{border-color:#F4F1E8;background:rgba(244,241,232,.9);box-shadow:inset 0 0 0 2px #1E4A3A22}
+.hh-ppc-p.t.m span{background:#9CC9F5}
+.hh-ppc-p.t.f span{background:#FFA8D2}
+.hh-ppc-p.t.n span:empty{display:none}
+.hh-ppc-grp.t.n{border-color:#1E4A3A55;background:rgba(244,241,232,.5)}
+.hh-ppc-grp.t.m .hh-ppc-p.t.m{border-color:#9CC9F5;background:rgba(156,201,245,.35)}
+.hh-ppc-grp.t .hh-ppc-p.t.f{border-color:#FFA8D2;background:rgba(255,168,210,.35)}
+.hh-ppc-grp.t .hh-ppc-p.t.m{border-color:#9CC9F5;background:rgba(156,201,245,.35)}
+.hh-ppc-p.guard span{background:#1E4A3A;color:#F4F1E8}
+.hh-ppc-p.guard b{font-size:42px}
+/* v52: groups of 3 fit a 360-390px phone */
+.hh-ppc-scene{gap:2px}
+.hh-ppc-p.you,.hh-ppc-p.guard{min-width:44px;padding:4px 2px}
+.hh-ppc-grp .hh-ppc-p{min-width:0;padding:5px 3px 3px}
+.hh-ppc-grp .hh-ppc-p b{font-size:32px}
+.hh-ppc-grp .hh-ppc-p span{font-size:10.5px;padding:1px 5px}
+.hh-ppc-p .fl{right:-3px}
+.hh-ppc-grp .hh-ppc-p .fl svg{width:20px;height:13px}
+.hh-ppc-arrow{margin:0}
+.hh-ppc-arrow small{font-size:9px}
+.hh-ppc-scene{justify-content:center;padding-left:0;padding-right:0}
+.hh-ppc-p.guard b{font-size:34px}
+.hh-ppc-p.you b{font-size:26px}
+.hh-ppc-p.you,.hh-ppc-p.guard{min-width:40px}
+.hh-ppc-grp{gap:0;padding:1px}
+.hh-ppc-grp .hh-ppc-p{padding:4px 1px 3px;border-width:2px}
+.hh-ppc-grp .hh-ppc-p b{font-size:28px}
+.hh-ppc-grp .hh-ppc-p span{font-size:9.5px;padding:1px 4px}
+.hh-ppc-arrow span{font-size:22px}
+
+</style>
 </head>
 <body>
 <div id="app">
@@ -1408,7 +1535,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v45-preview</p>
+  <p class="hh-ver" id="oVer">Version hh-v52-preview</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -1912,6 +2039,12 @@ main section > .top > .back{display:none}
       <div class="hh-hbtns"><span class="hh-gd-streak" id="g11streak" hidden></span><button class="pill hh-skip" id="g11skip" type="button" hidden>Skip demo ⏭</button><button class="hh-howbtn" id="g11how" type="button" aria-label="How to play">?</button>
       <button class="hh-sn-hear" id="g11hear" type="button" aria-label="Hear the message (coming soon)" disabled hidden>🔊</button></div></div>
     <div class="hh-demo-lab" id="g11lab" hidden></div>
+    <div id="g11match" hidden>
+      <div class="hh-cb-mkey" id="g11mkey" hidden></div>
+      <p class="hh-cb-ask" id="g11mask">Match the action.</p>
+      <div class="hh-cb-stem" id="g11mstem"></div>
+      <div class="hh-cb-mopts" id="g11mopts"></div>
+    </div>
     <div class="hh-cb-chat" id="g11chat">
       <div class="hh-cb-who"><b id="g11face"></b><span id="g11name"></span></div>
       <div class="hh-cb-key" id="g11key" aria-label="Emoji key for the verbs"></div>
@@ -2389,7 +2522,7 @@ function unlockAudio(){
 
 function show(id){
   cancelAnimationFrame(raf); clearTimeout(timer); recStop(true); streak = 0;
-  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","g15","g16","g17","words","setup","stage","done"].forEach(s => { if ($(s)) $(s).hidden = (s !== id); });
+  ["home","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","g15","g16","g17","g18","words","setup","stage","done"].forEach(s => { if ($(s)) $(s).hidden = (s !== id); });
   document.querySelectorAll(".card").forEach(c => c.classList.toggle("speak-track", S.track === "speak"));
 }
 function showKeep(id){ show(id); }
@@ -3418,7 +3551,7 @@ setInterval(() => { if (typeof snapNarr !== "undefined" && !snapNarr.paused && $
 /* ---------- v30: the shared game shell (Claude review, "Game shell") ----------
    one streak chip ("🔥 N in a row" from 2), one end card (X / N, first try, best streak, fast, said, rank), 3-tier ranks (90% / 65%). */
 const HH_RANKS = {
-  9:["Pro photographer","Good eye","Keep snapping"], 10:["Party star","Good host","Keep partying"], 11:["Chat champ","Good friend","Keep chatting"],
+  9:["Pro photographer","Good eye","Keep snapping"], 10:["Party star","Good host","Keep partying"], 18:["Passport pro","Good eye","Keep exploring"], 11:["Chat champ","Good friend","Keep chatting"],
   8:["Sharp ear","Good ear","Keep listening"], 7:["Star barista","Good barista","Keep serving"], 5:["Café regular","Café regular","Café regular"],
   13:["Gift master","Great delivery","Keep delivering"], 14:["Chief detective","Sharp detective","Rookie detective"], 15:["Picture perfect","Sharp eye","Keep looking"]
 };
@@ -4100,12 +4233,102 @@ function cbChips(o, P){
   const infs = [o.inf].concat(shuffle(CB_INF.filter(x => x !== o.inf)).slice(0, 2));
   return [shuffle([...new Set(prons)].slice(0, 4)), shuffle(forms), shuffle(infs)];
 }
+
+/* v46: Stage 0 match warm-up. New sticker map for this stage only (chat rounds keep CB_ACT). */
+const CB_MATCH_ACT = { lishtot:"🥤", "le'ekhol":"🍽️", lishon:"😴", lilmod:"📚", ledaber:"🗣️", lalekhet:"🚶", liknot:"🛒", laazor:"🤝" };
+const CB_MATCH_EN = { lishtot:"to drink", "le'ekhol":"to eat", lishon:"to sleep", lilmod:"to study", ledaber:"to talk", lalekhet:"to go", liknot:"to buy", laazor:"to help" };
+const CB_MATCH_PAIR = { lishtot:"lishon", lishon:"lishtot", "le'ekhol":"lalekhet", lalekhet:"le'ekhol", lilmod:"ledaber", ledaber:"lilmod", liknot:"laazor", laazor:"liknot" };
+const CB_MATCH_WORDS = Object.keys(CB_MATCH_ACT);
+function cbMatchThird(ans, pair){
+  return shuffle(CB_MATCH_WORDS.filter(w => w !== ans && w !== pair))[0];
+}
+function cbMatchItems(){
+  /* 4 word→emoji, then 4 emoji→word. Each TO-word once. Fixed order from the v2 spec. */
+  const we = ["lishtot","lilmod","lalekhet","liknot"];
+  const ew = ["lishon","le'ekhol","ledaber","laazor"];
+  const mk = (w, kind) => {
+    const pair = CB_MATCH_PAIR[w], third = cbMatchThird(w, pair);
+    const opts = kind === "we" ? shuffle([CB_MATCH_ACT[w], CB_MATCH_ACT[pair], CB_MATCH_ACT[third]]) : shuffle([w, pair, third]);
+    return { kind, word:w, emo:CB_MATCH_ACT[w], pair, correct: kind === "we" ? CB_MATCH_ACT[w] : w, options:opts };
+  };
+  return we.map(w => mk(w, "we")).concat(ew.map(w => mk(w, "ew")));
+}
+function cbMatchFast(){ return !!(window.HH_TESTFAST || (c11 && c11.testFast)); }
+function cbMatchStart(){
+  if (!c11) c11 = cbState(CB_ROUNDS.map(x => Object.assign({}, x)));
+  c11.phase = "match"; c11.matchI = 0; c11.matchMiss = []; c11.items = cbMatchItems();
+  $("g11skip").hidden = true; $("g11how").hidden = true; $("g11streak").hidden = true;
+  $("g11lab").hidden = true; $("g11end").hidden = true; $("g11doneRow").hidden = true;
+  ["g11chat","g11build","g11sendRow"].forEach(id => $(id).hidden = true);
+  $("g11match").hidden = false;
+  $("g11tag").textContent = "Match";
+  $("g11msg").textContent = ""; $("g11msg").className = "msg hh-sn-msg";
+  const key = $("g11mkey"); key.innerHTML = "";
+  CB_MATCH_WORDS.forEach(w => {
+    const s = document.createElement("span");
+    s.innerHTML = "<b></b><i></i>"; s.children[0].textContent = CB_MATCH_ACT[w]; s.children[1].textContent = w;
+    key.append(s);
+  });
+  const easy = !(typeof hhDiffOn === "function" && hhDiffOn("g11"));
+  key.hidden = !easy;
+  cbMatchPaint();
+}
+function cbMatchPaint(){
+  const it = c11.items[c11.matchI];
+  $("g11bar").style.width = (c11.matchI / c11.items.length * 100) + "%";
+  $("g11count").textContent = (c11.matchI + 1) + " / " + c11.items.length;
+  $("g11mask").textContent = "Match the action.";
+  const stem = $("g11mstem");
+  stem.className = "hh-cb-stem" + (it.kind === "ew" ? " emo" : "");
+  stem.textContent = it.kind === "ew" ? it.emo : it.word;
+  $("g11msg").textContent = ""; $("g11msg").className = "msg hh-sn-msg";
+  const box = $("g11mopts"); box.innerHTML = "";
+  it.options.forEach(opt => {
+    const b = document.createElement("button"); b.type = "button";
+    b.className = "hh-cb-mopt" + (it.kind === "we" ? " emo" : "");
+    b.textContent = opt; b.dataset.w = opt;
+    b.addEventListener("click", () => cbMatchPick(opt, b));
+    box.append(b);
+  });
+}
+function cbMatchPick(opt, btn){
+  if (!c11 || c11.phase !== "match" || c11._mlock) return;
+  const it = c11.items[c11.matchI], ok = opt === it.correct;
+  c11._mlock = true;
+  $("g11mopts").querySelectorAll("button").forEach(b => b.disabled = true);
+  if (ok){ btn.classList.add("ok"); sfx("good"); $("g11msg").className = "msg hh-sn-msg good"; $("g11msg").textContent = "Yes."; }
+  else {
+    if (btn) btn.classList.add("bad");
+    const right = $("g11mopts").querySelector('[data-w="' + CSS.escape(it.correct) + '"]');
+    if (right) right.classList.add("ok");
+    sfx("soft");
+    c11.matchMiss.push(it.word);
+    $("g11msg").className = "msg hh-sn-msg bad";
+    const p = it.pair;
+    $("g11msg").textContent = it.word + " = " + it.emo + ". " + p + " = " + CB_MATCH_ACT[p] + ".";
+  }
+  const wait = cbMatchFast() ? 60 : (ok ? 500 : 900);
+  c11.t = setTimeout(() => {
+    if (!c11 || c11.phase !== "match") return;
+    c11._mlock = false; c11.matchI++;
+    if (c11.matchI >= c11.items.length) cbMatchDone();
+    else cbMatchPaint();
+  }, wait);
+}
+function cbMatchDone(){
+  $("g11match").hidden = true;
+  $("g11msg").textContent = ""; $("g11msg").className = "msg hh-sn-msg";
+  $("g11how").hidden = false;
+  c11.phase = "idle";
+  cbDemo();
+}
+
 function startChat(){
   cbReal = null;
   c11 = cbState(CB_ROUNDS.map(x => Object.assign({}, x)));
   show("g11");
   clearInterval(cbWatch); cbWatch = setInterval(() => { if ($("g11").hidden){ clearInterval(cbWatch); clearInterval(cbGuide); cbTok++; demoHide(); demoPulse(null); } }, 400);
-  cbDemo();
+  cbMatchStart();
 }
 const cbState = rounds => ({ rounds, i:0, clean:0, tries:0, pick:[null,null,null], phase:"idle", t:0 });
 function cbRound(){
@@ -4300,15 +4523,19 @@ const SAY_SETS = {
   { id:"s5_08", sp:"Yoni", tr:"Ani rotze lenasot levashel pasta.", en:"I (m) want to try to cook pasta.", emo:"🍝" },
   { id:"s5_10", sp:"Yoni", tr:"Ani yakhol ledaber ivrit.", en:"I (m) can speak Hebrew.", emo:"🗣️" },
   { id:"s5_13", sp:"Yoni", tr:"Ani tzarikh lishon.", en:"I (m) need to sleep.", emo:"😴" } ],
-  // s6_06 "yesh lakhen" / s6_08 "yesh lahen" left out: Whisper hears "lakhem" / "lahem" (Eli to listen first)
+  // v49: s6_12 yesh lekha, s6_13 yesh lakh, s6_06 yesh lakhen, s6_08 yesh lahen — Eli's Nov 21 recordings
   // STEP 6-8: the existing KNIZ Speak clips (/workspace/kniz-have-audio/fixed, kniz-questions-audio, kniz-gender-audio), one voice
   step6:[
   { id:"s6_01", sp:"Teacher Eilai", tr:"Yesh li.", en:"I have.", emo:"🙋" },
+  { id:"s6_12", sp:"Teacher Eilai", tr:"Yesh lekha.", en:"You have (m).", emo:"💬👦" },
+  { id:"s6_13", sp:"Teacher Eilai", tr:"Yesh lakh.", en:"You have (f).", emo:"💬👧" },
   { id:"s6_02", sp:"Teacher Eilai", tr:"Yesh lo.", en:"He has.", emo:"👦" },
   { id:"s6_03", sp:"Teacher Eilai", tr:"Yesh la.", en:"She has.", emo:"👧" },
   { id:"s6_04", sp:"Teacher Eilai", tr:"Yesh lanu.", en:"We have.", emo:"👫" },
   { id:"s6_05", sp:"Teacher Eilai", tr:"Yesh lakhem.", en:"You have (pl, m).", emo:"💬👬" },
+  { id:"s6_06", sp:"Teacher Eilai", tr:"Yesh lakhen.", en:"You have (pl, f).", emo:"💬👭" },
   { id:"s6_07", sp:"Teacher Eilai", tr:"Yesh lahem.", en:"They have (m).", emo:"👬" },
+  { id:"s6_08", sp:"Teacher Eilai", tr:"Yesh lahen.", en:"They have (f).", emo:"👭" },
   { id:"s6_09", sp:"Teacher Eilai", tr:"Ein li.", en:"I don't have.", emo:"🙅" },
   { id:"s6_10", sp:"Teacher Eilai", tr:"Ein la.", en:"She doesn't have.", emo:"🤷‍♀️" },
   { id:"s6_11", sp:"Teacher Eilai", tr:"Ein lahem.", en:"They don't have.", emo:"🚫" } ],
@@ -5047,9 +5274,9 @@ const STEP4_EMBEDS = {
 
 /* STEP 3 (Pronouns), Just speak track: from the Systeme course "HEBREW HACK without reading", page 45987478 */
 /* STEP 3 (Pronouns) on the map for the Just speak track. false = the map shows it as "Coming soon". */
-const STEP3_LIVE = true;   // live from Nov 15 (Eli), with the Vimeo 1237346336 video
+const STEP3_LIVE = true;   // live from Nov 15 (Eli), with the Vimeo 1249005396 video
 const STEP3_EMBEDS = {
-  video1:   "https://player.vimeo.com/video/1237346336",
+  video1:   "https://player.vimeo.com/video/1249005396?h=19604cf3ac",
   genially: "https://view.genially.com/6ada224922299051c6dcfe17",
   wordwall1:"https://wordwall.net/embed/ecd1aaf8bb0f4d079015d70fc77e1db5?themeId=65&templateId=5&fontStackId=0",   // STEP 3 – Pick the right word
   wordwall2:"https://wordwall.net/embed/3e6f3ec9ed9c4c42af56d86e0927e7f7?themeId=65&templateId=2&fontStackId=0",   // STEP 3 – Who is it? One or many
@@ -5217,6 +5444,9 @@ const LESSON_STEP4 = [
     how:"See how one of the Magic Four verbs turns into a full sentence." },
   { type:"embed", sec:"Learn",    icon:"📖", key:"The Magic Four", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP4_EMBEDS.genially, xp:5, wide:true, slides:true,
     how:"Tap Open full screen to see the slides bigger. Want, can, need, love, for he and for she." },
+  // v47: voiced word key (same Food words list + audio) restored before the café animation, then the dialogue
+  { type:"food", sec:"Learn", icon:"📋", key:"Café word key", name:"Word key", sub:"Tap to hear each word", xp:5, list:"food",
+    how:"Hear each word, then watch the animation." },
   { type:"video", sec:"Watch",    icon:"🎬", name:"At the Café", url:STEP4_EMBEDS.video2, xp:5, cc:false,   // captions burned into the video; the CC track (Latin letters) is optional, off at start
     how:"The Magic Four at a café counter. Watch, then it's your turn to order." },
   // v40: Claude P1A (new coffee dialogue) + P1B (new page: hot, cold, big, small, good, gam, ve) with the "At the café" adjectives dialogue
@@ -5249,16 +5479,19 @@ const HIDDEN_PARTS = [
 ];
 const HIDDEN_GAMES = [
   { type:"game", sec:"Play", g:6, icon:"⚡", name:"Echo",       xp:10, how:"A sentence flashes and disappears. Rebuild it from memory, then say it out loud." },
+  // v51: ROOFTOP PARTY left STEP 3 (Eli: PASSPORT CHECK instead). Game 10 code, HTML and audio are untouched; move this back into LESSON_STEP3 (and bump STEP3_VERSION) to restore it.
+  { type:"game", sec:"Play", g:10, icon:"🎉", name:"ROOFTOP PARTY", sub:"Pick the word fast", xp:10, how:"You host a rooftop party. Pick the pronoun before the time runs out." },
   { type:"game", sec:"Play", g:4, icon:"🔁", name:"Swap It",    xp:10, how:"Tap the word that has to change and pick the new one. Then say the new sentence." }
 ];
-const LESSON_VERSION = 7;   // v40: Coffee chat, Hot cold big small, Food words added; Say them out loud -> Reply dialogue   // bump when LESSON changes shape; saved progress from older lessons is carried over by part name below
+const LESSON_VERSION = 8;   // v47: Word key restored before the café animation   // v40: Coffee chat, Hot cold big small, Food words added; Say them out loud -> Reply dialogue   // bump when LESSON changes shape; saved progress from older lessons is carried over by part name below
 // part names of every older lesson (index = saved position / saved done-part index)
 const OLD_NAMES = {
   2: ["Sentence Builder","The Magic Four","At the Café","Echo","Swap It","Café Order","By Ear","Rush Hour","Speak","Practice 1","Practice 2","Practice 3"],
   3: ["Sentence Builder","The Magic Four","At the Café","By Ear","Rush Hour","Café Order","Speak","Practice 1","Practice 2","Practice 3"],   // v3 -> v4: Speak removed
   4: ["Sentence Builder","The Magic Four","At the Café","By Ear","Rush Hour","Café Order","Practice 1","Practice 2","Practice 3"],   // v4 -> v5: Café Order before Rush Hour
   5: ["Sentence Builder","The Magic Four","At the Café","By Ear","Café Order","Rush Hour","Practice 1","Practice 2","Practice 3"],   // v5 -> v6: Say them out loud added at the end
-  6: ["Sentence Builder","The Magic Four","At the Café","By Ear","Café Order","Rush Hour","Practice 1","Practice 2","Practice 3","Say them out loud"]   // v6 -> v7 (v40)
+  6: ["Sentence Builder","The Magic Four","At the Café","By Ear","Café Order","Rush Hour","Practice 1","Practice 2","Practice 3","Say them out loud"],   // v6 -> v7 (v40)
+  7: ["Sentence Builder","The Magic Four","At the Café","Coffee chat","Hot, cold, big, small","By Ear","Café Order","Rush Hour","Food words","Practice 1","Practice 2","Practice 3","Reply dialogue"]   // v7 -> v8 (v47): Word key before At the Café
 };
 const partKey = p => p.key || p.name;
 if (OLD_NAMES[A.step4.v]){
@@ -5269,7 +5502,7 @@ if (OLD_NAMES[A.step4.v]){
   A.step4.parts = [...new Set(A.step4.parts.concat(old.slice(0, A.step4.pos || 0).map(n => keys.indexOf(n)).filter(k => k >= 0)))].sort((a, b) => a - b);
   // the saved place: the same part in the new lesson; a removed part -> the next part that still exists
   let pos = 0;
-  if ((A.step4.v === 3 || A.step4.v === 4 || A.step4.v === 5 || A.step4.v === 6) && A.step4.pos > 0){
+  if ((A.step4.v === 3 || A.step4.v === 4 || A.step4.v === 5 || A.step4.v === 6 || A.step4.v === 7) && A.step4.pos > 0){
     let i = Math.min(A.step4.pos, old.length);
     while (i < old.length && keys.indexOf(old[i]) < 0) i++;
     pos = i >= old.length ? LESSON.length : keys.indexOf(old[i]);
@@ -5291,8 +5524,8 @@ const LESSON_STEP3 = [
     how:"Tap Open full screen to see the slides bigger." },
   { type:"game", sec:"Play", g:9, icon:"📸", name:"SNAP!", sub:"Beach photos: who is it?", xp:10,
     how:"A day at the beach. Hear a pronoun, pick Selfie, Camera or Video call, put the right people in the photo and snap." },
-  { type:"game", sec:"Play", g:10, icon:"🎉", name:"ROOFTOP PARTY", sub:"Pick the word fast", xp:10,
-    how:"You host a rooftop party. 👋 talking to guests, 🤫 whispering about them, 📸 a photo with you: pick the pronoun before the time runs out." },
+  { type:"game", sec:"Play", g:18, icon:"🛂", name:"PASSPORT CHECK", sub:"Match the flag and the people, or fix the country.", xp:10,
+    how:"Look at the flag and who they talk about. Does the sentence match? If not, fix it." },
   { type:"embed", sec:"Practice", icon:"👥", name:"Who is it?", sub:"One or many", url:STEP3_EMBEDS.wordwall2, xp:5, how:"One person or more than one? Pick who it is." },
   { type:"embed", sec:"Practice", icon:"🎯", name:"Pick the right word", url:STEP3_EMBEDS.wordwall1, xp:5, how:"Pick the pronoun that fits." },
   // v29 (Eli): the STEP 4 self-compare (game 12, SAY_SETS.step3 = the SNAP! pronoun clips), not the KNIZ Speak "We heard" card
@@ -5328,6 +5561,9 @@ const LESSON_STEP6 = [
     how:"Yesh li, ein li: how to say what you have and what you don't." },
   { type:"embed", sec:"Learn",    icon:"📖", name:"Explore on your own", sub:"Click and discover at your own pace", url:STEP6_EMBEDS.genially, xp:5, wide:true, slides:true,
     how:"Tap Open full screen to see the slides bigger." },
+  // v47: voiced word key (Eli's s6 clips) restored before the kitchen animation, then the dialogue
+  { type:"food", sec:"Learn", icon:"📋", key:"Have word key", name:"Word key", sub:"Yesh li, ein li", xp:5, list:"have",
+    how:"Hear each phrase, then watch the animation." },
   { type:"video", sec:"Watch",    icon:"🎬", name:"Have / don't have dialogue", url:STEP6_EMBEDS.video2, xp:5, cc:false,   // text is on screen; no captions track
     how:"Dana and Yoni check what they have in the kitchen. Say each line with them." },
   { type:"game",  sec:"Play", g:13, icon:"🎁", name:"GIFT DROP", sub:"Say who has it, your way", xp:10,
@@ -5378,15 +5614,34 @@ if (!A.step5) A.step5 = blankState();
 ["step6","step7","step8"].forEach(id => { if (!A[id]) A[id] = blankState(); });
 /* STEP 3 part list v2 (Nov 15): SNAP! added after Explore. Saved progress moves over by part name; the place moves back to the first part not done. */
 /* v3 (Nov 15): ROOFTOP PARTY added after SNAP! */
-const STEP3_VERSION = 3, STEP3_OLD = { 1: ["Watch & learn","Explore on your own","Who is it?","Pick the right word","Say them out loud"],
+const STEP3_VERSION = 4, STEP3_OLD = {
+  3: ["Watch & learn","Explore on your own","SNAP!","ROOFTOP PARTY","Who is it?","Pick the right word","Say them out loud"], 1: ["Watch & learn","Explore on your own","Who is it?","Pick the right word","Say them out loud"],
   2: ["Watch & learn","Explore on your own","SNAP!","Who is it?","Pick the right word","Say them out loud"] };
 if (A.step3.sv !== STEP3_VERSION){
-  const old = STEP3_OLD[A.step3.sv || 1], keys = LESSON_STEP3.map(partKey), s3 = A.step3;
+  const old = STEP3_OLD[A.step3.sv || 1] || LESSON_STEP3.map(partKey), keys = LESSON_STEP3.map(partKey), s3 = A.step3;
   s3.parts = [...new Set((s3.parts || []).map(i => keys.indexOf(old[i])).concat(old.slice(0, s3.pos || 0).map(n => keys.indexOf(n))).filter(k => k >= 0))].sort((a, b) => a - b);
-  if (s3.pos > 0){ let pos = keys.indexOf(old[Math.min(s3.pos, old.length - 1)]); if (s3.pos >= old.length) pos = LESSON_STEP3.length;
-    const gap = LESSON_STEP3.findIndex((p, k) => k < pos && !s3.parts.includes(k)); if (gap >= 0) pos = gap;
+  if (s3.pos > 0){ const oldHere = old[Math.min(s3.pos, old.length - 1)]; let pos = oldHere === "ROOFTOP PARTY" ? keys.indexOf("PASSPORT CHECK") : keys.indexOf(oldHere); if (s3.pos >= old.length) pos = LESSON_STEP3.length;
+    if (pos < 0) pos = 0; const gap = LESSON_STEP3.findIndex((p, k) => k < pos && !s3.parts.includes(k)); if (gap >= 0) pos = gap;
     s3.pos = pos >= LESSON_STEP3.length ? 0 : pos; }
   s3.sv = STEP3_VERSION; try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){}
+}
+/* v47: Word key inserted before the STEP 6 kitchen animation. Carry saved progress by part name. */
+const STEP6_VERSION = 2;
+const STEP6_OLD = { 1: ["Watch & learn","Explore on your own","Have / don't have dialogue","GIFT DROP","Who has it?","Say them out loud"] };
+if ((A.step6 = A.step6 || {}) && (A.step6.sv || 1) !== STEP6_VERSION){
+  const old = STEP6_OLD[A.step6.sv || 1], keys = LESSON_STEP6.map(p => p.key || p.name);
+  if (old){
+    A.step6.parts = [...new Set((A.step6.parts || []).map(i => keys.indexOf(old[i])).filter(k => k >= 0))].sort((a,b)=>a-b);
+    A.step6.parts = [...new Set(A.step6.parts.concat(old.slice(0, A.step6.pos || 0).map(n => keys.indexOf(n)).filter(k => k >= 0)))].sort((a,b)=>a-b);
+    let i = Math.min(A.step6.pos || 0, old.length);
+    while (i < old.length && keys.indexOf(old[i]) < 0) i++;
+    let pos = i >= old.length ? LESSON_STEP6.length : keys.indexOf(old[i]);
+    if (pos < 0) pos = 0;
+    const gap = LESSON_STEP6.findIndex((p, k) => k < pos && !(A.step6.parts || []).includes(k));
+    if (gap >= 0) pos = gap;
+    A.step6.pos = pos;
+  }
+  A.step6.sv = STEP6_VERSION; try{ localStorage.setItem(AKEY, JSON.stringify(A)); }catch(e){}
 }
 const ST = () => A[CUR];
 function useLesson(id){ if (!LESSONS[id]) return; CUR = id; LESSON = LESSONS[id].parts; A[id] = Object.assign(blankState(), A[id] || {}); }
@@ -5400,7 +5655,7 @@ function hh40Locked(id){ return TRIAL_LOCK && !!LESSONS[id] && !TRIAL_OPEN.inclu
 const lessonOpen = id => !!LESSONS[id] && !hh40Locked(id) && ((typeof v39Item === "function" && v39Item(id) && !v39Item(id).live) ? v39Open(id) : stepLive(id) && (SPEAK_ONLY || !LESSONS[id].speakOnly || A.read === false));   // v39: Lessons 7-30 + Bosses follow ALL_LEVELS_OPEN / LEVEL_LIVE / LESSON_LIVE (config.js)   // v35: STEP 3-8 open for everyone (speaking only)   // STEP 3: Just speak track only, and only once STEP3_LIVE is on (config.js)
 function lessonProgress(id){ const s = A[id] || {}; return s.completed ? 1 : Math.min(1, (s.pos || 0) / LESSONS[id].parts.length); }
 const XP_BONUS = 20;
-const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","g15","words"];
+const GAME_SECTIONS = ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11","g12","g13","g14","g15","g18","words"];
 
 const dayStr = d => d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
 function liveStreak(){
@@ -5635,7 +5890,7 @@ function paintToTable(){
 
 /* STEP 6-8 page header: the words of the lesson (same table as STEP 5: Hebrew, Latin letters kh/ts, English) */
 const STEP_WORDS = {
-  step6:[["יֵשׁ לִי","yesh li","I have"], ["יֵשׁ לוֹ","yesh lo","he has"], ["יֵשׁ לָהּ","yesh la","she has"], ["יֵשׁ לָנוּ","yesh lanu","we have"],
+  step6:[["יֵשׁ לִי","yesh li","I have"], ["יֵשׁ לְךָ","yesh lekha","you have (m)"], ["יֵשׁ לָךְ","yesh lakh","you have (f)"], ["יֵשׁ לוֹ","yesh lo","he has"], ["יֵשׁ לָהּ","yesh la","she has"], ["יֵשׁ לָנוּ","yesh lanu","we have"],
     ["יֵשׁ לָכֶם","yesh lakhem","you have (pl, m)"], ["יֵשׁ לָכֶן","yesh lakhen","you have (pl, f)"], ["יֵשׁ לָהֶם","yesh lahem","they have (m)"], ["יֵשׁ לָהֶן","yesh lahen","they have (f)"],
     ["אֵין לִי","ein li","I don't have"], ["אֵין לָהּ","ein la","she doesn't have"], ["אֵין לָהֶם","ein lahem","they don't have"]],
   step7:[["מָה?","ma?","what?"], ["מִי?","mi?","who?"], ["אֵיפֹה?","eifo?","where?"], ["מָתַי?","matai?","when?"], ["לָמָּה?","lama?","why?"], ["אֵיךְ?","eikh?","how?"], ["כַּמָּה?","kama?","how many / how much?"]],
@@ -6146,7 +6401,7 @@ finish = function(title, big, sub, extra){
 };
 
 /* ---------- boot ---------- */
-const HH_AUDIO_FILES = ["anachnu-rotzim-pitza.mp3", "anachnu-rotzim-te.mp3", "anachnu-tzrichim-mayim.mp3", "anachnu.mp3", "ani-lo-rotza-kafe.mp3", "ani-lo-rotza-leechol-pitza.mp3", "ani-lo-rotza-pitza.mp3", "ani-lo-rotza-te.mp3", "ani-lo-rotza-uga.mp3", "ani-lo-rotze-kafe.mp3", "ani-lo-rotze-leechol-pitza.mp3", "ani-lo-rotze-pitza.mp3", "ani-lo-rotze-te.mp3", "ani-lo-rotze-uga.mp3", "ani-lo-yachol-ledaber-ivrit.mp3", "ani-lo-yechola-ledaber-ivrit.mp3", "ani-ohev-kafe-chalash.mp3", "ani-ohev-kafe-chazak.mp3", "ani-ohev-ledaber-ivrit.mp3", "ani-ohevet-kafe-chalash.mp3", "ani-ohevet-kafe-chazak.mp3", "ani-ohevet-ledaber-ivrit.mp3", "ani-rotza-kafe-bli-chalav.mp3", "ani-rotza-kafe-bli-sukar.mp3", "ani-rotza-kafe-im-chalav.mp3", "ani-rotza-kafe-im-sukar.mp3", "ani-rotza-kafe.mp3", "ani-rotza-leechol-pitza.mp3", "ani-rotza-leechol.mp3", "ani-rotza-mayim.mp3", "ani-rotza-pitza.mp3", "ani-rotza-te-bli-chalav.mp3", "ani-rotza-te-bli-sukar.mp3", "ani-rotza-te-im-chalav.mp3", "ani-rotza-te-im-sukar.mp3", "ani-rotza-te.mp3", "ani-rotza-uga.mp3", "ani-rotza.mp3", "ani-rotze-kafe-bli-chalav.mp3", "ani-rotze-kafe-bli-sukar.mp3", "ani-rotze-kafe-im-chalav.mp3", "ani-rotze-kafe-im-sukar.mp3", "ani-rotze-kafe.mp3", "ani-rotze-leechol-pitza.mp3", "ani-rotze-leechol.mp3", "ani-rotze-mayim.mp3", "ani-rotze-pitza.mp3", "ani-rotze-te-bli-chalav.mp3", "ani-rotze-te-bli-sukar.mp3", "ani-rotze-te-im-chalav.mp3", "ani-rotze-te-im-sukar.mp3", "ani-rotze-te.mp3", "ani-rotze-uga.mp3", "ani-rotze.mp3", "ani-tzarich-chalav.mp3", "ani-tzarich-mayim.mp3", "ani-tzarich-sukar.mp3", "ani-tzricha-chalav.mp3", "ani-tzricha-mayim.mp3", "ani-tzricha-sukar.mp3", "ani.mp3", "at-ohevet-kafe-chazak_q.mp3", "at-rotza-kafe-im-chalav_q.mp3", "at-rotza-kafe_q.mp3", "at-rotza-leechol-uga_q.mp3", "at-rotza-te-im-chalav_q.mp3", "at-tzricha-sukar_q.mp3", "at.mp3", "ata-ohev-kafe-chazak_q.mp3", "ata-rotze-kafe-im-chalav_q.mp3", "ata-rotze-kafe_q.mp3", "ata-rotze-leechol-uga_q.mp3", "ata-rotze-te-im-chalav_q.mp3", "ata-tzarich-sukar_q.mp3", "ata.mp3", "atem.mp3", "aten.mp3", "bli.mp3", "bruchim-habaim.mp3", "chalash.mp3", "chalav.mp3", "chazak.mp3", "hem-lo-rotzim-pitza.mp3", "hem-rotzim-kafe.mp3", "hem-rotzim-uga.mp3", "hem.mp3", "hen-rotzot-pitza.mp3", "hen-rotzot-te.mp3", "hen-tzrichot-sukar.mp3", "hen.mp3", "hi-lo-ohevet-pitza.mp3", "hi-lo-rotza-ledaber-ivrit.mp3", "hi-lo-rotza-leechol-pitza.mp3", "hi-lo-rotza-pitza.mp3", "hi-lo-rotza-uga.mp3", "hi-lo-yechola-ledaber-ivrit.mp3", "hi-ohevet-pitza.mp3", "hi-rotza-kafe.mp3", "hi-rotza-mayim.mp3", "hi-tzricha-chalav.mp3", "hi-yechola-ledaber-ivrit.mp3", "hi.mp3", "hu-lo-rotze-leechol-pitza.mp3", "hu-lo-rotze-te.mp3", "hu-ohev-pitza.mp3", "hu-rotze-kafe.mp3", "hu-rotze-leechol-pitza.mp3", "hu-rotze-mayim.mp3", "hu-rotze-pitza.mp3", "hu-tzarich-mayim.mp3", "hu-tzarich-sukar.mp3", "hu.mp3", "im.mp3", "kafe-bli-chalav.mp3", "kafe-im-chalav.mp3", "ken-ani-ohev-kafe-chazak.mp3", "ken-ani-ohevet-kafe-chazak.mp3", "ken-ani-rotza-kafe-im-chalav.mp3", "ken-ani-rotza-kafe.mp3", "ken-ani-rotza-leechol-uga.mp3", "ken-ani-rotza-te-im-chalav.mp3", "ken-ani-rotze-kafe-im-chalav.mp3", "ken-ani-rotze-kafe.mp3", "ken-ani-rotze-leechol-uga.mp3", "ken-ani-rotze-te-im-chalav.mp3", "ken-ani-tzarich-sukar.mp3", "ken-ani-tzricha-sukar.mp3", "lo-ani-lo-rotza-leechol.mp3", "lo-ani-lo-rotze-leechol.mp3", "lo-ani-lo-tzarich-sukar.mp3", "lo-ani-lo-tzricha-sukar.mp3", "lo-ani-ohev-kafe-chalash.mp3", "lo-ani-ohevet-kafe-chalash.mp3", "lo-ani-rotza-kafe-bli-chalav.mp3", "lo-ani-rotza-leechol-pitza.mp3", "lo-ani-rotza-mayim.mp3", "lo-ani-rotza-te-bli-chalav.mp3", "lo-ani-rotza-te.mp3", "lo-ani-rotze-kafe-bli-chalav.mp3", "lo-ani-rotze-leechol-pitza.mp3", "lo-ani-rotze-mayim.mp3", "lo-ani-rotze-te-bli-chalav.mp3", "lo-ani-rotze-te.mp3", "s5_01.mp3", "s5_02.mp3", "s5_03.mp3", "s5_04.mp3", "s5_06.mp3", "s5_08.mp3", "s5_10.mp3", "s5_13.mp3", "s6_01.mp3", "s6_02.mp3", "s6_03.mp3", "s6_04.mp3", "s6_05.mp3", "s6_07.mp3", "s6_09.mp3", "s6_10.mp3", "s6_11.mp3", "s7_01.mp3", "s7_02.mp3", "s7_03.mp3", "s7_04.mp3", "s7_05.mp3", "s7_06.mp3", "s7_07.mp3", "s7_08.mp3", "s7_09.mp3", "s7_10.mp3", "s7_11.mp3", "s7_12.mp3", "s8_01.mp3", "s8_02.mp3", "s8_03.mp3", "s8_04.mp3", "s8_05.mp3", "s8_06.mp3", "s8_07.mp3", "s8_08.mp3", "s8_09.mp3", "s8_10.mp3", "s8_11.mp3", "s8_12.mp3", "snap_demo_narration.mp3", "sukar.mp3", "te.mp3", "uga.mp3"];
+const HH_AUDIO_FILES = ["anachnu-rotzim-pitza.mp3", "anachnu-rotzim-te.mp3", "anachnu-tzrichim-mayim.mp3", "anachnu.mp3", "ani-lo-rotza-kafe.mp3", "ani-lo-rotza-leechol-pitza.mp3", "ani-lo-rotza-pitza.mp3", "ani-lo-rotza-te.mp3", "ani-lo-rotza-uga.mp3", "ani-lo-rotze-kafe.mp3", "ani-lo-rotze-leechol-pitza.mp3", "ani-lo-rotze-pitza.mp3", "ani-lo-rotze-te.mp3", "ani-lo-rotze-uga.mp3", "ani-lo-yachol-ledaber-ivrit.mp3", "ani-lo-yechola-ledaber-ivrit.mp3", "ani-ohev-kafe-chalash.mp3", "ani-ohev-kafe-chazak.mp3", "ani-ohev-ledaber-ivrit.mp3", "ani-ohevet-kafe-chalash.mp3", "ani-ohevet-kafe-chazak.mp3", "ani-ohevet-ledaber-ivrit.mp3", "ani-rotza-kafe-bli-chalav.mp3", "ani-rotza-kafe-bli-sukar.mp3", "ani-rotza-kafe-im-chalav.mp3", "ani-rotza-kafe-im-sukar.mp3", "ani-rotza-kafe.mp3", "ani-rotza-leechol-pitza.mp3", "ani-rotza-leechol.mp3", "ani-rotza-mayim.mp3", "ani-rotza-pitza.mp3", "ani-rotza-te-bli-chalav.mp3", "ani-rotza-te-bli-sukar.mp3", "ani-rotza-te-im-chalav.mp3", "ani-rotza-te-im-sukar.mp3", "ani-rotza-te.mp3", "ani-rotza-uga.mp3", "ani-rotza.mp3", "ani-rotze-kafe-bli-chalav.mp3", "ani-rotze-kafe-bli-sukar.mp3", "ani-rotze-kafe-im-chalav.mp3", "ani-rotze-kafe-im-sukar.mp3", "ani-rotze-kafe.mp3", "ani-rotze-leechol-pitza.mp3", "ani-rotze-leechol.mp3", "ani-rotze-mayim.mp3", "ani-rotze-pitza.mp3", "ani-rotze-te-bli-chalav.mp3", "ani-rotze-te-bli-sukar.mp3", "ani-rotze-te-im-chalav.mp3", "ani-rotze-te-im-sukar.mp3", "ani-rotze-te.mp3", "ani-rotze-uga.mp3", "ani-rotze.mp3", "ani-tzarich-chalav.mp3", "ani-tzarich-mayim.mp3", "ani-tzarich-sukar.mp3", "ani-tzricha-chalav.mp3", "ani-tzricha-mayim.mp3", "ani-tzricha-sukar.mp3", "ani.mp3", "at-ohevet-kafe-chazak_q.mp3", "at-rotza-kafe-im-chalav_q.mp3", "at-rotza-kafe_q.mp3", "at-rotza-leechol-uga_q.mp3", "at-rotza-te-im-chalav_q.mp3", "at-tzricha-sukar_q.mp3", "at.mp3", "ata-ohev-kafe-chazak_q.mp3", "ata-rotze-kafe-im-chalav_q.mp3", "ata-rotze-kafe_q.mp3", "ata-rotze-leechol-uga_q.mp3", "ata-rotze-te-im-chalav_q.mp3", "ata-tzarich-sukar_q.mp3", "ata.mp3", "atem.mp3", "aten.mp3", "bli.mp3", "bruchim-habaim.mp3", "chalash.mp3", "chalav.mp3", "chazak.mp3", "hem-lo-rotzim-pitza.mp3", "hem-rotzim-kafe.mp3", "hem-rotzim-uga.mp3", "hem.mp3", "hen-rotzot-pitza.mp3", "hen-rotzot-te.mp3", "hen-tzrichot-sukar.mp3", "hen.mp3", "hi-lo-ohevet-pitza.mp3", "hi-lo-rotza-ledaber-ivrit.mp3", "hi-lo-rotza-leechol-pitza.mp3", "hi-lo-rotza-pitza.mp3", "hi-lo-rotza-uga.mp3", "hi-lo-yechola-ledaber-ivrit.mp3", "hi-ohevet-pitza.mp3", "hi-rotza-kafe.mp3", "hi-rotza-mayim.mp3", "hi-tzricha-chalav.mp3", "hi-yechola-ledaber-ivrit.mp3", "hi.mp3", "hu-lo-rotze-leechol-pitza.mp3", "hu-lo-rotze-te.mp3", "hu-ohev-pitza.mp3", "hu-rotze-kafe.mp3", "hu-rotze-leechol-pitza.mp3", "hu-rotze-mayim.mp3", "hu-rotze-pitza.mp3", "hu-tzarich-mayim.mp3", "hu-tzarich-sukar.mp3", "hu.mp3", "im.mp3", "kafe-bli-chalav.mp3", "kafe-im-chalav.mp3", "ken-ani-ohev-kafe-chazak.mp3", "ken-ani-ohevet-kafe-chazak.mp3", "ken-ani-rotza-kafe-im-chalav.mp3", "ken-ani-rotza-kafe.mp3", "ken-ani-rotza-leechol-uga.mp3", "ken-ani-rotza-te-im-chalav.mp3", "ken-ani-rotze-kafe-im-chalav.mp3", "ken-ani-rotze-kafe.mp3", "ken-ani-rotze-leechol-uga.mp3", "ken-ani-rotze-te-im-chalav.mp3", "ken-ani-tzarich-sukar.mp3", "ken-ani-tzricha-sukar.mp3", "lo-ani-lo-rotza-leechol.mp3", "lo-ani-lo-rotze-leechol.mp3", "lo-ani-lo-tzarich-sukar.mp3", "lo-ani-lo-tzricha-sukar.mp3", "lo-ani-ohev-kafe-chalash.mp3", "lo-ani-ohevet-kafe-chalash.mp3", "lo-ani-rotza-kafe-bli-chalav.mp3", "lo-ani-rotza-leechol-pitza.mp3", "lo-ani-rotza-mayim.mp3", "lo-ani-rotza-te-bli-chalav.mp3", "lo-ani-rotza-te.mp3", "lo-ani-rotze-kafe-bli-chalav.mp3", "lo-ani-rotze-leechol-pitza.mp3", "lo-ani-rotze-mayim.mp3", "lo-ani-rotze-te-bli-chalav.mp3", "lo-ani-rotze-te.mp3", "s5_01.mp3", "s5_02.mp3", "s5_03.mp3", "s5_04.mp3", "s5_06.mp3", "s5_08.mp3", "s5_10.mp3", "s5_13.mp3", "s6_01.mp3", "s6_02.mp3", "s6_03.mp3", "s6_04.mp3", "s6_05.mp3", "s6_06.mp3", "s6_07.mp3", "s6_08.mp3", "s6_09.mp3", "s6_10.mp3", "s6_11.mp3", "s6_12.mp3", "s6_13.mp3", "s7_01.mp3", "s7_02.mp3", "s7_03.mp3", "s7_04.mp3", "s7_05.mp3", "s7_06.mp3", "s7_07.mp3", "s7_08.mp3", "s7_09.mp3", "s7_10.mp3", "s7_11.mp3", "s7_12.mp3", "s8_01.mp3", "s8_02.mp3", "s8_03.mp3", "s8_04.mp3", "s8_05.mp3", "s8_06.mp3", "s8_07.mp3", "s8_08.mp3", "s8_09.mp3", "s8_10.mp3", "s8_11.mp3", "s8_12.mp3", "snap_demo_narration.mp3", "sukar.mp3", "te.mp3", "uga.mp3"];
 /* v39: generated by tools/parse_plan.py from claude_3x10_plan.md (Nov 19). Do not edit by hand; edit the plan or the parser. */
 const PLAN39 = {
 "levels": [
@@ -6172,7 +6427,7 @@ const PLAN39 = {
 "title": "Pronouns",
 "src": "live",
 "core": "ani, ata, at, hu, hi, anakhnu, atem, aten, hem, hen",
-"game": "SNAP!, ROOFTOP PARTY"
+"game": "SNAP!, PASSPORT CHECK"
 },
 {
 "slot": "L1.2",
@@ -10933,21 +11188,38 @@ const HH40_FOOD = [
   ["glida", "ice cream", "🍦", "גְּלִידָה", "glida.mp3", ""],
   ["shokolad", "chocolate", "🍫", "שׁוֹקוֹלָד", "shokolad.mp3", ""]
 ];
+/* v49: STEP 6 word key, all 10 yesh forms + ein, Eli's clips in audio/ (s6_01..s6_13). */
+const HH40_HAVE = [
+  ["yesh li", "I have", "🙋", "יֵשׁ לִי", "s6_01.mp3", ""],
+  ["yesh lekha", "you have (m)", "💬👦", "יֵשׁ לְךָ", "s6_12.mp3", ""],
+  ["yesh lakh", "you have (f)", "💬👧", "יֵשׁ לָךְ", "s6_13.mp3", ""],
+  ["yesh lo", "he has", "👦", "יֵשׁ לוֹ", "s6_02.mp3", ""],
+  ["yesh la", "she has", "👧", "יֵשׁ לָהּ", "s6_03.mp3", ""],
+  ["yesh lanu", "we have", "👫", "יֵשׁ לָנוּ", "s6_04.mp3", ""],
+  ["yesh lakhem", "you have (pl, m)", "💬👬", "יֵשׁ לָכֶם", "s6_05.mp3", ""],
+  ["yesh lakhen", "you have (pl, f)", "💬👭", "יֵשׁ לָכֶן", "s6_06.mp3", ""],
+  ["yesh lahem", "they have (m)", "👬", "יֵשׁ לָהֶם", "s6_07.mp3", ""],
+  ["yesh lahen", "they have (f)", "👭", "יֵשׁ לָהֶן", "s6_08.mp3", ""],
+  ["ein li", "I don't have", "🙅", "אֵין לִי", "s6_09.mp3", ""],
+  ["ein la", "she doesn't have", "🤷‍♀️", "אֵין לָהּ", "s6_10.mp3", ""],
+  ["ein lahem", "they don't have", "🚫", "אֵין לָהֶם", "s6_11.mp3", ""]
+];
+const HH40_LISTS = { food:HH40_FOOD, have:HH40_HAVE };
 /* #11 Reply Dialogue (Claude P3). [guy, girl] pairs; a clip of "" = not recorded yet (text only). Clips are used only where an existing file says exactly that line. */
 const HH40_REPLY = {
   step4:{ who:"Yonatan", items:[
-    { q:["Ata rotse kafe?", "At rotsa kafe?"], qen:"Do you want coffee?", qc:["ata-rotze-kafe_q.mp3", "at-rotza-kafe_q.mp3"], cue:"Say yes: you want coffee.",
-      m:["Ken, ani rotse kafe.", "Ken, ani rotsa kafe."], men:"Yes, I want coffee.", mc:["ken-ani-rotze-kafe.mp3", "ken-ani-rotza-kafe.mp3"], r:"Tov! Ani gam rotse kafe.", ren:"Great! I want coffee too." },
-    { q:["Kafe kham?", "Kafe kham?"], qen:"Hot coffee?", cue:"Say no: cold coffee.", m:["Lo, kafe kar.", "Lo, kafe kar."], men:"No, cold coffee.", r:"Kafe kar… ani ohev kafe kar!", ren:"Cold coffee… I love cold coffee!" },
-    { q:["Ata tsarikh khalav?", "At tsrikha khalav?"], qen:"Do you need milk?", cue:"Say you don't need milk.", m:["Lo, ani lo tsarikh khalav.", "Lo, ani lo tsrikha khalav."], men:"No, I don't need milk.", r:"Lo khalav. Tov!", ren:"No milk. OK!" },
-    { q:["Ata ohev shokolad?", "At ohevet shokolad?"], qen:"Do you love chocolate?", cue:"Say yes: you love chocolate!", m:["Ken! Ani ohev shokolad!", "Ken! Ani ohevet shokolad!"], men:"Yes! I love chocolate!", r:"Ani gam! Shokolad tov!", ren:"Me too! Chocolate is good!" },
-    { q:["Ata rotse glida?", "At rotsa glida?"], qen:"Do you want ice cream?", cue:"Say yes: a small one.", m:["Ken, glida ktana.", "Ken, glida ktana."], men:"Yes, a small ice cream.", r:"Ktana… ani rotse glida gdola!", ren:"Small… I want a big ice cream!" } ] },
+    { q:["Ata rotse kafe?", "At rotsa kafe?"], qen:"Do you want coffee?", qc:["ata-rotze-kafe_q.mp3", "at-rotza-kafe_q.mp3"], cue:"Say: Yes, I want coffee.",
+      m:["Ken, ani rotse kafe.", "Ken, ani rotsa kafe."], men:"Yes, I want coffee.", mc:["ken-ani-rotze-kafe.mp3", "ken-ani-rotza-kafe.mp3"], r:"Gam ani!", ren:"Me too!" },
+    { q:["Kafe kham?", "Kafe kham?"], qen:"Hot coffee?", cue:"Say: No, cold coffee.", m:["Lo, kafe kar.", "Lo, kafe kar."], men:"No, cold coffee.", r:"Tov! Kafe kar!", ren:"Good! Cold coffee!" },
+    { q:["Ata tsarikh khalav?", "At tsrikha khalav?"], qen:"Do you need milk?", cue:"Say: I don't need milk.", m:["Lo, ani lo tsarikh khalav.", "Lo, ani lo tsrikha khalav."], men:"No, I don't need milk.", r:"Tov! Lo khalav.", ren:"Good! No milk." },
+    { q:["Ata ohev shokolad?", "At ohevet shokolad?"], qen:"Do you love chocolate?", cue:"Say: Yes, I love chocolate.", m:["Ken, ani ohev shokolad.", "Ken, ani ohevet shokolad."], men:"Yes, I love chocolate.", r:"Gam ani!", ren:"Me too!" },
+    { q:["Ata rotse glida?", "At rotsa glida?"], qen:"Do you want ice cream?", cue:"Say: Yes, a small ice cream.", m:["Ken, glida ktana.", "Ken, glida ktana."], men:"Yes, a small ice cream.", r:"Tov! Glida ktana!", ren:"Good! A small ice cream!" } ] },
   step5:{ who:"Noa", items:[
-    { q:["Ata rotse le'ekhol?", "At rotsa le'ekhol?"], qen:"Do you want to eat?", cue:"Say yes: you want to eat pizza.", m:["Ken, ani rotse le'ekhol pitsa.", "Ken, ani rotsa le'ekhol pitsa."], men:"Yes, I want to eat pizza.", r:"Pitsa… ani ohevet pitsa!", ren:"Pizza… I love pizza!" },
-    { q:["Ata rotse lishtot kafe?", "At rotsa lishtot kafe?"], qen:"Do you want to drink coffee?", qc:["p2-06-maya-ata-rotse-lishtot-kafe.mp3", ""], cue:"Say no: you want to drink tea.", m:["Lo, ani rotse lishtot te.", "Lo, ani rotsa lishtot te."], men:"No, I want to drink tea.", r:"Te… tov, ani gam rotsa te.", ren:"Tea… OK, I want tea too." },
-    { q:["Ata yakhol lalekhet?", "At yekhola lalekhet?"], qen:"Can you go?", qc:["p2-10-maya-ata-yakhol-lalekhet.mp3", ""], cue:"Say you can't: you need to sleep.", m:["Ani lo yakhol. Ani tsarikh lishon.", "Ani lo yekhola. Ani tsrikha lishon."], men:"I can't. I need to sleep.", r:"Lishon?! Ani lo rotsa lishon!", ren:"Sleep?! I don't want to sleep!" },
-    { q:["Ata ohev ledaber?", "At ohevet ledaber?"], qen:"Do you love talking?", cue:"Say yes, then ask her back.", m:["Ken, ani ohev ledaber. Ve'at?", "Ken, ani ohevet ledaber. Ve'at?"], men:"Yes, I love talking. And you?", r:"Ani? Ani ohevet ledaber… ve le'ekhol!", ren:"Me? I love talking… and eating!" },
-    { q:["Yonatan rotse lishon. Ve'ata?", "Yonatan rotse lishon. Ve'at?"], qen:"Yonatan wants to sleep. And you?", cue:"Say no: you want to talk!", m:["Ani lo rotse lishon. Ani rotse ledaber!", "Ani lo rotsa lishon. Ani rotsa ledaber!"], men:"I don't want to sleep. I want to talk!", r:"Tov! Ani gam!", ren:"Great! Me too!" } ] }
+    { q:["Ata rotse le'ekhol?", "At rotsa le'ekhol?"], qen:"Do you want to eat?", cue:"Say: Yes, I want to eat pizza.", m:["Ken, ani rotse le'ekhol pitsa.", "Ken, ani rotsa le'ekhol pitsa."], men:"Yes, I want to eat pizza.", r:"Tov! Pitsa!", ren:"Good! Pizza!" },
+    { q:["Ata rotse lishtot kafe?", "At rotsa lishtot kafe?"], qen:"Do you want to drink coffee?", qc:["p2-06-maya-ata-rotse-lishtot-kafe.mp3", ""], cue:"Say: No, I want to drink tea.", m:["Lo, ani rotse lishtot te.", "Lo, ani rotsa lishtot te."], men:"No, I want to drink tea.", r:"Tov! Gam ani!", ren:"Good! Me too!" },
+    { q:["Ata yakhol lalekhet?", "At yekhola lalekhet?"], qen:"Can you go?", qc:["p2-10-maya-ata-yakhol-lalekhet.mp3", ""], cue:"Say: No, I need to sleep.", m:["Lo, ani tsarikh lishon.", "Lo, ani tsrikha lishon."], men:"No, I need to sleep.", r:"Ani lo rotsa lishon!", ren:"I don't want to sleep!" },
+    { q:["Ata ohev ledaber?", "At ohevet ledaber?"], qen:"Do you love to talk?", cue:"Say: Yes, I love to talk.", m:["Ken, ani ohev ledaber.", "Ken, ani ohevet ledaber."], men:"Yes, I love to talk.", r:"Gam ani!", ren:"Me too!" },
+    { q:["Yonatan rotse lishon. Ve'ata?", "Yonatan rotse lishon. Ve'at?"], qen:"Yonatan wants to sleep. And you?", cue:"Say: No, I want to talk.", m:["Lo, ani rotse ledaber.", "Lo, ani rotsa ledaber."], men:"No, I want to talk.", r:"Tov! Ani gam!", ren:"Good! Me too!" } ] }
 };
 /* #1 How to play: three short steps per game (shown on the card before the game starts) */
 const HH40_HOW = {
@@ -10956,7 +11228,7 @@ const HH40_HOW = {
   8:["Listen to a sentence.", "Tap the sentence you heard.", "Say it out loud, then tap Next."],
   5:["The barista asks what you want.", "Pick your answer and say it in Hebrew.", "Tap I said it to hear how it sounds, then Next."],
   7:["Read the customer's order in English.", "Tap the Hebrew words in order before the clock runs out.", "Serve it and say it out loud."],
-  11:["A friend texts you a question.", "Build your answer: who, the verb, the TO-word.", "Send it, then say it out loud."],
+  11:["First, match each TO-word to its action.", "Then a friend texts you a question. Build your answer: who, the verb, the TO-word.", "Send it, then say it out loud."],
   13:["Look at the scene: who is it, and do they have it, or is it empty?", "Build the sentence: yesh or ein, then who.", "Drop the gift, then say it."],
   14:["Every file is missing one thing.", "Build the question that asks for it.", "Ask the suspect, then say it."],
   15:["Look at the photo.", "Build a caption that is true: he or she word, one or more, big or small.", "Say it out loud."],
@@ -10965,7 +11237,7 @@ const HH40_HOW = {
 const HH40_ENGINE_HOW = { chatback:"Someone talks to you. Pick or build your reply, then say it out loud.", buildgame:"Look at the picture. Tap the words in order to build the sentence, then say it out loud.", quickpick:"Look at the picture or listen. Pick the right answer fast, then say it out loud." };
 /* #7 one icon per game + what it trains (by part name) */
 const HH40_GAMES = {
-  "SNAP!":["📸", "hearing who a pronoun means"], "ROOFTOP PARTY":["🎉", "picking the right pronoun fast"],
+  "SNAP!":["📸", "hearing who a pronoun means"], "PASSPORT CHECK":["🛂", "country names, and who is who"], "ROOFTOP PARTY":["🎉", "picking the right pronoun fast"],
   "Who is it?":["👥", "one person or more than one"], "Pick the right word":["🎯", "choosing the pronoun that fits"],
   "BY EAR":["👂", "understanding whole sentences by ear"], "CAFÉ ORDER":["☕", "ordering for yourself in Hebrew"], "RUSH HOUR":["⏱", "building sentences fast"],
   "Food words":["🍽️", "the food and drink words"], "Find the pairs":["🍎", "food and drink words"], "HU, HI or HEM":["🔀", "verb forms for he, she and they"], "Pair or no pair?":["⚖️", "checking what a sentence means"],
@@ -11059,13 +11331,18 @@ function hh40Adj(body){
     hh40DlgBox("Mini dialogue: Noa and Yonatan", HH40_DATA.mini, "Listen, then say each line with them."),
     hh40DlgBox("At the café: big or small?", HH40_DATA.cafe, "A listen-along dialogue. Tap ▶ on a line, or Play all."));
 }
-function hh40FoodBox(){
-  const b = hh40El("div", "hh40-box"); b.append(hh40El("h3", "", "Food and drinks"), hh40El("p", "hh40-note", "Tap ▶ to hear the word."));
+function hh40FoodBox(list, title){
+  list = list || HH40_FOOD; title = title || "Food and drinks";
+  const b = hh40El("div", "hh40-box"); b.append(hh40El("h3", "", title), hh40El("p", "hh40-note", "Tap ▶ to hear the word."));
   const tl = hh40El("div", "hh40-tools"); tl.append(hh40HeToggle()); b.append(tl);
-  HH40_FOOD.forEach(([tr, en, icon, he, f, said]) => b.append(hh40Row({ icon, tr, en, he, f, note:said ? "▶ " + said : "" })));
+  list.forEach(([tr, en, icon, he, f, said]) => b.append(hh40Row({ icon, tr, en, he, f, note:said ? "▶ " + said : "" })));
   return b;
 }
-function hh40Food(body){ body.append(hh40FoodBox()); }
+function hh40Food(body, p){
+  const list = (p && p.list && HH40_LISTS[p.list]) || HH40_FOOD;
+  const title = (p && p.list === "have") ? "Have / don't have" : "Food and drinks";
+  body.append(hh40FoodBox(list, title));
+}
 /* the Word list button inside the pairs game (#9): the same list in a sheet over the game */
 function hh40WordSheet(){
   let s = $("hh40Words");
@@ -11145,6 +11422,7 @@ renderCard = function(){
   if (p.type === "game") hh40HowPanel(p);
 };
 function hh40HowPanel(p){
+  if (p.g === 18) return;   // v51: PASSPORT CHECK explains itself once inside the game
   const card = $("lCard"), box = hh40El("div", "hh40-how"); box.append(hh40El("b", "", "How to play"));
   let steps = HH40_HOW[p.g];
   if (p.g === 16 && PLAN39.games[p.game] && typeof hh41Steps === "function") steps = hh41Steps(PLAN39.games[p.game].engine).map(s => s.n + " · " + s.line);
@@ -12901,8 +13179,429 @@ async function hh41MaybeDemo(P, id, sec){
   }
 
   /* Rebind gift/IR/PT starters to the wrapped bgStart (they captured the original). */
-  window.hh42Ready = true; window.hh43Ready = true; window.hh44Ready = true; window.hh45Ready = true; B1.round = b1Round;
+  window.hh42Ready = true; window.hh43Ready = true; window.hh44Ready = true; window.hh45Ready = true; window.hh46Ready = true; B1.round = b1Round;
 })();
+
+</script>
+
+<script>
+/* ---------- Game 18: PASSPORT CHECK (STEP 3, Pronouns; v51 replaces ROOFTOP PARTY in the lesson) ----------
+   Spec: Claude (Nov 21), adjusted by Eli: countries are the content, the pronouns are the frame.
+   Each round: a passport flag + a scene that shows who is talked about, and one sentence ("Hu mi-Tsarfat.").
+   MATCH or NOT A MATCH. Not a match -> fix it: COUNTRY or PEOPLE, then pick the right piece from 3.
+   No timer, no wrong me-/mi- rounds. A missed round comes back 3 rounds later with a new scene.
+   End: Passport Review of the missed countries (flag -> name).
+   Audio: pronoun clip (existing audio/<pronoun>.mp3) + ~120 ms + audio/pc_<prefix-country>.mp3 (stitched at runtime).
+   The 20 pc_*.mp3 clips are placeholders until Eli approves the voice: a missing file is skipped and the text is shown. */
+const PC_C = {
+  israel:   { lat:"Israel",          en:"Israel",    from:"me-Israel" },
+  meksiko:  { lat:"Meksiko",         en:"Mexico",    from:"mi-Meksiko" },
+  kanada:   { lat:"Kanada",          en:"Canada",    from:"mi-Kanada" },
+  artsot:   { lat:"Artsot ha-Brit",  en:"the USA",   from:"me-Artsot ha-Brit" },
+  tsarfat:  { lat:"Tsarfat",         en:"France",    from:"mi-Tsarfat" },
+  angliya:  { lat:"Angliya",         en:"England",   from:"me-Angliya" },
+  sfarad:   { lat:"Sfarad",          en:"Spain",     from:"mi-Sfarad" },
+  italya:   { lat:"Italya",          en:"Italy",     from:"me-Italya" },
+  brazil:   { lat:"Brazil",          en:"Brazil",    from:"mi-Brazil" },
+  argentina:{ lat:"Argentina",       en:"Argentina", from:"me-Argentina" }
+};
+const pcSlug = s => s.toLowerCase().replace(/\s+/g, "-");
+const pcFileBare = c => "pc_" + pcSlug(PC_C[c].lat) + ".mp3";      // pc_israel.mp3 ... pc_artsot-ha-brit.mp3
+const pcFileFrom = c => "pc_" + pcSlug(PC_C[c].from) + ".mp3";     // pc_me-israel.mp3 ... pc_me-artsot-ha-brit.mp3
+const PC_FILES = Object.keys(PC_C).flatMap(c => [pcFileBare(c), pcFileFrom(c)]);
+/* simple drawn flags (emoji flags don't show on every phone) */
+function pcFlag(c, cls){
+  const W = '<svg viewBox="0 0 30 20" class="' + (cls || "") + '" role="img" aria-label="flag">', E = "</svg>";
+  const v3 = (a, b, d) => '<rect width="10" height="20" fill="' + a + '"/><rect x="10" width="10" height="20" fill="' + b + '"/><rect x="20" width="10" height="20" fill="' + d + '"/>';
+  switch (c){
+    case "israel": return W + '<rect width="30" height="20" fill="#fff"/><rect y="2" width="30" height="2.4" fill="#0038b8"/><rect y="15.6" width="30" height="2.4" fill="#0038b8"/>' +
+      '<path d="M15 6.2 18.3 11.9H11.7Z M15 13.8 11.7 8.1H18.3Z" fill="none" stroke="#0038b8" stroke-width=".9"/>' + E;
+    case "meksiko": return W + v3("#006847", "#fff", "#ce1126") + '<circle cx="15" cy="10" r="2.3" fill="#8c5a2b"/><path d="M12.8 11.6q2.2 1.6 4.4 0" stroke="#006847" stroke-width=".6" fill="none"/>' + E;
+    case "kanada": return W + '<rect width="30" height="20" fill="#fff"/><rect width="7.5" height="20" fill="#d52b1e"/><rect x="22.5" width="7.5" height="20" fill="#d52b1e"/>' +
+      '<path d="M15 4.5 16 6.8 17.6 6.2 17 9.3 18.8 8.4 18.3 10 19.8 10.4 17.6 12.4 18 13.6 15.4 13.2V15.5H14.6V13.2L12 13.6 12.4 12.4 10.2 10.4 11.7 10 11.2 8.4 13 9.3 12.4 6.2 14 6.8Z" fill="#d52b1e"/>' + E;
+    case "artsot": { let s = ""; for (let i = 0; i < 13; i++) s += '<rect y="' + (i * 20 / 13).toFixed(2) + '" width="30" height="' + (20 / 13 + .02).toFixed(2) + '" fill="' + (i % 2 ? "#fff" : "#b22234") + '"/>';
+      let d = ""; for (let y = 0; y < 4; y++) for (let x = 0; x < 5; x++) d += '<circle cx="' + (1.4 + x * 2.4) + '" cy="' + (1.4 + y * 2.4) + '" r=".55" fill="#fff"/>';
+      return W + s + '<rect width="12.5" height="10.77" fill="#3c3b6e"/>' + d + E; }
+    case "tsarfat": return W + v3("#0055a4", "#fff", "#ef4135") + E;
+    case "angliya": return W + '<rect width="30" height="20" fill="#fff"/><rect x="13" width="4" height="20" fill="#ce1124"/><rect y="8" width="30" height="4" fill="#ce1124"/>' + E;
+    case "sfarad": return W + '<rect width="30" height="20" fill="#aa151b"/><rect y="5" width="30" height="10" fill="#f1bf00"/><rect x="7" y="8" width="3" height="4" rx=".6" fill="#aa151b" opacity=".8"/>' + E;
+    case "italya": return W + v3("#009246", "#fff", "#ce2b37") + E;
+    case "brazil": return W + '<rect width="30" height="20" fill="#009c3b"/><path d="M15 2.2 27.5 10 15 17.8 2.5 10Z" fill="#ffdf00"/><circle cx="15" cy="10" r="4.4" fill="#002776"/>' +
+      '<path d="M10.8 9.2q4.6-1.2 8.4 1.6" stroke="#fff" stroke-width=".7" fill="none"/>' + E;
+    case "argentina": return W + '<rect width="30" height="20" fill="#74acdf"/><rect y="6.67" width="30" height="6.67" fill="#fff"/><circle cx="15" cy="10" r="2.2" fill="#f6b40e"/>' + E;
+  }
+  return W + '<rect width="30" height="20" fill="#ccc"/>' + E;
+}
+/* v52 (Eli): ONE fixed narrator, the guard 👮, speaks in every to / about round. The travelers at the counter change between rounds
+   (familiar cast only). For ani / anakhnu the traveler speaks about themself. Blue ring = a man, pink ring = a woman. */
+const PC_PEOPLE = [
+  { id:"yonatan", name:"Yonatan", g:"m", face:"👨🏽" }, { id:"dani", name:"Dani", g:"m", face:"👦🏼" },
+  { id:"noa", name:"Noa", g:"f", face:"👩🏽‍🦱" }, { id:"dana", name:"Dana", g:"f", face:"👩🏻" }, { id:"maya", name:"Maya", g:"f", face:"👧🏽" }
+];
+const pcP = id => PC_PEOPLE.find(p => p.id === id);
+/* pronoun -> [kind, number, gender]; kind: self = about me / us, to = talking to, about = talking about */
+const PC_PRO = { ani:["self",1,""], anachnu:["self",2,""], ata:["to",1,"m"], at:["to",1,"f"], hu:["about",1,"m"], hi:["about",1,"f"],
+  atem:["to",2,"m"], aten:["to",2,"f"], hem:["about",2,"m"], hen:["about",2,"f"] };
+const pcLat = p => LEX[p] ? LEX[p].tr : p;            // anachnu -> anakhnu on screen
+const pcCap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const pcSentence = (p, c) => pcCap(pcLat(p)) + " " + PC_C[c].from + ".";
+/* 24 rounds in 4 waves. new = a "New country" card first. t = true round; fc = false, wrong country (say = the country said);
+   fp = false, wrong pronoun (say = the pronoun said). ~40% true, false mostly wrong country. */
+const PC_ROUNDS = [
+  { w:1, new:"israel",  p:"hu", c:"israel" },
+  { w:1, new:"meksiko", p:"ani", c:"meksiko" },
+  { w:1, p:"hi", c:"israel", fc:"meksiko" },
+  { w:1, new:"kanada",  p:"hi", c:"kanada" },
+  { w:1, p:"hu", c:"meksiko", fc:"kanada" },
+  { w:1, p:"ani", c:"kanada", fc:"israel" },
+  { w:2, new:"artsot",  p:"ata", c:"artsot" },
+  { w:2, p:"at", c:"israel", fp:"ata" },
+  { w:2, p:"hu", c:"artsot", fc:"kanada" },
+  { w:2, new:"tsarfat", p:"at", c:"tsarfat" },
+  { w:2, p:"ata", c:"tsarfat", fc:"artsot" },
+  { w:3, new:"angliya", p:"anachnu", c:"angliya" },
+  { w:3, p:"hem", c:"angliya", fc:"tsarfat" },
+  { w:3, new:"sfarad",  p:"hen", c:"sfarad" },
+  { w:3, p:"hi", c:"sfarad", fc:"angliya" },
+  { w:3, new:"italya",  p:"hu", c:"italya" },
+  { w:3, p:"hen", c:"italya", fp:"hem" },
+  { w:3, p:"anachnu", c:"meksiko", fc:"italya" },
+  { w:4, new:"brazil",  p:"atem", c:"brazil" },
+  { w:4, p:"hi", c:"brazil", fc:"sfarad" },
+  { w:4, new:"argentina", p:"aten", c:"argentina" },
+  { w:4, p:"hem", c:"argentina", fc:"brazil" },
+  { w:4, p:"at", c:"kanada", fp:"ata" },
+  { w:4, p:"hen", c:"italya", fc:"tsarfat" }
+];
+const PC_WAVE_PRO = { 1:["ani","hu","hi"], 2:["ani","hu","hi","ata","at"], 3:["ani","hu","hi","ata","at","anachnu","hem","hen"], 4:Object.keys(PC_PRO) };
+const PC_WAVE_C = { 1:["israel","meksiko","kanada"], 2:["israel","meksiko","kanada","artsot","tsarfat"], 3:["israel","meksiko","kanada","artsot","tsarfat","angliya","sfarad","italya"], 4:Object.keys(PC_C) };
+const PC_BANNER = { 1:"Wave 1: I, he, she", 2:"Wave 2: talking TO someone", 3:"Wave 3: groups", 4:"Wave 4: all ten countries" };
+const PC_TWIN = { ani:"anachnu", anachnu:"ani", ata:"hu", hu:"ata", at:"hi", hi:"at", atem:"hem", hem:"atem", aten:"hen", hen:"aten" };
+const pcPick = a => a[Math.floor(Math.random() * a.length)];
+/* who is in the scene: t = the travelers talked about; spk = "guard", or the traveler (t[0]) for ani / anakhnu */
+function pcScene(p, avoid){
+  const [kind, n, g] = PC_PRO[p], all = PC_PEOPLE.map(x => x.id), M = all.filter(id => pcP(id).g === "m"), F = all.filter(id => pcP(id).g === "f");
+  for (let k = 0; k < 30; k++){
+    let t;
+    if (kind === "self") t = shuffle(all).slice(0, n === 1 ? 1 : 2 + (Math.random() < .5 ? 1 : 0));
+    else if (n === 1) t = [pcPick(g === "m" ? M : F)];
+    else if (g === "f") t = shuffle(F).slice(0, 2 + (Math.random() < .4 ? 1 : 0));
+    else { const size = 2 + (Math.random() < .4 ? 1 : 0), nm = 1 + Math.floor(Math.random() * Math.min(size, M.length)); t = shuffle(M).slice(0, nm).concat(shuffle(F).slice(0, size - nm)); }
+    const sc = { p, t, spk: kind === "self" ? t[0] : "guard", you: kind === "about" };
+    if (!avoid || avoid.t.join() !== sc.t.join()) return sc;
+  }
+  return Object.assign({}, avoid, { p });
+}
+const pcNames = ids => ids.map(id => pcP(id).name).reduce((s, x, i, a) => s + (i === 0 ? "" : i === a.length - 1 ? " and " : ", ") + x, "");
+const pcSelf = id => pcP(id).g === "m" ? "himself" : "herself";
+function pcCaption(sc){
+  const [kind, n] = PC_PRO[sc.p];
+  if (kind === "self"){ const S = pcP(sc.spk); return n === 1 ? S.name + " talks about " + pcSelf(sc.spk) + "." : S.name + " talks about " + (S.g === "m" ? "his" : "her") + " group, with " + pcSelf(sc.spk) + " in it."; }
+  if (kind === "to") return "The guard talks TO " + pcNames(sc.t) + ".";
+  return "The guard tells you ABOUT " + pcNames(sc.t) + ".";
+}
+function pcWhy(sc){
+  const [kind, n, g] = PC_PRO[sc.p], w = pcCap(pcLat(sc.p));
+  if (kind === "self") return n === 1 ? pcP(sc.spk).name + " means " + pcSelf(sc.spk) + ": " + w + "." : "A group with " + pcP(sc.spk).name + " in it: " + w + ".";
+  if (n === 1) return (kind === "to" ? "Talking TO one " : "About one ") + (g === "m" ? "man" : "woman") + ": " + w + ".";
+  const who = g === "f" ? "women only" : sc.t.every(id => pcP(id).g === "m") ? "men" : "a group with a man";
+  return (kind === "to" ? "Talking TO " : "About ") + who + ": " + w + ".";
+}
+/* ---- audio: pronoun + 120 ms + country, on the shared player (unlocked on iPhone) ---- */
+const PC_HAVE = {};   // file -> true / false once checked
+let pcTok = 0;
+function pcCheckFiles(){
+  PC_FILES.forEach(f => { if (f in PC_HAVE) return; PC_HAVE[f] = null;
+    try{ fetch(AUDIO_BASE + f, { method:"HEAD", cache:"no-store" }).then(r => { PC_HAVE[f] = !!r.ok; }).catch(() => { PC_HAVE[f] = false; }); }catch(e){ PC_HAVE[f] = false; } });
+}
+const pcHas = f => PC_HAVE[f] === true;
+function pcPlay(files){
+  const tok = ++pcTok; let i = 0;
+  try{ player.onended = null; player.pause(); }catch(e){}
+  const next = () => {
+    if (tok !== pcTok || i >= files.length || !$("g18") || $("g18").hidden){ if (tok === pcTok){ player.onended = null; player.onerror = null; } return; }
+    const f = files[i++];
+    if (PC_HAVE[f] === false){ next(); return; }
+    player.onended = () => setTimeout(next, 120);
+    player.onerror = () => setTimeout(next, 0);
+    try{ player.src = AUDIO_BASE + f; player.playbackRate = 1; const pr = player.play(); if (pr && pr.catch) pr.catch(() => {}); }catch(e){ setTimeout(next, 0); }
+  };
+  next();
+}
+const pcSay = (p, c) => pcPlay([AUDIO[p] || (p + ".mp3"), pcFileFrom(c)]);
+const pcSayName = c => pcPlay([pcFileBare(c)]);
+/* ---- difficulty: same store as the other games (hhGameDiff), Challenge opens after one Easy run ---- */
+const PC_DKEY = "g18";
+function pcDiff(){ try{ const o = (JSON.parse(localStorage.getItem("hhGameDiff")) || {})[PC_DKEY] || {}; return { mode:o.mode === "challenge" ? "challenge" : "easy", easyDone:!!o.easyDone }; }catch(e){ return { mode:"easy", easyDone:false }; } }
+function pcDiffSet(patch){ try{ const all = JSON.parse(localStorage.getItem("hhGameDiff")) || {}; all[PC_DKEY] = Object.assign(pcDiff(), patch); localStorage.setItem("hhGameDiff", JSON.stringify(all)); }catch(e){} }
+/* ---- the screen ---- */
+let s18 = null;
+(function mountG18(){
+  const sec = document.createElement("section"); sec.id = "g18"; sec.hidden = true;
+  sec.innerHTML = '<div class="top"><div class="bar"><i id="g18bar"></i></div><div class="count" id="g18count"></div></div>' +
+    '<div class="card hh-snap hh-ppc" id="g18card">' +
+      '<div class="hh-sn-head"><div class="tag" id="g18tag" aria-live="polite">Passport check</div><div class="hh-hbtns"><span class="hh-gd-streak" id="g18streak" hidden></span></div></div>' +
+      '<div class="hh-sn-stage" id="g18stage" hidden></div>' +
+      '<div class="hh-ppc-intro" id="g18intro"></div>' +
+      '<div class="hh-ppc-new" id="g18new" hidden></div>' +
+      '<div id="g18round" hidden>' +
+        '<div class="hh-ppc-desk"><div class="hh-ppc-pass"><span id="g18flag"></span><div><b>PASSPORT</b><span>Where are they from?</span></div></div>' +
+          '<div class="hh-ppc-scene" id="g18scene" aria-live="polite"></div><p class="hh-ppc-cap" id="g18cap"></p></div>' +
+        '<div class="hh-ppc-say"><div class="txt" id="g18say"></div><button type="button" id="g18hear" aria-label="Hear it again">🔊</button></div>' +
+        '<div class="hh-ppc-judge" id="g18judge"><button type="button" class="yes" id="g18yes">MATCH</button><button type="button" class="no" id="g18no">NOT A MATCH</button></div>' +
+        '<div class="hh-ppc-fix" id="g18fix" hidden><p id="g18fixask"></p><div class="hh-ppc-opts" id="g18opts"></div></div>' +
+      '</div>' +
+      '<div class="hh-ppc-rev" id="g18rev" hidden></div>' +
+      '<div class="msg hh-sn-msg" id="g18msg" aria-live="polite"></div>' +
+      '<div class="hh-sn-end" id="g18end" hidden></div>' +
+    '</div>' +
+    '<div class="row" id="g18startRow"><button class="btn" id="g18start" type="button">Start</button></div>' +
+    '<div class="row" id="g18nextRow" hidden><button class="btn" id="g18next" type="button">Next</button></div>' +
+    '<div class="row" id="g18doneRow" hidden><button class="btn" id="g18done" type="button">Continue</button></div>';
+  $("play").append(sec);
+  $("g18start").addEventListener("click", () => { if (!s18 || s18.phase !== "intro") return; if (typeof unlockAudio === "function") unlockAudio(); sfx("tap"); s18.ch = pcDiff().mode === "challenge"; $("g18intro").hidden = true; $("g18startRow").hidden = true; pcStep(); });
+  $("g18next").addEventListener("click", pcNext);
+  $("g18yes").addEventListener("click", () => pcJudge(true));
+  $("g18no").addEventListener("click", () => pcJudge(false));
+  $("g18hear").addEventListener("click", pcHear);
+  $("g18done").addEventListener("click", () => { if (!s18 || s18.phase !== "end") return; const n = s18.clean, T = PC_ROUNDS.length;
+    finish(hhRank(18, n, T) + "!", n + " / " + T, "rounds right on the first try.", ""); });
+  setInterval(() => { if (sec.hidden && pcTok && s18 && s18.phase !== "idle"){ pcTok++; } }, 600);
+})();
+function pcIntro(){
+  const d = pcDiff(), box = $("g18intro"); box.innerHTML = "";
+  const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x !== undefined) e.textContent = x; return e; };
+  box.append(el("h3", "", "PASSPORT CHECK"), el("p", "goal", "Match the flag and the people, or fix the country."));
+  const fl = el("div", "hh-ppc-flags"); fl.innerHTML = Object.keys(PC_C).map(c => pcFlag(c)).join(""); box.append(fl);
+  const ol = el("ol"); ["Look at the flag and who it is about.", "Hear the sentence. Tap MATCH or NOT A MATCH.", "Not a match? Fix it: the country or the people."].forEach(s => ol.append(el("li", "", s))); box.append(ol);
+  const seg = el("div", "hh-ppc-seg"), note = el("small", "hh-ppc-segnote");
+  const mk = (v, t) => { const b = el("button", "", t); b.type = "button"; b.dataset.v = v; return b; };
+  const be = mk("easy", "Easy"), bc = mk("challenge", "Challenge"); seg.append(be, bc);
+  const paint = () => { const s = pcDiff(); be.setAttribute("aria-pressed", String(s.mode === "easy")); bc.setAttribute("aria-pressed", String(s.mode === "challenge"));
+    bc.disabled = !s.easyDone && s.mode !== "challenge";
+    note.textContent = bc.disabled ? "Challenge opens after one Easy run." : s.mode === "challenge" ? "Challenge: listen first, the text shows after you answer. Country names only." : "Easy: text and sound, replay as often as you like."; };
+  seg.addEventListener("click", e => { const b = e.target.closest("button"); if (!b || b.disabled) return; pcDiffSet({ mode:b.dataset.v }); sfx("tap"); paint(); });
+  box.append(seg, note); paint();
+}
+function pcStart(){
+  pcCheckFiles();
+  s18 = { q:PC_ROUNDS.map((r, i) => Object.assign({ base:i }, r)), i:0, step:"new", clean:0, done:0, missed:[], phase:"intro", ch:false, streak:0, best:0, cur:null, rev:null, seen:[] };
+  show("g18");
+  ["g18round","g18new","g18rev","g18end","g18nextRow","g18doneRow","g18stage"].forEach(id => $(id).hidden = true);
+  $("g18intro").hidden = false; $("g18startRow").hidden = false; $("g18msg").textContent = ""; $("g18msg").className = "msg hh-sn-msg";
+  $("g18streak").hidden = true; $("g18tag").textContent = "How to play"; pcBar();
+  pcIntro();
+}
+starters[18] = pcStart;
+function pcBar(){
+  const total = s18.q.length, n = Math.min(s18.done, total);
+  $("g18bar").style.width = (total ? n / total * 100 : 0) + "%";
+  $("g18count").textContent = s18.phase === "review" ? "Review" : s18.phase === "end" ? total + " / " + total : Math.min(n + 1, total) + " / " + total;
+}
+/* one queue item = (optional New country card) then the round */
+function pcStep(){
+  if (s18.i >= s18.q.length) return pcReview();
+  const r = s18.q[s18.i];
+  if (r.new && !r.cardSeen){ r.cardSeen = true; return pcCard(r.new); }
+  pcRound(r);
+}
+function pcCard(c){
+  if (!s18.seen.includes(c)) s18.seen.push(c);
+  s18.phase = "card"; pcBar();
+  $("g18round").hidden = true; $("g18msg").textContent = "";
+  const r = s18.q[s18.i], sg = $("g18stage"); if (r.w !== s18.wave){ s18.wave = r.w; sg.hidden = false; sg.textContent = PC_BANNER[r.w]; } else sg.hidden = true;
+  $("g18tag").textContent = "New country";
+  const box = $("g18new"); box.hidden = false;
+  box.innerHTML = '<div class="lab">NEW COUNTRY</div>' + pcFlag(c) + '<div class="nm"></div><div class="en"></div><div class="from"></div><div><button type="button" class="hh-ppc-play">🔊 Hear it</button></div>';
+  box.querySelector(".nm").textContent = PC_C[c].lat; box.querySelector(".en").textContent = PC_C[c].en !== PC_C[c].lat ? "= " + PC_C[c].en : "";
+  box.querySelector(".from").textContent = "from " + PC_C[c].en + ": " + PC_C[c].from;
+  box.querySelector(".hh-ppc-play").addEventListener("click", () => pcPlay([pcFileBare(c), pcFileFrom(c)]));
+  pcPlay([pcFileBare(c), pcFileFrom(c)]);
+  $("g18next").textContent = "Got it"; $("g18nextRow").hidden = false;
+  pop(box);
+}
+function pcPaintScene(sc, c){
+  const box = $("g18scene"); box.innerHTML = "";
+  const [kind, n, g] = PC_PRO[sc.p];
+  const fig = (cls, icon, label, flag, talk) => { const d = document.createElement("div"); d.className = "hh-ppc-p " + cls;
+    d.innerHTML = "<b></b><span></span>"; d.firstChild.textContent = icon; d.lastChild.textContent = label;
+    if (flag){ const f = document.createElement("i"); f.className = "fl"; f.innerHTML = pcFlag(c); d.append(f); }
+    if (talk){ const bb = document.createElement("i"); bb.className = "bub"; bb.textContent = "💬"; d.append(bb); }
+    return d; };
+  const person = id => { const P = pcP(id); return fig("t " + P.g, P.face, P.name, true, id === sc.spk); };
+  const arrow = (ic, t) => { const a = document.createElement("div"); a.className = "hh-ppc-arrow"; a.innerHTML = "<span></span><small></small>"; a.firstChild.textContent = ic; a.lastChild.textContent = t; return a; };
+  const group = () => { const grp = document.createElement("div"); grp.className = "hh-ppc-grp t " + (g || (kind === "self" ? "n" : "m"));
+    sc.t.forEach(id => grp.append(person(id))); return grp; };
+  if (kind === "self"){ box.append(n === 1 ? person(sc.t[0]) : group(), arrow("👈", n === 1 ? "ME" : "US")); }
+  else {
+    if (sc.you) box.append(fig("you", "🙂", "You"));
+    box.append(fig("guard", "👮", "Guard", false, true), arrow("👉", kind === "to" ? "TO" : "ABOUT"));
+    box.append(n === 1 ? person(sc.t[0]) : group());
+  }
+  $("g18cap").textContent = pcCaption(sc);
+}
+function pcRound(r){
+  s18.phase = "judge"; s18.cur = r; s18.ok = true; s18.replays = 0;
+  if (!r.sc) r.sc = pcScene(r.p, r.avoid);
+  r.say = { p: r.fp || r.p, c: r.fc || r.c };
+  $("g18new").hidden = true; $("g18nextRow").hidden = true; $("g18round").hidden = false; $("g18fix").hidden = true; $("g18judge").hidden = false;
+  const sg = $("g18stage"); if (r.w !== s18.wave){ s18.wave = r.w; sg.hidden = false; sg.textContent = PC_BANNER[r.w]; } else if (!r.again) sg.hidden = true;
+  if (r.again){ sg.hidden = false; sg.textContent = "Again, with new people"; }
+  $("g18tag").textContent = r.again ? "One more look" : "Does it match?";
+  document.querySelectorAll("#g18judge button").forEach(b => { b.disabled = false; b.classList.remove("right", "wrong"); });
+  $("g18msg").textContent = ""; $("g18msg").className = "msg hh-sn-msg";
+  $("g18flag").innerHTML = pcFlag(r.c);
+  pcPaintScene(r.sc, r.c);
+  pcPaintSay(false);
+  $("g18hear").disabled = false;
+  pcBar(); pop($("g18card"));
+  pcSay(r.say.p, r.say.c);
+}
+function pcPaintSay(revealed, fixed){
+  const r = s18.cur, t = $("g18say"), who = r.sc.spk === "guard" ? "The guard" : pcP(r.sc.spk).name;
+  const say = fixed ? { p:r.p, c:r.c } : r.say;
+  const missing = !pcHas(pcFileFrom(say.c));   // no country clip yet: show the text, also in Challenge
+  t.className = "txt"; t.innerHTML = '<span class="who"></span><span class="s"></span>'; t.firstChild.textContent = who + " says:";
+  if (s18.ch && !revealed && !missing){ t.classList.add("listen"); t.lastChild.textContent = "🔊 Listen…"; }
+  else t.lastChild.textContent = "“" + pcSentence(say.p, say.c) + "”";
+}
+function pcHear(){
+  const r = s18 && s18.cur; if (!r || (s18.phase !== "judge" && s18.phase !== "fix" && s18.phase !== "shown")) return;
+  if (s18.ch && s18.phase === "judge"){ s18.replays++; if (s18.replays >= 1) $("g18hear").disabled = true; }
+  if (s18.phase === "shown" && r.fixedShown) pcSay(r.p, r.c); else pcSay(r.say.p, r.say.c);
+}
+const pcIsTrue = r => !r.fc && !r.fp;
+function pcJudge(yes){
+  if (!s18 || s18.phase !== "judge") return;
+  const r = s18.cur, truth = pcIsTrue(r), m = $("g18msg");
+  document.querySelectorAll("#g18judge button").forEach(b => b.disabled = true);
+  $(yes ? "g18yes" : "g18no").classList.add(yes === truth ? "right" : "wrong");
+  if (yes !== truth){ s18.ok = false; sfx("soft"); $("g18card").classList.remove("shake"); void $("g18card").offsetWidth; $("g18card").classList.add("shake"); }
+  else sfx(truth ? "good" : "tap");   // one "good" per round (the app-wide streak toast counts them)
+  pcPaintSay(true);
+  if (truth){
+    m.className = "msg hh-sn-msg " + (yes ? "good" : "bad");
+    m.textContent = yes ? "Yes! " + PC_C[r.c].en + ": " + pcSentence(r.p, r.c) : "It matches: the flag is " + PC_C[r.c].lat + ". " + pcWhy(r.sc) + " " + pcSentence(r.p, r.c);
+    return pcRoundDone();
+  }
+  m.className = "msg hh-sn-msg " + (yes ? "bad" : "good");
+  m.textContent = yes ? "Not a match. Let's fix it." : "Right, it's not a match. Fix it.";
+  pcFix1();
+}
+function pcFix1(){
+  s18.phase = "fix"; const r = s18.cur;
+  $("g18judge").hidden = true; $("g18fix").hidden = false; $("g18fixask").textContent = "What's wrong?";
+  const box = $("g18opts"); box.innerHTML = ""; box.className = "hh-ppc-opts two";
+  [["country", "COUNTRY"], ["people", "PEOPLE"]].forEach(([v, t]) => {
+    const b = document.createElement("button"); b.type = "button"; b.dataset.v = v; b.textContent = t;
+    b.addEventListener("click", () => {
+      if (s18.phase !== "fix" || s18.fixStep !== 1) return;
+      const want = r.fc ? "country" : "people";
+      if (v !== want){ s18.ok = false; b.classList.add("wrong"); b.disabled = true; sfx("soft");
+        $("g18msg").className = "msg hh-sn-msg bad"; $("g18msg").textContent = want === "people" ? "The country is right. Look at who they talk about." : "The people are right. Look at the flag."; return; }
+      b.classList.add("right"); sfx("tap"); setTimeout(() => pcFix2(want), 350);
+    });
+    box.append(b);
+  });
+  s18.fixStep = 1;
+}
+function pcFix2(kind){
+  const r = s18.cur, box = $("g18opts"); s18.fixStep = 2; box.innerHTML = ""; box.className = "hh-ppc-opts";
+  let opts;
+  if (kind === "country"){
+    $("g18fixask").textContent = "Pick the right country.";
+    const seen = PC_WAVE_C[r.w].filter(c => s18.seen.includes(c)), pool = (seen.length > 2 ? seen : PC_WAVE_C[r.w]).filter(c => c !== r.c && c !== r.fc);   // only countries already met
+    opts = shuffle([r.c, r.fc, pcPick(pool)]);
+    opts.forEach(c => { const b = document.createElement("button"); b.type = "button"; b.dataset.v = c;
+      b.innerHTML = (s18.ch ? "" : pcFlag(c)) + "<span></span>"; b.lastChild.textContent = PC_C[c].from;
+      b.addEventListener("click", () => pcFixPick(b, c === r.c, "country")); box.append(b); });
+  } else {
+    $("g18fixask").textContent = "Pick the right word for the people.";
+    const pool = PC_WAVE_PRO[r.w].filter(p => p !== r.p && p !== r.fp);
+    const third = pool.includes(PC_TWIN[r.p]) ? PC_TWIN[r.p] : pcPick(pool);
+    opts = shuffle([r.p, r.fp, third]);
+    opts.forEach(p => { const b = document.createElement("button"); b.type = "button"; b.dataset.v = p; b.textContent = pcLat(p);
+      if (PC_PRO[p][2]) b.classList.add(PC_PRO[p][2]);
+      b.addEventListener("click", () => pcFixPick(b, p === r.p, "people")); box.append(b); });
+  }
+  $("g18msg").textContent = ""; $("g18msg").className = "msg hh-sn-msg";
+}
+function pcFixPick(b, right, kind){
+  if (s18.phase !== "fix" || s18.fixStep !== 2 || b.disabled) return;
+  const r = s18.cur, m = $("g18msg");
+  if (!right){ s18.ok = false; b.classList.add("wrong"); b.disabled = true; sfx("soft"); m.className = "msg hh-sn-msg bad";
+    m.textContent = kind === "country" ? "Look at the flag again." : "Look again at who they talk about."; return; }
+  b.classList.add("right"); document.querySelectorAll("#g18opts button").forEach(x => x.disabled = true); sfx("good");
+  m.className = "msg hh-sn-msg good";
+  m.textContent = kind === "country" ? "The flag says " + PC_C[r.c].lat + ": " + pcSentence(r.p, r.c) : pcWhy(r.sc) + " " + pcSentence(r.p, r.c);
+  r.fixedShown = true; pcPaintSay(true, true);
+  pcSay(r.p, r.c);
+  pcRoundDone();
+}
+function pcRoundDone(){
+  const r = s18.cur; s18.phase = "shown";
+  if (s18.ok && !r.again) s18.clean++;
+  if (s18.ok){ s18.streak++; s18.best = Math.max(s18.best, s18.streak); } else s18.streak = 0;
+  const c = $("g18streak"); c.hidden = s18.streak < 2; c.textContent = "🔥 " + s18.streak + " in a row";
+  if (!s18.ok){
+    if (!s18.missed.includes(r.c)) s18.missed.push(r.c);
+    if (!r.again){   // comes back 3 rounds later: same countries, same kind of round, new people (and a new pronoun when the wave has one)
+      const pros = PC_WAVE_PRO[r.w].filter(p => p !== r.p && (!r.fp || p !== r.fp));
+      const np = pcPick(pros.length ? pros : [r.p]);
+      const back = { w:r.w, c:r.c, p:np, again:true, base:r.base, avoid:r.sc };
+      if (r.fc) back.fc = r.fc;
+      if (r.fp){ const tw = PC_TWIN[np]; back.fp = PC_WAVE_PRO[r.w].includes(tw) ? tw : pcPick(PC_WAVE_PRO[r.w].filter(p => p !== np)); }
+      s18.q.splice(Math.min(s18.q.length, s18.i + 4), 0, back);
+    }
+  }
+  s18.done++; pcBar();
+  $("g18next").textContent = s18.i + 1 >= s18.q.length ? "Finish" : "Next"; $("g18nextRow").hidden = false;
+}
+function pcNext(){
+  if (!s18) return;
+  if (s18.phase === "card"){ $("g18new").hidden = true; $("g18nextRow").hidden = true; return pcRound(s18.q[s18.i]); }
+  if (s18.phase === "shown"){ s18.i++; $("g18nextRow").hidden = true; return pcStep(); }
+  if (s18.phase === "revdone"){ s18.rev.i++; $("g18nextRow").hidden = true; return pcRevStep(); }
+}
+/* ---- Passport Review: every missed country, flag -> name ---- */
+function pcReview(){
+  $("g18round").hidden = true; $("g18new").hidden = true; $("g18stage").hidden = true; $("g18msg").textContent = "";
+  if (!s18.missed.length) return pcEnd();
+  s18.phase = "review"; s18.rev = { i:0, list:s18.missed.slice() }; pcBar();
+  $("g18tag").textContent = "Passport Review";
+  pcRevStep();
+}
+function pcRevStep(){
+  const R = s18.rev; if (R.i >= R.list.length) return pcEnd();
+  s18.phase = "review"; const c = R.list[R.i], box = $("g18rev"); box.hidden = false;
+  box.innerHTML = '<div class="lab">PASSPORT REVIEW ' + (R.i + 1) + ' / ' + R.list.length + '</div>' + pcFlag(c, "big") + '<p><b>Which country is it?</b></p><div class="hh-ppc-opts"></div>';
+  const opts = shuffle([c].concat(shuffle(Object.keys(PC_C).filter(x => x !== c)).slice(0, 2))), ob = box.querySelector(".hh-ppc-opts");
+  opts.forEach(x => { const b = document.createElement("button"); b.type = "button"; b.dataset.v = x; b.textContent = PC_C[x].lat;
+    b.addEventListener("click", () => {
+      if (s18.phase !== "review" || b.disabled) return;
+      if (x !== c){ b.classList.add("wrong"); b.disabled = true; sfx("soft"); $("g18msg").className = "msg hh-sn-msg bad"; $("g18msg").textContent = "Not that one. Try again."; return; }
+      b.classList.add("right"); ob.querySelectorAll("button").forEach(y => y.disabled = true); sfx("good");
+      $("g18msg").className = "msg hh-sn-msg good"; $("g18msg").textContent = PC_C[c].lat + " (" + PC_C[c].en + "): " + PC_C[c].from + ".";
+      pcPlay([pcFileBare(c), pcFileFrom(c)]);
+      s18.phase = "revdone"; $("g18next").textContent = R.i + 1 >= R.list.length ? "Finish" : "Next"; $("g18nextRow").hidden = false;
+    }); ob.append(b); });
+  $("g18msg").textContent = ""; pop(box);
+}
+function pcEnd(){
+  s18.phase = "end"; pcTok++;
+  ["g18round","g18new","g18rev","g18stage","g18nextRow"].forEach(id => $(id).hidden = true);
+  $("g18msg").textContent = ""; $("g18tag").textContent = "Passport check done"; $("g18streak").hidden = true; pcBar();
+  const T = PC_ROUNDS.length;
+  hhEndCard($("g18end"), { n:s18.clean, total:T, what:"rounds right on the first try", best:s18.best,
+    extra:["🛂 10 countries: Israel to Argentina", s18.missed.length ? "Reviewed: " + s18.missed.map(c => PC_C[c].lat).join(", ") : "No countries to review"], rank:hhRank(18, s18.clean, T) });
+  if (!s18.ch) pcDiffSet({ easyDone:true });
+  $("g18doneRow").hidden = false; sfx("win");
+}
+/* for the tests */
+window.pcState = () => s18 && ({ phase:s18.phase, i:s18.i, n:s18.q.length, done:s18.done, clean:s18.clean, missed:s18.missed.slice(), ch:s18.ch,
+  cur:s18.cur && { p:s18.cur.p, c:s18.cur.c, fc:s18.cur.fc || "", fp:s18.cur.fp || "", again:!!s18.cur.again, spk:s18.cur.sc && s18.cur.sc.spk, t:s18.cur.sc && s18.cur.sc.t.slice() },
+  rev:s18.rev && s18.rev.list[s18.rev.i] });
+window.PC_FILES = PC_FILES;
 
 </script>
 </body>
