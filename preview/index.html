@@ -1047,6 +1047,9 @@ main section > .top > .back{display:none}
 .hh-sn-lg{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14)}
 .hh-sn-lg b{font-size:15px} .hh-sn-lg span{font-size:14px} .hh-sn-lg em{font-size:13px;color:var(--cream-dim)}
 #g9introRow,#g9legRow{gap:8px}
+/* v54 SNAP level bar + end-card button */
+.hh-sn-lvl{margin:12px 0 2px}
+.hh-sn-other{display:block;margin:12px auto 0}
 /* ---------- v33: video screen on phones + our own control bar (Play, CC Captions, speed) ---------- */
 .hh-vctl{flex:none;display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px;border-radius:16px;background:#26543F;color:#F4F1E8}
 .hh-vctl[hidden]{display:none!important}
@@ -1535,7 +1538,7 @@ main section > .top > .back{display:none}
   <div class="hh-toggle"><span>Show English letters<small>The pronunciation in English letters under the Hebrew</small></span>
     <button class="hh-switch" id="oTr" type="button" role="switch" aria-checked="true" aria-label="Show English letters"></button></div>
   <div class="push"><button class="btn" id="oGo" type="button" disabled>Start learning</button></div>
-  <p class="hh-ver" id="oVer">Version hh-v52-preview</p>
+  <p class="hh-ver" id="oVer">Version hh-v54-preview</p>
 </div>
 
 <!-- STEP OVERVIEW -->
@@ -3603,12 +3606,31 @@ const SNAP_MODE = { selfie:["🤳 Selfie", "including me"], back:["📷 Camera",
    From shot 2 on the mode changes every shot (one exception: the hen -> hem trap, both are Camera) and no pronoun comes twice in a row.
    Trap pairs back-to-back: at/hi, ata/hu, anakhnu/hem, hem/atem, hen/hem, aten/hen. Mixed groups from shot 8.
    pre = people already in the frame (otherwise the frame keeps the last photo's people); the shutter timer drops from 5s to 2.5s. */
-const SNAP_SHOTS = [
+const SNAP_SHOTS_V53 = [   // v54: the old fixed run of 20, kept, not used any more
   { t:"ani", banner:"Three modes: switch fast", pre:[] }, { t:"hu", pre:[] }, { t:"at" }, { t:"hi" }, { t:"ata" }, { t:"hu" },
   { t:"anachnu", banner:"Groups: more than one" }, { t:"hem", pre:["dani","noa"], banner:"Mixed groups: one boy makes it hem" }, { t:"atem" },
   { t:"hen", pre:["noa","maya","dani"] }, { t:"hem" }, { t:"aten", pre:["noa","maya","yosi"] }, { t:"hen" },
   { t:"ani", banner:"Faster now" }, { t:"at" }, { t:"hi" }, { t:"anachnu" }, { t:"hem", pre:["maya","noa"] }, { t:"atem" }, { t:"hen", pre:["noa","yosi","maya"] }
 ];
+const SNAP_SHOTS = SNAP_SHOTS_V53;   // v54: old name kept for the old Challenge swap code
+/* v54 (Eli: "10 easy and 10 hard"): two runs of 10, picked on the How to play card (hhGameDiff "g9", like PASSPORT CHECK).
+   Easy: mostly one person (ani, hu, at, hi, ata) + simple groups (anakhnu, hem with two boys); no timer for 5 shots, then a 6 s timer.
+   Challenge: plurals and traps (hen/hem mixed, atem/aten, at/hi, ata/hu, anakhnu/hem); the camera changes every shot,
+   no pronoun twice in a row; the timer drops from 5 s to 2.5 s. sec = shutter time (0 = no timer). */
+const SNAP_EASY = [
+  { t:"ani", pre:[], sec:0, banner:"Three cameras: with me, about them, to them" }, { t:"hu", pre:[], sec:0 }, { t:"at", sec:0 }, { t:"hi", sec:0 }, { t:"ata", sec:0 },
+  { t:"hu", sec:6 }, { t:"anachnu", sec:6, banner:"Groups: more than one" }, { t:"hi", sec:6 }, { t:"hem", pre:["dani","yonatan"], sec:6 }, { t:"ata", sec:6 }
+];
+const SNAP_HARD = [
+  { t:"hen", pre:["noa","maya","dani"], sec:5, banner:"Challenge: groups and traps" }, { t:"atem", sec:4.5 }, { t:"anachnu", pre:["yosi"], sec:4.5 },
+  { t:"hem", pre:["noa","maya"], sec:4, banner:"One boy makes it hem" }, { t:"aten", pre:["noa","maya","yosi"], sec:4 }, { t:"hi", pre:["maya","yosi"], sec:3.5 },
+  { t:"at", sec:3.5 }, { t:"hu", pre:["noa"], sec:3 }, { t:"ata", sec:3 }, { t:"ani", pre:["yonatan","noa"], sec:2.5, banner:"Last one: fast!" }
+];
+const SNAP_EXTRA = 3;   // a missed shot comes back once at the end, at most 3 extra
+function snapLvl(){ try{ const o = (JSON.parse(localStorage.getItem("hhGameDiff")) || {}).g9 || {}; return { mode:o.mode === "challenge" ? "challenge" : "easy", easyDone:!!o.easyDone }; }catch(e){ return { mode:"easy", easyDone:false }; } }
+function snapLvlSet(patch){ try{ const all = JSON.parse(localStorage.getItem("hhGameDiff")) || {}; all.g9 = Object.assign(snapLvl(), patch); localStorage.setItem("hhGameDiff", JSON.stringify(all)); }catch(e){} }
+const snapOrder = lvl => (lvl === "challenge" ? SNAP_HARD : SNAP_EASY).map(x => JSON.parse(JSON.stringify(x)));
+const SNAP_LVL_NAME = { easy:"Easy", challenge:"Challenge" };
 const SNAP_TIP = "🤳 with me · 📷 about them · 📱 to them";
 const SNAP_FREE = 5;   // v32: no timer in rounds 1-5 (singular words only there: ani, hu, at, hi, ata)
 const snapSec = i => i < SNAP_FREE ? 0 : Math.round((5 - 2.5 * i / (SNAP_SHOTS.length - 1)) * 2) / 2;
@@ -3654,8 +3676,8 @@ function snapWhy(t, got, mode){
   return ok + (T[2] === "m" ? "👦 People: " : "👧 People: ") + tw + " is " + snapWho(t) + (T[1] === 2 && T[2] === "m" ? " (one boy makes it " + tw + ")" : "") + " → " + tw + ", not " + gw + ".";
 }
 function startSnap(){
-  const order = SNAP_SHOTS.map((x, i) => Object.assign({ sec:snapSec(i) }, x));
-  s9 = { order, i:0, clean:0, said:0, tries:0, mode:"back", inFrame:[], phase:"idle", saidNow:false, noMic:!navigator.mediaDevices || !window.MediaRecorder, t:0, left:0 };
+  const lvl = snapLvl().mode, order = snapOrder(lvl);   // v54
+  s9 = { order, lvl, base:order.length, extra:0, started:false, i:0, clean:0, said:0, tries:0, mode:"back", inFrame:[], phase:"idle", saidNow:false, noMic:!navigator.mediaDevices || !window.MediaRecorder, t:0, left:0 };
   snapReal = null; show("g9"); snapWatch(); snapIntro();
 }
 function snapWatch(){   // stops the timer and the mic when the game is left any way (‹, ⌂, Back)
@@ -3666,6 +3688,7 @@ function snapStop(){ clearInterval(s9 && s9.t); if (s9) s9.t = 0; snapMicOff(); 
 function nextSnap(){
   snapStop();
   if (s9.i >= s9.order.length) return snapEnd();
+  if (!s9.demo && s9.i === s9.base && s9.extra > 1) snapMixExtra();   // v54
   const o = s9.order[s9.i];
   s9.cur = o; s9.tries = 0; s9.saidNow = false; s9.phase = "aim";
   s9.mode = null; s9.touched = false; s9.listening = true;   // v32: Snap stays grey until a camera is picked
@@ -3674,7 +3697,8 @@ function nextSnap(){
   $("g9count").textContent = (s9.i + 1) + " / " + s9.order.length;
   document.querySelectorAll("#g9modes button").forEach(b => { b.hidden = false; });
   $("g9tip").textContent = SNAP_TIP;
-  const sg = $("g9stage"); sg.hidden = !o.banner; sg.textContent = o.banner || "";
+  const sg = $("g9stage"); sg.hidden = !o.banner && !o.again; sg.textContent = o.again ? "🔁 One more try" : (o.banner || "");
+  if (!s9.demo) s9.started = true;   // v54: the level is fixed once the run starts
   $("g9tag").textContent = "🔊 Listen… (tap 🔊 to hear it again)";
   $("g9msg").textContent = ""; $("g9msg").className = "msg hh-sn-msg";
   $("g9photo").hidden = true; $("g9frame").hidden = false; $("g9say").hidden = true; $("g9end").hidden = true;
@@ -3686,6 +3710,16 @@ function nextSnap(){
   const me = s9, i = s9.i;
   const heard = () => { if (s9 !== me || s9.i !== i || s9.phase !== "aim") return; s9.listening = false; paintSnap(); if (o.sec && !s9.t) snapTimer(o.sec); };
   if (!s9.hush){ speak([o.t]); snapAfterAudio(heard); } else heard();   // v32: the timer starts only after the word is heard
+}
+/* v54: the shots that come back, ordered so no pronoun (and, if it can, no camera) comes twice in a row */
+function snapMixExtra(){
+  let left = s9.order.slice(s9.base), prev = s9.order[s9.base - 1]; const out = [];
+  while (left.length){
+    const ok = x => x.t !== prev.t, cam = x => SNAP_FEAT[x.t][0] !== SNAP_FEAT[prev.t][0];
+    const k = Math.max(0, left.findIndex(x => ok(x) && cam(x)) >= 0 ? left.findIndex(x => ok(x) && cam(x)) : left.findIndex(ok));
+    prev = left[k]; out.push(prev); left.splice(k, 1);
+  }
+  s9.order.splice(s9.base, out.length, ...out);
 }
 function snapAfterAudio(f){   // when the clip ends (or 2.5 s without an ended event)
   let done = false; const go = () => { if (done) return; done = true; player.removeEventListener("ended", go); clearTimeout(tt); f(); };
@@ -3754,7 +3788,7 @@ function snapShoot(auto){
 }
 function snapDevelop(w){
   s9.phase = "photo"; clearInterval(s9.t); $("g9timer").hidden = true;
-  if (s9.tries === 0) s9.clean++;
+  if (s9.tries === 0){ s9.clean++; if (!s9.demo && s9.i < s9.base) s9.cleanBase = (s9.cleanBase || 0) + 1; }
   if (!s9.demo) hhStreak(s9, s9.tries === 0, "g9streak");
   sfx("good");
   const pic = $("g9pic"); pic.innerHTML = ""; pic.dataset.mode = s9.mode;
@@ -3771,7 +3805,12 @@ function snapDevelop(w){
   $("g9beach").hidden = true; $("g9modes").hidden = true; $("g9shotRow").hidden = true; $("g9nextRow").hidden = false;
   snapSayReset(); $("g9say").hidden = !!s9.demo; if (s9.noMic && !s9.demo) snapNoMic();
   setTimeout(() => speak([w]), 350);
-  if (!s9.demo && s9.i === SNAP_FREE - 1){ $("g9stage").hidden = false; $("g9stage").textContent = "⏱ Timer starts next round!"; if (typeof toast === "function") toast("⏱ Timer starts next round!"); }
+  const og = s9.order[s9.i], nx = s9.order[s9.i + 1];
+  if (!s9.demo && s9.tries > 0 && !og.again && s9.extra < SNAP_EXTRA){   // v54: missed: once more at the end
+    s9.extra++; s9.order.push({ t:og.t, pre:og.pre ? og.pre.slice() : undefined, sec:og.sec, again:true });
+    m.textContent += " This one comes back at the end.";
+  }
+  if (!s9.demo && og && !og.sec && nx && nx.sec && !nx.again){ $("g9stage").hidden = false; $("g9stage").textContent = "⏱ Timer starts next round!"; if (typeof toast === "function") toast("⏱ Timer starts next round!"); }
 }
 $("g9shoot").addEventListener("click", () => snapShoot(false));
 $("g9hear").addEventListener("click", () => { if (s9 && s9.cur) speak([s9.cur.t]); });
@@ -3861,6 +3900,25 @@ function snapIntro(){
   $("g9tip").textContent = ""; $("g9msg").textContent = ""; $("g9tag").textContent = "How to play"; $("g9hear").hidden = true; $("g9how").hidden = true; $("g9skip").hidden = true;
   $("g9intro").hidden = false; $("g9introRow").hidden = false; $("g9introPlay").hidden = !A.snapDemoSeen;
   $("g9introPlay").textContent = s9 && s9.i > 0 ? "Back to the game" : "Start playing";
+  snapLvlBar();
+}
+/* v54: Easy / Challenge, same look as the other games' level bar */
+function snapLvlBar(){
+  const box = $("g9intro"); let d = box.querySelector(".hh42-diff");
+  if (!d){
+    d = document.createElement("div"); d.className = "hh42-diff hh-sn-lvl"; d.id = "g9lvl";
+    d.innerHTML = '<div class="hh42-diff-lab">Game level</div><div class="hh42-seg" role="group" aria-label="Game level"><button type="button" data-v="easy">Easy</button><button type="button" data-v="challenge">Challenge</button></div><small class="hh42-diff-note"></small>';
+    d.querySelector(".hh42-seg").addEventListener("click", ev => { const b = ev.target.closest("button"); if (!b || b.disabled || !s9 || s9.started) return;
+      snapLvlSet({ mode:b.dataset.v }); s9.lvl = b.dataset.v; s9.order = snapOrder(s9.lvl); s9.base = s9.order.length; sfx("tap"); snapLvlBar(); });
+    box.append(d);
+  }
+  const st = snapLvl(), lvl = s9 && s9.started ? s9.lvl : st.mode, [be, bc] = d.querySelectorAll("button");
+  be.setAttribute("aria-pressed", String(lvl === "easy")); bc.setAttribute("aria-pressed", String(lvl === "challenge"));
+  const locked = !st.easyDone && lvl !== "challenge", busy = !!(s9 && s9.started);
+  be.disabled = busy && lvl !== "easy"; bc.disabled = locked || (busy && lvl !== "challenge");
+  d.querySelector("small").textContent = busy ? "Level: " + SNAP_LVL_NAME[lvl] + ". Finish this run to switch." : locked ? "Challenge opens after one Easy run."
+    : lvl === "challenge" ? "Challenge: 10 photos with groups and traps. The camera changes every time, and the timer drops from 5 to 2.5 seconds."
+    : "Easy: 10 photos, mostly one person. No timer at first, then 6 seconds.";
 }
 $("g9introGo").addEventListener("click", () => { $("g9intro").hidden = true; $("g9introRow").hidden = true; snapDemo(); });
 $("g9introPlay").addEventListener("click", () => { $("g9intro").hidden = true; $("g9introRow").hidden = true; $("g9how").hidden = false; if (s9.phase === "photo") s9.i++; nextSnap(); });
@@ -3887,11 +3945,19 @@ function snapEnd(){
   ["g9vf","g9modes","g9beach","g9say","g9stage"].forEach(id => $(id).hidden = true);
   $("g9tip").textContent = ""; $("g9msg").textContent = ""; $("g9tag").textContent = "Beach album"; $("g9hear").hidden = true;
   const e = $("g9end"); e.hidden = false;
-  hhEndCard(e, { n:s9.clean, total:s9.order.length, what:"photos right on the first try", best:s9.best || 0, said:s9.said, rank:hhRank(9, s9.clean, s9.order.length) });
+  const first = s9.order.slice(0, s9.base).length, cleanBase = s9.cleanBase || 0;   // v54: the score counts the 10 shots, not the extra tries
+  hhEndCard(e, { n:cleanBase, total:first, what:"photos right on the first try", best:s9.best || 0, said:s9.said,
+    extra:["Level: " + SNAP_LVL_NAME[s9.lvl]].concat(s9.extra ? ["🔁 " + s9.extra + " photo" + (s9.extra === 1 ? "" : "s") + " tried again"] : []), rank:hhRank(9, cleanBase, first) });
+  if (s9.lvl === "easy") snapLvlSet({ easyDone:true });
+  const other = s9.lvl === "easy" ? "challenge" : "easy", ob = document.createElement("button");
+  ob.type = "button"; ob.className = "pill hh-sn-other"; ob.id = "g9other"; ob.textContent = other === "challenge" ? "Try Challenge: groups and traps" : "Try Easy: one person at a time";
+  ob.addEventListener("click", () => snapGoLevel(other)); e.append(ob);
   $("g9streak").hidden = true;
   $("g9shotRow").hidden = true; $("g9nextRow").hidden = true; $("g9doneRow").hidden = false; sfx("win");
 }
-$("g9done").addEventListener("click", () => { if (s9 && s9.phase === "end") finish(hhRank(9, s9.clean, s9.order.length) + "!", s9.clean + " / " + s9.order.length, "photos right on the first try.", ""); });
+$("g9done").addEventListener("click", () => { if (s9 && s9.phase === "end") finish(hhRank(9, s9.cleanBase || 0, s9.base) + "!", (s9.cleanBase || 0) + " / " + s9.base, "photos right on the first try (" + SNAP_LVL_NAME[s9.lvl] + ").", ""); });
+/* v54: play the other level right away (the demo is already seen) */
+function snapGoLevel(v){ snapLvlSet({ mode:v }); sfx("tap"); startSnap(); $("g9intro").hidden = true; $("g9introRow").hidden = true; $("g9how").hidden = false; nextSnap(); }
 
 /* say it: record yourself (or "I said it" without a microphone). Counts once per photo. */
 let snapMic = null, snapRec = null, snapUrl = null, snapAsk = false;
@@ -13203,7 +13269,8 @@ const PC_C = {
   sfarad:   { lat:"Sfarad",          en:"Spain",     from:"mi-Sfarad" },
   italya:   { lat:"Italya",          en:"Italy",     from:"me-Italya" },
   brazil:   { lat:"Brazil",          en:"Brazil",    from:"mi-Brazil" },
-  argentina:{ lat:"Argentina",       en:"Argentina", from:"me-Argentina" }
+  argentina:{ lat:"Argentina",       en:"Argentina", from:"me-Argentina" },
+  rusya:    { lat:"Rusya",           en:"Russia",    from:"me-Rusya" }   // v53 (Eli)
 };
 const pcSlug = s => s.toLowerCase().replace(/\s+/g, "-");
 const pcFileBare = c => "pc_" + pcSlug(PC_C[c].lat) + ".mp3";      // pc_israel.mp3 ... pc_artsot-ha-brit.mp3
@@ -13228,6 +13295,7 @@ function pcFlag(c, cls){
     case "italya": return W + v3("#009246", "#fff", "#ce2b37") + E;
     case "brazil": return W + '<rect width="30" height="20" fill="#009c3b"/><path d="M15 2.2 27.5 10 15 17.8 2.5 10Z" fill="#ffdf00"/><circle cx="15" cy="10" r="4.4" fill="#002776"/>' +
       '<path d="M10.8 9.2q4.6-1.2 8.4 1.6" stroke="#fff" stroke-width=".7" fill="none"/>' + E;
+    case "rusya": return W + '<rect width="30" height="20" fill="#fff"/><rect y="6.67" width="30" height="6.67" fill="#0039a6"/><rect y="13.33" width="30" height="6.67" fill="#d52b1e"/>' + E;
     case "argentina": return W + '<rect width="30" height="20" fill="#74acdf"/><rect y="6.67" width="30" height="6.67" fill="#fff"/><circle cx="15" cy="10" r="2.2" fill="#f6b40e"/>' + E;
   }
   return W + '<rect width="30" height="20" fill="#ccc"/>' + E;
@@ -13270,12 +13338,14 @@ const PC_ROUNDS = [
   { w:4, p:"hi", c:"brazil", fc:"sfarad" },
   { w:4, new:"argentina", p:"aten", c:"argentina" },
   { w:4, p:"hem", c:"argentina", fc:"brazil" },
+  { w:4, new:"rusya", p:"hen", c:"rusya" },
   { w:4, p:"at", c:"kanada", fp:"ata" },
+  { w:4, p:"hem", c:"rusya", fc:"argentina" },
   { w:4, p:"hen", c:"italya", fc:"tsarfat" }
 ];
 const PC_WAVE_PRO = { 1:["ani","hu","hi"], 2:["ani","hu","hi","ata","at"], 3:["ani","hu","hi","ata","at","anachnu","hem","hen"], 4:Object.keys(PC_PRO) };
 const PC_WAVE_C = { 1:["israel","meksiko","kanada"], 2:["israel","meksiko","kanada","artsot","tsarfat"], 3:["israel","meksiko","kanada","artsot","tsarfat","angliya","sfarad","italya"], 4:Object.keys(PC_C) };
-const PC_BANNER = { 1:"Wave 1: I, he, she", 2:"Wave 2: talking TO someone", 3:"Wave 3: groups", 4:"Wave 4: all ten countries" };
+const PC_BANNER = { 1:"Wave 1: I, he, she", 2:"Wave 2: talking TO someone", 3:"Wave 3: groups", 4:"Wave 4: all the countries" };
 const PC_TWIN = { ani:"anachnu", anachnu:"ani", ata:"hu", hu:"ata", at:"hi", hi:"at", atem:"hem", hem:"atem", aten:"hen", hen:"aten" };
 const pcPick = a => a[Math.floor(Math.random() * a.length)];
 /* who is in the scene: t = the travelers talked about; spk = "guard", or the traveler (t[0]) for ani / anakhnu */
@@ -13593,7 +13663,7 @@ function pcEnd(){
   $("g18msg").textContent = ""; $("g18tag").textContent = "Passport check done"; $("g18streak").hidden = true; pcBar();
   const T = PC_ROUNDS.length;
   hhEndCard($("g18end"), { n:s18.clean, total:T, what:"rounds right on the first try", best:s18.best,
-    extra:["🛂 10 countries: Israel to Argentina", s18.missed.length ? "Reviewed: " + s18.missed.map(c => PC_C[c].lat).join(", ") : "No countries to review"], rank:hhRank(18, s18.clean, T) });
+    extra:["🛂 " + Object.keys(PC_C).length + " countries: Israel to Rusya", s18.missed.length ? "Reviewed: " + s18.missed.map(c => PC_C[c].lat).join(", ") : "No countries to review"], rank:hhRank(18, s18.clean, T) });
   if (!s18.ch) pcDiffSet({ easyDone:true });
   $("g18doneRow").hidden = false; sfx("win");
 }
